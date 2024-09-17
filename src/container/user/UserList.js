@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { userActions } from '_store';
 
-
-
-export default function UserList() {
+const UserList = () => {
     const users = useSelector(x => x.users.list);
     const dispatch = useDispatch();
 
@@ -36,7 +33,7 @@ export default function UserList() {
                             <td style={{ whiteSpace: 'nowrap' }}>
                                 <Link to={`edit/${user.id}`} className="btn btn-sm btn-primary me-1">Edit</Link>
                                 <button onClick={() => dispatch(userActions.delete(user.id))} className="btn btn-sm btn-danger" style={{ width: '60px' }} disabled={user.isDeleting}>
-                                    {user.isDeleting 
+                                    {user.isDeleting
                                         ? <span className="spinner-border spinner-border-sm"></span>
                                         : <span>Delete</span>
                                     }
@@ -57,4 +54,4 @@ export default function UserList() {
     );
 }
 
-
+export default UserList;

@@ -6,9 +6,7 @@ import  LoginLayout  from '../container/layout/LoginLayout';
 import  UsersLayout  from '../container/layout/UsersLayout';
 import PrivateRoute from './PrivateRoute';
 
-
-
-export default function RouteList() { 
+const RouteList=()=>{ 
 
     return (
         <div>
@@ -18,7 +16,7 @@ export default function RouteList() {
                 <Routes >
                     {/* private */}
                     <Route element={<PrivateRoute />}>
-                        <Route path="/" element={<Home />} />
+                        <Route path="home" element={<Home />} />
                         <Route path="users/*" element={<UsersLayout />} />
                     </Route>
                     {/* public */}
@@ -30,3 +28,4 @@ export default function RouteList() {
     );
 }
 
+export default RouteList;

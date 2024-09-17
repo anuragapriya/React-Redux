@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-
 import { alertActions } from '_store';
 
 
 
-export default function Alert() {
+const Alert =() =>{
     const dispatch = useDispatch();
     const location = useLocation();
     const alert = useSelector(x => x.alert.value);
@@ -30,4 +29,4 @@ export default function Alert() {
     );
 }
 
-
+export default Alert;

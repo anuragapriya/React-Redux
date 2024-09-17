@@ -3,12 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-
 import { authActions } from '_store';
 
-
-
-export default function Login() {
+const Login = () => {
     const dispatch = useDispatch();
 
     // form validation rules 
@@ -52,3 +49,4 @@ export default function Login() {
     )
 }
 
+export default Login;

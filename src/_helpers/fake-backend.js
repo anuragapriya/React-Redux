@@ -4,7 +4,7 @@
 const usersKey = 'react-18-redux-registration-login-example-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
-export default function fakeBackend() {
+const fakeBackend =()=> {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ export default function fakeBackend() {
                 const { username, password } = body();
                 const user = users.find(x => x.username === username && x.password === password);
 
-                if (!user) return error('Username or dfsdfpassword is incorrect');
+                if (!user) return error('Username or password is incorrect');
 
                 return ok({
                     ...basicDetails(user),
@@ -148,3 +148,4 @@ export default function fakeBackend() {
     }
 }
 
+export default fakeBackend;

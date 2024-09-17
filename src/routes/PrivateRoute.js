@@ -2,8 +2,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-
-export default function PrivateRoute() {
+const PrivateRoute =()=> {
     const auth = useSelector(x => x.auth.value);
    const navigate = useNavigate();
 
@@ -17,3 +16,4 @@ export default function PrivateRoute() {
     return <Outlet />;
 }
 
+export default PrivateRoute;

@@ -3,9 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import UserList from "container/user/UserList";
 import AddEdit from "container/user/AddEdit";
 
-
-
-export default function UsersLayout({ ...props })  {
+const UsersLayout = ({ ...props }) => {
     return (
         <div className="p-4">
             <div className="container">
@@ -19,4 +17,4 @@ export default function UsersLayout({ ...props })  {
     );
 }
 
-
+export default UsersLayout;

@@ -59,7 +59,7 @@ function createExtraActions() {
                     localStorage.setItem('auth', JSON.stringify(user));
 
                     // get return url from location state or default to home page
-                    const { from } = history.location.state || { from: { pathname: '/' } };
+                    const { from } = history.location.state || { from: { pathname: '/home' } };
                     history.navigate(from);
                 } catch (error) {
                     dispatch(alertActions.error(error));

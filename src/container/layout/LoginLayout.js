@@ -1,16 +1,14 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Login from '../loginPage/Login';
-import  Register from '../loginPage/Register';
+import Register from '../loginPage/Register';
 
-
-
-export default function LoginLayout() {
+const LoginLayout = () => {
     const auth = useSelector(x => x.auth.value);
 
     // redirect to home if already logged in
     if (auth) {
-        return <Navigate to="/" />;
+        return <Navigate to="/home" />;
     }
 
     return (
@@ -27,3 +25,4 @@ export default function LoginLayout() {
     );
 }
 
+export default LoginLayout;

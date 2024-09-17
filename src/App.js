@@ -2,9 +2,7 @@ import { Fragment } from 'react';
 import React from 'react';
 import RouteList from './routes/RouteList';
 
-
-
-export default function App() {
+const Apps=()=> {
     return (
         <div>
         <React.StrictMode>
@@ -15,3 +13,5 @@ export default function App() {
       </div>
     );
 }
+
+export default Apps;

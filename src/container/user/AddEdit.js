@@ -6,9 +6,7 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
 
-
-
-export default function AddEdit() {
+const AddEdit = () => {
     const { id } = useParams();
     const [title, setTitle] = useState();
     const dispatch = useDispatch();
@@ -123,3 +121,4 @@ export default function AddEdit() {
     );
 }
 
+export default AddEdit;

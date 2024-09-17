@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
-
-export default function Home() {
+const Home =() => {
     const auth = useSelector(x => x.auth.value);
     return (
         <div>
@@ -13,5 +11,7 @@ export default function Home() {
         </div>
     );
 }
+
+export default Home;
 
 
