@@ -22,7 +22,7 @@ export default function RouteList() {
                         <Route path="users/*" element={<UsersLayout />} />
                     </Route>
                     {/* public */}
-                    <Route path="loginPage/*" element={<LoginLayout />} />
+                    <Route path="/*" element={<LoginLayout />} exact />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </div>

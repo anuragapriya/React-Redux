@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { alertActions } from '_store';
-import { fetchWrapper } from '../_helpers';
-import {history } from '../routes';
+import { fetchWrapper } from '../_helpers/fetch-wrapper';
+import {history } from '../routes/history';
 
 // create slice
 
@@ -74,7 +74,7 @@ function createExtraActions() {
             function (arg, { dispatch }) {
                 dispatch(authActions.setAuth(null));
                 localStorage.removeItem('auth');
-                history.navigate('/loginPage/login');
+                history.navigate('/login');
             }
         );
     }

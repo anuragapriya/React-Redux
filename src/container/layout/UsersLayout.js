@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import UserList from "container/dashboard/UserList";
-import AddEdit from "container/dashboard/AddEdit";
+import UserList from "container/user/UserList";
+import AddEdit from "container/user/AddEdit";
 
 
 

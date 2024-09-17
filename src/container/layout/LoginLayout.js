@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import { Login, Register } from '../loginPage';
+import Login from '../loginPage/Login';
+import  Register from '../loginPage/Register';
 
 
 
@@ -18,8 +18,8 @@ export default function LoginLayout() {
             <div className="row">
                 <div className="col-sm-8 offset-sm-2 mt-5">
                     <Routes>
-                        <Route path="login" element={<Login />} />
-                        <Route path="register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
                     </Routes>
                 </div>
             </div>

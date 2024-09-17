@@ -1,16 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
-import { history } from '../../routes';
+import { history } from '../../routes/history';
 import { userActions, alertActions } from '_store';
 
 
-export {Register};
-function Register() {
+
+export default function Register() {
     const dispatch = useDispatch();
+    const navigate= useNavigate();
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -36,7 +37,7 @@ function Register() {
             await dispatch(userActions.register(data)).unwrap();
 
             // redirect to login page and display success alert
-            history.navigate('/loginPage/login');
+            navigate('/login');
             dispatch(alertActions.success({ message: 'Registration successful', showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
