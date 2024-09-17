@@ -1,13 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import {  useDispatch,useSelector } from 'react-redux';
 import  Alert from '_components/Alert';
 import  Nav  from '_components/Nav';
 import  Home  from 'container/home/Home';
-import  LoginLayout  from '../container/layout/LoginLayout';
-import  UsersLayout  from '../container/layout/UsersLayout';
+import  LoginLayout  from 'container/layout/LoginLayout';
+import  UsersLayout  from 'container/layout/UsersLayout';
 import PrivateRoute from './PrivateRoute';
+import SessionTimeout from '_utils/SessionTimeout';
+import { authActions } from '_store';
 
 const RouteList=()=>{ 
 
+    const dispatch = useDispatch();
+    const logout = () => dispatch(authActions.logout());
+    const auth = useSelector(x => x.auth.value);
     return (
         <div>
             <Nav />
@@ -17,12 +23,13 @@ const RouteList=()=>{
                     {/* private */}
                     <Route element={<PrivateRoute />}>
                         <Route path="home" element={<Home />} />
-                        <Route path="users/*" element={<UsersLayout />} />
+                        <Route path="users/*" element={<UsersLayout />} />                      
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout />} exact />
                     <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
+                </Routes>  
+                <SessionTimeout onLogout={logout} isAuthenticated ={auth}/>              
             </div>
         </div>
     );

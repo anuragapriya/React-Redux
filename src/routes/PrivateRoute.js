@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 const PrivateRoute =()=> {
-    const auth = useSelector(x => x.auth.value);
+    const isAuthentidated = useSelector(x => x.auth.value);
    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!auth) {
+        if (!isAuthentidated) {
           navigate('login');
         }
-      }, [auth, navigate]);
+      }, [isAuthentidated, navigate]);
 
     // authorized so return outlet for child routes
     return <Outlet />;
