@@ -33,7 +33,7 @@ const Register = () => {
             await dispatch(userActions.register(data)).unwrap();
 
             // redirect to login page and display success alert
-            navigate('/login');
+            navigate('/');
             dispatch(alertActions.success({ message: 'Registration successful', showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -69,7 +69,7 @@ const Register = () => {
                         {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
                         Register
                     </button>
-                    <Link to="../login" className="btn btn-link">Cancel</Link>
+                    <Link to="../" className="btn btn-link">Cancel</Link>
                 </form>
             </div>
         </div>

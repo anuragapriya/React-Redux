@@ -26,7 +26,7 @@ const RouteList=()=>{
                         <Route path="users/*" element={<UsersLayout />} />                      
                     </Route>
                     {/* public */}
-                    <Route path="/*" element={<LoginLayout />} exact />
+                    <Route path="/*" element={<LoginLayout />}  />
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>  
                 <SessionTimeout onLogout={logout} isAuthenticated ={auth}/>              
