@@ -15,6 +15,8 @@ const fakeBackend =()=> {
                 switch (true) {
                     case url.endsWith('/users/authenticate') && opts.method === 'POST':
                         return authenticate();
+                    case url.endsWith('/users/refresh-token') && opts.method === 'POST':
+                        return authenticate();
                     case url.endsWith('/users/register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/users') && opts.method === 'GET':

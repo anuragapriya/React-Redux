@@ -49,12 +49,14 @@ const SessionTimeout = ({ isAuthenticated, onLogout }) => {
   });
 
   return (
+  
    <SessionTimeoutDialog
       open={timeoutModalOpen}
       countdown={timeoutCountdown}
       onLogout={onLogout}
       onContinue={handleStayLoggedIn}
     />
+
   );
 };
 
