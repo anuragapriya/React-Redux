@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
+import { useNavigate } from 'react-router-dom';
 import { alertActions } from '_store';
 import { fetchWrapper } from '../_helpers/fetch-wrapper';
-import {history } from '../routes/history';
+
 
 // create slice
 
@@ -59,8 +59,7 @@ function createExtraActions() {
                     localStorage.setItem('auth', JSON.stringify(user));
 
                     // get return url from location state or default to home page
-                    const { from } = history.location.state || { from: { pathname: '/home' } };
-                    history.navigate(from);
+                  //  navigateToAnotherPage('/home');
                 } catch (error) {
                     dispatch(alertActions.error(error));
                 }
@@ -73,7 +72,7 @@ function createExtraActions() {
             `${name}/logout`, (arg, { dispatch }) => {
                 dispatch(authActions.setAuth(null));
                 localStorage.removeItem('auth');
-                history.navigate('/');
+              // navigateToAnotherPage('/');
             }
         );
     }
@@ -97,3 +96,8 @@ function createExtraActions() {
       });
     }
 }
+
+const navigateToAnotherPage = (arg) => (arg) => {
+    const navigate = useNavigate();
+    navigate(arg);
+  };
