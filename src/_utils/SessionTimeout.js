@@ -1,63 +1,73 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useIdleTimer } from 'react-idle-timer';
-import SessionTimeoutDialog from './SessionTimeoutDialog';
-
-const SessionTimeout = ({ isAuthenticated, onLogout }) => {
+import React, { useRef, useState } from "react";
+import {useIdleTimer} from "react-idle-timer";
+import SessionTimeoutDialog from "./SessionTimeoutDialog";
+let countdownInterval;
+let timeout;
+const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
   const [timeoutModalOpen, setTimeoutModalOpen] = useState(false);
   const [timeoutCountdown, setTimeoutCountdown] = useState(0);
-  const idleTimerRef = useRef(null);
-  const countdownRef = useRef(null);
-
-  const handleOnIdle = () => {
-    if (isAuthenticated) {
-      setTimeoutModalOpen(true);
-      startCountdown();
-    }
+  const idleTimer = useRef(null);
+  const clearSessionTimeout = () => {
+    clearTimeout(timeout);
   };
-
-  const startCountdown = () => {
-    let countdown = 10; // 10 seconds countdown
-    setTimeoutCountdown(countdown);
-    countdownRef.current = setInterval(() => {
-      countdown -= 1;
-      setTimeoutCountdown(countdown);
-      if (countdown <= 0) {
-        clearInterval(countdownRef.current);
-        onLogout();
-      }
-    }, 1000);
+  const clearSessionInterval = () => {
+    clearInterval(countdownInterval);
   };
-
-  const handleStayLoggedIn = () => {
-    setTimeoutModalOpen(false);
-    clearInterval(countdownRef.current);
-    idleTimerRef.current.reset();
-  };
-
-  useEffect(() => {
-    if (!isAuthenticated) {
+  const handleLogout = async (isTimedOut = false) => {
+    try {
       setTimeoutModalOpen(false);
-      clearInterval(countdownRef.current);
+      clearSessionInterval();
+      clearSessionTimeout();
+      onLogout();
+    } catch (err) {
+      console.error(err);
     }
-  }, [isAuthenticated]);
+  };
+  const handleContinue = () => {
+    setTimeoutModalOpen(false);
+    clearSessionInterval();
+    clearSessionTimeout();
+  };
+  const onActive = () => {
+    if (!timeoutModalOpen) {
+      clearSessionInterval();
+      clearSessionTimeout();
+    }
+  };
+  const onIdle = () => {
+    const delay = 1000 * 1;
+    if (isAuthenticated && !timeoutModalOpen) {
+      timeout = setTimeout(() => {
+        let countDown = 10;
+        setTimeoutModalOpen(true);
+        setTimeoutCountdown(countDown);
+        countdownInterval = setInterval(() => {
+          if (countDown > 0) {
+            setTimeoutCountdown(--countDown);
+          } else {
+            handleLogout(true);
+          }
+        }, 1000);
+      }, delay);
+    }
+  };
 
   useIdleTimer({
-    ref: idleTimerRef,
+    ref: idleTimer,
     timeout: 1000 * 60 * 10, // 10 minutes
-    onIdle: handleOnIdle,
+    onIdle: onIdle,
     debounce: 500, // 500 milliseconds
+    onActive:onActive
   });
-
   return (
-  
-   <SessionTimeoutDialog
-      open={timeoutModalOpen}
-      countdown={timeoutCountdown}
-      onLogout={onLogout}
-      onContinue={handleStayLoggedIn}
-    />
-
+      
+      <SessionTimeoutDialog
+        countdown={timeoutCountdown}
+        onContinue={handleContinue}
+        onLogout={() => handleLogout(false)}
+        open={timeoutModalOpen}
+      />
+   
   );
-};
-
+}
 export default SessionTimeout;

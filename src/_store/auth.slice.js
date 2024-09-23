@@ -41,8 +41,7 @@ function createExtraActions() {
 
     return {
         login: login(),
-        logout: logout(),
-        refreshToken:refreshToken()
+        logout: logout()
     };
 
     function login() {
@@ -59,7 +58,7 @@ function createExtraActions() {
                     localStorage.setItem('auth', JSON.stringify(user));
 
                     // get return url from location state or default to home page
-                  //  navigateToAnotherPage('/home');
+                    navigateToAnotherPage('/home');
                 } catch (error) {
                     dispatch(alertActions.error(error));
                 }
@@ -72,28 +71,9 @@ function createExtraActions() {
             `${name}/logout`, (arg, { dispatch }) => {
                 dispatch(authActions.setAuth(null));
                 localStorage.removeItem('auth');
-              // navigateToAnotherPage('/');
+                navigateToAnotherPage('/');
             }
         );
-    }
-
-    function refreshToken ()
-    { 
-        return createAsyncThunk(`${name}/refreshToken`, async (_, { dispatch }) => {
-        try {
-          const response = await fetchWrapper.post(`${baseUrl}/refresh-token`);
-          if (!response.ok) {
-            throw new Error('Failed to refresh token');
-          }
-           // set auth user in redux state
-           dispatch(authActions.setAuth(response));
-
-           // store user details and jwt token in local storage to keep user logged in between page refreshes
-           localStorage.setItem('auth', JSON.stringify(response));
-        } catch (error) {
-            dispatch(alertActions.error(error));
-        }
-      });
     }
 }
 

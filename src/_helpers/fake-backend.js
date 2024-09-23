@@ -16,7 +16,7 @@ const fakeBackend =()=> {
                     case url.endsWith('/users/authenticate') && opts.method === 'POST':
                         return authenticate();
                     case url.endsWith('/users/refresh-token') && opts.method === 'POST':
-                        return authenticate();
+                        return refresfToken();
                     case url.endsWith('/users/register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/users') && opts.method === 'GET':
@@ -42,6 +42,17 @@ const fakeBackend =()=> {
                 const user = users.find(x => x.username === username && x.password === password);
 
                 if (!user) return error('Username or password is incorrect');
+
+                return ok({
+                    ...basicDetails(user),
+                    token: 'fake-jwt-token'
+                });
+            }
+
+            function refresfToken() {
+                if (!isAuthenticated()) return unauthorized();
+
+                const user = users.find(x => x.id === idFromUrl());               
 
                 return ok({
                     ...basicDetails(user),
