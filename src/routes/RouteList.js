@@ -19,7 +19,7 @@ const RouteList = () => {
         <div>
             <Nav />
             <Alert />
-            <div className="container pt-4 pb-4">
+            <div className="  p-0">
                 <Routes >
                     {/* private */}
                     <Route element={<PrivateRoute />}>

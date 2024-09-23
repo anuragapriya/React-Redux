@@ -12,9 +12,9 @@ const LoginLayout = () => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-sm-8 offset-sm-2 mt-5">
+        <div className=" p-0">
+            <div className="row m-0">
+                <div className="col-sm-12 login-container p-0">
                     <Routes>
                         <Route index  element={<Login />} />
                         <Route path="register" element={<Register />} />
