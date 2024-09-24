@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { trackPromise } from 'react-promise-tracker';
 import { authActions } from '_store';
 import { fetchWrapper } from '_helpers/fetch-wrapper';
 
@@ -38,21 +39,21 @@ function createExtraActions() {
     function register() {
         return createAsyncThunk(
             `${name}/register`,
-            async (user) => await fetchWrapper.post(`${baseUrl}/register`, user)
+            async (user) => await trackPromise(fetchWrapper.post(`${baseUrl}/register`, user))
         );
     }
 
     function getAll() {
         return createAsyncThunk(
             `${name}/getAll`,
-            async () => await fetchWrapper.get(baseUrl)
+            async () => await trackPromise(fetchWrapper.get(baseUrl))
         );
     }
 
     function getById() {
         return createAsyncThunk(
             `${name}/getById`,
-            async (id) => await fetchWrapper.get(`${baseUrl}/${id}`)
+            async (id) => await trackPromise(fetchWrapper.get(`${baseUrl}/${id}`))
         );
     }
 
@@ -60,7 +61,7 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/update`,
             async function ({ id, data }, { getState, dispatch }) {
-                await fetchWrapper.put(`${baseUrl}/${id}`, data);
+                await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, data));
 
                 // update stored user if the logged in user updated their own record
                 const auth = getState().auth.value;
@@ -81,7 +82,7 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/delete`,
             async function (id, { getState, dispatch }) {
-                await fetchWrapper.delete(`${baseUrl}/${id}`);
+                await trackPromise( fetchWrapper.delete(`${baseUrl}/${id}`));
 
                 // auto logout if the logged in user deleted their own record
                 if (id === getState().auth.value?.id) {

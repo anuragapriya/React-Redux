@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { trackPromise } from 'react-promise-tracker';
 import { useNavigate } from 'react-router-dom';
 import { alertActions } from '_store';
 import { fetchWrapper } from '../_helpers/fetch-wrapper';
@@ -49,7 +50,7 @@ function createExtraActions() {
             `${name}/login`,async({ username, password }, { dispatch }) => {
                 dispatch(alertActions.clear());
                 try {
-                    const user = await fetchWrapper.post(`${baseUrl}/authenticate`, { username, password });
+                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { username, password }));
 
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));

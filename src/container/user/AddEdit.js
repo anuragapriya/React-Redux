@@ -107,11 +107,6 @@ const AddEdit = () => {
                     </div>
                 </form>
             }
-            {user?.loading &&
-                <div className="text-center m-5">
-                    <span className="spinner-border spinner-border-lg align-center"></span>
-                </div>
-            }
             {user?.error &&
                 <div class="text-center m-5">
                     <div class="text-danger">Error loading user: {user.error}</div>

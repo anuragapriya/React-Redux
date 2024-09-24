@@ -41,13 +41,6 @@ const UserList = () => {
                             </td>
                         </tr>
                     )}
-                    {users?.loading &&
-                        <tr>
-                            <td colSpan="4" className="text-center">
-                                <span className="spinner-border spinner-border-lg align-center"></span>
-                            </td>
-                        </tr>
-                    }
                 </tbody>
             </table>
         </div>

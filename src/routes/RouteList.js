@@ -8,17 +8,20 @@ import UsersLayout from 'container/layout/UsersLayout';
 import PrivateRoute from './PrivateRoute';
 import SessionTimeout from '_utils/SessionTimeout';
 import { authActions } from '_store';
+import { usePromiseTracker } from 'react-promise-tracker';
+import LoadingOverlay from '_components/LoadingOverlay';
 
 const RouteList = () => {
-    
+    const promiseTracker = usePromiseTracker();
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
     const auth = useSelector(x => x.auth.value);
-    
+
     return (
         <div>
             <Nav />
             <Alert />
+            <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay>
             <div className="  p-0">
                 <Routes >
                     {/* private */}
