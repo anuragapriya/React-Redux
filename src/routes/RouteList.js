@@ -6,7 +6,7 @@ import Home from 'container/home/Home';
 import LoginLayout from 'container/layout/LoginLayout';
 import UsersLayout from 'container/layout/UsersLayout';
 import PrivateRoute from './PrivateRoute';
-import SessionTimeout from '_utils/SessionTimeout';
+import SessionTimeout from '_components/SessionTimeout';
 import { authActions } from '_store';
 import { usePromiseTracker } from 'react-promise-tracker';
 import LoadingOverlay from '_components/LoadingOverlay';
