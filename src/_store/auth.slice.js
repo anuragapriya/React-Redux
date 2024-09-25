@@ -42,12 +42,13 @@ function createExtraActions() {
 
     return {
         login: login(),
-        logout: logout()
+        logout: logout(),
+        refreshToken: refreshToken()
     };
 
     function login() {
         return createAsyncThunk(
-            `${name}/login`,async({ username, password }, { dispatch }) => {
+            `${name}/login`, async ({ username, password }, { dispatch }) => {
                 dispatch(alertActions.clear());
                 try {
                     const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { username, password }));
@@ -76,9 +77,29 @@ function createExtraActions() {
             }
         );
     }
+
+    function refreshToken() {
+        return createAsyncThunk(`${name}/refreshToken`, async (_, { getState, dispatch }) => {
+            try {
+                const accessToken = getState().auth.value?.token;
+                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken }));
+                // set auth user in redux state
+                const res = {
+                    ...getState().auth.value,
+                    token: response.token,
+                    tokenExpiry: response.tokenExpiry
+                };
+                dispatch(authActions.setAuth(res));
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('auth', JSON.stringify(res));
+            } catch (error) {
+                dispatch(alertActions.error(error));
+            }
+        });
+    }
 }
 
 const navigateToAnotherPage = (arg) => (arg) => {
     const navigate = useNavigate();
     navigate(arg);
-  };
+};

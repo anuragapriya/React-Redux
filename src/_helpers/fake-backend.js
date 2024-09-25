@@ -15,8 +15,8 @@ const fakeBackend =()=> {
                 switch (true) {
                     case url.endsWith('/users/authenticate') && opts.method === 'POST':
                         return authenticate();
-                    case url.endsWith('/users/refresh-token') && opts.method === 'POST':
-                        return refresfToken();
+                    case url.endsWith('/users/refreshToken') && opts.method === 'POST':
+                        return refreshToken();
                     case url.endsWith('/users/register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/users') && opts.method === 'GET':
@@ -43,20 +43,21 @@ const fakeBackend =()=> {
 
                 if (!user) return error('Username or password is incorrect');
 
-                return ok({
-                    ...basicDetails(user),
-                    token: 'fake-jwt-token'
+                return ok({   
+                    ...basicDetails(user),                 
+                    token: 'fake-jwt-token',
+                    tokenExpiry : '2024-09-25 17:35:24.789150'
                 });
             }
 
-            function refresfToken() {
+            function refreshToken() {
                 if (!isAuthenticated()) return unauthorized();
+                let auth = JSON.parse(localStorage.getItem('auth')) || [];
+                const user = users.find(x => x.id === auth?.id);               
 
-                const user = users.find(x => x.id === idFromUrl());               
-
-                return ok({
-                    ...basicDetails(user),
-                    token: 'fake-jwt-token'
+                return ok({                    
+                    token: 'fake-jwt-refreshtoken' ,
+                    tokenExpiry : '2024-09-25 17:50:24.789150'                 
                 });
             }
 
@@ -136,7 +137,7 @@ const fakeBackend =()=> {
             }
 
             function isAuthenticated() {
-                return opts.headers['Authorization'] === 'Bearer fake-jwt-token';
+                return opts.headers['Authorization'] === 'Bearer fake-jwt-token' || 'Bearer fake-jwt-refreshtoken';
             }
 
             function body() {
