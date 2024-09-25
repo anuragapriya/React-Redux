@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { alertActions } from '_store';
 
-
-
 const Alert =() =>{
     const dispatch = useDispatch();
     const location = useLocation();

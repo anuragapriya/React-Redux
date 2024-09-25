@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Alert from '_components/Alert';
+import Notification from '_components/Notification';
 import Nav from '_components/Nav';
 import Home from 'container/home/Home';
 import LoginLayout from 'container/layout/LoginLayout';
@@ -20,7 +20,8 @@ const RouteList = () => {
     return (
         <div>
             <Nav />
-            <Alert />
+            {/* <Alert /> */}
+            <Notification/>
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay>
             <div className="  p-0">
                 <Routes >

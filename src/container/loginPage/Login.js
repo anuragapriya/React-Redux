@@ -30,7 +30,7 @@ export default function Login(props) {
         try {
             return dispatch(authActions.login({ username, password }));
         } catch (error) {
-            dispatch(alertActions.error(errors));
+            dispatch(alertActions.error({header : 'Login Failed' ,message :errors}));
         }
     }
 
