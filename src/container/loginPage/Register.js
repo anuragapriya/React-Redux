@@ -34,7 +34,7 @@ const Register = () => {
 
             // redirect to login page and display success alert
             navigate('/');
-            dispatch(alertActions.success({ message: 'Registration successful', showAfterRedirect: true }));
+            dispatch(alertActions.success({header:'Registration Succeed', message: 'Registration successful', showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
         }

@@ -59,15 +59,14 @@ const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
     debounce: 500, // 500 milliseconds
     onActive:onActive
   });
-  return (
-      
+
+  return (     
       <SessionTimeoutDialog
         countdown={timeoutCountdown}
         onContinue={handleContinue}
         onLogout={() => handleLogout(false)}
         open={timeoutModalOpen}
-      />
-   
+      />  
   );
 }
 export default SessionTimeout;

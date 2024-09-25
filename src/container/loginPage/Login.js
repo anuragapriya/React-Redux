@@ -9,11 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { authActions,alertActions } from '_store';
-import logo from "assets/Frame 2208.png";
-import bannerimag from "assets/Frame 2173.jpg";
-import  '../../styles/Login.css';
-
-
+import images from '../../images';
 
 export default function Login(props) {
 
@@ -34,7 +30,7 @@ export default function Login(props) {
         try {
             return dispatch(authActions.login({ username, password }));
         } catch (error) {
-            dispatch(alertActions.error(errors));
+            dispatch(alertActions.error({header : 'Login Failed' ,message :errors}));
         }
     }
 
@@ -43,7 +39,7 @@ export default function Login(props) {
                 <Grid item xs={12} sm={5} md={4} className="pb-10">
                     <div>
                         <Link href="#" variant="logo" className="wgllogo">
-                            <img src={logo} alt="logo"></img>
+                            <img src={images.logo} alt="logo"></img>
                         </Link>
                     </div>
                     <Typography component="div" className="mobilebanner">
@@ -116,7 +112,7 @@ export default function Login(props) {
                 <Grid item xs={8} sm={7} md={8} className="mobile-none">
                     <div className="height-fix">
                         <div className="root">
-                            <img src={bannerimag} alt="bannerimag" />
+                            <img src={images.bannerImg} alt="bannerImg" />
                             <ul className="list-type">
                                 <li>
                                     <Link href="#">Solutons</Link>
