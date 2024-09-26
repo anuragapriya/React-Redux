@@ -26,7 +26,7 @@ const RouteList = () => {
     const differenceMin = Math.round((difference / 1000) / 60);
     const intervalTime = differenceMin - 2; // 2 minutes before token expiry
     const isValidExpiryDateTime = !isNaN(intervalTime);
-
+    console.log(intervalTime);
     const getToken = useCallback(async () => {
         // Get new token if and only if existing token is available
         const auth = store.getState().auth.value;
@@ -48,7 +48,7 @@ const RouteList = () => {
             <Nav />
             {/* <Alert /> */}
             <Notification />
-            {/* <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> */}
+            <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
             <div className="  p-0">
                 <Routes >
                     {/* private */}
