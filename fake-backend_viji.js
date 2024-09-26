@@ -55,11 +55,11 @@ const fakeBackend =()=> {
 
             function refreshToken() {
                 if (!isAuthenticated()) return unauthorized();
-               // let auth = JSON.parse(localStorage.getItem('auth')) || [];
-                //const user = users.find(x => x.id === auth?.id);               
+                let auth = JSON.parse(localStorage.getItem('auth')) || [];
+                const user = users.find(x => x.id === auth?.id);               
 
                 let currentDateTime = new Date();
-                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 7)
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
 
                 return ok({                    
                     token: 'fake-jwt-refreshtoken' ,

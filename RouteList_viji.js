@@ -1,32 +1,39 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React,{ useCallback, useRef, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { usePromiseTracker } from 'react-promise-tracker';
-import { store, authActions } from '_store';
-import PrivateRoute from './PrivateRoute';
-//import useRefreshToken from '_utils/useRefreshToken'
-import Nav from '_components/Nav';
-import LoadingOverlay from '_components/LoadingOverlay';
 import Notification from '_components/Notification';
-import SessionTimeout from '_components/SessionTimeout';
+import Nav from '_components/Nav';
+import Home from 'container/home/Home';
 import LoginLayout from 'container/layout/LoginLayout';
 import UsersLayout from 'container/layout/UsersLayout';
-import Home from 'container/home/Home';
+import PrivateRoute from './PrivateRoute';
+import SessionTimeout from '_components/SessionTimeout';
+import {store, authActions } from '_store';
+import { usePromiseTracker } from 'react-promise-tracker';
+import LoadingOverlay from '_components/LoadingOverlay';
 
 const RouteList = () => {
-
-    const promiseTracker = usePromiseTracker();
     const intervalRef = useRef();
+    const promiseTracker = usePromiseTracker();
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
     const auth = useSelector(x => x.auth.value);
     const tokenExpiryDateTime = new Date(auth?.tokenExpiry);
-    const startDate = new Date();
-    const difference = tokenExpiryDateTime - startDate;
-    const differenceMin = Math.round((difference / 1000) / 60);
-    const intervalTime = differenceMin - 2; // 2 minutes before token expiry
-    const isValidExpiryDateTime = !isNaN(intervalTime);
-    console.log(intervalTime);
+ 
+    const isValidExpiryDateTime = tokenExpiryDateTime instanceof Date && !isNaN(tokenExpiryDateTime);
+    let timeOutToCallRefreshToken = 1000 * 60 * 4; // 4 mins by default
+
+    if(isValidExpiryDateTime)
+    {
+        const currentTime = Date.now();
+        const thresholdMinsToRefreshTokenBeforeExpiry = 2; // 2 mins
+        const refreshTokenCallTime = tokenExpiryDateTime.setMinutes(tokenExpiryDateTime.getMinutes() - thresholdMinsToRefreshTokenBeforeExpiry);
+
+        timeOutToCallRefreshToken = refreshTokenCallTime - currentTime;
+
+        setTimeout(() => getToken(),  timeOutToCallRefreshToken);
+    }
+
     const getToken = useCallback(async () => {
         // Get new token if and only if existing token is available
         const auth = store.getState().auth.value;
@@ -34,21 +41,20 @@ const RouteList = () => {
             await dispatch(authActions.refreshToken());
         }
     }, []);
-    // Trigger API to get a new token before token gets expired.
-    useEffect(() => {
-        if (isValidExpiryDateTime) {
-            const interval = setInterval(() => getToken(), 1000 * 60 * intervalTime); 
-            intervalRef.current = interval;
-            return () => clearInterval(interval);
-        }
-    }, [getToken, isValidExpiryDateTime]);
-  
+
+     // Trigger API to get a new token before token gets expired.
+     /*useEffect(() => {
+        const interval = setInterval(() => getToken(),  1000 * 60 * 5); // 6 minutes interval as our token will expire after 7 minutes.
+        intervalRef.current = interval;
+        return () => clearInterval(interval);
+    }, [getToken]);*/
+
     return (
         <div>
             <Nav />
             {/* <Alert /> */}
-            <Notification />
-            <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
+            <Notification/>
+            <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay>
             <div className="  p-0">
                 <Routes >
                     {/* private */}
