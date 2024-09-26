@@ -59,7 +59,7 @@ const fakeBackend =()=> {
                 //const user = users.find(x => x.id === auth?.id);               
 
                 let currentDateTime = new Date();
-                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 7)
 
                 return ok({                    
                     token: 'fake-jwt-refreshtoken' ,
