@@ -54,7 +54,7 @@ const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
 
   useIdleTimer({
     ref: idleTimer,
-    timeout: 1000 * 60 * 2, // 10 minutes
+    timeout: 1000 * 60 * 10, // 10 minutes
     onIdle: onIdle,
     debounce: 500, // 500 milliseconds
     onActive:onActive

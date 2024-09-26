@@ -43,21 +43,27 @@ const fakeBackend =()=> {
 
                 if (!user) return error('Username or password is incorrect');
 
+                let currentDateTime = new Date();
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
+
                 return ok({   
                     ...basicDetails(user),                 
                     token: 'fake-jwt-token',
-                    tokenExpiry : '2024-09-25 17:35:24.789150'
+                    tokenExpiry : expiryTime/*'2024-09-25 21:03:24.789150'*/
                 });
             }
 
             function refreshToken() {
                 if (!isAuthenticated()) return unauthorized();
-                let auth = JSON.parse(localStorage.getItem('auth')) || [];
-                const user = users.find(x => x.id === auth?.id);               
+               // let auth = JSON.parse(localStorage.getItem('auth')) || [];
+                //const user = users.find(x => x.id === auth?.id);               
+
+                let currentDateTime = new Date();
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
 
                 return ok({                    
                     token: 'fake-jwt-refreshtoken' ,
-                    tokenExpiry : '2024-09-25 17:50:24.789150'                 
+                    tokenExpiry : expiryTime/*'2024-09-25 21:05:24.789150'                 */
                 });
             }
 

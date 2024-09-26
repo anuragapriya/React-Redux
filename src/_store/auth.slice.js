@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
-import { useNavigate } from 'react-router-dom';
 import { alertActions } from '_store';
-import { fetchWrapper } from '../_helpers/fetch-wrapper';
-
+import {history, fetchWrapper } from '_helpers';
 
 // create slice
 
@@ -60,7 +58,8 @@ function createExtraActions() {
                     localStorage.setItem('auth', JSON.stringify(user));
 
                     // get return url from location state or default to home page
-                    navigateToAnotherPage('/home');
+                    
+                    history.navigate('/home');
                 } catch (error) {
                     dispatch(alertActions.error(error));
                 }
@@ -73,7 +72,7 @@ function createExtraActions() {
             `${name}/logout`, (arg, { dispatch }) => {
                 dispatch(authActions.setAuth(null));
                 localStorage.removeItem('auth');
-                navigateToAnotherPage('/');
+                history.navigate('/');
             }
         );
     }
@@ -83,6 +82,7 @@ function createExtraActions() {
             try {
                 const accessToken = getState().auth.value?.token;
                 const response = await trackPromise(fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken }));
+                console.log("refreshtoken");
                 // set auth user in redux state
                 const res = {
                     ...getState().auth.value,
@@ -95,11 +95,12 @@ function createExtraActions() {
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
+     
         });
     }
 }
 
-const navigateToAnotherPage = (arg) => (arg) => {
-    const navigate = useNavigate();
-    navigate(arg);
-};
+
+
+
+

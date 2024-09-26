@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
+import {history} from '_helpers';
 
 const AddEdit = () => {
     const { id } = useParams();
     const [title, setTitle] = useState();
     const dispatch = useDispatch();
     const user = useSelector(x => x.users?.item);
-    const navigate = useNavigate();
     // form validation rules 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string()
@@ -58,7 +58,7 @@ const AddEdit = () => {
             }
 
             // redirect to user list with success message
-            navigate('/users');
+            history.navigate('/users');
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
