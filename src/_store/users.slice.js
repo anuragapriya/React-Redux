@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { authActions } from '_store';
-import { fetchWrapper } from '_helpers/fetch-wrapper';
+import { fetchWrapper } from '_utils/fetch-wrapper';
 
 // create slice
 

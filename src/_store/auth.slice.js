@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { alertActions } from '_store';
-import {history, fetchWrapper } from '_helpers';
+import {history, fetchWrapper } from '_utils';
 
 // create slice
 
@@ -82,7 +82,6 @@ function createExtraActions() {
             try {
                 const accessToken = getState().auth.value?.token;
                 const response = await trackPromise(fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken }));
-                console.log("refreshtoken");
                 // set auth user in redux state
                 const res = {
                     ...getState().auth.value,
@@ -92,6 +91,7 @@ function createExtraActions() {
                 dispatch(authActions.setAuth(res));
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('auth', JSON.stringify(res));
+                console.log(res.tokenExpiry);
             } catch (error) {
                 dispatch(alertActions.error(error));
             }
