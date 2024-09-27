@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { alertActions } from '_store';
-import {history, fetchWrapper } from '_helpers';
+import {history, fetchWrapper } from '_utils';
 
 // create slice
 
@@ -82,7 +82,6 @@ function createExtraActions() {
             try {
                 const accessToken = getState().auth.value?.token;
                 const response = await trackPromise(fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken }));
-                console.log("refreshtoken");
                 // set auth user in redux state
                 const res = {
                     ...getState().auth.value,

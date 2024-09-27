@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
-import {history} from '_helpers';
+import {history} from '_utils';
 
 const AddEdit = () => {
     const { id } = useParams();

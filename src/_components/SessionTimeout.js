@@ -14,14 +14,10 @@ const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
     clearInterval(countdownInterval);
   };
   const handleLogout = async (isTimedOut = false) => {
-    try {
       setTimeoutModalOpen(false);
       clearSessionInterval();
       clearSessionTimeout();
       onLogout();
-    } catch (err) {
-      console.error(err);
-    }
   };
   const handleContinue = () => {
     setTimeoutModalOpen(false);

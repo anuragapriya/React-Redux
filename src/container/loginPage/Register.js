@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
-import {history} from '_helpers';
+import {history} from '_utils';
 
 const Register = () => {
     const dispatch = useDispatch();

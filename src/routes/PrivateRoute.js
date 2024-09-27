@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import {history} from '_helpers';
+import {history} from '_utils';
 
 const PrivateRoute =()=> {
     const isAuthentidated = useSelector(x => x.auth.value);

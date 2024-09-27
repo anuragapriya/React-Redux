@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import React from 'react';
 import RouteList from './routes/RouteList';
-import {history} from '_helpers';
+import {history} from '_utils';
 
 const Apps=()=> {
   history.navigate = useNavigate();
