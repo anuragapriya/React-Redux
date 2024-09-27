@@ -91,7 +91,6 @@ function createExtraActions() {
                 dispatch(authActions.setAuth(res));
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('auth', JSON.stringify(res));
-                console.log(res.tokenExpiry);
             } catch (error) {
                 dispatch(alertActions.error(error));
             }

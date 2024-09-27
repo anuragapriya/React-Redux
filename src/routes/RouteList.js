@@ -19,7 +19,7 @@ const RouteList = () => {
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
     const auth = useSelector(x => x.auth.value);
-    const thresholdMinsToRefreshTokenBeforeExpiry = 5; // 5 mins
+    const thresholdMinsToRefreshTokenBeforeExpiry = 2; // 5 mins
     
     const getToken = useCallback(() => {
         // Get new token if and only if existing token is available
@@ -35,9 +35,7 @@ const RouteList = () => {
             const targetHours = tokenExpiryDateTime.getHours();
             const targetMinutes = tokenExpiryDateTime.getMinutes();
             const targetSeconds = tokenExpiryDateTime.getSeconds();
-console.log("test");
             if (hours === targetHours && minutes === targetMinutes && seconds === targetSeconds) {
-                console.log(tokenExpiryDateTime);
                 dispatch(authActions.refreshToken());
             }
         }
