@@ -1,11 +1,11 @@
-import { Modal, Box, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import React,{useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import Grid from "@material-ui/core/Grid";
+import { Modal, Box } from '@mui/material';
 import { alertActions } from '_store';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import images from "images";
+
 
 const Notification = () => {
     const dispatch = useDispatch();
@@ -17,46 +17,37 @@ const Notification = () => {
         dispatch(alertActions.clear());
     }, [location]);
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 300,
-        bgcolor: 'background.paper',
-        boxShadow: 24,
-        p: 2,
-    };
-
     if (!alert) return null;
 
+    const handleClose=()=>{
+        dispatch(alertActions.clear());
+    }
+
     return (
-        <div>
-            <Modal open={alert? true : false}  aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                <Box sx={style}>
-                <CheckCircleOutlineRoundedIcon></CheckCircleOutlineRoundedIcon>
-                    {alert?.header && (<Typography id="modal-modal-title" variant="h6" component="h2">
-                        {alert.header}
-                    </Typography>)
-                    }
-                    <IconButton
-                        aria-label="close"
-                        onClick={() => dispatch(alertActions.clear())}
-                        sx={(theme) => ({
-                            position: 'absolute',
-                            right: 8,
-                            top: 8,
-                            color: theme.palette.grey[500],
-                        })}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        {alert.message}
-                    </Typography>
-                </Box>
-            </Modal>
-        </div>
+        <><React.Fragment>
+         <Modal
+            open={alert?true:false}
+            onClose={handleClose}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+            className="displayblock">
+            <Box className="  modalpopup">
+               <Box className=" row modalpopupinner">
+
+                  <div className="row">
+                     <Grid item xs={3} >
+                        <img src={images.tickicon} alt="Emailicon" />
+                     </Grid>
+                     <Grid item xs={9}>
+                        <h5><b>{alert.header}</b></h5>
+                        <p> {alert.message}</p>
+                     </Grid>
+                  </div>
+               </Box>
+            </Box>
+         </Modal>
+      </React.Fragment>
+      </>
     );
 };
 

@@ -1,25 +1,36 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 import { useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
-import {history} from '_utils';
+import images from '../../images';
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const Register = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string()
-            .required('First Name is required'),
-        lastName: Yup.string()
-            .required('Last Name is required'),
+        name: Yup.string()
+            .required('Name is required'),
+        companyName: Yup.string()
+            .required('Company Name is required'),
+        phoneNumber: Yup.string()
+            .required('Last Name is required')
+            .max(10, 'Phone number must be at least 10 digit'),
         username: Yup.string()
             .required('Username is required'),
         password: Yup.string()
             .required('Password is required')
-            .min(6, 'Password must be at least 6 characters')
+            .min(6, 'Password must be at least 6 characters'),
+        confirmPassword: Yup.string()
+            .required('Confirm Password is required')
+            .oneOf([Yup.ref('password')], 'Passwords must match')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -33,46 +44,132 @@ const Register = () => {
             await dispatch(userActions.register(data)).unwrap();
 
             // redirect to login page and display success alert
-            history.navigate('/');
-            dispatch(alertActions.success({header:'Registration Succeed', message: 'Registration successful', showAfterRedirect: true }));
+            navigate('/');
+            dispatch(alertActions.success({ message: 'Registration successful', showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
     }
 
+    const onCancel = () => {
+        navigate('/');
+    }
     return (
-        <div className="card m-3">
-            <h4 className="card-header">Register</h4>
-            <div className="card-body">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-3">
-                        <label className="form-label">First Name</label>
-                        <input name="firstName" type="text" {...register('firstName')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.firstName?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Last Name</label>
-                        <input name="lastName" type="text" {...register('lastName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.lastName?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Username</label>
-                        <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.username?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.password?.message}</div>
-                    </div>
-                    <button disabled={isSubmitting} className="btn btn-primary">
-                        {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                        Register
-                    </button>
-                    <Link to="../" className="btn btn-link">Cancel</Link>
-                </form>
-            </div>
-        </div>
+        <>
+            <Typography component="div" className="mobilebanner">
+                <Typography component="h1" variant="h5" className="Logincontent">
+                    SIGN UP
+                </Typography>
+                <div className="paper">
+                    <form className="form" onSubmit={handleSubmit(onSubmit)}>
+                        <TextField
+                            {...register('name')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="name"
+                            label="Name"
+                            type="text"
+                            id="name"
+                            autoComplete="current-Name"
+                            error={errors.name?.message}
+                            helperText={errors.name?.message}
+                        />
+                        <TextField
+                            {...register('companyName')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="companyName"
+                            label="Company Name"
+                            type="text"
+                            id="companyName"
+                            autoComplete="companyName"
+                            error={errors.companyName?.message}
+                            helperText={errors.companyName?.message}
+                        />
+                        <TextField
+                            {...register('phoneNumber')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="phoneNumber"
+                            label="PhoneNumber"
+                            type="Number"
+                            id="phoneNumber"
+                            autoComplete="phoneNumber"
+                            error={errors.phoneNumber?.message}
+                            helperText={errors.phoneNumber?.message}
+                        />
+                        <TextField
+                            {...register('username')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Email Address"
+                            name="username"
+                            error={errors.username?.message}
+                            helperText={errors.username?.message}
+                            autoFocus
+                        />
+                        <TextField
+                            {...register('password')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            error={errors.password?.message}
+                            helperText={errors.password?.message}
+                        />
+                         <TextField
+                            {...register('confirmPassword')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            type="password"
+                            id="confirmPassword"
+                            autoComplete="confirmpassword"
+                            error={errors.confirmPassword?.message}
+                            helperText={errors.confirmPassword?.message}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="Loginbutton"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
+                            SIGN UP
+                        </Button>
+                        <Button
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="Loginbutton"
+                            onClick={onCancel}
+                        >
+                            Cancel
+                        </Button>
+                    </form>
+                </div>
+            </Typography>
+        </>
     )
 }
 
