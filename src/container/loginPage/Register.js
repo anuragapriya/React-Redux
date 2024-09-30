@@ -16,15 +16,21 @@ const Register = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string()
-            .required('First Name is required'),
-        lastName: Yup.string()
-            .required('Last Name is required'),
+        name: Yup.string()
+            .required('Name is required'),
+        companyName: Yup.string()
+            .required('Company Name is required'),
+        phoneNumber: Yup.string()
+            .required('Last Name is required')
+            .max(10, 'Phone number must be at least 10 digit'),
         username: Yup.string()
             .required('Username is required'),
         password: Yup.string()
             .required('Password is required')
-            .min(6, 'Password must be at least 6 characters')
+            .min(6, 'Password must be at least 6 characters'),
+        confirmPassword: Yup.string()
+            .required('Confirm Password is required')
+            .oneOf([Yup.ref('password')], 'Passwords must match')
     });
     const formOptions = { resolver: yupResolver(validationSchema) };
 
@@ -45,103 +51,58 @@ const Register = () => {
         }
     }
 
+    const onCancel = () => {
+        navigate('/');
+    }
     return (
         <>
-      {/* <div className="card m-3">
-            <h4 className="card-header">Register</h4>
-            <div className="card-body">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-3">
-                        <label className="form-label">First Name</label>
-                        <input name="firstName" type="text" {...register('firstName')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.firstName?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Last Name</label>
-                        <input name="lastName" type="text" {...register('lastName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.lastName?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Username</label>
-                        <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.username?.message}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.password?.message}</div>
-                    </div>
-                    <button disabled={isSubmitting} className="btn btn-primary">
-                        {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                        Register
-                    </button>
-                    <Link to="../" className="btn btn-link">Cancel</Link>
-                </form>
-            </div>
-        </div>  */}
-        <div className="row m-0">
-        <Grid item xs={12} sm={5} md={4} className="wglcontainerblock">
-            <div className="wglcontainer">
-            <Grid item xs={12} className="mobile-block" >
-            <ul className="list-type">
-                <li>
-                    <Link href="#" >
-                        Need Support
-                    </Link>
-                </li>
-                <li>
-                    <Link href="#" >
-                        Contact us
-                    </Link>
-                </li>
-            </ul>
-        </Grid>
-                <div className="wglcontainerinn">
-                <Link href="#" variant="logo" className="wgllogo">
-                    <img src={images.logo} alt="logo"></img>
-                </Link>
-           
             <Typography component="div" className="mobilebanner">
                 <Typography component="h1" variant="h5" className="Logincontent">
                     SIGN UP
                 </Typography>
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                    <TextField
-                            {...register('Name')}
+                        <TextField
+                            {...register('name')}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="Name"
+                            name="name"
                             label="Name"
                             type="text"
-                            id="Name"
+                            id="name"
                             autoComplete="current-Name"
-                        />
-                          <TextField
-                            {...register('Company Name')}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="CompanyName"
-                            label="Company Name"
-                            type="text"
-                            id="CompanyName"
-                            autoComplete="Company-Name"
+                            error={errors.name?.message}
+                            helperText={errors.name?.message}
                         />
                         <TextField
-                            {...register('PhoneNumber')}
+                            {...register('companyName')}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="PhoneNumber"
+                            name="companyName"
+                            label="Company Name"
+                            type="text"
+                            id="companyName"
+                            autoComplete="companyName"
+                            error={errors.companyName?.message}
+                            helperText={errors.companyName?.message}
+                        />
+                        <TextField
+                            {...register('phoneNumber')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="phoneNumber"
                             label="PhoneNumber"
                             type="Number"
-                            id="PhoneNumber"
-                            autoComplete="PhoneNumber"
+                            id="phoneNumber"
+                            autoComplete="phoneNumber"
+                            error={errors.phoneNumber?.message}
+                            helperText={errors.phoneNumber?.message}
                         />
                         <TextField
                             {...register('username')}
@@ -152,6 +113,8 @@ const Register = () => {
                             id="username"
                             label="Email Address"
                             name="username"
+                            error={errors.username?.message}
+                            helperText={errors.username?.message}
                             autoFocus
                         />
                         <TextField
@@ -165,8 +128,23 @@ const Register = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            error={errors.password?.message}
+                            helperText={errors.password?.message}
                         />
-                        
+                         <TextField
+                            {...register('confirmPassword')}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="confirmPassword"
+                            label="Confirm Password"
+                            type="password"
+                            id="confirmPassword"
+                            autoComplete="confirmpassword"
+                            error={errors.confirmPassword?.message}
+                            helperText={errors.confirmPassword?.message}
+                        />
                         <Button
                             type="submit"
                             fullWidth
@@ -174,53 +152,24 @@ const Register = () => {
                             color="primary"
                             className="Loginbutton"
                             disabled={isSubmitting}
-                            
                         >
                             {isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                             SIGN UP
+                            SIGN UP
                         </Button>
-                        
+                        <Button
+                            type="button"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="Loginbutton"
+                            onClick={onCancel}
+                        >
+                            Cancel
+                        </Button>
                     </form>
                 </div>
             </Typography>
-            </div>
-            </div>
-        </Grid>
-       
-        <Grid item xs={8} sm={7} md={8} className="mobile-none">
-            <div className="height-fix">
-                <div className="root">
-                  
-                    <ul className="list-type">
-                        <li>
-                            <Link href="#">Solutons</Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                Resources
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                About
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                FAQS
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                Contact us
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </Grid>
-    </div> 
-    </>
+        </>
     )
 }
 
