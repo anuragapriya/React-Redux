@@ -1,23 +1,28 @@
-/* .root {
-    background-image: url("../../Images/Frame\ 2173.jpg");
+.height-fix {
+    background-image: url("../assets/images/Frame2173.svg");
    
     max-height: 100%;
     background-size: cover;
     height: 100%;
     background-repeat: no-repeat;
+    border-radius: 35px 0px 0px 35px;
 
-} */
+}
  .root{
-    position: absolute;
+    position: relative;
  }
  .root img{
-    position: relative;
+    max-width: 100%;
     width: 100%;
     height: 100%;
  }
 .pb-10{
     padding: 10pc 30px 10pc 30px;
 }
+.wglcontainer{
+    padding: 18% 10px;
+}
+
 .MuiTypography-h5.Logincontent{
     font-weight: bold;
     text-align: center;
@@ -33,10 +38,11 @@ display: ruby;
 margin-top: 15px;
 }
 .MuiButton-containedPrimary.Loginbutton,.MuiButton-containedPrimary.Loginbutton:hover {
-    color: #000000;
-    background-color: #97d700;
+    color: #fff;
+    background-color: #0F4398;
     font-weight: bold;
     padding: 10px;
+    margin-top: 10px;
 }
 .login-container .PrivateNotchedOutline-root-1{
   
@@ -61,6 +67,7 @@ margin-top: 15px;
 }
 .list-type li a{
     color: #fff;
+    text-decoration: none;
 }
 .list-type li:last-child a{
     float: right;
@@ -79,9 +86,88 @@ margin-top: 15px;
 }
 .mobile-block{
     display: none;
+   
 }
 .mobile-none{
 display: block;
+padding: 0px;
+}
+.modalpopup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #fff;
+    box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    padding: 2%;
+    border-radius: 10px;
+}
+.modalpopupVerification h2{
+    font-weight: bold;
+}
+.ResetLogo img{
+    width:70px;
+}
+.modalpopupinner{
+    position: relative;
+    margin: 0px;
+}
+.MuiFormLabel-root.Mui-focused{
+    background-color: #FFF;
+    z-index: 9999;
+    top: -5px;
+    padding: 4px;
+}
+.wglcontainer .MuiFormLabel-root.Mui-focused{
+    background-color: transparent;
+}
+.Emailicons{
+    display: inline-flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.Emailicons img{
+    margin: 10px 15px 10px 0px;
+    border: 1px solid #b2adad;
+    padding: 15px;
+    border-radius: 6px;
+}
+.displayblock{
+    display: block;
+}
+.MuiGrid-item.Newpassword{
+    display: block;
+    margin: auto;
+}
+.Newpassword h5{
+    font-weight: bold;
+}
+.css-1nrlq1o-MuiFormControl-root.newpassword-list{
+    margin: 20px 0px;
+}
+.modalpopupVerification .ResetLogo {
+    margin: 0px 9px;
+    max-width: 14.5%;
+    flex-basis:14.5%;
+}
+.modalpopupVerification .form{
+    margin:15px 0px ;
+}
+
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+
+}
+
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 @media only screen and (max-width: 1124px) {
     .pb-10{
@@ -108,33 +194,19 @@ display: block;
     }
 }
 @media only screen and (max-width: 768px) {
-    .login-container .MuiFormControl-marginNormal {
-    margin-top: 5px;
-    margin-bottom: 8px;
-}
-.MuiTypography-root.ResetPassword{
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-.MuiButton-containedPrimary.Loginbutton{
-    padding: 5px;
-    font-size: 14px;
-}
-.MuiGrid-item.accountSignup{
-    margin-top: 5px;
-    font-size: 14px;
-}
-.list-type li a{
-font-size: 13px;
-}
-.list-type{
-    padding-left: 10px;
-}
-}
-  @media only screen and (max-width: 600px) {
+    
+
   .mobile-block{
     display: block;
     padding-bottom: 20px;
+}
+.wglcontainer{
+    width: 400px;
+        margin: auto;
+        padding: 10% 0px;
+}
+.height-fix{
+    border-radius: 0pc;
 }
 .mobile-none{
 display: none;
@@ -142,8 +214,11 @@ display: none;
 .list-type{
     position: relative;
 }
+.ResetLogo img {
+    width: 50px;
+}
 .login-container{
-    background-image: url("../assets/images/Frame2173.jpg");
+    background-image: url("../assets/images/Frame2173.svg");
    
     max-height: 100%;
     background-size: cover;
@@ -156,9 +231,31 @@ display: none;
     margin-top: 40px;
     padding: 20px;
 }
+.wgllogo img{
+    margin-top: 10%;
+}
 .list-type{
     margin: 0px;
     padding: 0px;
 }
+.modalpopup{
+    width: 100%;
+    padding: 20px;
+}
+.MuiGrid-grid-sm-5.wglcontainerblock{
+    flex-grow: 0;
+    max-width:100%;
+    flex-basis: 100%;
+}
   }
+  @media only screen and (max-width: 420px) {
+    
+
+ 
+  .wglcontainer{
+      width:100%;
+          margin: auto;
+          padding: 10% 15px;
+  }
+}
   
