@@ -14,9 +14,9 @@ const AddEdit = () => {
     const user = useSelector(x => x.users?.item);
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string()
+        name: Yup.string()
             .required('First Name is required'),
-        lastName: Yup.string()
+        companyName: Yup.string()
             .required('Last Name is required'),
         username: Yup.string()
             .required('Username is required'),
@@ -72,14 +72,14 @@ const AddEdit = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="row">
                         <div className="mb-3 col">
-                            <label className="form-label">First Name</label>
-                            <input name="firstName" type="text" {...register('firstName')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.firstName?.message}</div>
+                            <label className="form-label">Name</label>
+                            <input name="name" type="text" {...register('name')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
+                            <div className="invalid-feedback">{errors.name?.message}</div>
                         </div>
                         <div className="mb-3 col">
-                            <label className="form-label">Last Name</label>
-                            <input name="lastName" type="text" {...register('lastName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.lastName?.message}</div>
+                            <label className="form-label">Company Name</label>
+                            <input name="companyName" type="text" {...register('companyName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
+                            <div className="invalid-feedback">{errors.companyName?.message}</div>
                         </div>
                     </div>
                     <div className="row">
