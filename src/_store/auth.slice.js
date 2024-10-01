@@ -46,10 +46,10 @@ function createExtraActions() {
 
     function login() {
         return createAsyncThunk(
-            `${name}/login`, async ({ username, password }, { dispatch }) => {
+            `${name}/login`, async ({ email, password }, { dispatch }) => {
                 dispatch(alertActions.clear());
                 try {
-                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { username, password }));
+                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { email, password }));
 
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));

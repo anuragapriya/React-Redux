@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { CSVLink, CSVDownload } from "react-csv";
 import ExportToPDF from '_utils/exportPdf';
-import ExportToCsv from './exportCsv';
+import ExportToCsv from '_utils/exportCsv';
 const Download=(props)=>{
 const rows= props.rows;
 const headers= props.headers;

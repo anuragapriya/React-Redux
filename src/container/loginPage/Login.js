@@ -19,16 +19,16 @@ export default function Login(props) {
    const dispatch = useDispatch();
    // form validation rules 
    const validationSchema = Yup.object().shape({
-      username: Yup.string().required('Email is required'),
+      email: Yup.string().required('Email is required'),
       password: Yup.string().required('Password is required')
    });
    const formOptions = { resolver: yupResolver(validationSchema) };
    // get functions to build form with useForm() hook
    const { register, handleSubmit, formState } = useForm(formOptions);
    const { errors, isSubmitting } = formState;
-   function onSubmit({ username, password }) {
+   function onSubmit({ email, password }) {
       try {
-         return dispatch(authActions.login({ username, password }));
+         return dispatch(authActions.login({ email, password }));
       } catch (error) {
          dispatch(alertActions.error(errors));
       }
@@ -59,17 +59,17 @@ export default function Login(props) {
             <div className="paper">
                <form className="form" onSubmit={handleSubmit(onSubmit)}>
                   <TextField
-                     {...register('username')}
+                     {...register('email')}
                      variant="outlined"
                      margin="normal"
                      required
                      fullWidth
-                     id="username"
+                     id="email"
                      label="Email"
-                     name="username"
+                     name="email"
                      autoFocus
-                     error={errors.username?.message}
-                     helperText={errors.username?.message}
+                     error={errors.email?.message}
+                     helperText={errors.email?.message}
                   />
                   <TextField
                      {...register('password')}
