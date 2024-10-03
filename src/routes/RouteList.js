@@ -7,7 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import Nav from '_components/Nav';
 import LoadingOverlay from '_components/LoadingOverlay';
 import Notification from '_components/Notification';
-import SessionTimeout from '_utils/SessionTimeout';
+import SessionTimeout from '_components/SessionTimeout';
 import LoginLayout from 'container/layout/LoginLayout';
 import UsersLayout from 'container/layout/UsersLayout';
 import Home from 'container/home/Home';

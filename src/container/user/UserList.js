@@ -4,13 +4,15 @@ import {
 } from 'material-react-table';
 import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Box,Button } from '@mui/material';
 import { userActions } from '_store';
 import Download from '_components/Download';
 
 const UserList = () => {
   const filename='Users';
   const users = useSelector(x => x.users.list);
+  const navigate=useNavigate();
   const dispatch = useDispatch();
   const rows = users?.value;
 
@@ -35,17 +37,17 @@ const UserList = () => {
     []
   );
 
+  const data = useMemo(() => {
+    return rows ? rows : [];
+  }, [rows]);
+
   useEffect(() => {
     dispatch(userActions.getAll());
   }, [dispatch]);
 
-  const data = useMemo(() => {
-    return rows ? rows.map(({ email, companyName, userName }) => ({
-      userName,
-      companyName,
-      email
-    })) : [];
-  }, [rows]);
+  const handleEdit=(id)=>{
+    navigate(`edit/${id}`);
+  };
 
   const table = useMaterialReactTable({
     columns,
@@ -53,6 +55,7 @@ const UserList = () => {
     columnFilterDisplayMode: 'popover',
     paginationDisplayMode: 'pages',
     positionToolbarAlertBanner: 'bottom',
+    enableRowActions:true,
     renderTopToolbarCustomActions: () => (
       <Box
         sx={{
@@ -62,10 +65,24 @@ const UserList = () => {
           flexWrap: 'wrap',
         }}
       >
+        <Button variant="contained" color="primary" onClick={()=>navigate('add')} >
+            Add
+          </Button>
         <Download rows={data} headers={columns} filename={filename} />
+        
       </Box>
-    )
-  });
+    ),    
+      renderRowActions:({ row }) => (
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <Button variant="contained" color="primary" onClick={()=>handleEdit(row.original.id)} >
+            Edit
+          </Button>
+          <Button variant="contained" color="secondary" onClick={() => dispatch(userActions.delete(row.original.id))}>
+            Delete
+          </Button>
+        </div>
+      )}
+  )
 
   return <MaterialReactTable table={table} />
 }
