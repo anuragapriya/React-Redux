@@ -1,23 +1,22 @@
 import { Box, Button } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { CSVLink, CSVDownload } from "react-csv";
-import ExportToPDF from '_utils/exportPdf';
-import ExportToCsv from '_utils/exportCsv';
+import exportPDF from '_utils/exportPdf';
+import exportCSV from '_utils/exportCsv';
 const Download=(props)=>{
 const rows= props.rows;
 const headers= props.headers;
-const csvHeader= headers.map(x=>x.header);
+const filename=props.filename;
 
 const handleExportToPdf=()=>{
-    ExportToPDF(rows,headers);
+  exportPDF(rows,headers,filename);
 }
 
 const handleExportToCsv=()=>{
-    ExportToCsv(rows,csvHeader);
+  exportCSV(rows,headers,filename);
 }
     return(<>
     <Button
-          disabled={rows?.length === 0}
+          
           //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
           onClick={ handleExportToPdf}
           startIcon={<FileDownloadIcon />}
@@ -26,12 +25,12 @@ const handleExportToCsv=()=>{
         </Button>
 
         <Button
-          disabled={rows?.length === 0}
+         
           //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
           onClick={ handleExportToCsv}
           startIcon={<FileDownloadIcon />}
         >
-          Export To csv
+          Export To Exel
         </Button>
     </>);
 }

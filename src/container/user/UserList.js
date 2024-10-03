@@ -1,55 +1,73 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {
+  MaterialReactTable,
+  useMaterialReactTable
+} from 'material-react-table';
+import { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Box } from '@mui/material';
 import { userActions } from '_store';
-import Download from '_components/Download'; 
+import Download from '_components/Download';
 
 const UserList = () => {
-    const users = useSelector(x => x.users.list);
-    const dispatch = useDispatch();
-    const rows= users?.value;
+  const filename='Users';
+  const users = useSelector(x => x.users.list);
+  const dispatch = useDispatch();
+  const rows = users?.value;
 
-    useEffect(() => {
-        dispatch(userActions.getAll());
-    }, []);
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'userName',
+        header: 'Name',
+        enableSorting: true,
+      },
+      {
+        accessorKey: 'companyName',
+        header: 'Company Name',
+        enableSorting: true,
+      },
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        enableSorting: true,
+      }
+    ],
+    []
+  );
 
-    const headers =[{header:"Name"},{header:"Company Name"},{header:"User Name"}];
+  useEffect(() => {
+    dispatch(userActions.getAll());
+  }, [dispatch]);
 
-    return (
-        <div>
-            <h1>Users</h1>
-            <Link to="add" className="btn btn-sm btn-success mb-2">Add User</Link>
-           <Download rows={rows} headers={headers}></Download>
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th style={{ width: '30%' }}>Name</th>
-                        <th style={{ width: '30%' }}>Company Name</th>
-                        <th style={{ width: '30%' }}>Email</th>
-                        <th style={{ width: '10%' }}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {users?.value?.map(user =>
-                        <tr key={user.id}>
-                            <td>{user.userName}</td>
-                            <td>{user.companyName}</td>
-                            <td>{user.email}</td>
-                            <td style={{ whiteSpace: 'nowrap' }}>
-                                <Link to={`edit/${user.id}`} className="btn btn-sm btn-primary me-1">Edit</Link>
-                                <button onClick={() => dispatch(userActions.delete(user.id))} className="btn btn-sm btn-danger" style={{ width: '60px' }} disabled={user.isDeleting}>
-                                    {user.isDeleting
-                                        ? <span className="spinner-border spinner-border-sm"></span>
-                                        : <span>Delete</span>
-                                    }
-                                </button>                                
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
-    );
+  const data = useMemo(() => {
+    return rows ? rows.map(({ email, companyName, userName }) => ({
+      userName,
+      companyName,
+      email
+    })) : [];
+  }, [rows]);
+
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    columnFilterDisplayMode: 'popover',
+    paginationDisplayMode: 'pages',
+    positionToolbarAlertBanner: 'bottom',
+    renderTopToolbarCustomActions: () => (
+      <Box
+        sx={{
+          display: 'flex',
+          gap: '16px',
+          padding: '8px',
+          flexWrap: 'wrap',
+        }}
+      >
+        <Download rows={data} headers={columns} filename={filename} />
+      </Box>
+    )
+  });
+
+  return <MaterialReactTable table={table} />
 }
 
 export default UserList;

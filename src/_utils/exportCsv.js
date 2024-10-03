@@ -1,17 +1,28 @@
-import { mkConfig, generateCsv, download } from 'export-to-csv'; //or use your library of choice here
+import { mkConfig, generateCsv, download } from 'export-to-csv';
 
-const ExportToCsv = (rows,headers) => {
-  const csvConfig = mkConfig({
-    fieldSeparator: ',',
-    decimalSeparator: '.',
-    useKeysAsHeaders: false,
-    showColumnHeaders:true,
-    columnHeaders:headers
-  });
- 
-  const rowData=rows.map((row) => row);
-  const csv = generateCsv(csvConfig)(rowData);
-  download(csvConfig)(csv);
+const exportCSV = (rows,columns, filename ) => {
+    const options = mkConfig({
+        fieldSeparator: ',',
+        quoteStrings: '"',
+        decimalSeparator: '.',
+        useKeysAsHeaders: false,
+        showColumnHeaders:true,
+        columnHeaders: columns.map(col => col.header), // Use display headers,
+        filename:filename
+    });
+
+    const formattedData = rows.map(row => {
+        const formattedRow = {};
+        columns.forEach(col => {
+            formattedRow[col.header] = row[col.accessorKey];
+        });
+        return formattedRow;
+    });
+
+    const csv = generateCsv(options)(formattedData);
+    download(options)(csv);
 };
 
-export default ExportToCsv;
+export default exportCSV;
+
+
