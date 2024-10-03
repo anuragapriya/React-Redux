@@ -1,4 +1,4 @@
-
+import {user} from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
@@ -38,18 +38,19 @@ const fakeBackend =()=> {
             // route functions
 
             function authenticate() {
-                const { username, password } = body();
-                const user = users.find(x => x.username === username && x.password === password);
+                const { email, password } = body();
+                const user = users.find(x => x.email === email && x.password === password);
 
-                if (!user) return error('Username or password is incorrect');
+                if (!user) return error('email or password is incorrect');
 
                 let currentDateTime = new Date();
                 let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
-
+                user.jwtToken='fake-jwt-token';
+                user.tokenExpiry=expiryTime;
                 return ok({   
-                    ...basicDetails(user),                 
-                    token: 'fake-jwt-token',
-                    tokenExpiry : expiryTime/*'2024-09-25 21:03:24.789150'*/
+                    ...basicDetails(user)                 
+                    // token: ,
+                    // tokenExpiry : /*'2024-09-25 21:03:24.789150'*/
                 });
             }
 
@@ -70,8 +71,8 @@ const fakeBackend =()=> {
             function register() {
                 const user = body();
 
-                if (users.find(x => x.username === user.username)) {
-                    return error('Username "' + user.username + '" is already taken')
+                if (users.find(x => x.email === user.email)) {
+                    return error('email "' + user.email + '" is already taken')
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -103,9 +104,9 @@ const fakeBackend =()=> {
                     delete params.password;
                 }
 
-                // if username changed check if taken
-                if (params.username !== user.username && users.find(x => x.username === params.username)) {
-                    return error('Username "' + params.username + '" is already taken')
+                // if email changed check if taken
+                if (params.email !== user.email && users.find(x => x.email === params.email)) {
+                    return error('email "' + params.email + '" is already taken')
                 }
 
                 // update and save user
@@ -137,9 +138,11 @@ const fakeBackend =()=> {
                 resolve({ status: 400, ...headers(), json: () => Promise.resolve({ message }) })
             }
 
-            function basicDetails(user) {
-                const { id, username, firstName, lastName } = user;
-                return { id, username, firstName, lastName };
+            function basicDetails(userdetail) {
+               // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
+                const updatedUser = Object.assign({}, user, userdetail);
+                return updatedUser;
+                
             }
 
             function isAuthenticated() {

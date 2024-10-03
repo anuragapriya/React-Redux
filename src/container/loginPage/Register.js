@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
-import images from '../../images';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
@@ -16,15 +15,15 @@ const Register = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        name: Yup.string()
+        userName: Yup.string()
             .required('Name is required'),
         companyName: Yup.string()
             .required('Company Name is required'),
         phoneNumber: Yup.string()
             .required('Last Name is required')
             .max(10, 'Phone number must be at least 10 digit'),
-        username: Yup.string()
-            .required('Username is required'),
+        email: Yup.string()
+            .required('Email is required'),
         password: Yup.string()
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
@@ -63,18 +62,19 @@ const Register = () => {
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
                         <TextField
-                            {...register('name')}
+                            {...register('userName')}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            name="name"
+                            name="userName"
                             label="Name"
                             type="text"
-                            id="name"
+                            id="userName"
                             autoComplete="current-Name"
-                            error={errors.name?.message}
-                            helperText={errors.name?.message}
+                            error={errors.userName?.message}
+                            helperText={errors.userName?.message}
+                            autoFocus
                         />
                         <TextField
                             {...register('companyName')}
@@ -105,17 +105,17 @@ const Register = () => {
                             helperText={errors.phoneNumber?.message}
                         />
                         <TextField
-                            {...register('username')}
+                            {...register('email')}
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="username"
+                            id="email"
                             label="Email Address"
-                            name="username"
-                            error={errors.username?.message}
-                            helperText={errors.username?.message}
-                            autoFocus
+                            name="email"
+                            error={errors.email?.message}
+                            helperText={errors.email?.message}
+                            
                         />
                         <TextField
                             {...register('password')}
