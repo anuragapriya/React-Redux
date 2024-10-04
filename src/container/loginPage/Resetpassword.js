@@ -10,7 +10,8 @@ import {  alertActions } from '_store';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-export default function ResetPassword(props) {
+
+const ResetPassword=(props) =>{
    const open = props.open;
    const handleClose = props.handleClose;
    const onSubmitToOTP= props.onSubmitToOTP;
@@ -105,3 +106,5 @@ export default function ResetPassword(props) {
       </>
    );
 }
+
+export default ResetPassword;

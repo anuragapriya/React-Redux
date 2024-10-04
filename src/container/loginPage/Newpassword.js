@@ -1,23 +1,17 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-
 import Grid from "@material-ui/core/Grid";
-
-import { useDispatch } from 'react-redux';
-
-import images from '../../images';
+import images from 'images';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
-
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-export default function Newpassword(props) {
-  const dispatch = useDispatch();
+const  Newpassword=(props)=> {
 
   //new password
   const [showPassword, setShowPassword] = React.useState(false);
@@ -89,3 +83,5 @@ export default function Newpassword(props) {
     </>
   );
 }
+
+export default Newpassword;

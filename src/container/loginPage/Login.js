@@ -9,9 +9,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
-import images from '../../images';
 import OTPVerification from "_components/OTPVerification";
 import ResetPassword from "./Resetpassword";
+import { labels } from "_utils/constant";
 
 export default function Login(props) {
    const [open, setOpen] = React.useState(false);
@@ -54,7 +54,7 @@ export default function Login(props) {
       <>
          <Typography component="div" className="mobilebanner">
             <Typography component="h1" variant="h5" className="Logincontent">
-               Log In
+               {labels.loginHeader}
             </Typography>
             <div className="paper">
                <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +86,7 @@ export default function Login(props) {
                      helperText={errors.password?.message}
                   />
                   <Link href="#" onClick={handleOpen} variant="ResetPassword" className="ResetPassword">
-                     ResetPassword
+                     {labels.resetPwdButtonLabel}
                   </Link>
                   <Button
                      type="submit"
@@ -96,15 +96,14 @@ export default function Login(props) {
                      className="Loginbutton"
                      disabled={isSubmitting}
                   >
-                     LOGIN
+                     {labels.loginButtonLabel}
                   </Button>
                   <Grid container>
                      <Grid item className="accountSignup">
                         <div>Don't have an account?</div>
                         <Link href="./register" variant="body2">
-                           {" Sign Up"}
+                           {labels.signUpLabel}
                         </Link>
-
                      </Grid>
                   </Grid>
                </form>

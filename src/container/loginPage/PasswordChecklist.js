@@ -1,6 +1,7 @@
 import React from "react";
 import PasswordChecklist from "react-password-checklist";
 import { Box, Typography } from '@mui/material';
+import { labels } from "_utils/constant";
 
 const PasswordCheck = (props) => {
     const { password, confirmPassword } = props;
@@ -16,7 +17,7 @@ const PasswordCheck = (props) => {
 
     return (
         <Box sx={{ padding: 2, backgroundColor: '#f9f9f9', borderRadius: 1 }}>
-            <Typography variant="h6">Your password must contain:</Typography>
+            <Typography variant="h6">{labels.passwordChecklistLabel}</Typography>
             <PasswordChecklist
                 rules={["specialChar", "number", "capital", "match", "lowercase", "minAndmaxLength"]}
                 value={isPasswordValid ? password : ""}
