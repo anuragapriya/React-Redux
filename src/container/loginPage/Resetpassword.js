@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useDispatch } from 'react-redux';
-import { authActions, alertActions } from '_store';
+import {  alertActions } from '_store';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
