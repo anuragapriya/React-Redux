@@ -9,3 +9,11 @@ export const user = {
     refreshToken: "",
     refreshTokenExpiry: ""
 }
+
+export const labels = {
+    loginHeader:"Log In",
+    loginButtonLabel:"LOGIN",
+    resetPwdButtonLabel:"Reset Password",
+    signUpLabel: "Sign Up",
+    passwordChecklistLabel:"Your password must contain:",
+}

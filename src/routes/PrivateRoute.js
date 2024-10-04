@@ -1,6 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import {history} from '_utils';
 
 const PrivateRoute =()=> {

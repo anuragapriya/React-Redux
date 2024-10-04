@@ -1,13 +1,14 @@
 import {  useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import { useDispatch } from 'react-redux';
-import { userActions, alertActions } from '_store';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import { userActions, alertActions } from '_store';
+import PasswordCheck from './PasswordChecklist';
+
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -15,15 +16,12 @@ const Register = () => {
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
-        userName: Yup.string()
-            .required('Name is required'),
-        companyName: Yup.string()
-            .required('Company Name is required'),
+        userName: Yup.string().required('Name is required'),
+        companyName: Yup.string().required('Company Name is required'),
         phoneNumber: Yup.string()
-            .required('Last Name is required')
-            .max(10, 'Phone number must be at least 10 digit'),
-        email: Yup.string()
-            .required('Email is required'),
+            .required('Phone Number is required')
+            .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'), // Adjusted to ensure 10 digits
+        email: Yup.string().required('Email is required').email('Email is not valid'),
         password: Yup.string()
             .required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
@@ -34,8 +32,11 @@ const Register = () => {
     const formOptions = { resolver: yupResolver(validationSchema) };
 
     // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState } = useForm(formOptions);
+    const { register, handleSubmit, formState, watch } = useForm(formOptions);
     const { errors, isSubmitting } = formState;
+
+    const password = watch('password'); // Get the current password value
+    const confirmPassword = watch('confirmPassword'); // Get the current confirm password value
 
     async function onSubmit(data) {
         dispatch(alertActions.clear());
@@ -48,11 +49,11 @@ const Register = () => {
         } catch (error) {
             dispatch(alertActions.error(error));
         }
-    }
+    };
 
     const onCancel = () => {
         navigate('/');
-    }
+    };
     return (
         <>
             <Typography component="div" className="mobilebanner">
@@ -145,6 +146,7 @@ const Register = () => {
                             error={errors.confirmPassword?.message}
                             helperText={errors.confirmPassword?.message}
                         />
+                        <PasswordCheck password={password} confirmPassword={confirmPassword}></PasswordCheck>
                         <Button
                             type="submit"
                             fullWidth
