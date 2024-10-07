@@ -52,9 +52,13 @@ const UserList = () => {
   const table = useMaterialReactTable({
     columns,
     data,
-    columnFilterDisplayMode: 'popover',
+    enableHiding:false,
+    enableGlobalFilter:false,
+    enableFullScreenToggle:false,
+    enableColumnActions:false,
+    //columnFilterDisplayMode: 'popover',
     paginationDisplayMode: 'pages',
-    positionToolbarAlertBanner: 'bottom',
+    //positionToolbarAlertBanner: 'bottom',
     enableRowActions:true,
     renderTopToolbarCustomActions: () => (
       <Box
