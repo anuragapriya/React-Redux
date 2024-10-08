@@ -1,4 +1,5 @@
 import { mkConfig, generateCsv, download } from 'export-to-csv';
+import dayjs from 'dayjs';
 
 const exportCSV = (rows,columns, filename ) => {
     const options = mkConfig({
@@ -14,7 +15,8 @@ const exportCSV = (rows,columns, filename ) => {
     const formattedData = rows.map(row => {
         const formattedRow = {};
         columns.forEach(col => {
-            formattedRow[col.header] = row[col.accessorKey];
+            const value=row[col.accessorKey];
+        formattedRow[col.header] = dayjs(value).isValid() ? dayjs(value).format('MM/DD/YYYY') : value;
         });
         return formattedRow;
     });

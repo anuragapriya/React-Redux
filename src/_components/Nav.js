@@ -15,6 +15,7 @@ const Nav = () => {
             <div className="navbar-nav">
                 <NavLink to="/home" className="nav-item nav-link">Home</NavLink>
                 <NavLink to="/users" className="nav-item nav-link">Users</NavLink>
+                <NavLink to="/Jurisdiction" className="nav-item nav-link">Jurisdiction</NavLink>
                 <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
             </div>
         </nav>

@@ -16,4 +16,7 @@ export const labels = {
     resetPwdButtonLabel:"Reset Password",
     signUpLabel: "Sign Up",
     passwordChecklistLabel:"Your password must contain:",
+    jurisdictionLabel:"JURISDICTION",
+    seasonStartLabel:"SEASON START",
+    seasonEndLabel:"SEASON END",
 }
