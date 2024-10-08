@@ -5,9 +5,8 @@ import { usePromiseTracker } from 'react-promise-tracker';
 import { store, authActions } from '_store';
 import PrivateRoute from './PrivateRoute';
 import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
-import {LoginLayout,UsersLayout} from 'container/layout';
+import {LoginLayout,UsersLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
 import {Home} from 'container/dashboard';
-import Jurisdiction from 'container/user/Jurisdiction';
 
 const RouteList = () => {
 
@@ -47,7 +46,7 @@ const RouteList = () => {
   
     return (
         <div>
-            <Nav />
+            <Nav /> 
             {/* <Alert /> */}
             <Notification />
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
@@ -57,7 +56,8 @@ const RouteList = () => {
                     <Route element={<PrivateRoute />}>
                         <Route path="home" element={<Home />} />
                         <Route path="users/*" element={<UsersLayout />} />
-                        <Route path="Jurisdiction/*" element={<Jurisdiction />} />
+                        <Route path="accountInquiry/*" element={<AccountInquiryLayout />} />
+                        <Route path="energyAssistance/*" element={<EnergyAssistanceLayout />} />
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout />} />
