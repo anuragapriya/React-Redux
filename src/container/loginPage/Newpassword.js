@@ -11,8 +11,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-const  Newpassword=(props)=> {
 
+const  NewPassword=(props)=> {
+
+  const open = props.open;
+  const handleClose=()=> props.handleClose();
   //new password
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -84,4 +87,4 @@ const  Newpassword=(props)=> {
   );
 }
 
-export default Newpassword;
+export default NewPassword;

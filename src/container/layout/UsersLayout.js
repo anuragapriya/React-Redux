@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import UserList from "container/user/UserList";
-import AddEdit from "container/user/AddEdit";
+import {UserList,AddEdit} from "container/user";
 
 const UsersLayout = ({ ...props }) => {
     return (

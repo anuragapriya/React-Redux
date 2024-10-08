@@ -1,8 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Login from '../loginPage/Login';
-import Register from '../loginPage/Register';
-import MainLayout from './mainLayout';
+import {Login,Register} from 'container/loginPage';
+import {MainLayout} from 'container/layout';
 
 const LoginLayout = () => {
     const auth = useSelector(x => x.auth.value);

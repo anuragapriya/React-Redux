@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
 import OTPVerification from "_components/OTPVerification";
-import ResetPassword from "./Resetpassword";
+import {ResetPassword} from "container/loginPage";
 import { labels } from "_utils/constant";
 
 export default function Login(props) {

@@ -60,6 +60,14 @@ const UserList = () => {
     paginationDisplayMode: 'pages',
     //positionToolbarAlertBanner: 'bottom',
     enableRowActions:true,
+    initialState: {
+      columnOrder: [
+        'userName',
+        'companyName',
+        'email',
+        'mrt-row-select', //move the built-in selection column to the end of the table
+      ],
+    },
     renderTopToolbarCustomActions: () => (
       <Box
         sx={{
@@ -72,8 +80,7 @@ const UserList = () => {
         <Button variant="contained" color="primary" onClick={()=>navigate('add')} >
             Add
           </Button>
-        <Download rows={data} headers={columns} filename={filename} />
-        
+        <Download rows={data} headers={columns} filename={filename} />        
       </Box>
     ),    
       renderRowActions:({ row }) => (

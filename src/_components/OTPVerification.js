@@ -1,5 +1,4 @@
 import React from "react";
-import {  useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -14,7 +13,6 @@ import Modal from '@mui/material/Modal';
 
 const OTPVerification = (props) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const open= props.open;
     const handleClose=()=> props.handleClose;
 
@@ -134,6 +132,7 @@ const OTPVerification = (props) => {
                     >
                         VERIFY
                     </Button>
+                    {errors && <span> </span>}
                     </form>                    
                 </Box>
             </Modal>

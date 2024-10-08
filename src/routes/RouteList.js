@@ -4,13 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { usePromiseTracker } from 'react-promise-tracker';
 import { store, authActions } from '_store';
 import PrivateRoute from './PrivateRoute';
-import Nav from '_components/Nav';
-import LoadingOverlay from '_components/LoadingOverlay';
-import Notification from '_components/Notification';
-import SessionTimeout from '_components/SessionTimeout';
-import LoginLayout from 'container/layout/LoginLayout';
-import UsersLayout from 'container/layout/UsersLayout';
-import Home from 'container/home/Home';
+import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
+import {LoginLayout,UsersLayout} from 'container/layout';
+import {Home} from 'container/dashboard';
+import Jurisdiction from 'container/user/Jurisdiction';
 
 const RouteList = () => {
 
@@ -60,6 +57,7 @@ const RouteList = () => {
                     <Route element={<PrivateRoute />}>
                         <Route path="home" element={<Home />} />
                         <Route path="users/*" element={<UsersLayout />} />
+                        <Route path="Jurisdiction/*" element={<Jurisdiction />} />
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout />} />
