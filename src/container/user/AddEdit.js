@@ -68,7 +68,7 @@ const AddEdit = () => {
             }
 
             // redirect to user list with success message
-            navigate('/users');
+            navigate('/userManagement/users');
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -76,7 +76,7 @@ const AddEdit = () => {
     }
 
     const onCancel = () => {
-        navigate('/users');
+        navigate('/userManagement/users');
     }
     return (
         <>

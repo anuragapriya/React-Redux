@@ -1,6 +1,5 @@
+import Home from "./Home";
 import UserList from "./UserList";
 import AddEdit from "./AddEdit";
-import Jurisdiction from "./Jurisdiction";
 
-
-export {UserList,AddEdit,Jurisdiction};
+export {UserList,AddEdit,Home};

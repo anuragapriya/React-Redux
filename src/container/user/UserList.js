@@ -77,9 +77,6 @@ const UserList = () => {
           flexWrap: 'wrap',
         }}
       >
-        <Button variant="contained" color="primary" onClick={()=>navigate('add')} >
-            Add
-          </Button>
         <Download rows={data} headers={columns} filename={filename} />        
       </Box>
     ),    
