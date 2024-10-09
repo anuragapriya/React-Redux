@@ -8,33 +8,37 @@ const Home = () => {
   const data = [
     {
       id: 1,
-      name:"accountInquiry",
+      name: "accountInquiry",
       title: "Account Inquiry",
-      description: "Account Inquiry"
+      description: "Account Inquiry",
+      path: "accountInquiry/dashboard"
     },
     {
       id: 2,
-      name:"energyAssistance",
+      name: "energyAssistance",
       title: "Energy Assistance",
-      description: "Energy Assistance"
+      description: "Energy Assistance",
+      path: "energyAssistance/dashboard"
     },
     {
       id: 3,
       title: "BBS",
-      name:"bbs",
-      description: "BBS"
+      name: "bbs",
+      description: "BBS",
+      path: "bbs/dashboard"
     },
     {
       id: 4,
       title: "User Management",
-      name:"userManagement",
-      description: "User Management"
+      name: "userManagement",
+      description: "User Management",
+      path: "userManagement/dashboard"
     },
   ];
 
-  const handleClick = (id,name) => {
-    console.log(`Card ${name} clicked`);
-    navigate(`/${name}`);
+  const handleClick = (id, path) => {
+    console.log(`Card ${path} clicked`);
+    navigate(`/${path}`);
   };
 
   const auth = useSelector(x => x.auth.value);
@@ -44,7 +48,7 @@ const Home = () => {
     <Grid2 container spacing={2}>
       {data.map((card) =>
         <Grid2 xs={12} sm={6} md={4} key={card.id}>
-          <CardDetail {...card} handleClick={() => handleClick(card.id,card.name)} />
+          <CardDetail {...card} handleClick={() => handleClick(card.id, card.path)} />
         </Grid2>
       )}
     </Grid2>
