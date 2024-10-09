@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import List from '@material-ui/core/List';
-import { Dashboard,ShoppingCart,People,BarChart,LibraryBooks } from '@mui/icons-material';
 import AppMenuItem from './AppMenuItem';
 
 // const appMenuItems = [

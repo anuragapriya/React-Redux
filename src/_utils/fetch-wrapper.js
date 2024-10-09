@@ -4,7 +4,8 @@ export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
     put: request('PUT'),
-    delete: request('DELETE')
+    delete: request('DELETE'),
+    upload:requestUpload('UPLOAD')
 };
 
 function request(method) {
@@ -21,6 +22,18 @@ function request(method) {
     }
 }
 
+function requestUpload(method) {    
+    return (url, body) => {   
+        const requestOptions = {
+            method,
+            headers: authHeader(url)
+        };
+        if (body) {
+           requestOptions.body = body;
+        }
+        return fetch(url, requestOptions).then(handleResponse);
+    }
+}
 // helper functions
 
 function authHeader(url) {

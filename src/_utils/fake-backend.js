@@ -1,10 +1,10 @@
-import {user} from '_utils/constant';
+import { user } from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
-const fakeBackend =()=> {
+const fakeBackend = () => {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
         return new Promise((resolve, reject) => {
@@ -27,6 +27,8 @@ const fakeBackend =()=> {
                         return updateUser();
                     case url.match(/\/users\/\d+$/) && opts.method === 'DELETE':
                         return deleteUser();
+                    case url.match(/\/users\/\d+$/) && opts.method === 'UPLOAD':
+                        return upload();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -45,10 +47,10 @@ const fakeBackend =()=> {
 
                 let currentDateTime = new Date();
                 let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
-                user.jwtToken='fake-jwt-token';
-                user.tokenExpiry=expiryTime;
-                return ok({   
-                    ...basicDetails(user)                 
+                user.jwtToken = 'fake-jwt-token';
+                user.tokenExpiry = expiryTime;
+                return ok({
+                    ...basicDetails(user)
                     // token: ,
                     // tokenExpiry : /*'2024-09-25 21:03:24.789150'*/
                 });
@@ -56,15 +58,15 @@ const fakeBackend =()=> {
 
             function refreshToken() {
                 if (!isAuthenticated()) return unauthorized();
-               // let auth = JSON.parse(localStorage.getItem('auth')) || [];
+                // let auth = JSON.parse(localStorage.getItem('auth')) || [];
                 //const user = users.find(x => x.id === auth?.id);               
 
                 let currentDateTime = new Date();
                 let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 7)
 
-                return ok({                    
-                    token: 'fake-jwt-refreshtoken' ,
-                    tokenExpiry : expiryTime/*'2024-09-25 21:05:24.789150'                 */
+                return ok({
+                    token: 'fake-jwt-refreshtoken',
+                    tokenExpiry: expiryTime/*'2024-09-25 21:05:24.789150'                 */
                 });
             }
 
@@ -124,6 +126,13 @@ const fakeBackend =()=> {
                 return ok();
             }
 
+            function upload() {
+                
+                return ok({
+                    viewuri:'https://freeimage.host/i/dyXxVKN',
+			
+                });
+            }
             // helper functions
 
             function ok(body) {
@@ -139,10 +148,10 @@ const fakeBackend =()=> {
             }
 
             function basicDetails(userdetail) {
-               // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
+                // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
                 const updatedUser = Object.assign({}, user, userdetail);
                 return updatedUser;
-                
+
             }
 
             function isAuthenticated() {
