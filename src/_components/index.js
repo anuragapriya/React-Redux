@@ -7,6 +7,6 @@ import OTPVerification from "./OTPVerification";
 import SessionTimeout from "./SessionTimeout";
 import SessionTimeoutDialog from "./SessionTimeoutDialog";
 import CardDetail from "./CardDetail";
-import AppNav from "./AppNav";
+import AppMenu from "./menu/AppMenu";
 
-export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppNav};
+export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu};

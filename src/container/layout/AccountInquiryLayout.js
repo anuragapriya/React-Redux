@@ -1,18 +1,23 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import {Home} from "container/accountInquiry";
-import { AppNav } from "_components";
+import { Home } from "container/accountInquiry";
+import { Dashboard } from "@mui/icons-material";
+import DashboardLayout from "./DashbordLayout";
 
 const AccountInquiryLayout = () => {
+    const appMenuItems = [
+        {
+            name: 'Dashboard',
+            link: '/accountInquiry',
+            Icon: Dashboard,
+        }
+    ];
     return (
-        <div className="p-4">
-            <div className="container">
-                <AppNav name ={"accountInquiry"}></AppNav>
-                <Routes>
-                    <Route index element={<Home />} />
-                </Routes>
-            </div>
-        </div>
+        <Routes>
+            <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
+                <Route index element={<Home />} />
+            </Route>
+        </Routes>
     );
 }
 

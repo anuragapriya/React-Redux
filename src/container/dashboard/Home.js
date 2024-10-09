@@ -27,7 +27,7 @@ const Home = () => {
     {
       id: 4,
       title: "User Management",
-      name:"users",
+      name:"userManagement",
       description: "User Management"
     },
   ];
