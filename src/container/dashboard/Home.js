@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import CardDetail from '_components/CardDetail'; // Ensure the path is correct
-import Grid2 from '@mui/material/Grid2'; // Correct import for Grid2
+import CardDetail from '_components/CardDetail'; 
+import Grid2 from '@mui/material/Grid2'; 
 
 const Home = () => {
   const navigate = useNavigate();
@@ -40,9 +39,6 @@ const Home = () => {
     console.log(`Card ${path} clicked`);
     navigate(`/${path}`);
   };
-
-  const auth = useSelector(x => x.auth.value);
-  const tokenDate = new Date(auth?.tokenExpiry);
 
   return (
     <Grid2 container spacing={2}>

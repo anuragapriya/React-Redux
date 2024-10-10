@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { userActions, alertActions } from '_store';
-import { DataArrayTwoTone } from '@mui/icons-material';
 import DocumentViewer from "./DocumentViewer";
 
 
@@ -15,7 +14,6 @@ import DocumentViewer from "./DocumentViewer";
 const FileUpload = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const file = localStorage.getItem('uploadedFile');
     const [files, setFiles] = useState([]);
     const [open,setOpen]= useState(false);
  

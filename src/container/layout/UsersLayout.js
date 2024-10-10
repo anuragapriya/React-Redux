@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { UserList, AddEdit, Home } from "container/user";
-import { Dashboard, People ,LibraryBooks} from "@mui/icons-material";
+import { Dashboard ,LibraryBooks} from "@mui/icons-material";
 import DashboardLayout from "./DashbordLayout";
 
 const UsersLayout = () => {
