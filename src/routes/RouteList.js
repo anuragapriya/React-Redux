@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { usePromiseTracker } from 'react-promise-tracker';
 import { store, authActions } from '_store';
 import PrivateRoute from './PrivateRoute';
-import {Nav,LoadingOverlay,Notification,SessionTimeout, AppMenu} from '_components';
+import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
 import {LoginLayout,UsersLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
 import {Home} from 'container/dashboard';
+import DocumentViewer from '_components/DocumentViewer';
 
 const RouteList = () => {
 
@@ -58,6 +59,7 @@ const RouteList = () => {
                         <Route path="userManagement/*" element={<UsersLayout />} />
                         <Route path="accountInquiry/*" element={<AccountInquiryLayout />} />
                         <Route path="energyAssistance/*" element={<EnergyAssistanceLayout />} />
+                        <Route path="/document" element={<DocumentViewer />} />
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout />} />

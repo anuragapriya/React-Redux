@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { UserList, AddEdit, Home } from "container/user";
-import { Dashboard, People ,LibraryBooks} from "@mui/icons-material";
+import { Dashboard ,LibraryBooks} from "@mui/icons-material";
 import DashboardLayout from "./DashbordLayout";
 
 const UsersLayout = () => {
@@ -9,7 +9,7 @@ const UsersLayout = () => {
     const appMenuItems = [
         {
             name: 'Dashboard',
-            link: '/userManagement',
+            link: '/userManagement/dashboard',
             Icon: Dashboard,
         },
         // {
@@ -23,7 +23,7 @@ const UsersLayout = () => {
             items: [
                 {
                     name: 'Manage User',
-                    link: 'users',
+                    link: 'users/view',
                 },
                 {
                     name: 'Add User',
@@ -35,8 +35,8 @@ const UsersLayout = () => {
     return (
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                <Route index element={<Home />} />
-                <Route path='users' element={<UserList />} />
+                <Route path="dashboard" element={<Home />} />
+                <Route path='users/view' element={<UserList />} />
                 <Route path="users/add" element={<AddEdit />} />
                 <Route path="users/edit/:id" element={<AddEdit />} />
             </Route>

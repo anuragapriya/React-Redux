@@ -3,7 +3,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import exportPDF from '_utils/exportPdf';
 import exportCSV from '_utils/exportCsv';
 import exportExcel from '_utils/exportExcel';
-
+import FileUpload from './FileUpload';
 const Download = (props) => {
   const rows = props.rows;
   const headers = props.headers;
@@ -40,6 +40,7 @@ const Download = (props) => {
     >
       Export To Excel
     </Button>
+    <FileUpload></FileUpload>
   </>);
 }
 
