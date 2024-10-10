@@ -1,7 +1,4 @@
-import React from "react";
-import PasswordChecklist from "react-password-checklist";
-import { Box, Typography } from '@mui/material';
-import { labels } from "_utils/constant";
+import React, { useEffect, useState } from "react";
 
 const PasswordCheck = (props) => {
     const { password, confirmPassword } = props;
@@ -10,32 +7,56 @@ const PasswordCheck = (props) => {
     const isPasswordValid = typeof password === "string";
     const isConfirmPasswordValid = typeof confirmPassword === "string";
 
-    const isLengthValid = (password) => {
-        if (!password) return false; 
-        return password.length >= 8 && password.length <= 16;
+    const [validations, setValidations] = useState({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        special: false,
+        match: false,
+    });
+
+    useEffect(() => {
+        if (isPasswordValid && isConfirmPasswordValid) {
+            validatePassword(password, confirmPassword);
+        }
+    }, [password, confirmPassword]);
+
+    const validatePassword = (password, confirmPassword) => {
+        setValidations({
+            length: password.length >= 8 && password.length <= 16,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /[0-9]/.test(password),
+            special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
+            match: password === confirmPassword,
+        });
     };
 
     return (
-        <Box sx={{ padding: 2, backgroundColor: '#f9f9f9', borderRadius: 1 }}>
-            <Typography variant="h6">{labels.passwordChecklistLabel}</Typography>
-            <PasswordChecklist
-                rules={["specialChar", "number", "capital", "match", "lowercase", "minAndmaxLength"]}
-                value={isPasswordValid ? password : ""}
-                valueAgain={isConfirmPasswordValid ? confirmPassword : ""}
-                minLength={8}
-                maxLength={16} 
-                minAndmaxLength={isLengthValid(password)}
-                specialCharsRegex={/[~`!@#$%^&*()_+\-={};':"<>?,./|]/}
-                messages={{
-                    minAndmaxLength: "8-16 characters.",
-                    lowercase: "Lower case letter (a-z).",
-                    capital: "Upper case letter (A-Z).",
-                    number: "Number (0-9)",
-                    specialChar: "Special character (!@#$%^&*<>?/:;+-)",
-                    match: "Password does not match with Confirm Password",
-                }}
-            />
-        </Box>
+        <div>
+            <h2>Your password must contain</h2>
+            <ul>
+                <li style={{ color: validations.length ? 'green' : 'red' }}>
+                    8 - 16 characters.
+                </li>
+                <li style={{ color: validations.uppercase ? 'green' : 'red' }}>
+                    Upper case letter (A-Z).
+                </li>
+                <li style={{ color: validations.lowercase ? 'green' : 'red' }}>
+                    Lower case letter (a-z).
+                </li>
+                <li style={{ color: validations.number ? 'green' : 'red' }}>
+                    Numbers (0-9).
+                </li>
+                <li style={{ color: validations.special ? 'green' : 'red' }}>
+                    Symbols (!@#$%^&*?/\|"':;+)
+                </li>
+                <li style={{ color: validations.match ? 'green' : 'red' }}>
+                    Passwords match.
+                </li>
+            </ul>
+        </div>
     );
 };
 
