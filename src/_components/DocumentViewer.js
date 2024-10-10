@@ -1,56 +1,34 @@
-// import React from 'react';
-// import { useLocation } from 'react-router-dom';
-
-// const DocumentViewer = () => {
-//   const location = useLocation();
-//   const { url } = location.state || {};
-//      return (
-//     <iframe
-//       title="Document Viewer"
-//       src={`https://docs.google.com/viewer?url=${url}&embedded=true`}
-//       width="100%"
-//       height="600"
-//     />
-//   );
-// };
-
-// export default DocumentViewer;
-
-import React, { useState, useEffect } from "react";
-import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+import React from 'react';
+import FileViewer from 'react-file-viewer';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
-const DocumentViewer = ({ open, handleClose, url }) => {
-  const [docs, setDocs] = useState([]);
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '80%',
+  maxHeight: '80vh',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  overflowY: 'auto', // This makes the modal scrollable
+};
 
-  useEffect(() => {
-    try {
-      const documents = [
-       // { uri: require("../assets/files/Users.pdf") },
-        { uri: require("../assets/files/TimeSheet.JPG") },
-      ];
-      setDocs(documents);
-    } catch (error) {
-      console.error("Error loading documents:", error);
-    }
-  }, []);
-
+const DocumentViewer = ({ open, handleClose, file, type }) => {
   return (
     <React.Fragment>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <Box className="modalpopup">
+        aria-describedby="child-modal-description">
+        <Box sx={style}>
           <Box className="row modalpopupinner">
-            {docs.length > 0 ? (
-              <DocViewer  pluginRenderers={DocViewerRenderers} documents={docs} />              
-            ) : (
-              <p>Loading documents...</p>
-            )}
+            <FileViewer
+              fileType={type}
+              filePath={file} />
           </Box>
         </Box>
       </Modal>
