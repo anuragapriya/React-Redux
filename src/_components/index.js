@@ -8,5 +8,7 @@ import SessionTimeout from "./SessionTimeout";
 import SessionTimeoutDialog from "./SessionTimeoutDialog";
 import CardDetail from "./CardDetail";
 import AppMenu from "./menu/AppMenu";
+import ImageUpload from "./ImageUpload";
+import DocumentViewer from "./DocumentViewer";
 
-export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu};
+export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer};
