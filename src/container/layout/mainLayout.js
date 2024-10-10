@@ -38,7 +38,7 @@ const MainLayout = () => (
                     <ul className="list-type">
                         <li>
                             <Link href="#">
-                                Solutons</Link>
+                                Solutions</Link>
                         </li>
                         <li>
                             <Link href="#" >

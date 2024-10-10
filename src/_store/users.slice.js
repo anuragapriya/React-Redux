@@ -21,7 +21,8 @@ export const usersReducer = slice.reducer;
 function createInitialState() {
     return {
         list: null,
-        item: null
+        item: null,
+        file:null
     }
 }
 
@@ -33,7 +34,8 @@ function createExtraActions() {
         getAll: getAll(),
         getById: getById(),
         update: update(),
-        delete: _delete()
+        delete: _delete(),
+        upload:upload()
     };
 
     function register() {
@@ -78,6 +80,21 @@ function createExtraActions() {
     }
 
     // prefixed with underscore because delete is a reserved word in javascript
+    function upload() {
+        return createAsyncThunk(
+            `${name}/upload`,
+            async function (file, { getState, dispatch }) {
+                console.log(file);
+              const uploadedFile=  await trackPromise( fetchWrapper.upload(`${baseUrl}/${file}`));
+console.log(uploadedFile);
+                // auto logout if the logged in user deleted their own record
+            
+                   localStorage.setItem("uploadedFile",uploadedFile );
+                
+            }
+        );
+    }
+
     function _delete() {
         return createAsyncThunk(
             `${name}/delete`,
@@ -98,6 +115,7 @@ function createExtraReducers() {
         getAll();
         getById();
         _delete();
+        upload();
 
         function getAll() {
             var { pending, fulfilled, rejected } = extraActions.getAll;
@@ -141,6 +159,20 @@ function createExtraReducers() {
                     const user = state.list.value.find(x => x.id === action.meta.arg);
                     user.isDeleting = false;
                 });
+        }
+
+        function upload() {
+            var { pending, fulfilled, rejected } = extraActions.upload;
+            builder
+            .addCase(pending, (state) => {
+                state.file = { loading: true };
+            })
+            .addCase(fulfilled, (state, action) => {
+                state.file = { value: action.payload };
+            })
+            .addCase(rejected, (state, action) => {
+                state.file = { error: action.error };
+            });
         }
     }
 }
