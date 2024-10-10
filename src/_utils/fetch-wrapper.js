@@ -28,7 +28,8 @@ function requestUpload(method) {
             method,
             headers: authHeader(url)
         };
-        if (body) {
+        if (body) {          
+           requestOptions.headers['Content-Type']= 'multipart/form-data';
            requestOptions.body = body;
         }
         return fetch(url, requestOptions).then(handleResponse);
