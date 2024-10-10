@@ -3,15 +3,15 @@ import axios from 'axios';
 import Blob from 'blob';
 import FormData from 'form-data';
 import { Files } from '_utils';
-import DocumentViewer from './DocumentViewer';
 import Link from "@material-ui/core/Link";
+//import DocumentViewer from './DocumentViewer';
 
 const ImageUpload = () => {
    const [files, setFiles] = useState([]);
-   const [open,setOpen]= useState(false);
+   //const [open,setOpen]= useState(false);
    const handleChange = (newFiles) => {
       setFiles(prevFiles => [...prevFiles, ...newFiles]);
-      setOpen(true);
+      //  setOpen(true);
    }
 
    const handleFileRemove = (fileId) => {
@@ -22,9 +22,9 @@ const ImageUpload = () => {
       setFiles([])
    }
 
-   const handleClose=()=>{
-    setOpen(false);
-  };
+   //    const handleClose=()=>{
+   //     setOpen(false);
+   //   };
 
    const handleUploadFiles = () => {
       const formData = new FormData()
@@ -41,8 +41,8 @@ const ImageUpload = () => {
    }
 
    const handleOpen = (fileUrl) => {
-    window.open(fileUrl, '_blank');
- }
+      window.open(fileUrl, '_blank');
+   }
 
    return (
       <div>
@@ -69,14 +69,14 @@ const ImageUpload = () => {
                      <li key={file.id} className="files-list-item">
                         <div className="files-list-item-preview">
 
- {/* <DocumentViewer open={open} handleClose={handleClose} file={file.preview.url} type={file.extension}></DocumentViewer> */}
-                            </div>
+                           {/* <DocumentViewer open={open} handleClose={handleClose} file={file.preview.url} type={file.extension}></DocumentViewer> */}
+                        </div>
                         <div className="files-list-item-content">
                            {/* <div className="files-list-item-content-item files-list-item-content-item-1">{file.name}</div>
                            <div className="files-list-item-content-item files-list-item-content-item-2">{file.sizeReadable}</div> */}
-                        <Link onClick={()=>handleOpen(file.preview.url)} >
-                     {file.name}
-                  </Link>
+                           <Link onClick={() => handleOpen(file.preview.url)} >
+                              {file.name}
+                           </Link>
                         </div>
                         <div
                            className="files-list-item-remove"
