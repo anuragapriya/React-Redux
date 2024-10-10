@@ -9,12 +9,12 @@ const EnergyAssistanceLayout = () => {
     const appMenuItems = [
         {
             name: 'Dashboard',
-            link: '/energyAssistance',
+            link: '/energyAssistance/dashboard',
             Icon: Dashboard,
         },
         {
             name: 'Jurisdiction',
-            link: 'jurisdiction',
+            link: '/energyAssistance/jurisdiction',
             Icon: People,
         }
     ];
@@ -22,7 +22,7 @@ const EnergyAssistanceLayout = () => {
 
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                <Route index element={<Home />} />
+                <Route path="dashboard" element={<Home />} />
                 <Route path="jurisdiction" element={<Jurisdiction />} />
             </Route>
         </Routes>

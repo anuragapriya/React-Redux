@@ -8,14 +8,14 @@ const AccountInquiryLayout = () => {
     const appMenuItems = [
         {
             name: 'Dashboard',
-            link: '/accountInquiry',
+            link: '/accountInquiry/dashboard',
             Icon: Dashboard,
         }
     ];
     return (
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                <Route index element={<Home />} />
+                <Route path="dashboard" element={<Home />} />
             </Route>
         </Routes>
     );

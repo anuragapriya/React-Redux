@@ -1,13 +1,5 @@
 .app-container {
     min-height: 350px;
 }
-.nav-link {
-    color: white;
-    text-decoration: none;
-}
-
-.nav-link-active {
-    color: yellow; /* Change this to your desired active color */
-}
 
 @import './styles/Login.css';

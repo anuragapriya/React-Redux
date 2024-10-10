@@ -46,7 +46,7 @@ const UserList = () => {
   }, [dispatch]);
 
   const handleEdit=(id)=>{
-    navigate(`edit/${id}`);
+    navigate(`../users/edit/${id}`);
   };
 
   const table = useMaterialReactTable({
