@@ -81,7 +81,7 @@ function createExtraActions() {
         return createAsyncThunk(`${name}/refreshToken`, async (_, { getState, dispatch }) => {
             try {
                 const accessToken = getState().auth.value?.token;
-                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken }));
+                const response = await fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken });
                 // set auth user in redux state
                 const res = {
                     ...getState().auth.value,

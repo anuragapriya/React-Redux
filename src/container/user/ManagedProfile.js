@@ -1,26 +1,17 @@
 import NavTab from "_components/NavTab";
+import UserList from "./UserList";
+import { Jurisdiction } from "container/energyAssistance";
 
-export const tabConfig = [
-  {
-    id: 1,
-    label: "Profiles Awaiting Approval",
-    name: "Profiles Awaiting Approval",
-    pathname: '/userManagement/users/view',
-    //active: false,
-  },
-  {
-    id: 2,
-    label: "Manage Organization Name Profiles",
-    name: "Manage Organization Name Profiles",
-    pathname: '/userManagement/users/add',
-   // active: false,
-  }
-];
+
 
 const ManagedProfile =()=>{
-    return <>
-    <NavTab tabConfig={tabConfig}></NavTab>
-    </>;
+  const tabConfig = [
+    { label: "PROFILE AWAITING FOR APPROVAL", component: <UserList /> },
+    { label: " MANAGE ORGANIZATION NAME PROFILES", component: <Jurisdiction /> },
+   
+  ];
+
+  return <NavTab tabConfig={tabConfig} />;
 };
 
 export default ManagedProfile;

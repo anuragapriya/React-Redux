@@ -6,10 +6,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { useNavigate, Link } from "react-router-dom";
 
-
-const TabPanel=(props)=> {
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -27,71 +25,68 @@ const TabPanel=(props)=> {
       )}
     </div>
   );
-}
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
-const a11yProps=(index) =>{
+const a11yProps = (index) => {
   return {
     id: `nav-tab-${index}`,
-    "aria-controls": `nav-tabpanel-${index}`
+    "aria-controls": `nav-tabpanel-${index}`,
   };
-}
-
-const LinkTab=(props)=> {
-  console.log(props);
-  return (
-    <Tab
-      component={Link}
-      to={props.pathname}
-      {...props}
-    />
-  );
-}
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
-  }
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
-const NavTab=({tabConfig})=> {
-  //   let navigate = useNavigate();
-
+const NavTab = ({ tabConfig }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    // navigate(newValue);
   };
 
   return (
     <div className={classes.root}>
-       <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                    variant="fullWidth"
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="nav tabs example"
-                >
-                    {tabConfig.map((item, index) => (
-                        <LinkTab {...item} key={index} {...a11yProps(index)} />
-                    ))}
-
-                </Tabs>
-
-            </Box>
-            </Box>
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            variant="fullWidth"
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
+          >
+            {tabConfig.map((item, index) => (
+              <Tab label={item.label} {...a11yProps(index)} key={index} />
+            ))}
+          </Tabs>
+        </Box>
+        {tabConfig.map((item, index) => (
+          <TabPanel value={value} index={index} key={index}>
+            {item.component}
+          </TabPanel>
+        ))}
+      </Box>
     </div>
   );
-}
+};
 
+NavTab.propTypes = {
+  tabConfig: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      component: PropTypes.node.isRequired,
+    })
+  ).isRequired,
+};
 
 export default NavTab;
