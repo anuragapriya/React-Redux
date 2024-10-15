@@ -10,5 +10,6 @@ import CardDetail from "./CardDetail";
 import AppMenu from "./menu/AppMenu";
 import ImageUpload from "./ImageUpload";
 import DocumentViewer from "./DocumentViewer";
+import NavTab from "./NavTab";
 
-export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer};
+export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab};

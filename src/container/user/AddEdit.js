@@ -6,12 +6,12 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions, alertActions } from '_store';
 import {  useNavigate } from 'react-router-dom';
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { Modal, Box, Typography, TextField, Button } from '@mui/material';
 
-const AddEdit = () => {
-    const { id } = useParams();
+const AddEdit = ({ open, handleClose, selectedrowId }) => {
+   
+    const id  = selectedrowId;
+    console.log(id);
     const [title, setTitle] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ const AddEdit = () => {
         } else {
             setTitle('Add User');
         }
-    }, []);
+    }, [id]);
 
     async function onSubmit(data) {
         dispatch(alertActions.clear());
@@ -68,7 +68,8 @@ const AddEdit = () => {
             }
 
             // redirect to user list with success message
-            navigate('/userManagement/users/view');
+            //navigate('/userManagement/managedprofile');
+            handleClose();
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -76,15 +77,21 @@ const AddEdit = () => {
     }
 
     const onCancel = () => {
-        navigate('/userManagement/users/view');
+        //navigate('/userManagement/managedprofile');
+        handleClose();
     }
     return (
-        <>
-            <h1>{title}</h1>
+          <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="edit-modal-title"
+      aria-describedby="edit-modal-description"
+    >
+      <Box sx={{ ...style, width: 400 }}>
             {!(user?.loading || user?.error) &&
-                <Typography component="div" className="mobilebanner">
+                (<Typography component="div" className="mobilebanner">
                 <Typography component="h1" variant="h5" className="Logincontent">
-                    SIGN UP
+                {title}
                 </Typography>
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -195,14 +202,27 @@ const AddEdit = () => {
                     </form>
                 </div>
             </Typography>
-            }
+            )}
             {user?.error &&
                 <div class="text-center m-5">
                     <div class="text-danger">Error loading user: {user.error}</div>
                 </div>
             }
-        </>
+            </Box>
+            </Modal>
+    
     );
 }
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
 export default AddEdit;
