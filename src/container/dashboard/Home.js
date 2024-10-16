@@ -31,7 +31,7 @@ const Home = () => {
       title: "User Management",
       name: "userManagement",
       description: "User Management",
-      path: "userManagement/dashboard"
+      path: "userManagement/managedprofile"
     },
   ];
 
