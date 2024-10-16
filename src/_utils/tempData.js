@@ -11,3 +11,18 @@ export const selectOptions=[
     { label:'What is the name of the street where your best friend lived during childhood?', value: 10 }
 ]
 
+export const organizationList=[
+    { label:'-Select-', value: 0 },
+    { label:'Organization 1', value: 1 },
+    { label:'Organization 2', value: 2},
+    { label:'Organization 3', value: 3 },
+    { label:'Organization 4', value: 4 },    
+]
+
+export const jurisdictionList=[
+    { label:'-Select-', value: 0 },
+    { label:'DC', value: 1 },
+    { label:'MD', value: 2},
+    { label:'VA', value: 3 }    
+]
+

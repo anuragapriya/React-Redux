@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Button } from '@mui/material';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
+import { Edit, DeleteForever, Lock, LockOpen } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
 import { userActions } from '_store';
 import AddEdit from './ManageProfile';
 import { ErrorBoundary, Download } from '_components';
@@ -16,6 +18,9 @@ const UserList = () => {
   const [open, setOpen] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const [title, setTitle] = useState('');
+  const [isLocked, setLock] = useState(false);
+
+  const handleLock = () => setLock((lock) => !lock);
 
   const columns = useMemo(
     () => [
@@ -102,12 +107,15 @@ const UserList = () => {
     ),
     renderRowActions: ({ row }) => (
       <div style={{ display: 'flex', gap: '0.5rem' }}>
-        <Button variant="contained" color="primary" onClick={() => handleAddEdit(row.original.id)}>
-          Edit
-        </Button>
-        <Button variant="contained" color="secondary" onClick={() => dispatch(userActions.delete(row.original.id))}>
-          Delete
-        </Button>
+        <IconButton onClick={() => handleAddEdit(row.original.id)}>
+          <Edit variant="contained" color="primary" />
+        </IconButton>
+        <IconButton onClick={() => dispatch(userActions.delete(row.original.id))}>
+          <DeleteForever variant="contained" color="secondary" />
+        </IconButton>
+        <IconButton onClick={handleLock}>
+        {isLocked ? <Lock /> : <LockOpen />} 
+        </IconButton>
       </div>
     ),
   });

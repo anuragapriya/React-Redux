@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Box, Typography, TextField, Button } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import { ComboSelectBox, PasswordCheck } from '_components';
-import { selectOptions } from '_utils/tempData';
+import { jurisdictionList, organizationList, selectOptions } from '_utils/tempData';
 import { profileValidationSchema } from '_utils/validationSchema';
 
 const ManageProfile = ({title, open, handleClose, selectedrowId }) => {
@@ -135,7 +135,7 @@ const ManageProfile = ({title, open, handleClose, selectedrowId }) => {
                                         {...field}
                                         boxLabel="First Security Question"
                                         options={selectOptions}
-                                        handleChange={(value) => field.onChange(value)}
+                                        handleChange={(value) =>  field.onChange(value)}
                                         error={!!errors.firstSecurityQuestion}
                                         helperText={errors.firstSecurityQuestion?.message}
                                     />
@@ -196,6 +196,36 @@ const ManageProfile = ({title, open, handleClose, selectedrowId }) => {
                                 error={!!errors.thirdSecurityAnswer}
                                 helperText={errors.thirdSecurityAnswer?.message}
                             /> 
+                            {id && <>
+                                <Controller
+                                name="assignToAgency"
+                                control={control}
+                                render={({ field }) => (
+                                    <ComboSelectBox
+                                        {...field}
+                                        boxLabel="Assign To Agency"
+                                        options={organizationList}
+                                        handleChange={(value) => field.onChange(value)}
+                                        error={!!errors.assignToAgency}
+                                        helperText={errors.assignToAgency?.message}
+                                    />
+                                )}
+                            />
+                            <Controller
+                                name="assignToJurisdiction"
+                                control={control}
+                                render={({ field }) => (
+                                    <ComboSelectBox
+                                        {...field}
+                                        boxLabel="Assign To Jurisdiction"
+                                        options={jurisdictionList}
+                                        handleChange={(value) => field.onChange(value)}
+                                        error={!!errors.assignToJurisdiction}
+                                        helperText={errors.assignToJurisdiction?.message}
+                                    />
+                                )}
+                            />
+                            </>}
                             <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit'}
                             </Button>
