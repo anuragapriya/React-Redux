@@ -35,7 +35,7 @@ const PasswordCheck = (props) => {
 
     return (
         <div>
-            <h2>Your password must contain</h2>
+            <p>Your password must contain</p>
             <ul>
                 <li style={{ color: validations.length ? 'green' : 'red' }}>
                     8 - 16 characters.

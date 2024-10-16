@@ -11,5 +11,10 @@ import AppMenu from "./menu/AppMenu";
 import ImageUpload from "./ImageUpload";
 import DocumentViewer from "./DocumentViewer";
 import NavTab from "./NavTab";
+import ErrorBoundary from "./ErrorBoundary";
+import ComboSelectBox from "./ComboSelectBox";
+import PasswordCheck from "./PasswordCheck";
 
-export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab};
+export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,
+    SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab,ErrorBoundary,
+    ComboSelectBox,PasswordCheck};

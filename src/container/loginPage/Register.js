@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { userActions, alertActions } from '_store';
-import {PasswordCheck} from 'container/loginPage';
+import { PasswordCheck } from '_components';
 
 
 const Register = () => {
