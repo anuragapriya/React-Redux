@@ -1,44 +1,21 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { userActions } from '_store';
-import Download from '_components/Download';
-import AddEdit from './AddEdit'; // Import the modal component
-
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error("Error caught by ErrorBoundary:", error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children; 
-  }
-}
+import AddEdit from './ManageProfile';
+import { ErrorBoundary, Download } from '_components';
+import { labels } from '_utils/constant';
 
 const UserList = () => {
   const filename = 'Users';
-  const users = useSelector((x) => x.users.list);
-  const navigate = useNavigate();
+  const users = useSelector((x) => x.users?.list);
   const dispatch = useDispatch();
   const rows = users?.value;
 
   const [open, setOpen] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
+  const [title, setTitle] = useState('');
 
   const columns = useMemo(
     () => [
@@ -62,7 +39,12 @@ const UserList = () => {
   );
 
   const data = useMemo(() => {
-    return rows ? rows : [];
+    return rows
+      ? rows.map((user) => ({
+        ...user,
+        userName: `${user.firstName} ${user.lastName}`,
+      }))
+      : [];
   }, [rows]);
 
   useEffect(() => {
@@ -70,9 +52,14 @@ const UserList = () => {
   }, [dispatch]);
 
   const handleAddEdit = (id) => {
-    console.log(id);
     setSelectedRowId(id);
     setOpen(true);
+    if (id) {
+      setTitle(labels.manageProfileLabel);
+    }
+    else {
+      setTitle(labels.signUpLabel);
+    }
   };
 
   const handleClose = () => {
@@ -108,9 +95,9 @@ const UserList = () => {
         }}
       >
         <Download rows={data} headers={columns} filename={filename} />
-        <Button variant="contained" color="primary" onClick={()=>handleAddEdit(null)}>
+        {/* <Button variant="contained" color="primary" onClick={() => handleAddEdit(null)}>
           Add
-        </Button>
+        </Button> */}
       </Box>
     ),
     renderRowActions: ({ row }) => (
@@ -128,7 +115,7 @@ const UserList = () => {
   return (
     <ErrorBoundary>
       <MaterialReactTable table={table} />
-      <AddEdit open={open} handleClose={handleClose} selectedrowId={selectedRowId} />
+      <AddEdit title={title} open={open} handleClose={handleClose} selectedrowId={selectedRowId} />
     </ErrorBoundary>
   );
 };

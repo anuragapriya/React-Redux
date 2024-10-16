@@ -1,13 +1,34 @@
 export const user = {
-    id: "1",
-    userName: "",
-    email: "",
-    roles: "",
+    id: null,
+    userName: '',
+    email: '',
+    roles: [], // Ensure roles is an array of plain objects
     isVerified: false,
-    jwtToken: "",
-    tokenExpiry: "",
-    refreshToken: "",
-    refreshTokenExpiry: ""
+    jwtToken: '',
+    tokenExpiry: '',
+    refreshToken: '',
+    refreshTokenExpiry: ''
+};
+
+
+export const userDetails={
+    id: null,
+    firstName:'',
+    lastName: '',
+    companyName:'',
+    telephone:null,
+    email: '',
+    confirmEmail:'',
+    password:'',
+    confirmPassword:'',
+    securityQuestions:[],
+    firstSecurityQuestion:'',
+    firstSecurityAnswer:'',
+    secondSecurityQuestion:'',
+    secondSecurityAnswer:'',
+    thirdSecurityQuestion:'',
+    thirdSecurityAnswer:'',
+    
 }
 
 export const labels = {
@@ -19,4 +40,5 @@ export const labels = {
     jurisdictionLabel:"JURISDICTION",
     seasonStartLabel:"SEASON START",
     seasonEndLabel:"SEASON END",
+    manageProfileLabel:"Manage Profile"
 }

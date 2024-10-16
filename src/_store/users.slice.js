@@ -1,15 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { authActions } from '_store';
 import { fetchWrapper } from '_utils/fetch-wrapper';
+import { userDetails } from '_utils/constant';
 
 // create slice
 
 const name = 'users';
 const initialState = createInitialState();
 const extraActions = createExtraActions();
+const reducers= createReducers();
 const extraReducers = createExtraReducers();
-const slice = createSlice({ name, initialState, extraReducers });
+const slice = createSlice({ name, initialState,reducers, extraReducers });
 
 // exports
 
@@ -20,8 +22,8 @@ export const usersReducer = slice.reducer;
 
 function createInitialState() {
     return {
-        list: null,
-        item: null,
+        list: [],
+        item: {...userDetails},
         file:null
     }
 }
@@ -65,16 +67,16 @@ function createExtraActions() {
             async function ({ id, data }, { getState, dispatch }) {
                 await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, data));
 
-                // update stored user if the logged in user updated their own record
-                const auth = getState().auth.value;
-                if (id === auth?.id.toString()) {
-                    // update local storage
-                    const user = { ...auth, ...data };
-                    localStorage.setItem('auth', JSON.stringify(user));
+                // // update stored user if the logged in user updated their own record
+                // const auth = getState().auth.value;
+                // if (id === auth?.id.toString()) {
+                //     // update local storage
+                //     const user = { ...auth, ...data };
+                //     localStorage.setItem('auth', JSON.stringify(user));
 
-                    // update auth user in redux state
-                    dispatch(authActions.setAuth(user));
-                }
+                //     // update auth user in redux state
+                //     dispatch(authActions.setAuth(user));
+                // }
             }
         );
     }
@@ -107,6 +109,17 @@ console.log(uploadedFile);
                 }
             }
         );
+    }
+}
+
+function createReducers()
+{
+    return {
+        clear
+    };
+
+    function clear(state) {
+        state.item = {...userDetails};
     }
 }
 
@@ -150,29 +163,30 @@ function createExtraReducers() {
             builder
                 .addCase(pending, (state, action) => {
                     const user = state.list.value.find(x => x.id === action.meta.arg);
-                    user.isDeleting = true;
+                    if (user) user.isDeleting = true;
                 })
                 .addCase(fulfilled, (state, action) => {
                     state.list.value = state.list.value.filter(x => x.id !== action.meta.arg);
                 })
                 .addCase(rejected, (state, action) => {
                     const user = state.list.value.find(x => x.id === action.meta.arg);
-                    user.isDeleting = false;
+                    if (user) user.isDeleting = false;
                 });
         }
 
         function upload() {
             var { pending, fulfilled, rejected } = extraActions.upload;
             builder
-            .addCase(pending, (state) => {
-                state.file = { loading: true };
-            })
-            .addCase(fulfilled, (state, action) => {
-                state.file = { value: action.payload };
-            })
-            .addCase(rejected, (state, action) => {
-                state.file = { error: action.error };
-            });
-        }
-    }
+                .addCase(pending, (state) => {
+                    state.file = { loading: true };
+                })
+                .addCase(fulfilled, (state, action) => {
+                    state.file = { value: action.payload };
+                })
+                .addCase(rejected, (state, action) => {
+                    state.file = { error: action.error };
+                });
+        }        
+    };
 }
+
