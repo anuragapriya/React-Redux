@@ -10,6 +10,7 @@ const ComboSelectBox = forwardRef(({ value, boxLabel, options, handleChange }, r
                 clearOnBlur
                 id="combo-box-demo"
                 options={options}
+               // getOptionDisabled={(option) => disabledOptions.includes(option)}
                 getOptionLabel={(option) => option.label}
                 isOptionEqualToValue={(option, value) => option.value === value}
                 value={options.find(option => option.value === value) || null}

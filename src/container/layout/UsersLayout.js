@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import { Home, ManagedProfile } from "container/user";
+import { CompanyDetails, Home, UserList } from "container/user";
 import { Dashboard ,LibraryBooks} from "@mui/icons-material";
 import DashboardLayout from "./DashbordLayout";
 
@@ -28,22 +28,22 @@ const UsersLayout = () => {
         //     items: [
         //         {
         //             name: 'Managed Profile',
-        //             link: 'managedprofile',
+        //             link: 'dashboard',
         //          },
-                // {
-                //     name: 'Add User',
-                //     link: 'users/add',
-                // },
+        //         {
+        //             name: 'Add User',
+        //             link: 'companyDetails',
+        //         },
         //     ],
         // },
     ];
     return (
         <Routes>
-            <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                 {/* <Route path="dashboard" element={<ManagedProfile />} />  */}
+            <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>                   
                 <Route path='managedprofile' element={<Home />} />
-                {/* <Route path="users/add" element={<AddEdit />} />
-                <Route path="users/edit/:id" element={<AddEdit />} /> */}
+                {/* <Route path="dashboard" element={<UserList />} /> 
+                 <Route path="companyDetails" element={<CompanyDetails />} />
+                <Route path="users/edit/:id" element={<AddEdit />} />  */}
             </Route>
         </Routes>
     );

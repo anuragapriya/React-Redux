@@ -1,4 +1,4 @@
-import  Home  from "./Home";
+import  AccountSearch  from "./AccountSearch";
 import Upload from "./Upload";
 
-export{Home,Upload};
+export{AccountSearch,Upload};

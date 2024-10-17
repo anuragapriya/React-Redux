@@ -26,3 +26,9 @@ export const jurisdictionList=[
     { label:'VA', value: 3 }    
 ]
 
+export const accessRights=[
+    { label:'-Select-', value: 0 },
+    { label:'Read Only', value: 1 },
+    { label:'Read/Write', value: 2},   
+]
+
