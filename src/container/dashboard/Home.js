@@ -10,7 +10,7 @@ const Home = () => {
       name: "accountInquiry",
       title: "Account Inquiry",
       description: "Account Inquiry",
-      path: "accountInquiry/dashboard"
+      path: "accountInquiry/accountSearch"
     },
     {
       id: 2,

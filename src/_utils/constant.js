@@ -28,7 +28,9 @@ export const userDetails={
     secondSecurityAnswer:'',
     thirdSecurityQuestion:'',
     thirdSecurityAnswer:'',
-    
+    organizationList:[],
+    assignToAgency:'',
+    assignTOJurisdiction:''
 }
 
 export const labels = {

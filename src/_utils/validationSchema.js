@@ -20,20 +20,20 @@ export const profileValidationSchema=(id) => Yup.object().shape({
         .concat(id ? null : Yup.string().required('Password is required'))
         .min(6, 'Password must be at least 6 characters'),
     confirmPassword: Yup.string()
-    .concat(id ? null :Yup.string().required('Please confirm your password'))
+    //.concat(id ? null :Yup.string().required('Please confirm your password'))
         .oneOf([Yup.ref('password')], 'Passwords must match'),
     firstSecurityQuestion: Yup.number()
         .required('Please select the first security question'),
     firstSecurityAnswer: Yup.string()
         .required('First security answer is required'),
-    // secondSecurityQuestion: Yup.number()
-    //     .required('Please select the second security question'),
-    // secondSecurityAnswer: Yup.string()
-    //     .required('Second security answer is required'),
-    // thirdSecurityQuestion: Yup.number()
-    //     .required('Please select the third security question'),
-    // thirdSecurityAnswer: Yup.string()
-    //     .required('Third security answer is required'),
+    secondSecurityQuestion: Yup.number()
+        .required('Please select the second security question'),
+    secondSecurityAnswer: Yup.string()
+        .required('Second security answer is required'),
+    thirdSecurityQuestion: Yup.number()
+        .required('Please select the third security question'),
+    thirdSecurityAnswer: Yup.string()
+        .required('Third security answer is required'),
 });
 
 export const otpValidationSchema = Yup.object().shape({
