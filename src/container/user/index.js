@@ -1,6 +1,7 @@
 import Home from "./Home";
 import ManagedProfile from "./ManageProfile";
 import UserList from "./UserList";
-import AddEdit from "./ManageProfile";
+import CompanyDetails from "./ProfileDetails/CompanyDetails";
 
-export {Home,ManagedProfile,UserList,AddEdit};
+
+export {Home,ManagedProfile,UserList,CompanyDetails};

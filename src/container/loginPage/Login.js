@@ -8,7 +8,7 @@ import { ResetPassword } from "container/loginPage";
 import { labels } from "_utils/constant";
 import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import { AddEdit } from "container/user";
+import {  ManagedProfile } from "container/user";
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false,manageUseropen:false });
@@ -94,7 +94,7 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
-            <AddEdit title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/>
+            <ManagedProfile title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/>
         </>
     );
 }

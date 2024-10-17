@@ -29,7 +29,7 @@ const PasswordCheck = (props) => {
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
             special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
-            match: password === confirmPassword,
+            match: password && password === confirmPassword,
         });
     };
 
