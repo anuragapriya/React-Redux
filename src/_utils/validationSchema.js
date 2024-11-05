@@ -1,5 +1,23 @@
 import * as Yup from 'yup';
 
+export const registerValidationSchema= Yup.object().shape({
+    firstName: Yup.string()
+        .required('First name is required'),
+    lastName: Yup.string()
+        .required('Last name is required'),
+    companyName: Yup.string()
+        .required('Company name is required'),
+    mobileNumber: Yup.string()
+        .required('Phone number is required')
+        .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
+    emailAddress: Yup.string()
+        .required('Email is required')
+        .email('Email is invalid'),
+    password: Yup.string()
+        .required('Password is required')
+        .min(6, 'Password must be at least 6 characters'),
+});
+
 export const profileValidationSchema=(id) => Yup.object().shape({
     firstName: Yup.string()
         .required('First name is required'),
