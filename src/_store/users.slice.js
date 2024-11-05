@@ -29,7 +29,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         register: register(),
@@ -43,7 +44,7 @@ function createExtraActions() {
     function register() {
         return createAsyncThunk(
             `${name}/register`,
-            async (user) => await trackPromise(fetchWrapper.post(`${baseUrl}/register`, user))
+            async (user) => await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user))
         );
     }
 

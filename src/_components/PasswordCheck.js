@@ -13,7 +13,7 @@ const PasswordCheck = (props) => {
         lowercase: false,
         number: false,
         special: false,
-        match: false,
+      //  match: false,
     });
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const PasswordCheck = (props) => {
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
             special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
-            match: password && password === confirmPassword,
+           // match: password && password === confirmPassword,
         });
     };
 
@@ -52,9 +52,9 @@ const PasswordCheck = (props) => {
                 <li style={{ color: validations.special ? 'green' : 'red' }}>
                     Symbols (!@#$%^&*?/\|"':;+)
                 </li>
-                <li style={{ color: validations.match ? 'green' : 'red' }}>
+                {/* <li style={{ color: validations.match ? 'green' : 'red' }}>
                     Passwords match.
-                </li>
+                </li> */}
             </ul>
         </div>
     );
