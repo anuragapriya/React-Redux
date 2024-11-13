@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import {history} from '_utils';
 
 const PrivateRoute =()=> {
-    const isAuthentidated = useSelector(x => x.auth.value);
+    const isAuthenticated = useSelector(x => x.auth.value);
 
-    if (!isAuthentidated) {
+    if (!isAuthenticated) {
       // not logged in so redirect to login page with the return url
       return <Navigate to="/" state={{ from: history.location }} />
   }

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { Upload, AccountSearch } from "container/accountInquiry";
 import { Dashboard,FileUpload } from "@mui/icons-material";
-import DashboardLayout from "./DashbordLayout";
+import DashboardLayout from "./DashboardLayout";
 
 const AccountInquiryLayout = () => {
     const appMenuItems = [

@@ -17,7 +17,7 @@ const fakeBackend = () => {
                         return authenticate();
                     case url.endsWith('/users/refreshToken') && opts.method === 'POST':
                         return refreshToken();
-                    case url.endsWith('/users/register') && opts.method === 'POST':
+                    case url.endsWith('/users/Register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/users') && opts.method === 'GET':
                         return getUsers();
@@ -41,7 +41,7 @@ const fakeBackend = () => {
 
             function authenticate() {
                 const { email, password } = body();
-                const user = users.find(x => x.email === email && x.password === password);
+                const user = users.find(x => x.emailAddress === email && x.password === password);
 
                 if (!user) return error('email or password is incorrect');
 
@@ -73,8 +73,8 @@ const fakeBackend = () => {
             function register() {
                 const user = body();
 
-                if (users.find(x => x.email === user.email)) {
-                    return error('email "' + user.email + '" is already taken')
+                if (users.find(x => x.emailAddress === user.emailAddress)) {
+                    return error('email "' + user.emailAddress + '" is already taken')
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -107,8 +107,8 @@ const fakeBackend = () => {
                 }
 
                 // if email changed check if taken
-                if (params.email !== user.email && users.find(x => x.email === params.email)) {
-                    return error('email "' + params.email + '" is already taken')
+                if (params.emailAddress !== user.emailAddress && users.find(x => x.emailAddress === params.emailAddress)) {
+                    return error('email "' + params.emailAddress + '" is already taken')
                 }
 
                 // update and save user

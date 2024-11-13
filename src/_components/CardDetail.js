@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 
-const CardDetail = ({ id, title, description, handleClick }) => {
+const CardDetail = ({ title, description, handleClick }) => {
   return (
     <Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <CardContent>
