@@ -2,7 +2,7 @@ import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { CompanyDetails, Home, UserList } from "container/user";
 import { Dashboard ,LibraryBooks} from "@mui/icons-material";
-import DashboardLayout from "./DashbordLayout";
+import DashboardLayout from "./DashboardLayout";
 
 const UsersLayout = () => {
 
