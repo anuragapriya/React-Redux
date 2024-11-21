@@ -35,7 +35,7 @@ const UserList = () => {
         enableSorting: true,
       },
       {
-        accessorKey: 'email',
+        accessorKey: 'emailAddress',
         header: 'Email',
         enableSorting: true,
       },
@@ -86,7 +86,7 @@ const UserList = () => {
       columnOrder: [
         'userName',
         'companyName',
-        'email',
+        'emailAddress',
         'mrt-row-select', // move the built-in selection column to the end of the table
       ],
     },

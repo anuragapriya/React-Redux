@@ -76,6 +76,25 @@ export const user = {
 
             }
         },
+        {
+            PortalName: "usermanagement",
+            PortalRole: "Admin",
+            IsProfileCompleted:1,
+            PortalAccess:
+            {
+                UnlockProfile: 1,
+                ResetPassword: 1,
+                DeleteProfile: 1,
+                UpdateTaxID: 1,
+                ApproveProfileRegistration: 1,
+                RejectProfileRegistration: 1,
+                VerifyProfileRegistration: 1,
+                EmailMapRequest: 1,
+                MapCenterAdminReport: 1,
+                ProfileSearch: 1,
+                MapRequestSearch: 1
+            }
+        },
 
     ]
 };
