@@ -42,12 +42,12 @@ const PersonalDetails = ({id,register,errors,watch,control}) => {
             helperText={errors.telephone?.message}
         />
         <TextField
-            {...register('email')}
+            {...register('emailAddress')}
             label="Email"
             fullWidth
             margin="normal"
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            error={!!errors.emailAddress}
+            helperText={errors.emailAddress?.message}
         />
         <TextField
             {...register('confirmEmail')}
