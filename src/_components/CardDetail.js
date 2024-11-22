@@ -13,13 +13,10 @@ const CardDetail = ({ title, description, handleClick }) => {
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {description}
+          Description : {description}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+
     </Card>
   );
 };
