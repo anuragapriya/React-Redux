@@ -99,7 +99,6 @@ export const user = {
     ]
 };
 
-
 export const userDetails = {
     id: null,
     firstName: '',
@@ -133,3 +132,268 @@ export const labels = {
     seasonEndLabel: "SEASON END",
     manageProfileLabel: "Manage Profile"
 }
+
+export const portalAccessData=[
+    {
+        "PortalId": 1,
+        "PortalName": "Account Inquiry",
+        "UserDetails": {
+            "FirstName": "Ravi",
+            "LastName": "Soni",
+            "EmailAddress": "ravi.soni1@sutherlandglobal.com"
+        },
+        "PortalRoleAccess": [
+            {
+                "RoleId": 1,
+                "Role": "Admin",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 1,
+						"MappingFeatureId": 1,
+                        "Name": "UnlockProfile",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 2,
+						"MappingFeatureId": 2,
+                        "Name": "ResetPassword",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 3,
+						"MappingFeatureId": 3,
+                        "Name": "DeleteProfile",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 4,
+						"MappingFeatureId": 4,
+                        "Name": "ForgotPassword",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 5,
+						"MappingFeatureId": 5,
+                        "Name": "UserRegistration",
+                        "Isactive": 1
+                    }
+                ]
+            },
+            {
+                "RoleId": 2,
+                "Role": "Contributor",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 1,
+						"MappingFeatureId": 6,
+                        "Name": "UnlockProfile",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 2,
+						"MappingFeatureId": 7,
+                        "Name": "ResetPassword",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 3,
+						"MappingFeatureId": 8,
+                        "Name": "DeleteProfile",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 4,
+						"MappingFeatureId": 9,
+                        "Name": "ForgotPassword",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 5,
+						"MappingFeatureId": 10,
+                        "Name": "UserRegistration",
+                        "Isactive": 1
+                    }
+                ]
+            },
+            {
+                "RoleId": 3,
+                "Role": "SecurityReviewer",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 1,
+						"MappingFeatureId": 11,
+                        "Name": "UnlockProfile",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 2,
+						"MappingFeatureId": 12,
+                        "Name": "ResetPassword",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 3,
+						"MappingFeatureId": 13,
+                        "Name": "DeleteProfile",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 4,
+						"MappingFeatureId": 14,
+                        "Name": "ForgotPassword",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 5,
+						"MappingFeatureId": 15,
+                        "Name": "UserRegistration",
+                        "Isactive": 0
+                    }
+                ]
+            },
+            {
+                "RoleId": 4,
+                "Role": "StandardUser",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 1,
+						"MappingFeatureId": 16,
+                        "Name": "UnlockProfile",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 2,
+						"MappingFeatureId": 17,
+                        "Name": "ResetPassword",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 3,
+						"MappingFeatureId": 18,
+                        "Name": "DeleteProfile",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 4,
+						"MappingFeatureId": 19,
+                        "Name": "ForgotPassword",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 5,
+						"MappingFeatureId": 20,
+                        "Name": "UserRegistration",
+                        "Isactive": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "PortalId": 2,
+        "PortalName": "Energy Assistance",
+        "UserDetails": {
+            "FirstName": "Ravi",
+            "LastName": "Soni",
+            "EmailAddress": "ravi.soni1@sutherlandglobal.com"
+        },
+        "PortalRoleAccess": [
+            {
+                "RoleId": 5,
+                "Role": "Admin",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 6,
+						"MappingFeatureId": 21,
+                        "Name": "ApproveProfileRegistration",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 7,
+						"MappingFeatureId": 22,
+                        "Name": "RejectProfileRegistration",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 8,
+						"MappingFeatureId": 23,
+                        "Name": "VerifyProfileRegistration",
+                        "Isactive": 1
+                    }
+                ]
+            },
+            {
+                "RoleId": 6,
+                "Role": "ContributorEA",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 6,
+						"MappingFeatureId": 24,
+                        "Name": "ApproveProfileRegistration",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 7,
+						"MappingFeatureId": 25,
+                        "Name": "RejectProfileRegistration",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 8,
+						"MappingFeatureId": 26,
+                        "Name": "VerifyProfileRegistration",
+                        "Isactive": 1
+                    }
+                ]
+            },
+            {
+                "RoleId": 7,
+                "Role": "InternalUser",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 6,
+						"MappingFeatureId": 27,
+                        "Name": "ApproveProfileRegistration",
+                        "Isactive": 1
+                    },
+                    {
+                        "FeatureId": 7,
+						"MappingFeatureId": 28,
+                        "Name": "RejectProfileRegistration",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 8,
+						"MappingFeatureId": 28,
+                        "Name": "VerifyProfileRegistration",
+                        "Isactive": 0
+                    }
+                ]
+            },
+            {
+                "RoleId": 8,
+                "Role": "StandardUser",
+                "FeatureAccess": [
+                    {
+                        "FeatureId": 6,
+						"MappingFeatureId": 29,
+                        "Name": "ApproveProfileRegistration",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 7,
+						"MappingFeatureId": 30,
+                        "Name": "RejectProfileRegistration",
+                        "Isactive": 0
+                    },
+                    {
+                        "FeatureId": 8,
+						"MappingFeatureId": 31,
+                        "Name": "VerifyProfileRegistration",
+                        "Isactive": 1
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CompanyDetails, Home, UserList } from "container/user";
 import { Dashboard ,LibraryBooks} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
+import PortalConfiguration from "container/adminConfiguration/PortalConfiguration";
 
 const UsersLayout = () => {
 
@@ -40,7 +41,7 @@ const UsersLayout = () => {
     return (
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>                   
-                <Route path='managedprofile' element={<Home />} />
+                <Route path='managedprofile' element={<PortalConfiguration />} />
                 {/* <Route path="dashboard" element={<UserList />} /> 
                  <Route path="companyDetails" element={<CompanyDetails />} />
                 <Route path="users/edit/:id" element={<AddEdit />} />  */}
