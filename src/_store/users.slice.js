@@ -2,7 +2,7 @@ import { createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { authActions } from '_store';
 import { fetchWrapper } from '_utils/fetch-wrapper';
-import { userDetails } from '_utils/constant';
+//import { userDetails } from '_utils/constant';
 
 // create slice
 
@@ -23,7 +23,7 @@ export const usersReducer = slice.reducer;
 function createInitialState() {
     return {
         list: [],
-        item: {...userDetails},
+        item: null,
         file:null
     }
 }
@@ -120,7 +120,7 @@ function createReducers()
     };
 
     function clear(state) {
-        state.item = {...userDetails};
+        state.item = null;
     }
 }
 

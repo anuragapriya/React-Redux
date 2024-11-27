@@ -1,7 +1,9 @@
 import { user } from '_utils/constant';
+import { portalAccessData } from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
+const portalAccessKey = 'portal-access-data';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
 const fakeBackend = () => {
@@ -27,8 +29,12 @@ const fakeBackend = () => {
                         return updateUser();
                     case url.match(/\/users\/\d+$/) && opts.method === 'DELETE':
                         return deleteUser();
-                    case url.match(/\/users\/\d+$/) && opts.method === 'UPLOAD':
+                    case url.match(/\/users\/\d+$/) && opts.method === 'POST':
                         return upload();
+                    case url.endsWith('/users/getAccessData') && opts.method === 'GET':
+                        return getAccessData();
+                    case url.endsWith('/users/postAccessData') && opts.method === 'POST':
+                        return postAccessData();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -127,11 +133,51 @@ const fakeBackend = () => {
             }
 
             function upload() {
-                
+
                 return ok({
-                    viewuri:'https://freeimage.host/i/dyXxVKN',
-			
+                    viewuri: 'https://freeimage.host/i/dyXxVKN',
+
                 });
+            }
+
+            function getAccessData() {
+                let accessData = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
+                return ok(accessData);
+            }
+
+            function postAccessData() {
+                // Retrieve the access data from the body function
+                const accessData = body();
+                let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
+               
+                // Create a new array for the updated portal access data
+                const updatedPortalAccess = portalAccess.map(portal => {
+                    // Create a shallow copy of the portal object
+                    const newPortal = { ...portal };
+                    newPortal.PortalRoleAccess = portal.PortalRoleAccess.map(roleAccess => {
+                        // Create a shallow copy of the roleAccess object
+                        const newRoleAccess = { ...roleAccess };
+                        newRoleAccess.FeatureAccess = roleAccess.FeatureAccess.map(permission => {
+                            // Create a shallow copy of the permission object
+                            const newPermission = { ...permission };
+                            // Find the corresponding changed data
+                            const changedData = accessData.find(x => x.RoleMappingId === permission.MappingFeatureId);
+                            // Update the permission if there is a corresponding change
+                            if (changedData && permission.MappingFeatureId === changedData.RoleMappingId) {
+                                newPermission.Isactive = changedData.Isactive;
+                            }
+                            return newPermission;
+                        });
+                        return newRoleAccess;
+                    });
+                    return newPortal;
+                });
+            
+                // Store the updated portal access data in localStorage
+                localStorage.setItem(portalAccessKey, JSON.stringify(updatedPortalAccess));
+            
+                // Return a successful response
+                return ok();
             }
             // helper functions
 
@@ -145,13 +191,6 @@ const fakeBackend = () => {
 
             function error(message) {
                 resolve({ status: 400, ...headers(), json: () => Promise.resolve({ message }) })
-            }
-
-            function basicDetails(userdetail) {
-                // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
-                const updatedUser = Object.assign({}, user, userdetail);
-                return updatedUser;
-
             }
 
             function isAuthenticated() {
@@ -175,6 +214,12 @@ const fakeBackend = () => {
                         }
                     }
                 }
+            }
+
+            function basicDetails(userdetail) {
+                // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
+                const updatedUser = Object.assign({}, user, userdetail);
+                return updatedUser;
             }
         });
     }
