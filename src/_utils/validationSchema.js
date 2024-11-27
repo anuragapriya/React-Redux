@@ -25,7 +25,7 @@ export const profileValidationSchema=(id) => Yup.object().shape({
         .required('Last name is required'),
     companyName: Yup.string()
         .required('Company name is required'),
-    telephone: Yup.string()
+    mobileNumber: Yup.string()
         .required('Phone number is required')
         .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
     email: Yup.string()

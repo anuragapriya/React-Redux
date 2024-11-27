@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { CompanyDetails, Home, UserList } from "container/user";
-import { Dashboard ,LibraryBooks} from "@mui/icons-material";
+import { Dashboard ,Settings} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
+import { Configuration } from "container/configurations";
 
 const UsersLayout = () => {
 
@@ -12,11 +13,11 @@ const UsersLayout = () => {
             link: 'managedprofile',
             Icon: Dashboard,
         },
-        // {
-        //     name: 'Dashboard',
-        //     link: 'dashboard',
-        //     Icon: Dashboard,
-        // },
+        {
+            name: 'Configuration',
+            link: 'configuration',
+            Icon: Settings,
+        },
         // {
         //     name: 'Users',
         //     link: 'users',
@@ -41,6 +42,7 @@ const UsersLayout = () => {
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>                   
                 <Route path='managedprofile' element={<Home />} />
+                <Route path="configuration" element={<Configuration />} />
                 {/* <Route path="dashboard" element={<UserList />} /> 
                  <Route path="companyDetails" element={<CompanyDetails />} />
                 <Route path="users/edit/:id" element={<AddEdit />} />  */}

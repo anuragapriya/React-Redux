@@ -28,7 +28,7 @@ export default function Login() {
 
     const handleOpen = () => setModalState({ ...modalState, open: true });
     const handleClose = () => setModalState({ ...modalState, open: false });
-    const handleOtpOpen = () => setModalState({ ...modalState, otpOpen: true });
+    const handleOtpOpen = () => setModalState({ ...modalState,open: false , otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
     const handleManageUserOpen = () => setModalState({ ...modalState, manageUseropen: true });
     const handleManageUserClose = () => setModalState({ ...modalState, manageUseropen: false });
