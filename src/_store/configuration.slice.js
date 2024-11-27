@@ -38,14 +38,7 @@ function createExtraActions() {
     function getAccess() {
         return createAsyncThunk(
             `${name}/getAccessData`,
-            async () => {
-                try {
-                    await trackPromise(fetchWrapper.get(`${baseUrl}/getAccessData`));
-                }
-                catch (error) {
-                    console.log(error);
-                }
-            }
+            async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}/getAccessData`))            
         );
     }
 

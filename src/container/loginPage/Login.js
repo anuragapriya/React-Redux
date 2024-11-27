@@ -4,11 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
 import OTPVerification from "_components/OTPVerification";
-import { ResetPassword } from "container/loginPage";
 import { labels } from "_utils/constant";
 import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import {Register} from "container/loginPage";
+import {Register,ResetPassword} from "container/loginPage";
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false,manageUseropen:false });
