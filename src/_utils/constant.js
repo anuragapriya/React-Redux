@@ -118,7 +118,7 @@ export const userDetails = {
     thirdSecurityAnswer: '',
     organizationList: [],
     assignToAgency: '',
-    assignTOJurisdiction: ''
+    assignToJurisdiction: ''
 }
 
 export const labels = {
