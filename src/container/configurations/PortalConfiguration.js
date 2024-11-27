@@ -76,10 +76,9 @@ const PortalConfiguration = (props) => {
 
         try {
             let message;
-
             await dispatch(portalAccessActions.postAccess(changedData)).unwrap();
             message = 'Config updated';
-props.handleSubmitted();
+            props.handleSubmitted();
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));

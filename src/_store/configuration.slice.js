@@ -38,14 +38,28 @@ function createExtraActions() {
     function getAccess() {
         return createAsyncThunk(
             `${name}/getAccessData`,
-            async () => await trackPromise(fetchWrapper.get(`${baseUrl}/getAccessData`))                                    
+            async () => {
+                try {
+                    await trackPromise(fetchWrapper.get(`${baseUrl}/getAccessData`));
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
         );
     }
 
     function postAccess() {
         return createAsyncThunk(
             `${name}/postAccessData`,
-            async(data) => await trackPromise(fetchWrapper.post(`${baseUrl}/postAccessData`, data))    
+            async (data) => {
+                try {
+                    await trackPromise(fetchWrapper.post(`${baseUrl}/postAccessData`, data));
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
         );
     }
 }
@@ -71,26 +85,11 @@ function createExtraReducers() {
                     state.portalAccessGetData = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
-                    state.portalAccessGetData =  action.payload ;
+                    state.portalAccessGetData = action.payload;
                 })
                 .addCase(rejected, (state, action) => {
                     state.portalAccessGetData = { error: action.error };
                 });
-        }
-
-        // function postAccess() {
-        //     var { pending, fulfilled, rejected } = extraActions.postAccess;
-        //     builder
-        //         .addCase(pending, (state) => {
-        //             state.item = { loading: true };
-        //         })
-        //         .addCase(fulfilled, (state, action) => {
-        //             state.item = { value: action.payload };
-        //         })
-        //         .addCase(rejected, (state, action) => {
-        //             state.item = { error: action.error };
-        //         });
-        // }        
+        }       
     };
 }
-
