@@ -57,7 +57,7 @@ const Configuration = () => {
                     ))}
                 </Select>
             </FormControl>
-            {data && <PortalConfiguration data={data} handleSubmitted={handleSubmitted} />}
+             <PortalConfiguration data={data} handleSubmitted={handleSubmitted} />
         </>
     );
 }
