@@ -97,6 +97,7 @@ props.handleSubmitted();
                     dynamicColumns.push({
                         header: role,
                         accessorKey: key,
+                        enableColumnFilter: false,
                         Cell: ({ cell }) => (
                             <Switch
                                 checked={cell.getValue() === 1}
