@@ -10,6 +10,7 @@ const PortalConfiguration = (props) => {
     const dispatch = useDispatch();
     const initialData = props.data;
     const [data, setData] = useState(_.cloneDeep(initialData));
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5 });
 
     useEffect(() => {
         setData(_.cloneDeep(props.data));
@@ -52,7 +53,7 @@ const PortalConfiguration = (props) => {
             updatedData.PortalRoleAccess.forEach(roleAccess => {
                 roleAccess.FeatureAccess.forEach(permission => {
                     if (permission.AccessID === parseInt(featureId) && roleAccess.RoleID === parseInt(roleId)) {
-                        permission.IsActive = permission.IsActive ? false : true;
+                        permission.IsActive = !permission.IsActive;
                     }
                 });
             });
@@ -113,13 +114,18 @@ const PortalConfiguration = (props) => {
     const table = useMaterialReactTable({
         columns,
         data: pivotedData,
-        enableColumnResizing: true,
+        state: { pagination },
+        onPaginationChange: setPagination,
+        autoResetPageIndex: false, // Prevents resetting to the first page
         enableSorting: true,
         enablePagination: true,
         enableHiding: false,
         enableGlobalFilter: false,
         enableFullScreenToggle: false,
         enableColumnActions: false,
+        initialState: {
+            pagination: { pageSize: 5, pageIndex: 0 }, // Set initial rows per page
+        },
     });
 
     return (
