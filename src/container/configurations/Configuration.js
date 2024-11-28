@@ -3,31 +3,40 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PortalConfiguration from "./PortalConfiguration";
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { portalAccessActions } from '_store';
+import { portalAccessActions,alertActions } from '_store';
 
 const Configuration = () => {
     const dispatch = useDispatch();
     const portalAccessData = useSelector((x) => x.configs?.portalAccessGetData);
-    const accessData = Array.isArray(portalAccessData) ? portalAccessData : [];
+    const accessData = portalAccessData ? portalAccessData.Data : [];
     const [selectedPortal, setSelectedPortal] = useState(null);
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        dispatch(portalAccessActions.getAccess());
+        try {
+            dispatch(portalAccessActions.getAccess());
+            if (!portalAccessData.Submitted && portalAccessData.Errors) {
+                dispatch(alertActions.error(portalAccessData.Message));
+            }
+
+        }
+        catch (error) {
+            dispatch(alertActions.error(error));
+        }
     }, [dispatch]);
 
     useEffect(() => {
-        if (accessData.length > 0) {
-            const defaultPortalId =selectedPortal? selectedPortal : accessData[0]?.PortalId;
+        if (accessData && accessData.length > 0) {
+            const defaultPortalId = selectedPortal ? selectedPortal : accessData[0]?.PortalID;
             setSelectedPortal(defaultPortalId);
-            const portalData = accessData.find(x => x.PortalId === defaultPortalId);
+            const portalData = accessData.find(x => x.PortalID === defaultPortalId);
             setData(portalData);
         }
     }, [accessData]);
 
     useEffect(() => {
-        if (selectedPortal) {
-            const portalData = accessData.find(x => x.PortalId === selectedPortal);
+        if (accessData && selectedPortal) {
+            const portalData = accessData.find(x => x.PortalID === selectedPortal);
             setData(portalData);
         }
     }, [selectedPortal, accessData]);
@@ -36,8 +45,7 @@ const Configuration = () => {
         setSelectedPortal(event.target.value);
     };
 
-    const handleSubmitted=()=>
-    {
+    const handleSubmitted = () => {
         dispatch(portalAccessActions.getAccess());
     }
 
@@ -50,14 +58,14 @@ const Configuration = () => {
                     value={selectedPortal || ''}
                     onChange={handlePortalChange}
                 >
-                    {accessData.map(portal => (
-                        <MenuItem key={portal.PortalId} value={portal.PortalId}>
+                    {accessData && accessData.map(portal => (
+                        <MenuItem key={portal.PortalID} value={portal.PortalID}>
                             {portal.PortalName}
                         </MenuItem>
                     ))}
                 </Select>
             </FormControl>
-             <PortalConfiguration data={data} handleSubmitted={handleSubmitted} />
+            <PortalConfiguration data={data} handleSubmitted={handleSubmitted} />
         </>
     );
 }

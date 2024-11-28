@@ -133,267 +133,275 @@ export const labels = {
     manageProfileLabel: "Manage Profile"
 }
 
-export const portalAccessData=[
-    {
-        "PortalId": 1,
+export const portalAccessData={
+    "Succeeded": true,
+    "Message": "UserPortalRoleMappingResult Recieved",
+    "Errors": null,
+    "Data": [
+      {
+        "PortalID": 1,
         "PortalName": "Account Inquiry",
-        "UserDetails": {
-            "FirstName": "Ravi",
-            "LastName": "Soni",
-            "EmailAddress": "ravi.soni1@sutherlandglobal.com"
-        },
+        "UserDetails": null,
         "PortalRoleAccess": [
-            {
-                "RoleId": 1,
-                "Role": "Admin",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 1,
-						"MappingFeatureId": 1,
-                        "Name": "UnlockProfile",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 2,
-						"MappingFeatureId": 2,
-                        "Name": "ResetPassword",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 3,
-						"MappingFeatureId": 3,
-                        "Name": "DeleteProfile",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 4,
-						"MappingFeatureId": 4,
-                        "Name": "ForgotPassword",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 5,
-						"MappingFeatureId": 5,
-                        "Name": "UserRegistration",
-                        "Isactive": 1
-                    }
-                ]
-            },
-            {
-                "RoleId": 2,
-                "Role": "Contributor",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 1,
-						"MappingFeatureId": 6,
-                        "Name": "UnlockProfile",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 2,
-						"MappingFeatureId": 7,
-                        "Name": "ResetPassword",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 3,
-						"MappingFeatureId": 8,
-                        "Name": "DeleteProfile",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 4,
-						"MappingFeatureId": 9,
-                        "Name": "ForgotPassword",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 5,
-						"MappingFeatureId": 10,
-                        "Name": "UserRegistration",
-                        "Isactive": 1
-                    }
-                ]
-            },
-            {
-                "RoleId": 3,
-                "Role": "SecurityReviewer",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 1,
-						"MappingFeatureId": 11,
-                        "Name": "UnlockProfile",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 2,
-						"MappingFeatureId": 12,
-                        "Name": "ResetPassword",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 3,
-						"MappingFeatureId": 13,
-                        "Name": "DeleteProfile",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 4,
-						"MappingFeatureId": 14,
-                        "Name": "ForgotPassword",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 5,
-						"MappingFeatureId": 15,
-                        "Name": "UserRegistration",
-                        "Isactive": 0
-                    }
-                ]
-            },
-            {
-                "RoleId": 4,
-                "Role": "StandardUser",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 1,
-						"MappingFeatureId": 16,
-                        "Name": "UnlockProfile",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 2,
-						"MappingFeatureId": 17,
-                        "Name": "ResetPassword",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 3,
-						"MappingFeatureId": 18,
-                        "Name": "DeleteProfile",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 4,
-						"MappingFeatureId": 19,
-                        "Name": "ForgotPassword",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 5,
-						"MappingFeatureId": 20,
-                        "Name": "UserRegistration",
-                        "Isactive": 0
-                    }
-                ]
-            }
+          {
+            "RoleID": 2,
+            "RoleName": "Admin",
+            "FeatureAccess": [
+              {
+                "AccessID": 1,
+                "AccessName": "Unlock Profile ",
+                "RoleAccessMappingID": 1,
+                "IsActive": true
+              },
+              {
+                "AccessID": 2,
+                "AccessName": "Reset Password",
+                "RoleAccessMappingID": 2,
+                "IsActive": true
+              },
+              {
+                "AccessID": 3,
+                "AccessName": "Delete Profile",
+                "RoleAccessMappingID": 3,
+                "IsActive": true
+              },
+              {
+                "AccessID": 4,
+                "AccessName": "Forgot Password",
+                "RoleAccessMappingID": 4,
+                "IsActive": true
+              },
+              {
+                "AccessID": 5,
+                "AccessName": "Assign Agency",
+                "RoleAccessMappingID": 5,
+                "IsActive": true
+              },
+              {
+                "AccessID": 6,
+                "AccessName": "User Registration",
+                "RoleAccessMappingID": 6,
+                "IsActive": true
+              },
+              {
+                "AccessID": 7,
+                "AccessName": "Approve Profile Registration",
+                "RoleAccessMappingID": 7,
+                "IsActive": true
+              },
+              {
+                "AccessID": 8,
+                "AccessName": "Reject Profile Registration",
+                "RoleAccessMappingID": 8,
+                "IsActive": true
+              },
+              {
+                "AccessID": 9,
+                "AccessName": "Search by Account Holder",
+                "RoleAccessMappingID": 9,
+                "IsActive": true
+              },
+              {
+                "AccessID": 10,
+                "AccessName": "Washington Gas Account",
+                "RoleAccessMappingID": 10,
+                "IsActive": true
+              },
+              {
+                "AccessID": 11,
+                "AccessName": "Telephone Number",
+                "RoleAccessMappingID": 11,
+                "IsActive": true
+              },
+              {
+                "AccessID": 12,
+                "AccessName": "Service Address",
+                "RoleAccessMappingID": 12,
+                "IsActive": true
+              },
+              {
+                "AccessID": 13,
+                "AccessName": "Search Result",
+                "RoleAccessMappingID": 13,
+                "IsActive": true
+              },
+              {
+                "AccessID": 14,
+                "AccessName": "View Organization Profiles",
+                "RoleAccessMappingID": 14,
+                "IsActive": true
+              }
+            ]
+          },
+          {
+            "RoleID": 3,
+            "RoleName": "Contributor",
+            "FeatureAccess": [
+              {
+                "AccessID": 1,
+                "AccessName": "Unlock Profile ",
+                "RoleAccessMappingID": 15,
+                "IsActive": false
+              },
+              {
+                "AccessID": 2,
+                "AccessName": "Reset Password",
+                "RoleAccessMappingID": 16,
+                "IsActive": true
+              },
+              {
+                "AccessID": 3,
+                "AccessName": "Delete Profile",
+                "RoleAccessMappingID": 17,
+                "IsActive": true
+              },
+              {
+                "AccessID": 4,
+                "AccessName": "Forgot Password",
+                "RoleAccessMappingID": 18,
+                "IsActive": true
+              },
+              {
+                "AccessID": 5,
+                "AccessName": "Assign Agency",
+                "RoleAccessMappingID": 19,
+                "IsActive": false
+              },
+              {
+                "AccessID": 6,
+                "AccessName": "User Registration",
+                "RoleAccessMappingID": 20,
+                "IsActive": true
+              },
+              {
+                "AccessID": 7,
+                "AccessName": "Approve Profile Registration",
+                "RoleAccessMappingID": 21,
+                "IsActive": false
+              },
+              {
+                "AccessID": 8,
+                "AccessName": "Reject Profile Registration",
+                "RoleAccessMappingID": 22,
+                "IsActive": false
+              },
+              {
+                "AccessID": 9,
+                "AccessName": "Search by Account Holder",
+                "RoleAccessMappingID": 23,
+                "IsActive": true
+              },
+              {
+                "AccessID": 10,
+                "AccessName": "Washington Gas Account",
+                "RoleAccessMappingID": 24,
+                "IsActive": true
+              },
+              {
+                "AccessID": 11,
+                "AccessName": "Telephone Number",
+                "RoleAccessMappingID": 25,
+                "IsActive": true
+              },
+              {
+                "AccessID": 12,
+                "AccessName": "Service Address",
+                "RoleAccessMappingID": 26,
+                "IsActive": true
+              },
+              {
+                "AccessID": 13,
+                "AccessName": "Search Result",
+                "RoleAccessMappingID": 27,
+                "IsActive": true
+              },
+              {
+                "AccessID": 14,
+                "AccessName": "View Organization Profiles",
+                "RoleAccessMappingID": 28,
+                "IsActive": false
+              }
+            ]
+          },
+          {
+            "RoleID": 4,
+            "RoleName": "Owner",
+            "FeatureAccess": [
+              {
+                "AccessID": 1,
+                "AccessName": "Unlock Profile ",
+                "RoleAccessMappingID": 29,
+                "IsActive": true
+              },
+              {
+                "AccessID": 2,
+                "AccessName": "Reset Password",
+                "RoleAccessMappingID": 30,
+                "IsActive": true
+              },
+              {
+                "AccessID": 3,
+                "AccessName": "Delete Profile",
+                "RoleAccessMappingID": 31,
+                "IsActive": true
+              },
+              {
+                "AccessID": 4,
+                "AccessName": "Forgot Password",
+                "RoleAccessMappingID": 32,
+                "IsActive": true
+              },
+              {
+                "AccessID": 5,
+                "AccessName": "Assign Agency",
+                "RoleAccessMappingID": 33,
+                "IsActive": true
+              },
+              {
+                "AccessID": 6,
+                "AccessName": "User Registration",
+                "RoleAccessMappingID": 34,
+                "IsActive": true
+              },
+              {
+                "AccessID": 7,
+                "AccessName": "Approve Profile Registration",
+                "RoleAccessMappingID": 35,
+                "IsActive": true
+              },
+              {
+                "AccessID": 8,
+                "AccessName": "Reject Profile Registration",
+                "RoleAccessMappingID": 36,
+                "IsActive": true
+              },
+              {
+                "AccessID": 9,
+                "AccessName": "Search by Account Holder",
+                "RoleAccessMappingID": 37,
+                "IsActive": true
+              },
+              {
+                "AccessID": 10,
+                "AccessName": "Washington Gas Account",
+                "RoleAccessMappingID": 38,
+                "IsActive": true
+              },
+              {
+                "AccessID": 11,
+                "AccessName": "Telephone Number",
+                "RoleAccessMappingID": 39,
+                "IsActive": true
+              },
+              {
+                "AccessID": 12,
+                "AccessName": "Service Address",
+                "RoleAccessMappingID": 40,
+                "IsActive": true
+              }
+            ]
+          }
         ]
-    },
-    {
-        "PortalId": 2,
-        "PortalName": "Energy Assistance",
-        "UserDetails": {
-            "FirstName": "Ravi",
-            "LastName": "Soni",
-            "EmailAddress": "ravi.soni1@sutherlandglobal.com"
-        },
-        "PortalRoleAccess": [
-            {
-                "RoleId": 5,
-                "Role": "Admin",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 6,
-						"MappingFeatureId": 21,
-                        "Name": "ApproveProfileRegistration",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 7,
-						"MappingFeatureId": 22,
-                        "Name": "RejectProfileRegistration",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 8,
-						"MappingFeatureId": 23,
-                        "Name": "VerifyProfileRegistration",
-                        "Isactive": 1
-                    }
-                ]
-            },
-            {
-                "RoleId": 6,
-                "Role": "ContributorEA",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 6,
-						"MappingFeatureId": 24,
-                        "Name": "ApproveProfileRegistration",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 7,
-						"MappingFeatureId": 25,
-                        "Name": "RejectProfileRegistration",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 8,
-						"MappingFeatureId": 26,
-                        "Name": "VerifyProfileRegistration",
-                        "Isactive": 1
-                    }
-                ]
-            },
-            {
-                "RoleId": 7,
-                "Role": "InternalUser",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 6,
-						"MappingFeatureId": 27,
-                        "Name": "ApproveProfileRegistration",
-                        "Isactive": 1
-                    },
-                    {
-                        "FeatureId": 7,
-						"MappingFeatureId": 28,
-                        "Name": "RejectProfileRegistration",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 8,
-						"MappingFeatureId": 28,
-                        "Name": "VerifyProfileRegistration",
-                        "Isactive": 0
-                    }
-                ]
-            },
-            {
-                "RoleId": 8,
-                "Role": "StandardUser",
-                "FeatureAccess": [
-                    {
-                        "FeatureId": 6,
-						"MappingFeatureId": 29,
-                        "Name": "ApproveProfileRegistration",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 7,
-						"MappingFeatureId": 30,
-                        "Name": "RejectProfileRegistration",
-                        "Isactive": 0
-                    },
-                    {
-                        "FeatureId": 8,
-						"MappingFeatureId": 31,
-                        "Name": "VerifyProfileRegistration",
-                        "Isactive": 1
-                    }
-                ]
-            }
-        ]
-    }
-]
+      }
+    ]
+  }
