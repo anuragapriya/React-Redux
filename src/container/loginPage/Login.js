@@ -7,7 +7,7 @@ import OTPVerification from "_components/OTPVerification";
 import { labels } from "_utils/constant";
 import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import {Register,ResetPassword} from "container/loginPage";
+import {ResetPassword} from "container/loginPage";
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false,manageUseropen:false });
@@ -29,8 +29,8 @@ export default function Login() {
     const handleClose = () => setModalState({ ...modalState, open: false });
     const handleOtpOpen = () => setModalState({ ...modalState,open: false , otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
-    const handleManageUserOpen = () => setModalState({ ...modalState, manageUseropen: true });
-    const handleManageUserClose = () => setModalState({ ...modalState, manageUseropen: false });
+    // const handleManageUserOpen = () => setModalState({ ...modalState, manageUseropen: true });
+    // const handleManageUserClose = () => setModalState({ ...modalState, manageUseropen: false });
 
     return (
         <>
@@ -83,7 +83,7 @@ export default function Login() {
                         <Grid container>
                             <Grid item className="accountSignup">
                                 <div>Don't have an account?</div>
-                                <Link onClick={handleManageUserOpen} variant="body2">
+                                <Link href="./register"  variant="body2">
                                     {labels.signUpLabel}
                                 </Link>
                             </Grid>
@@ -93,9 +93,9 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
-            {/* <ManagedProfile title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/> */}
+            {/* <ManagedProfile title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/> 
             <Register title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/>
-       
+       */}
         </>
     );
 }
