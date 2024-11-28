@@ -22,17 +22,17 @@ const PortalConfiguration = (props) => {
 
         portal?.PortalRoleAccess.forEach(roleAccess => {
             roleAccess.FeatureAccess.forEach(permission => {
-                accessNames.add(permission.FeatureId);
-                if (!roles[permission.FeatureId]) {
-                    roles[permission.FeatureId] = {};
+                accessNames.add(permission.AccessID);
+                if (!roles[permission.AccessID]) {
+                    roles[permission.AccessID] = {};
                 }
-                roles[permission.FeatureId][roleAccess.RoleId] = permission.Isactive;
+                roles[permission.AccessID][roleAccess.RoleID] = permission.IsActive;
             });
         });
 
         accessNames.forEach(featureId => {
-            const featureName = portal.PortalRoleAccess[0].FeatureAccess.find(permission => permission.FeatureId === featureId).Name;
-            const row = { FeatureId: featureId, FeatureName: featureName };
+            const featureName = portal.PortalRoleAccess[0].FeatureAccess.find(permission => permission.AccessID === featureId).AccessName;
+            const row = { AccessID: featureId, FeatureName: featureName };
             Object.keys(roles[featureId]).forEach(roleId => {
                 row[roleId] = roles[featureId][roleId];
             });
@@ -51,8 +51,8 @@ const PortalConfiguration = (props) => {
             const updatedData = _.cloneDeep(prevData);
             updatedData.PortalRoleAccess.forEach(roleAccess => {
                 roleAccess.FeatureAccess.forEach(permission => {
-                    if (permission.FeatureId === parseInt(featureId) && roleAccess.RoleId === parseInt(roleId)) {
-                        permission.Isactive = permission.Isactive === 1 ? 0 : 1;
+                    if (permission.AccessID === parseInt(featureId) && roleAccess.RoleID === parseInt(roleId)) {
+                        permission.IsActive = permission.IsActive ? false : true;
                     }
                 });
             });
@@ -65,10 +65,10 @@ const PortalConfiguration = (props) => {
         data.PortalRoleAccess.forEach((roleAccess, roleIndex) => {
             roleAccess.FeatureAccess.forEach((permission, featureIndex) => {
                 const initialPermission = initialData.PortalRoleAccess[roleIndex].FeatureAccess[featureIndex];
-                if (permission.Isactive !== initialPermission.Isactive) {
+                if (permission.IsActive !== initialPermission.IsActive) {
                     changedData.push({
-                        RoleMappingId: permission.MappingFeatureId,
-                        Isactive: permission.Isactive
+                        RoleAccessMappingID: permission.RoleAccessMappingID,
+                        IsActive: permission.IsActive
                     });
                 }
             });
@@ -91,16 +91,16 @@ const PortalConfiguration = (props) => {
         ];
         if (pivotedData.length > 0) {
             Object.keys(pivotedData[0]).forEach(key => {
-                if (key !== 'FeatureId' && key !== 'FeatureName') {
-                    const role = data.PortalRoleAccess.find(roleAccess => roleAccess.RoleId === parseInt(key)).Role;
+                if (key !== 'AccessID' && key !== 'FeatureName') {
+                    const role = data.PortalRoleAccess.find(roleAccess => roleAccess.RoleID === parseInt(key)).RoleName;
                     dynamicColumns.push({
                         header: role,
                         accessorKey: key,
                         enableColumnFilter: false,
                         Cell: ({ cell }) => (
                             <Switch
-                                checked={cell.getValue() === 1}
-                                onChange={() => handleToggle(cell.row.original.FeatureId, key)}
+                                checked={cell.getValue() === true}
+                                onChange={() => handleToggle(cell.row.original.AccessID, key)}
                             />
                         ),
                     });
