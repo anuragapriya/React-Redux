@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import {  useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
-import {  PasswordCheck } from '_components';
+import { PasswordCheck } from '_components';
+import { labels } from "_utils/constant";
 
-const Register = ({ title, open, handleClose }) => {
-  
+const Register = () => {
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const user = useSelector(x => x.users?.item);
 
     const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
@@ -23,23 +27,26 @@ const Register = ({ title, open, handleClose }) => {
         dispatch(alertActions.clear());
         try {
             let message;
-           
-                await dispatch(userActions.register(data)).unwrap();
-                message = 'User added';
-            
-            handleClose();
+
+            await dispatch(userActions.register(data)).unwrap();
+            message = 'User Resgistered Successfully';
+            navigate('/');
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
     };
 
+    const onCancel = () => {
+        navigate('/');
+    }
+
     return (
-        <Modal open={open} onClose={handleClose} aria-labelledby="edit-modal-title" aria-describedby="edit-modal-description">
-            <Box sx={{ ...style, width: 800 }}>
-                {!(user?.loading || user?.error) &&
-                    (<Typography component="div" className="mobilebanner">
-                        <Typography component="h1" variant="h5">{title}</Typography>
+        <>
+            {!(user?.loading || user?.error) &&
+                (<Typography component="div" className="mobilebanner">
+                    <Typography component="h1" variant="h5">{labels.signUpLabel}</Typography>
+                    <div className="paper">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <TextField
                                 {...register('firstName')}
@@ -90,21 +97,29 @@ const Register = ({ title, open, handleClose }) => {
                                 margin="normal"
                                 error={!!errors.password}
                                 helperText={errors.password?.message}
-                            /> 
-                             <PasswordCheck password={password} confirmPassword={""} />
-                            <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
+                            />
+                            <PasswordCheck password={password} confirmPassword={""} />
+                            <Button type="submit"  variant="contained" color="primary" disabled={isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit'}
                             </Button>
+                            <Button
+                            type="button"                            
+                            variant="contained"
+                            color="primary"
+                            onClick={onCancel}
+                        >
+                            Back to Login
+                        </Button>
                         </form>
-                    </Typography>
-                    )}
-                {user?.error &&
-                    <div class="text-center m-5">
-                        <div class="text-danger">Error loading user: {user.error}</div>
                     </div>
-                }
-            </Box>
-        </Modal>
+                </Typography>
+                )}
+            {user?.error &&
+                <div class="text-center m-5">
+                    <div class="text-danger">Error loading user: {user.error}</div>
+                </div>
+            }
+        </>
     );
 };
 
