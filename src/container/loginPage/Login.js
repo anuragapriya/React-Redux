@@ -7,11 +7,13 @@ import OTPVerification from "_components/OTPVerification";
 import { labels } from "_utils/constant";
 import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import {ResetPassword} from "container/loginPage";
+import { ResetPassword } from "container/loginPage";
+import { useFontSize } from '_components/font/FontSizeProvider';
 
 export default function Login() {
-    const [modalState, setModalState] = useState({ open: false, otpOpen: false,manageUseropen:false });
+    const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false });
     const dispatch = useDispatch();
+    const { fontSize } = useFontSize();
 
     // form validation rules 
     const formOptions = { resolver: yupResolver(loginValidationSchema) };
@@ -27,13 +29,11 @@ export default function Login() {
 
     const handleOpen = () => setModalState({ ...modalState, open: true });
     const handleClose = () => setModalState({ ...modalState, open: false });
-    const handleOtpOpen = () => setModalState({ ...modalState,open: false , otpOpen: true });
+    const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
-    // const handleManageUserOpen = () => setModalState({ ...modalState, manageUseropen: true });
-    // const handleManageUserClose = () => setModalState({ ...modalState, manageUseropen: false });
 
     return (
-        <>
+        <div className={`font-${fontSize}`}>
             <Typography component="div" className="mobilebanner">
                 <Typography component="h1" variant="h5" className="Logincontent">
                     {labels.loginHeader}
@@ -83,7 +83,7 @@ export default function Login() {
                         <Grid container>
                             <Grid item className="accountSignup">
                                 <div>Don't have an account?</div>
-                                <Link href="./register"  variant="body2">
+                                <Link href="./register" variant="body2">
                                     {labels.signUpLabel}
                                 </Link>
                             </Grid>
@@ -95,7 +95,7 @@ export default function Login() {
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
             {/* <ManagedProfile title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/> 
             <Register title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/>
-       */}
-        </>
+        */}
+        </div>
     );
 }
