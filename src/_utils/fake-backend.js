@@ -6,6 +6,7 @@ const usersKey = 'react-18-redux-registration-login-example-users';
 const portalAccessKey = 'portal-access-data';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 
+
 const fakeBackend = () => {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
@@ -141,17 +142,19 @@ const fakeBackend = () => {
             }
 
             function getAccessData() {
-                let accessData = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
+                let accessData =  JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData; ;
                 return ok(accessData);
             }
 
             function postAccessData() {
                 // Retrieve the access data from the body function
                 const accessData = body();
-                let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
+                let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;               
+                console.log(accessData);
+                let newAccesData={...portalAccess};
                
                 // Create a new array for the updated portal access data
-                const updatedPortalAccess = portalAccess.map(portal => {
+                const updatedPortalAccess = portalAccess?.Data.map(portal => {
                     // Create a shallow copy of the portal object
                     const newPortal = { ...portal };
                     newPortal.PortalRoleAccess = portal.PortalRoleAccess.map(roleAccess => {
@@ -161,10 +164,10 @@ const fakeBackend = () => {
                             // Create a shallow copy of the permission object
                             const newPermission = { ...permission };
                             // Find the corresponding changed data
-                            const changedData = accessData.find(x => x.RoleMappingId === permission.MappingFeatureId);
+                            const changedData = accessData.find(x => x.RoleAccessMappingID === permission.RoleAccessMappingID);
                             // Update the permission if there is a corresponding change
-                            if (changedData && permission.MappingFeatureId === changedData.RoleMappingId) {
-                                newPermission.Isactive = changedData.Isactive;
+                            if (changedData && permission.RoleAccessMappingID === changedData.RoleAccessMappingID) {
+                                newPermission.IsActive = changedData.IsActive;
                             }
                             return newPermission;
                         });
@@ -173,8 +176,9 @@ const fakeBackend = () => {
                     return newPortal;
                 });
             
+                newAccesData.Data=updatedPortalAccess;
                 // Store the updated portal access data in localStorage
-                localStorage.setItem(portalAccessKey, JSON.stringify(updatedPortalAccess));
+                localStorage.setItem(portalAccessKey, JSON.stringify(newAccesData));
             
                 // Return a successful response
                 return ok();

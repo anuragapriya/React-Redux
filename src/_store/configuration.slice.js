@@ -20,7 +20,7 @@ export const portalAccessReducer = slice.reducer;
 
 function createInitialState() {
     return {
-        portalAccessGetData: [],
+        portalAccessGetData: {},
         portalAccessPostData: []
     }
 }
