@@ -26,8 +26,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
+   const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
         getAccess: getAccess(),
@@ -47,7 +47,7 @@ function createExtraActions() {
             `${name}/postAccessData`,
             async (data) => {
                 try {
-                    await trackPromise(fetchWrapper.post(`${baseUrl}/postAccessData`, data));
+                    await trackPromise(fetchWrapper.put(`${baseUrl}`, data));
                 }
                 catch (error) {
                     console.log(error);
