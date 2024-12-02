@@ -80,11 +80,11 @@ body {
   text-overflow: ellipsis;
 }
 .files-list-item-content-item-1 {
-  font-size: 20px;
+
   line-height: 30px;
 }
 .files-list-item-content-item-2 {
-  font-size: 16px;
+
   line-height: 20px;
 }
 .files-list-item-preview {
@@ -101,7 +101,7 @@ body {
   line-height: 60px;
   color: #FFF;
   background-color: #D3D3D3;
-  font-size: 16px;
+
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -157,8 +157,26 @@ body {
 }
 .UploadContainer p{
   font-weight: 600;
-  font-size: 13px;
+
 }
 .Upload-containerlist .UploadContainer {
   margin-bottom: 15px;
+}
+
+:root {
+  --font-size-small: 12px;
+  --font-size-medium: 16px;
+  --font-size-large: 20px;
+}
+
+.font-small {
+  font-size: var(--font-size-small);
+}
+
+.font-medium {
+  font-size: var(--font-size-medium);
+}
+
+.font-large {
+  font-size: var(--font-size-large);
 }
