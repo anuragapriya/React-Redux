@@ -32,7 +32,7 @@ const PortalConfiguration = (props) => {
         });
 
         accessNames.forEach(featureId => {
-            const featureName = portal.PortalRoleAccess[0].FeatureAccess.find(permission => permission.AccessID === featureId).AccessName;
+            const featureName = portal.PortalRoleAccess[0].FeatureAccess.find(permission => permission.AccessID === featureId)?.AccessName;
             const row = { AccessID: featureId, FeatureName: featureName };
             Object.keys(roles[featureId]).forEach(roleId => {
                 row[roleId] = roles[featureId][roleId];

@@ -27,7 +27,7 @@ function createInitialState() {
 
 function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-    //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
         getAccess: getAccess(),
@@ -38,7 +38,7 @@ function createExtraActions() {
     function getAccess() {
         return createAsyncThunk(
             `${name}/getAccessData`,
-            async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}/getAccessData`))            
+            async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}/GetUserPortalRoleMapping`))            
         );
     }
 
@@ -78,6 +78,7 @@ function createExtraReducers() {
                     state.portalAccessGetData = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
+                    console.log(action.payload);
                     state.portalAccessGetData = action.payload;
                 })
                 .addCase(rejected, (state, action) => {
