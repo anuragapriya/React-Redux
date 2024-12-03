@@ -3,17 +3,13 @@ import { Fragment } from 'react';
    import React from 'react';
    import RouteList from './routes/RouteList';
    import { history } from '_utils';
-   import { useFontSize } from '_components/font/FontSizeProvider';
-   import FontSizeSelector from '_components/font/FontSizeSelector';
 
    const Apps = () => {
      history.navigate = useNavigate();
      history.location = useLocation();
-     const { fontSize } = useFontSize();
 
      return (
-       <div className={`font-${fontSize}`}>
-         <FontSizeSelector />
+       <div>
          <React.StrictMode>
            <Fragment>
              <RouteList />

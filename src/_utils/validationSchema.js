@@ -28,12 +28,12 @@ export const profileValidationSchema=(id) => Yup.object().shape({
     mobileNumber: Yup.string()
         .required('Phone number is required')
         .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
-    email: Yup.string()
+    emailAddress: Yup.string()
         .required('Email is required')
         .email('Email is invalid'),
     confirmEmail: Yup.string()
         .required('Please confirm your email')
-        .oneOf([Yup.ref('email')], 'Emails must match'),
+        .oneOf([Yup.ref('emailAddress')], 'Emails must match'),
     password: Yup.string()
         .concat(id ? null : Yup.string().required('Password is required'))
         .min(6, 'Password must be at least 6 characters'),

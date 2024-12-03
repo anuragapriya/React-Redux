@@ -7,7 +7,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { store } from './_store';
 import App from './App';
 import './index.css';
-import FontSizeProvider from '_components/font/FontSizeProvider';
 
 // setup fake backend
 import fakeBackend from './_utils/fake-backend';
@@ -20,9 +19,7 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <FontSizeProvider>
                     <App />
-                </FontSizeProvider>
             </BrowserRouter>
         </Provider>
     </React.StrictMode>
