@@ -8,12 +8,10 @@ import { labels } from "_utils/constant";
 import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
 import { ResetPassword } from "container/loginPage";
-import { useFontSize } from '_components/font/FontSizeProvider';
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false });
     const dispatch = useDispatch();
-    const { fontSize } = useFontSize();
 
     // form validation rules 
     const formOptions = { resolver: yupResolver(loginValidationSchema) };
@@ -33,7 +31,7 @@ export default function Login() {
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
 
     return (
-        <div className={`font-${fontSize}`}>
+        <div >
             <Typography component="div" className="mobilebanner">
                 <Typography component="h1" variant="h5" className="Logincontent">
                     {labels.loginHeader}

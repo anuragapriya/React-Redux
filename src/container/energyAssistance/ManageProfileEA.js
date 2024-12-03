@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +8,13 @@ import { userActions, alertActions } from '_store';
 import { profileValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
 
-const ManageProfileEA = ({ title, open, handleClose, selectedrowId }) => {
-    const id = selectedrowId;
+const ManageProfileEA = () => {
+    const authUser = useSelector(state => state.auth.value);
+    const id = authUser.id;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(x => x.users?.item);
-
+    
     const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(profileValidationSchema(id))
     });
@@ -19,7 +22,6 @@ const ManageProfileEA = ({ title, open, handleClose, selectedrowId }) => {
     useEffect(() => {
         dispatch(userActions.clear());
         if (id) {
-
             dispatch(userActions.getById(id)).unwrap().then(user => reset(user));
         } else {
 
@@ -32,13 +34,11 @@ const ManageProfileEA = ({ title, open, handleClose, selectedrowId }) => {
         try {
             let message;
             if (id) {
-                await dispatch(userActions.update({ id, data })).unwrap();
+                const portalName="EnergyAssistance";
+                await dispatch(userActions.update({ id, data,portalName })).unwrap();
                 message = 'User updated';
-            } else {
-                await dispatch(userActions.register(data)).unwrap();
-                message = 'User added';
-            }
-            handleClose();
+            } 
+            navigate('/energyAssistance/dashboard');
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
@@ -49,7 +49,7 @@ const ManageProfileEA = ({ title, open, handleClose, selectedrowId }) => {
              <Box>
                 {!(user?.loading || user?.error) &&
                     (<Typography component="div" className="mobilebanner">
-                        <Typography component="h1" variant="h5">{title}</Typography>
+                        <Typography component="h1" variant="h5">Profile</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <PersonalDetails id={id} register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
                             <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>

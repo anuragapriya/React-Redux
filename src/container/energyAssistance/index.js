@@ -1,5 +1,5 @@
 import Home  from "./Home";
 import  Jurisdiction from "./Jurisdiction"
-import ManageProfileEA from "./ManageProfile"
+import ManageProfileEA from "./ManageProfileEA"
 
 export{Home,Jurisdiction,ManageProfileEA};
