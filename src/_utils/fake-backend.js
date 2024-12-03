@@ -50,7 +50,7 @@ const fakeBackend = () => {
                 const { email, password } = body();
                 const user = users.find(x => x.emailAddress === email && x.password === password);
 
-                if (!user) return error('email or password is incorrect');
+                if (!user) return error('You have entered an incorrect password for the profile associated with this email address.');
 
                 let currentDateTime = new Date();
                 let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
