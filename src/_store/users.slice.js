@@ -65,8 +65,8 @@ function createExtraActions() {
     function update() {
         return createAsyncThunk(
             `${name}/update`,
-            async function ({ id, data }, { getState, dispatch }) {
-                await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, data));
+            async function ({ id, data,portalName }, { getState, dispatch }) {
+                await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, {data,portalName}));
 
                 // // update stored user if the logged in user updated their own record
                 // const auth = getState().auth.value;

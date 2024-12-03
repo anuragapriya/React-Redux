@@ -1,14 +1,19 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import { Upload, AccountSearch } from "container/accountInquiry";
-import { Dashboard,FileUpload } from "@mui/icons-material";
+import { useSelector } from 'react-redux';
+import { Upload, AccountSearch, ManageProfileAI } from "container/accountInquiry";
+import { Dashboard,FileUpload ,People} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
 
 const AccountInquiryLayout = () => {
-    const appMenuItems = [
+    const authUser = useSelector(state => state.auth.value);
+
+    const isProfileCompleted = authUser?.UserAccess.find(item => item.PortalName.toLowerCase() === "accountinquiry")?.IsProfileCompleted;
+
+    const menuItems = [
         {
             name: 'Account Search',
-            link: 'accountSearch',
+            link: 'dashboard',
             Icon: Dashboard,
         },
         {
@@ -17,10 +22,14 @@ const AccountInquiryLayout = () => {
             Icon: FileUpload,
         }
     ];
+
+    const appMenuItems = isProfileCompleted ? menuItems : [];
+
     return (
         <Routes>
+            <Route path="manageProfileAI" element={<ManageProfileAI />} />
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                <Route path="accountSearch" element={<AccountSearch />} />
+                <Route path="dashboard" element={<AccountSearch />} />
                 <Route path="upload" element={<Upload />} />
             </Route>
         </Routes>

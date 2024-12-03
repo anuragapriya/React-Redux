@@ -12,32 +12,26 @@ const EnergyAssistanceLayout = () => {
 
     const menuItems = [
         {
-            name: 'Manage Profile',
-            key:'manageProfile',
-            link: '/energyAssistance/manageProfile',
-            Icon: People,
-        },
-        {
             name: 'Dashboard',
             key:'dashboard',
-            link: '/energyAssistance/dashboard',
+            link: 'dashboard',
             Icon: Dashboard,
         },
         {
             name: 'Jurisdiction',
             key:'jurisdiction',
-            link: '/energyAssistance/jurisdiction',
+            link: 'jurisdiction',
             Icon: People,
         }
     ];
 
     // Use the same menuItems for both cases, no need for additionalMenuItems
-    const appMenuItems = isProfileCompleted ? menuItems : menuItems.filter(item => item.key === 'manageProfile');
+    const appMenuItems = isProfileCompleted ? menuItems : [];
 
     return (
         <Routes>
-            <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
-                <Route path="manageProfile" element={<ManageProfileEA />} />
+             <Route path="manageProfile" element={<ManageProfileEA />} />
+            <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>               
                 <Route path="dashboard" element={<Home />} />
                 <Route path="jurisdiction" element={<Jurisdiction />} />
             </Route>

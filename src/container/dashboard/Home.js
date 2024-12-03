@@ -14,14 +14,14 @@ const Home = () => {
                 name: "accountInquiry",
                 title: "Account Inquiry",
                 description: "Account Inquiry",
-                path: "accountInquiry/accountSearch"
+                path: item.IsProfileCompleted? "accountInquiry/dashboard" : "accountInquiry/manageProfileAI"
             }];
         case 'energyassistance':
             return [{
                 name: "energyAssistance",
                 title: "Energy Assistance",
                 description: "Energy Assistance",
-                path: "energyAssistance/manageProfile"
+                path:item.IsProfileCompleted? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
             }];
         case 'bbs':
             return [{
@@ -58,37 +58,6 @@ const Home = () => {
 
 console.log(data);
 
-
-  const data1 = [
-    {
-      id: 1,
-      name: "accountInquiry",
-      title: "Account Inquiry",
-      description: "Account Inquiry",
-      path: "accountInquiry/accountSearch"
-    },
-    {
-      id: 2,
-      name: "energyAssistance",
-      title: "Energy Assistance",
-      description: "Energy Assistance",
-      path: "energyAssistance/dashboard"
-    },
-    {
-      id: 3,
-      title: "BBS",
-      name: "bbs",
-      description: "BBS",
-      path: "bbs/dashboard"
-    },
-    {
-      id: 4,
-      title: "User Management",
-      name: "userManagement",
-      description: "User Management",
-      path: "userManagement/managedprofile"
-    },
-  ];
 
   const handleClick = (path) => {
     console.log(`Card ${path} clicked`);

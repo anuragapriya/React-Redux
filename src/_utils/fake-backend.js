@@ -87,6 +87,7 @@ const fakeBackend = () => {
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
                 users.push(user);
                 localStorage.setItem(usersKey, JSON.stringify(users));
+                
                 return ok();
             }
 
@@ -105,7 +106,9 @@ const fakeBackend = () => {
             function updateUser() {
                 if (!isAuthenticated()) return unauthorized();
 
-                let params = body();
+                const {data,portalName} = body();
+                let params=data;
+                console.log(data);
                 let user = users.find(x => x.id === idFromUrl());
 
                 // only update password if entered
@@ -119,9 +122,20 @@ const fakeBackend = () => {
                 }
 
                 // update and save user
-                Object.assign(user, params);
-                localStorage.setItem(usersKey, JSON.stringify(users));
+               
+                let userAccess = {
+                    ...params,
+                    UserAccess: params.UserAccess.map(portal =>
+                        portal.PortalName === portalName
+                            ? { ...portal, IsProfileCompleted: 1 }
+                            : portal
+                    )
+                };
+                console.log(userAccess);
 
+                Object.assign(user, userAccess);
+               
+                localStorage.setItem(usersKey, JSON.stringify(users));
                 return ok();
             }
 
