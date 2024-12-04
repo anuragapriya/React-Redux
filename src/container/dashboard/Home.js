@@ -15,7 +15,7 @@ const Home = () => {
           name: "accountInquiry",
           title: "Account Inquiry",
           description: "Account Inquiry",
-          path: item.IsProfileCompleted ? "accountInquiry/dashboard" : "accountInquiry/manageProfileAI"
+          path: item.IsProfileCompleted ? "accountInquiry/dashboard" : "accountInquiry/manageProfile"
         }];
       case 'energyassistance':
         return [{

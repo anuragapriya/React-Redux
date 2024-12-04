@@ -99,6 +99,39 @@ export const user = {
     ]
 };
 
+export const portalData = [
+  {
+    PortalID:"1",
+    PortalKey:"AI",
+    PortalName:"Account Inquiry",
+    Description:"To Manage Account Inquiry Details"
+  },
+  {
+    PortalID:"2",
+    PortalKey:"EA",
+    PortalName:"Energy Assistance",
+    Description:"To Manage Energy Assistance Details"
+  },
+  {
+    PortalID:"3",
+    PortalKey:"MC",
+    PortalName:"Map Center",
+    Description:"To Manage Map Center Details"
+  },
+  {
+    PortalID:"4",
+    PortalKey:"MB",
+    PortalName:"Marketer & BBS",
+    Description:"To Manage Marketer & BBS Details"
+  },
+  {
+    PortalID:"5",
+    PortalKey:"SD",
+    PortalName:"Supplier Diversity",
+    Description:"To Manage Supplier Diversity Details"
+  },
+];
+
 export const userDetails = {
     id: null,
     firstName: '',
