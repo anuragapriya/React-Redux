@@ -65,7 +65,7 @@ export const otpValidationSchema = Yup.object().shape({
 export const loginValidationSchema = Yup.object().shape({
     email: Yup.string()
         .required('Email is required')
-        .email('Email is invalid'),
+        .email('Please provide a valid email address'),
     password: Yup.string()
         .required('Password is required')
 });

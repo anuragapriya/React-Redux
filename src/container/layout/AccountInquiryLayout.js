@@ -27,7 +27,7 @@ const AccountInquiryLayout = () => {
 
     return (
         <Routes>
-            <Route path="manageProfileAI" element={<ManageProfileAI />} />
+            <Route path="manageProfile" element={<ManageProfileAI />} />
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>
                 <Route path="dashboard" element={<AccountSearch />} />
                 <Route path="upload" element={<Upload />} />
