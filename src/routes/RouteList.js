@@ -8,6 +8,7 @@ import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
 import {LoginLayout,UsersLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
 import {Home} from 'container/dashboard';
 import DocumentViewer from '_components/DocumentViewer';
+import RegistrationLayout from 'container/layout/RegistrationLayout';
 
 const RouteList = () => {
 
@@ -63,6 +64,7 @@ const RouteList = () => {
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout />} />
+                    <Route path="registeration/*" element={<RegistrationLayout/>}/>
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
                 <SessionTimeout onLogout={logout} isAuthenticated={auth} />

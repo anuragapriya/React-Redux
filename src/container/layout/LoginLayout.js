@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Login, Register } from 'container/loginPage';
+import { Login } from 'container/loginPage';
+import {  Register } from 'container/registration';
 import { MainLayout } from 'container/layout';
 
 const LoginLayout = () => {

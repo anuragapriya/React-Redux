@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import {  useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
@@ -30,7 +30,7 @@ const Register = () => {
 
             await dispatch(userActions.register(data)).unwrap();
             message = 'User Resgistered Successfully';
-            navigate('/');
+            navigate('/verifiedRegistration');
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error(error));
