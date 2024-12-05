@@ -7,7 +7,7 @@ import { Fragment } from 'react';
    const Apps = () => {
      history.navigate = useNavigate();
      history.location = useLocation();
-
+//Common App Component for the entire application.
      return (
        <div>
          <React.StrictMode>
