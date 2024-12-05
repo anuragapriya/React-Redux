@@ -4,9 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { userActions, alertActions } from '_store';
-import { profileValidationSchema } from '_utils/validationSchema';
+import {registerValidationSchema, profileValidationSchema } from '_utils/validationSchema';
 import PersonalDetails from './ProfileDetails/PersonalDetails';
 import AssignToDetails from './ProfileDetails/AssignToDetails';
+import AdditionalDetails from './ProfileDetails/AdditionalDetails';
 
 const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const id = selectedrowId;
@@ -14,7 +15,7 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const user = useSelector(x => x.users?.item);
 
     const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
-        resolver: yupResolver(profileValidationSchema(id))
+        resolver: yupResolver(registerValidationSchema(),profileValidationSchema())
     });
 
     useEffect(() => {
@@ -53,7 +54,9 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
                     (<Typography component="div" className="mobilebanner">
                         <Typography component="h1" variant="h5">{title}</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <PersonalDetails id={id} register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
+                            <PersonalDetails  register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
+                            <AdditionalDetails id={id}  register={register} errors={errors}  control={control}></AdditionalDetails>
+                           
                             {id && <>
                                 <AssignToDetails errors={errors} control={control}></AssignToDetails>
                             </>}

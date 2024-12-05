@@ -1,45 +1,23 @@
 import * as Yup from 'yup';
 
 export const registerValidationSchema= Yup.object().shape({
-    firstName: Yup.string()
-        .required('First name is required'),
-    lastName: Yup.string()
-        .required('Last name is required'),
+    fullName: Yup.string()
+        .required('Full Name is required'),
     companyName: Yup.string()
-        .required('Company name is required'),
+        .required('Company Name is required'),
     mobileNumber: Yup.string()
-        .required('Phone number is required')
-        .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
     emailAddress: Yup.string()
-        .required('Email is required')
-        .email('Email is invalid'),
+        .required('Email Address is required')
+        .email('Email Address is invalid'),
     password: Yup.string()
-        .required('Password is required')
-        .min(6, 'Password must be at least 6 characters'),
+        .required('Password is required'),
+    selectPortal: Yup.number()
+    .required('Please select any Portal'),
 });
 
-export const profileValidationSchema=(id) => Yup.object().shape({
-    firstName: Yup.string()
-        .required('First name is required'),
-    lastName: Yup.string()
-        .required('Last name is required'),
-    companyName: Yup.string()
-        .required('Company name is required'),
-    mobileNumber: Yup.string()
-        .required('Phone number is required')
-        .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits'),
-    emailAddress: Yup.string()
-        .required('Email is required')
-        .email('Email is invalid'),
-    confirmEmail: Yup.string()
-        .required('Please confirm your email')
-        .oneOf([Yup.ref('emailAddress')], 'Emails must match'),
-    password: Yup.string()
-        .concat(id ? null : Yup.string().required('Password is required'))
-        .min(6, 'Password must be at least 6 characters'),
-    confirmPassword: Yup.string()
-    //.concat(id ? null :Yup.string().required('Please confirm your password'))
-        .oneOf([Yup.ref('password')], 'Passwords must match'),
+export const profileValidationSchema=() => Yup.object().shape({    
     firstSecurityQuestion: Yup.number()
         .required('Please select the first security question'),
     firstSecurityAnswer: Yup.string()

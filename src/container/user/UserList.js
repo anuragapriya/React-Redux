@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { userActions } from '_store';
 import AddEdit from './ManageProfile';
 import { ErrorBoundary, Download } from '_components';
-import { labels } from '_utils/constant';
+import { labels } from '_utils/labels';
 
 const UserList = () => {
   const filename = 'Users';

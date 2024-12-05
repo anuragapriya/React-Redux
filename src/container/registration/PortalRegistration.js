@@ -3,15 +3,15 @@ import { useSelector,useDispatch } from 'react-redux';
 import CardDetail from '_components/CardDetail';
 import Grid2 from '@mui/material/Grid2';
 import { useEffect } from 'react';
-import { registerationActions } from '_store/registeration.slice';
+import { registrationActions } from '_store/registration.slice';
 
 const PortalRegistration = () => { 
     const dispatch = useDispatch();   
     const navigate = useNavigate();
-    const portals = useSelector((x) => x.registeration?.portalData);
+    const portals = useSelector((x) => x.registration?.portalData);
 
     useEffect(() => {
-        dispatch(registerationActions.getPortalData());
+        dispatch(registrationActions.getPortalData());
       }, [dispatch]);
 
     const data =Array.isArray(portals) && portals?.flatMap(item => {
@@ -21,35 +21,35 @@ const PortalRegistration = () => {
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-                    path: "registeration/accountInquiry"
+                    path: "registration/accountInquiry"
                 }];
             case 'ea':
                 return [{
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-                    path: "registeration/energyAssistance"
+                    path: "registration/energyAssistance"
                 }];
             case 'mc':
                 return [{
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-                    path: "registeration/mapCenter"
+                    path: "registration/mapCenter"
                 }];
             case 'mb':
                 return [{
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-                    path: "registeration/bbs"
+                    path: "registration/bbs"
                 }];
             case 'sd':
                 return [{
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-                    path: "registeration/diversity"
+                    path: "registration/diversity"
                 }];
             default:
                 return [];

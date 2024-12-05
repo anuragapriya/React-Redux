@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const PasswordCheck = (props) => {
-    const { password, confirmPassword } = props;
+const PasswordCheck = ({ password, confirmPassword }) => {
 
     // Ensure the password is a string
     const isPasswordValid = typeof password === "string";
@@ -17,9 +16,7 @@ const PasswordCheck = (props) => {
     });
 
     useEffect(() => {
-        if (isPasswordValid && isConfirmPasswordValid) {
-            validatePassword(password, confirmPassword);
-        }
+        validatePassword(password, confirmPassword);
     }, [password, confirmPassword]);
 
     const validatePassword = (password, confirmPassword) => {

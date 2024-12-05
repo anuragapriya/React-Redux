@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { Box } from '@mui/material';
-import { labels } from '_utils/constant';
+import { labels } from '_utils/labels';
 import Download from '_components/Download';
 
 const Jurisdiction = () => {
