@@ -8,6 +8,7 @@ import { Fragment } from 'react';
      history.navigate = useNavigate();
      history.location = useLocation();
 //Common App Component for the entire application.
+//common
      return (
        <div>
          <React.StrictMode>
