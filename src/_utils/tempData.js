@@ -1,3 +1,10 @@
+export const portalList=[
+    { label:'Account Inquiry', value: 1 },
+    { label:'Energy Assistance', value: 2},
+    { label:'Marketer & BBS', value: 3 },
+    { label:'Map Center', value: 4 },
+    { label:'Supplier Diversity', value: 5 }     
+]
 export const selectOptions=[
     { label:'What was the name of your favorite teacher in elementary school?', value: 1 },
     { label:'What was your dream job as a child?', value: 2},
