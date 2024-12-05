@@ -4,7 +4,7 @@ const VerifyRegistration = () => {
 const navigate= useNavigate();
    const handleClick=()=>
     {
-        navigate('/registeration/dashboard');
+        navigate('/registration/dashboard');
     };
 
     return (

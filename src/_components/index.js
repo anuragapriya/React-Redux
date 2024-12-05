@@ -14,7 +14,9 @@ import NavTab from "./NavTab";
 import ErrorBoundary from "./ErrorBoundary";
 import ComboSelectBox from "./ComboSelectBox";
 import PasswordCheck from "./PasswordCheck";
+import ModalPopup from "./ModalPopup";
+import PasswordField from "./PasswordField";
 
 export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,
     SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab,ErrorBoundary,
-    ComboSelectBox,PasswordCheck};
+    ComboSelectBox,PasswordCheck,ModalPopup,PasswordField};

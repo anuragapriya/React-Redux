@@ -12,8 +12,8 @@ const slice = createSlice({ name, initialState,  extraReducers });
 
 // exports
 
-export const registerationActions = { ...slice.actions, ...extraActions };
-export const registerationReducer = slice.reducer;
+export const registrationActions = { ...slice.actions, ...extraActions };
+export const registrationReducer = slice.reducer;
 
 // implementation
 

@@ -4,13 +4,13 @@ import { alertReducer } from './alert.slice';
 import { authReducer } from './auth.slice';
 import { usersReducer } from './users.slice';
 import { portalAccessReducer } from './configuration.slice';
-import { registerationReducer } from './registeration.slice';
+import { registrationReducer } from './registration.slice';
 
 export * from './alert.slice';
 export * from './auth.slice';
 export * from './users.slice';
 export * from './configuration.slice';
-export * from './registeration.slice';
+export * from './registration.slice';
 
 export const store = configureStore({
     reducer: {
@@ -18,6 +18,6 @@ export const store = configureStore({
         auth: authReducer,
         users: usersReducer,
         configs:portalAccessReducer,
-        registeration:registerationReducer
+        registration:registrationReducer
     },
 });

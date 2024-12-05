@@ -1,119 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button } from '@mui/material';
-import { TextField } from '@mui/material';
+import { Typography, Button, Link, Grid, } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
-import { PasswordCheck } from '_components';
-import { labels } from "_utils/constant";
+import { PersonalDetails } from 'container/user';
+import { ModalPopup } from '_components';
+import { verifyEmailLabels } from '_utils/labels';
 
 const Register = () => {
-
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const user = useSelector(x => x.users?.item);
+    const [open, setOpen] = useState(false);
 
-    const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, control, formState: { errors, isSubmitting }, watch ,trigger} = useForm({
         resolver: yupResolver(registerValidationSchema)
     });
-
-    const password = watch('password');
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
             let message;
-
             await dispatch(userActions.register(data)).unwrap();
-            message = 'User Resgistered Successfully';
-            navigate('/verifiedRegistration');
-            dispatch(alertActions.success({ message, showAfterRedirect: true }));
+            // message = 'User Resgistered Successfully';
+            // navigate('/registration/verified');
+            //  dispatch(alertActions.success({ message, showAfterRedirect: true }));
+            setOpen(true);
         } catch (error) {
             dispatch(alertActions.error(error));
         }
     };
 
-    const onCancel = () => {
-        navigate('/');
+    const handlePrimaryClick = () => {
+        setOpen(false);
     }
 
     return (
         <>
             {!(user?.loading || user?.error) &&
                 (<Typography component="div" className="mobilebanner">
-                    <Typography component="h1" variant="h5">{labels.signUpLabel}</Typography>
-                    <div className="paper">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <TextField
-                                {...register('firstName')}
-                                label="First Name"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.firstName}
-                                helperText={errors.firstName?.message}
-                            />
-                            <TextField
-                                {...register('lastName')}
-                                label="Last Name"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.lastName}
-                                helperText={errors.lastName?.message}
-                            />
-                            <TextField
-                                {...register('companyName')}
-                                label="Company Name"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.companyName}
-                                helperText={errors.companyName?.message}
-                            />
-                            <TextField
-                                {...register('mobileNumber')}
-                                label="Mobile Number"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.mobileNumber}
-                                helperText={errors.mobileNumber?.message}
-                            />
-                            <TextField
-                                {...register('emailAddress')}
-                                label="Email"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.emailAddress}
-                                helperText={errors.emailAddress?.message}
-                            />
-
-                            <TextField
-                                {...register('password')}
-                                label="Password"
-                                type="password"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.password}
-                                helperText={errors.password?.message}
-                            />
-                            <PasswordCheck password={password} confirmPassword={""} />
-                            <Button type="submit"  variant="contained" color="primary" disabled={isSubmitting}>
-                                {isSubmitting ? 'Submitting...' : 'Submit'}
-                            </Button>
-                            <Button
-                            type="button"                            
-                            variant="contained"
-                            color="primary"
-                            onClick={onCancel}
-                        >
-                            Back to Login
+                    <Typography component="h1" variant="h5">Registration</Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
+                        <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
+                            Register
                         </Button>
-                        </form>
-                    </div>
+                        <Grid container>
+                            <Grid item className="accountSignup">
+                                <div>Do you already have an account? Login</div>
+                                <Link href="./" variant="body2">
+                                    here
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </form>
                 </Typography>
                 )}
+            {open && <ModalPopup
+                header={verifyEmailLabels.header}
+                message1={verifyEmailLabels.message1}
+                message2={verifyEmailLabels.message2}
+                btnPrimaryText={verifyEmailLabels.btnPrimaryText}
+                handlePrimaryClick={handlePrimaryClick}
+            />}
             {user?.error &&
                 <div class="text-center m-5">
                     <div class="text-danger">Error loading user: {user.error}</div>
