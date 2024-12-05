@@ -169,6 +169,19 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.zoom125 .login-container ,.zoom150 .login-container ,.zoom100 .login-container{
+    width: 1200px;
+ }
+ 
+ .zoom100 {
+    zoom: 100%;
+ }
+ .zoom125 {
+    zoom: 125%; 
+ }
+ .zoom150{
+    zoom: 150%;
+ }
 @media only screen and (max-width: 1124px) {
     .pb-10{
         padding: 5pc 30px 5pc 30px;
