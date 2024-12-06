@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 import { ComboSelectBox, PasswordCheck, PasswordField } from '_components';
 import { portalList } from '_utils/tempData';
 
@@ -48,15 +49,32 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 onFocus={handleOtherFocus}
                 onBlur={() => trigger('emailAddress')}
             />
-            <TextField
-                {...register('mobileNumber', { required: 'Phone Number is required' })}
-                label="Phone Number"
-                fullWidth
-                margin="normal"
-                error={!!errors.mobileNumber}
-                helperText={errors.mobileNumber?.message}
-                onFocus={handleOtherFocus}
-                onBlur={() => trigger('mobileNumber')}
+            <Controller
+                name="mobileNumber"
+                control={control}
+                rules={{ required: 'Phone Number is required' }}
+                render={({ field }) => (
+                    <InputMask
+                        mask="999-999-9999"
+                        maskChar=""
+                        value={field.value}
+                        onChange={field.onChange}
+                        onBlur={() => trigger('mobileNumber')}
+                        onFocus={handleOtherFocus}
+                    >
+                        {(inputProps) => (
+                            <TextField
+                                {...inputProps}
+                                label="Phone Number"
+                                fullWidth
+                                margin="normal"
+                                error={!!errors.mobileNumber}
+                                helperText={errors.mobileNumber?.message}
+                                onFocus={handleOtherFocus}
+                            />
+                        )}
+                    </InputMask>
+                )}
             />
             <PasswordField
                 register={register}
