@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Login } from 'container/loginPage';
-import {  Register } from 'container/registration';
+import { Register } from 'container/registration';
 import { MainLayout } from 'container/layout';
 
 const LoginLayout = () => {
@@ -13,18 +13,12 @@ const LoginLayout = () => {
     }
 
     return (
-        <div className=" p-0">
-            <div className="row m-0">
-                <div className="col-sm-12 login-container p-0">
-                    <Routes>
-                        <Route element={<MainLayout />}>
-                            <Route index element={<Login />} />
-                            <Route path="register" element={<Register />} /> 
-                        </Route>
-                    </Routes>
-                </div>
-            </div>
-        </div>
+        <Routes>
+            <Route element={<MainLayout />}>
+                <Route index element={<Login />} />
+                <Route path="register" element={<Register />} />
+            </Route>
+        </Routes>
     );
 }
 

@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Typography,
-  makeStyles,
-  Slide
-} from "@material-ui/core";
+import {Dialog,DialogTitle,DialogContent,DialogActions,Button,Typography,makeStyles,Slide} from "@material-ui/core";
 import clsx from "clsx";
 import red from "@material-ui/core/colors/red";
 const useStyles = makeStyles(() => ({

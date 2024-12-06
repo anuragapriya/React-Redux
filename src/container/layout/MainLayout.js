@@ -3,9 +3,11 @@ import { Outlet } from 'react-router-dom';
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import images from '../../images';
+import PortalZoom from "_components/PortalZoom";
 
 const MainLayout = () => (
     <>
+    <PortalZoom></PortalZoom>
     <div className="row m-0">
         <Grid item xs={12} sm={5} md={4} className="wglcontainerblock">
             <div className="wglcontainer">
