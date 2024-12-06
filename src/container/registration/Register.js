@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -20,28 +21,34 @@ const Register = () => {
         resolver: yupResolver(registerValidationSchema)
     });
 
+
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
             let message;
+
             await dispatch(userActions.register(data)).unwrap();
             // message = 'User Resgistered Successfully';
             // navigate('/registration/verified');
             //  dispatch(alertActions.success({ message, showAfterRedirect: true }));
             setOpen(true);
+
         } catch (error) {
             dispatch(alertActions.error(error));
         }
     };
 
+
     const handleBtnSecondaryClick = () => {
         setOpen(false);
+
     }
 
     return (
         <>
             {!(user?.loading || user?.error) &&
                 (<Typography component="div" className="mobilebanner">
+
                     <Typography component="h1" variant="h5">Registration</Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
@@ -67,6 +74,7 @@ const Register = () => {
                 btnSecondaryText={verifyEmailLabels.btnSecondaryText}
                 handleBtnSecondaryClick={handleBtnSecondaryClick}
             />}
+
             {user?.error &&
                 <div class="text-center m-5">
                     <div class="text-danger">Error loading user: {user.error}</div>
