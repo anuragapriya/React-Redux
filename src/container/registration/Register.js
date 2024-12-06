@@ -9,6 +9,7 @@ import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
 import { ModalPopup } from '_components';
 import { verifyEmailLabels } from '_utils/labels';
+import TimerModal from '_components/TimerModal';
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const Register = () => {
         }
     };
 
-    const handlePrimaryClick = () => {
+    const handleBtnSecondaryClick = () => {
         setOpen(false);
     }
 
@@ -58,12 +59,13 @@ const Register = () => {
                     </form>
                 </Typography>
                 )}
-            {open && <ModalPopup
+            {open && <TimerModal
+                timerCountdown={5}
                 header={verifyEmailLabels.header}
                 message1={verifyEmailLabels.message1}
                 message2={verifyEmailLabels.message2}
-                btnPrimaryText={verifyEmailLabels.btnPrimaryText}
-                handlePrimaryClick={handlePrimaryClick}
+                btnSecondaryText={verifyEmailLabels.btnSecondaryText}
+                handleBtnSecondaryClick={handleBtnSecondaryClick}
             />}
             {user?.error &&
                 <div class="text-center m-5">

@@ -169,14 +169,16 @@ body {
   --font-size-large: 20px;
 }
 
-.font-small {
-  font-size: var(--font-size-small);
+.zoom125 .login-container ,.zoom150 .login-container ,.zoom100 .login-container{
+  width: 1200px;
 }
 
-.font-medium {
-  font-size: var(--font-size-medium);
+.zoom100 {
+  zoom: 100%;
 }
-
-.font-large {
-  font-size: var(--font-size-large);
+.zoom125 {
+  zoom: 125%; 
+}
+.zoom150{
+  zoom: 150%;
 }
