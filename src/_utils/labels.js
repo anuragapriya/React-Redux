@@ -17,3 +17,19 @@ export const verifyEmailLabels={
     btnSecondaryText:"Close",
     btnPrimaryText:"Ok"
 }
+
+export const verifiedRegistrationLabels={
+    header:"Verification Completed",
+    message1:"Thank you for verifying your email address!",
+    message2:"Please click on the below button to complete registration.",
+    btnSecondaryText:"Cancel",
+    btnPrimaryText:"Complete registration"
+}
+
+export const notVerifiedRegistrationLabels={
+    header:"Verification expired",
+    message1:"Your verification link is expired.",
+    message2:"Please click on the below button to resend the verification link to your registered mail.",
+    btnSecondaryText:"Cancel",
+    btnPrimaryText:"Re-Verify"
+}

@@ -19,7 +19,8 @@ export const registrationReducer = slice.reducer;
 
 function createInitialState() {
     return {
-        portalData: []
+        portalData: [],
+        verifiedUserData:null
     }
 }
 
@@ -28,7 +29,8 @@ function createExtraActions() {
     //const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
-        getPortalData: getPortalData()
+        getPortalData: getPortalData(),
+        getVerifiedUserData:getVerifiedUserData()
     };
 
 
@@ -38,11 +40,19 @@ function createExtraActions() {
             async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}`))            
         );
     }
+
+    function getVerifiedUserData() {
+        return createAsyncThunk(
+            `${name}/getVerifiedUserData`,
+            async ({id, portalId }) =>  await trackPromise(fetchWrapper.get(`${baseUrl}/verified/${id}/${portalId}`))            
+        );
+    }
 }
 
 function createExtraReducers() {
     return (builder) => {
         getPortalData();
+        getVerifiedUserData();
 
         function getPortalData() {
             var { pending, fulfilled, rejected } = extraActions.getPortalData;
@@ -57,6 +67,21 @@ function createExtraReducers() {
                 .addCase(rejected, (state, action) => {
                     state.portalData = { error: action.error };
                 });
-        }       
+        } 
+        
+        function getVerifiedUserData() {
+            var { pending, fulfilled, rejected } = extraActions.getVerifiedUserData;
+            builder
+                .addCase(pending, (state) => {
+                    state.verifiedUserData = { loading: true };
+                })
+                .addCase(fulfilled, (state, action) => {
+                    console.log(action.payload);
+                    state.verifiedUserData = action.payload;
+                })
+                .addCase(rejected, (state, action) => {
+                    state.verifiedUserData = { error: action.error };
+                });
+        } 
     };
 }
