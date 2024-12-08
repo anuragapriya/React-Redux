@@ -42,7 +42,7 @@ const TimerModal = ({ timerCountdown, header, message1, message2, btnPrimaryText
           <DialogContentText id="alert-dialog-description">
             {message1 && <p>{message1}</p>}
             {message2 && <p>{message2}</p>}
-            This modal will close automatically in {countdown} seconds.
+            It will close automatically in {countdown} seconds.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

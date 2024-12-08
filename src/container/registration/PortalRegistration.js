@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CardDetail from '_components/CardDetail';
 import Grid2 from '@mui/material/Grid2';
 import { useEffect } from 'react';
-
 import { registrationActions } from '_store/registration.slice';
 
-const PortalRegistration = () => { 
-    const dispatch = useDispatch();   
+const PortalRegistration = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const portals = useSelector((x) => x.registration?.portalData);
@@ -15,16 +14,15 @@ const PortalRegistration = () => {
     useEffect(() => {
         dispatch(registrationActions.getPortalData());
 
-      }, [dispatch]);
+    }, [dispatch]);
 
-    const data =Array.isArray(portals) && portals?.flatMap(item => {
+    const data = Array.isArray(portals) && portals?.flatMap(item => {
         switch (item.PortalKey.toLowerCase()) {
             case 'ai':
                 return [{
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-
                     path: "registration/accountInquiry"
 
                 }];
@@ -33,7 +31,6 @@ const PortalRegistration = () => {
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-
                     path: "registration/energyAssistance"
 
                 }];
@@ -42,7 +39,6 @@ const PortalRegistration = () => {
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-
                     path: "registration/mapCenter"
 
                 }];
@@ -51,7 +47,6 @@ const PortalRegistration = () => {
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-
                     path: "registration/bbs"
 
                 }];
@@ -60,9 +55,7 @@ const PortalRegistration = () => {
                     name: item.PortalKey,
                     title: item.PortalName,
                     description: item.PortalName,
-
                     path: "registration/diversity"
-
                 }];
             default:
                 return [];

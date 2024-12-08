@@ -1,5 +1,5 @@
 import Register from "./Register";
-import VerifyRegistration from "./VerifyRegistration";
+import VerifiedRegistration from "./VerifiedRegistration";
 import PortalRegistration from "./PortalRegistration";
 
-export {Register , VerifyRegistration,PortalRegistration}
+export {Register , VerifiedRegistration,PortalRegistration}
