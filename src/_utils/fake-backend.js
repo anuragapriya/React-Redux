@@ -1,12 +1,13 @@
 import { user } from '_utils/constant';
 import { portalAccessData } from '_utils/constant';
-import { portalData } from '_utils/constant';
+import { portalData,userRegistrationVerified } from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
 const portalAccessKey = 'portal-access-data';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 let registerPortalData= portalData;
+let userVerifyData=userRegistrationVerified;
 
 const fakeBackend = () => {
     let realFetch = window.fetch;
@@ -39,6 +40,8 @@ const fakeBackend = () => {
                         return postAccessData();
                     case url.endsWith('/registration') && opts.method === 'GET':
                         return getPortalData();
+                    case url.match(/\/registration\/verified\/\d+\/\d+$/) && opts.method === 'GET':
+                        return getVerifiedUserData();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -206,6 +209,10 @@ const fakeBackend = () => {
                 return ok(registerPortalData.map(x => basicDetails(x)));
             }
 
+            function getVerifiedUserData() {
+                
+                return ok(userVerifyData);
+            }
 
             // helper functions
 
