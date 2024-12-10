@@ -16,12 +16,7 @@ const MainLayout = () => (
                         <ul className="list-type">
                             <li>
                                 <Link href="#" >
-                                    Need Support
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="#" >
-                                    Contact us
+                                    Support
                                 </Link>
                             </li>
                         </ul>
@@ -39,27 +34,8 @@ const MainLayout = () => (
                     {/* <img src={images.bannerImg} alt="bannerImg" /> */}
                     <ul className="list-type">
                         <li>
-                            <Link href="#">
-                                Solutions</Link>
-                        </li>
-                        <li>
                             <Link href="#" >
-                                Resources
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                About
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                FAQS
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" >
-                                Contact us
+                               Support
                             </Link>
                         </li>
                     </ul>

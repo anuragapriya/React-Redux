@@ -18,6 +18,7 @@ const VerifiedRegistration = () => {
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
     const token = new URLSearchParams(location.search).get('token');
+    const id = new URLSearchParams(location.search).get('user');
 
     useEffect(() => {        
         const verifyEmail = async () => {
@@ -39,10 +40,10 @@ const VerifiedRegistration = () => {
 
     const handleClick = () => {
         if (portalKey.toLowerCase() === 'mc') {
-            navigate('/registration/mapCenter');
+            navigate(`/registration/mapCenter/${id}`);
         }
         else if (portalKey.toLowerCase() === 'sd') {
-            navigate('/registration/diversity');
+            navigate(`/registration/diversity/${id}`);
         }
         return;
     };

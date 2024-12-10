@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const registerValidationSchema= Yup.object().shape({
+export const registerValidationSchema = Yup.object().shape({
     fullName: Yup.string()
         .required('Full Name is required'),
     companyName: Yup.string()
@@ -14,10 +14,40 @@ export const registerValidationSchema= Yup.object().shape({
     password: Yup.string()
         .required('Password is required'),
     selectPortal: Yup.number()
-    .required('Please select any Portal'),
+        .required('Please select any Portal'),
 });
 
-export const profileValidationSchema=() => Yup.object().shape({    
+export const additionalDetailsValidationSchema = Yup.object().shape({
+    fullName: Yup.string()
+        .required('Full Name is required'),
+    address: Yup.string()
+        .required('address is required'),
+    city: Yup.string()
+        .required('City is required'),
+    state: Yup.string()
+        .required('State is required'),
+    zipcode: Yup.string()
+        .required('Zip code is required'),
+    drivinglicense: Yup.string()
+        .required('Driving License is required'),
+    licenseStatus: Yup.string()
+        .required('License status is required'),
+});
+
+export const companyValidationSchema = Yup.object().shape({
+    pocFullName: Yup.string()
+        .required('Full Name is required'),
+    pocMobileNumber: Yup.string()
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
+    pocEmailAddress: Yup.string()
+        .required('Email Address is required')
+        .email('Email Address is invalid'),
+    authorizedContact: Yup.string()
+        .required('Authorized WG Contact is required')
+});
+
+export const profileValidationSchema = () => Yup.object().shape({
     firstSecurityQuestion: Yup.number()
         .required('Please select the first security question'),
     firstSecurityAnswer: Yup.string()

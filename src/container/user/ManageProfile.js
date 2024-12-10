@@ -8,6 +8,7 @@ import {registerValidationSchema, profileValidationSchema } from '_utils/validat
 import PersonalDetails from './ProfileDetails/PersonalDetails';
 import AssignToDetails from './ProfileDetails/AssignToDetails';
 import AdditionalDetails from './ProfileDetails/AdditionalDetails';
+import SecurityQuestions from './ProfileDetails/SecurityQuestions';
 
 const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const id = selectedrowId;
@@ -15,7 +16,7 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const user = useSelector(x => x.users?.item);
 
     const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
-        resolver: yupResolver(registerValidationSchema(),profileValidationSchema())
+        resolver: yupResolver(registerValidationSchema,profileValidationSchema())
     });
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
                         <Typography component="h1" variant="h5">{title}</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <PersonalDetails  register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
-                            <AdditionalDetails id={id}  register={register} errors={errors}  control={control}></AdditionalDetails>
+                            <SecurityQuestions id={id}  register={register} errors={errors}  control={control} />
                            
                             {id && <>
                                 <AssignToDetails errors={errors} control={control}></AssignToDetails>

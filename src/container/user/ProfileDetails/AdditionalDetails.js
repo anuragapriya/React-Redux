@@ -1,82 +1,69 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-import {  Controller } from 'react-hook-form';
-import { ComboSelectBox } from '_components';
-import { selectOptions } from '_utils/tempData';
 
-const AdditionalDetails=({ id,register, errors,  control })=>
-{
-    return (<>
-    <Controller
-            name="firstSecurityQuestion"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="First Security Question"
-                    options={selectOptions}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.firstSecurityQuestion}
-                    helperText={errors.firstSecurityQuestion?.message}
-                />
-            )}
-        />
+const AdditionalDetails = ({ register, errors, control }) => {
+    return <>
         <TextField
-            {...register('firstSecurityAnswer')}
-            label="First Security Answer"
+            {...register('fullName', { required: 'Full Name is required' })}
+            label="First & Last Name"
             fullWidth
             margin="normal"
-            type={id ? 'password' : 'text'}
-            error={!!errors.firstSecurityAnswer}
-            helperText={errors.firstSecurityAnswer?.message}
-        />
-        <Controller
-            name="secondSecurityQuestion"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="Second Security Question"
-                    options={selectOptions}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.secondSecurityQuestion}
-                    helperText={errors.secondSecurityQuestion?.message}
-                />
-            )}
+            error={!!errors.fullName}
+            helperText={errors.fullName?.message}
         />
         <TextField
-            {...register('secondSecurityAnswer')}
-            label="Second Security Answer"
+            {...register('address', { required: 'Street Address is required' })}
+            label="Street Address"
             fullWidth
             margin="normal"
-            type={id ? 'password' : 'text'}
-            error={!!errors.secondSecurityAnswer}
-            helperText={errors.secondSecurityAnswer?.message}
-        />
-        <Controller
-            name="thirdSecurityQuestion"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="Third Security Question"
-                    options={selectOptions}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.thirdSecurityQuestion}
-                    helperText={errors.thirdSecurityQuestion?.message}
-                />
-            )}
+            error={!!errors.address}
+            helperText={errors.address?.message}
         />
         <TextField
-            {...register('thirdSecurityAnswer')}
-            label="Third Security Answer"
+            {...register('city', { required: 'City is required' })}
+            label="City"
             fullWidth
             margin="normal"
-            type={id ? 'password' : 'text'}
-            error={!!errors.thirdSecurityAnswer}
-            helperText={errors.thirdSecurityAnswer?.message}
+            error={!!errors.city}
+            helperText={errors.city?.message}
         />
-    </>);
+        <div className="row">
+            <TextField
+                {...register('state', { required: 'State is required' })}
+                label="State"
+                fullWidth
+                margin="normal"
+                error={!!errors.state}
+                helperText={errors.state?.message}
+            />
+            <TextField
+                {...register('zipcode', { required: 'Zip code is required' })}
+                label="Zip code"
+                fullWidth
+                margin="normal"
+                error={!!errors.zipcode}
+                helperText={errors.zipcode?.message}
+            />
+        </div>
+        <div className="row">
+            <TextField
+                {...register('drivinglicense', { required: 'Driving License is required' })}
+                label="Driving License"
+                fullWidth
+                margin="normal"
+                error={!!errors.drivinglicense}
+                helperText={errors.drivinglicense?.message}
+            />
+            <TextField
+                {...register('licenseStatus', { required: 'License status is required' })}
+                label="License status"
+                fullWidth
+                margin="normal"
+                error={!!errors.licenseStatus}
+                helperText={errors.licenseStatus?.message}
+            />
+        </div>
+    </>
 };
 
 export default AdditionalDetails;
