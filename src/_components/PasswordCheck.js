@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 const PasswordCheck = ({ password, confirmPassword }) => {
 
     // Ensure the password is a string
@@ -29,29 +31,48 @@ const PasswordCheck = ({ password, confirmPassword }) => {
            // match: password && password === confirmPassword,
         });
     };
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     return (
-        <div>
+        <div className="passwordselect">
             <p>Your password must contain</p>
             <ul>
                 <li style={{ color: validations.length ? 'green' : 'red' }}>
-                    8 - 16 characters.
+                <Checkbox {...label} defaultChecked  color="success" /> At least 8 Characters
                 </li>
                 <li style={{ color: validations.uppercase ? 'green' : 'red' }}>
-                    Upper case letter (A-Z).
+                <Checkbox {...label}  color="success" /> Upper case letter (A-Z).
                 </li>
                 <li style={{ color: validations.lowercase ? 'green' : 'red' }}>
-                    Lower case letter (a-z).
+                <Checkbox {...label}  color="success" /> Lower case letters (a-z)
                 </li>
                 <li style={{ color: validations.number ? 'green' : 'red' }}>
-                    Numbers (0-9).
+                <Checkbox {...label}  color="success" /> Numbers (0-9)
                 </li>
                 <li style={{ color: validations.special ? 'green' : 'red' }}>
-                    Symbols (!@#$%^&*?/\|"':;+)
+                <Checkbox {...label}  color="success" />Symbols (!@#$%^&*?/\|"':;+)
                 </li>
                 {/* <li style={{ color: validations.match ? 'green' : 'red' }}>
                     Passwords match.
                 </li> */}
+            </ul>
+            <ul>
+                <li>
+                <Checkbox {...label} defaultChecked  color="success" /> At least 8 Characters
+                </li>
+                <li  >
+                <Checkbox {...label}  color="success" /> Upper case letter (A-Z).
+                </li>
+                <li  >
+                <Checkbox {...label}  color="success" /> Lower case letters (a-z)
+                </li>
+                <li >
+                <Checkbox {...label}  color="success" /> Numbers (0-9)
+                </li>
+                <li >
+                <Checkbox {...label}  color="success" />Symbols (!@#$%^&*?/\|"':;+)
+                </li>
+               
             </ul>
         </div>
     );
