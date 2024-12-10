@@ -91,6 +91,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 rules={{ required: 'Please select any Portal' }}
                 render={({ field }) => (
                     <ComboSelectBox
+                    className="selectPortal"
                         {...field}
                         boxLabel="Select Portal"
                         options={portalList}

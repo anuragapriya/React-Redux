@@ -2,10 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button, Link, Grid } from '@mui/material';
+import { Typography, Button, Link } from '@mui/material';
 import { alertActions, registrationActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
+import Grid from "@material-ui/core/Grid";
 import { verifyEmailLabels } from '_utils/labels';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
@@ -37,12 +38,12 @@ const Register = () => {
 
     return (
         <>
-            <Typography component="div" className="mobilebanner">
-                <Typography component="h1" variant="h5">Registration</Typography>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger} />
-                    <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isValid}>
-                        Register
+            <Typography component="div" className="Registrationcontainerlist">
+                    <Typography component="h1" variant="h5" className="Logincontent">Registration</Typography>
+                    <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
+                        <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
+                        <Button type="submit" fullWidth variant="contained" className='Loginbutton' color="primary" disabled={!isValid}>
+                            Register
                     </Button>
                     <Grid container>
                         <Grid item className="accountSignup">
