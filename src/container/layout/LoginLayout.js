@@ -13,12 +13,14 @@ const LoginLayout = () => {
     }
 
     return (
+        <div className=" login-container" >
         <Routes>
             <Route element={<MainLayout />}>
                 <Route index element={<Login />} />
                 <Route path="register" element={<Register />} />
             </Route>
         </Routes>
+        </div>
     );
 }
 
