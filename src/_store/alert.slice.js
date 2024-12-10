@@ -34,6 +34,7 @@ function createReducers() {
             type: 'alert-success',
             header:action.payload?.header || '',
             message: action.payload?.message || action.payload,
+            message2: action.payload?.message2 || '',
             showAfterRedirect: action.payload?.showAfterRedirect
         };
     }
@@ -43,6 +44,7 @@ function createReducers() {
             type: 'alert-danger',
             header:action.payload?.header || '',
             message: action.payload?.message || action.payload,
+            message2: action.payload?.message2 || '',
             showAfterRedirect: action.payload?.showAfterRedirect
         };
     }

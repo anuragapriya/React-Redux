@@ -4,13 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
 import OTPVerification from "_components/OTPVerification";
-import { labels } from '_utils/labels';
-import { Button, TextField, Link, Grid, Typography, Box, Modal } from '@mui/material';
+import {  labels } from '_utils/labels';
+import { Button, TextField, Link, Grid, Typography } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
 import { ResetPassword } from "container/loginPage";
 
 export default function Login() {
-    const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false });
+    const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false,error:null });
+   const [error,setError]= useState(null);
     const dispatch = useDispatch();
 
     // form validation rules 
@@ -19,9 +20,9 @@ export default function Login() {
 
     const onSubmit = async ({ email, password }) => {
         try {
-            await dispatch(authActions.login({ email, password }));
+             dispatch(authActions.login({ email, password }));
         } catch (error) {
-            dispatch(alertActions.error(error));
+            dispatch(alertActions.error({ message: error, header: "Login Failed" }));
         }
     };
 
@@ -91,9 +92,6 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
-            {/* <ManagedProfile title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/> 
-            <Register title={labels.signUpLabel} open={modalState.manageUseropen} handleClose={handleManageUserClose}/>
-        */}
         </div>
     );
 }

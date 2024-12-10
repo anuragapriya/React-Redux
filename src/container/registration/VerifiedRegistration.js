@@ -5,6 +5,7 @@ import { ModalPopup } from '_components';
 import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabels } from '_utils/labels';
 import { registrationActions } from '_store/registration.slice';
 import TimerModal from '_components/TimerModal';
+import { alertActions } from '_store';
 
 const VerifiedRegistration = () => {
     const dispatch = useDispatch();
@@ -16,26 +17,25 @@ const VerifiedRegistration = () => {
     const isVerified = data?.IsVerified;
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
+    const token = new URLSearchParams(location.search).get('token');
 
-    useEffect(() => {
-        const token = new URLSearchParams(location.search).get('token');
+    useEffect(() => {        
         const verifyEmail = async () => {
             try {
                 const response = dispatch(registrationActions.getVerifiedUserData(token));
                 console.log('Email verified successfully!', response.data);
             }
             catch (error) {
-                console.error('Failed to verify email:', error);
+                dispatch(alertActions.error({ message: error, header: "Verification Failed" }));
             }
         }
 
         if (token) {
             verifyEmail();
         } else {
-            console.error('Email verification token not found!');
+            dispatch(alertActions.error({ message: "Email verification token not found!", header: "Verification Failed" }));
         }
-    }, [dispatch,location.search]);
-
+    }, [dispatch, location.search]);
 
     const handleClick = () => {
         if (portalKey.toLowerCase() === 'mc') {
@@ -44,13 +44,14 @@ const VerifiedRegistration = () => {
         else if (portalKey.toLowerCase() === 'sd') {
             navigate('/registration/diversity');
         }
-
         return;
     };
 
     const handleSubmit = () => {
         return;
     }
+
+    if(!token) return null;
 
     return (
         <>
@@ -69,9 +70,7 @@ const VerifiedRegistration = () => {
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
-                    //  btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
                     handleBtnSecondaryClick={handleClick}
-                //  handlePrimaryClick={handleClick}
                 />
                 }
                 {!isVerified && <ModalPopup
@@ -84,13 +83,6 @@ const VerifiedRegistration = () => {
                 />
                 }
             </div>
-            }
-            {userVerify?.error &&
-                <ModalPopup
-                    header={genericlabels.lblError}
-                    message1={`Failed to Register: ${userVerify.error}`}
-                    btnSecondaryText={genericlabels.lblClose}
-                />
             }
         </>);
 }
