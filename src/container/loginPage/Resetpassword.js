@@ -3,10 +3,18 @@ import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { alertActions } from '_store';
-import { Grid, Box, Modal, Button, TextField, Typography } from '@mui/material';
+import { Modal, Button, TextField, Typography } from '@mui/material';
 import images from '../../images';
 import { resetValidationSchema } from "_utils/validationSchema";
-
+import Grid from "@material-ui/core/Grid";
+import { labels } from "_utils/labels";
+import Link from "@material-ui/core/Link";
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const dispatch = useDispatch();
 
@@ -32,50 +40,39 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
         >
             <Box className="modalpopup">
                 <Box className="row modalpopupinner">
-                    <Grid item xs={3} className="ResetLogo p-0">
-                        <img src={images.ResetpasswordLogo} alt="Reset Logo" />
-                    </Grid>
-                    <Grid item xs={9}>
-                        <Typography id="child-modal-title" variant="body1">
+                    <Grid item xs={12} className="forgotpassword p-0">
+                        <Link href="#" variant="logo" className="wgllogo">
+                            <img src={images.logo} alt="logo"></img>
+                            {labels.eServicePortal}
+                        </Link>
+                        <Typography component="h2" variant="body1">
+                        Forgot your password?
+                        </Typography>
+                    
+
+                        <Typography component="p" variant="body1">
                             Enter your email or phone number and we will send you a link/code to reset your password.
                         </Typography>
                     </Grid>
-                    <form className="form p-0" onSubmit={handleSubmit(onSubmit)}>
-                        <div className="Emailicons">
-                            <img src={images.Emailicon} alt="Email icon" />
+                    <form className="form forgotpasswordcontainer p-0" onSubmit={handleSubmit(onSubmit)}>
+                        <Box sx={{ '& > :not(style)': { m: 1 } }} className="standardEamil">
+                            
                             <TextField
-                                {...register('email')}
+                                id="input-with-icon-textfield"
+                                slotProps={{
+                                    input: {
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <img src={images.icoutlineemail} alt="Email icon" />
+                                            </InputAdornment>
+                                        ),
+                                    },
+                                }}
                                 variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email"
-                                name="email"
-                                autoFocus
-                                error={!!errors.email}
-                                helperText={errors.email?.message}
-                                aria-label="Email"
                             />
-                        </div>
-                        <div className="Emailicons">
-                            <img src={images.Phoneicon} alt="Phone icon" />
-                            <TextField
-                                {...register('phoneNumber')}
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="phoneNumber"
-                                label="Phone Number"
-                                type="tel"
-                                id="phoneNumber"
-                                autoComplete="phoneNumber"
-                                error={!!errors.phoneNumber}
-                                helperText={errors.phoneNumber?.message}
-                                aria-label="Phone Number"
-                            />
-                        </div>
+                            
+                        </Box>
+
                         <Button
                             type="submit"
                             fullWidth
@@ -84,7 +81,17 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                             className="Loginbutton"
                             disabled={isSubmitting}
                         >
-                            SEND LINK TO EMAIL / CODE TO PHONE
+                            send link to email
+                        </Button>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="buttonCancel"
+                            disabled={isSubmitting}
+                        >
+                            Cancel
                         </Button>
                     </form>
                 </Box>

@@ -1,13 +1,14 @@
 export const labels = {
     loginHeader: "Log In",
     loginButtonLabel: "LOGIN",
-    resetPwdButtonLabel: "Reset Password",
-    signUpLabel: "Sign Up",
+    resetPwdButtonLabel: "Forgot your password?",
+    signUpLabel: "now",
     passwordChecklistLabel: "Your password must contain:",
     jurisdictionLabel: "JURISDICTION",
     seasonStartLabel: "SEASON START",
     seasonEndLabel: "SEASON END",
-    manageProfileLabel: "Manage Profile"
+    manageProfileLabel: "Manage Profile",
+    eServicePortal:"eService Portal"
 }
 
 export const verifyEmailLabels={
