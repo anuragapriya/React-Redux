@@ -25,7 +25,7 @@ const UserList = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'userName',
+        accessorKey: 'fullName',
         header: 'Name',
         enableSorting: true,
       },
@@ -84,7 +84,7 @@ const UserList = () => {
     enableRowActions: true,
     initialState: {
       columnOrder: [
-        'userName',
+        'fullName',
         'companyName',
         'emailAddress',
         'mrt-row-select', // move the built-in selection column to the end of the table
