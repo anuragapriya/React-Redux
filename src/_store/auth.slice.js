@@ -50,18 +50,12 @@ function createExtraActions() {
                 dispatch(alertActions.clear());
                 try {
                     const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { email, password }));
-
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));
-
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('auth', JSON.stringify(user));
-
-                    // get return url from location state or default to home page
-                    
-                    history.navigate('/home');
                 } catch (error) {
-                    dispatch(alertActions.error(error));
+                    dispatch(alertActions.error({ message: error, header: "Login Failed" }));
                 }
             }
         );
@@ -92,14 +86,9 @@ function createExtraActions() {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('auth', JSON.stringify(res));
             } catch (error) {
-                dispatch(alertActions.error(error));
+                dispatch(alertActions.error({ message: error, header: "Login Issue" }));
             }
      
         });
     }
 }
-
-
-
-
-

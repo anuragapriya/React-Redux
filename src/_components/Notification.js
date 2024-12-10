@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import { Modal, Box } from '@mui/material';
 import { alertActions } from '_store';
 import images from "images";
-
+import TimerModal from "./TimerModal";
+import { genericlabels } from "_utils/labels";
 
 const Notification = () => {
     const dispatch = useDispatch();
@@ -25,27 +26,14 @@ const Notification = () => {
 
     return (
         <><React.Fragment>
-         <Modal
-            open={alert?true:false}
-            onClose={handleClose}
-            aria-labelledby="child-modal-title"
-            aria-describedby="child-modal-description"
-            className="displayblock">
-            <Box className="  modalpopup">
-               <Box className=" row modalpopupinner">
-
-                  <div className="row">
-                     <Grid item xs={3} >
-                        <img src={images.tickicon} alt="Emailicon" />
-                     </Grid>
-                     <Grid item xs={9}>
-                        <h5><b>{alert.header}</b></h5>
-                        <p> {alert.message}</p>
-                     </Grid>
-                  </div>
-               </Box>
-            </Box>
-         </Modal>
+         <TimerModal
+                timerCountdown={5}
+                header={alert.header}
+                message1={alert.message}
+                message2={alert.message2||''}
+                btnSecondaryText={genericlabels.lblClose}
+                handleBtnSecondaryClick={handleClose}
+            />
       </React.Fragment>
       </>
     );

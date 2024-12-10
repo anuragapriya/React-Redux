@@ -9,9 +9,9 @@ import { fetchWrapper } from '_utils/fetch-wrapper';
 const name = 'users';
 const initialState = createInitialState();
 const extraActions = createExtraActions();
-const reducers= createReducers();
+const reducers = createReducers();
 const extraReducers = createExtraReducers();
-const slice = createSlice({ name, initialState,reducers, extraReducers });
+const slice = createSlice({ name, initialState, reducers, extraReducers });
 
 // exports
 
@@ -24,29 +24,21 @@ function createInitialState() {
     return {
         list: [],
         item: null,
-        file:null
+        file: null
     }
 }
 
 function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-  //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
-        register: register(),
         getAll: getAll(),
         getById: getById(),
         update: update(),
         delete: _delete(),
-        upload:upload()
+        upload: upload()
     };
-
-    function register() {
-        return createAsyncThunk(
-            `${name}/register`,
-            async (user) => await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user))
-        );
-    }
 
     function getAll() {
         return createAsyncThunk(
@@ -65,8 +57,8 @@ function createExtraActions() {
     function update() {
         return createAsyncThunk(
             `${name}/update`,
-            async function ({ id, data,portalName }, { getState, dispatch }) {
-                await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, {data,portalName}));
+            async function ({ id, data, portalName }, { getState, dispatch }) {
+                await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, { data, portalName }));
 
                 // // update stored user if the logged in user updated their own record
                 // const auth = getState().auth.value;
@@ -88,12 +80,12 @@ function createExtraActions() {
             `${name}/upload`,
             async function (file, { getState, dispatch }) {
                 console.log(file);
-              const uploadedFile=  await trackPromise( fetchWrapper.upload(`${baseUrl}/${file}`));
-console.log(uploadedFile);
+                const uploadedFile = await trackPromise(fetchWrapper.upload(`${baseUrl}/${file}`));
+                console.log(uploadedFile);
                 // auto logout if the logged in user deleted their own record
-            
-                   localStorage.setItem("uploadedFile",uploadedFile );
-                
+
+                localStorage.setItem("uploadedFile", uploadedFile);
+
             }
         );
     }
@@ -102,7 +94,7 @@ console.log(uploadedFile);
         return createAsyncThunk(
             `${name}/delete`,
             async function (id, { getState, dispatch }) {
-                await trackPromise( fetchWrapper.delete(`${baseUrl}/${id}`));
+                await trackPromise(fetchWrapper.delete(`${baseUrl}/${id}`));
 
                 // auto logout if the logged in user deleted their own record
                 if (id === getState().auth.value?.id) {
@@ -113,8 +105,7 @@ console.log(uploadedFile);
     }
 }
 
-function createReducers()
-{
+function createReducers() {
     return {
         clear
     };
@@ -187,7 +178,7 @@ function createExtraReducers() {
                 .addCase(rejected, (state, action) => {
                     state.file = { error: action.error };
                 });
-        }        
+        }
     };
 }
 
