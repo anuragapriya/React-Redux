@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ModalPopup } from '_components';
-import { verifiedRegistrationLabels, notVerifiedRegistrationLabels } from '_utils/labels';
+import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabels } from '_utils/labels';
 import { registrationActions } from '_store/registration.slice';
 import TimerModal from '_components/TimerModal';
 
 const VerifiedRegistration = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const userVerify = useSelector((x) => x.registration?.verifiedUserData);
     const data = userVerify?.Data;
@@ -17,10 +18,23 @@ const VerifiedRegistration = () => {
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
 
     useEffect(() => {
-        const id = 1001;
-        const portalId = 3;
-        dispatch(registrationActions.getVerifiedUserData({ id, portalId }));
-    }, [dispatch]);
+        const token = new URLSearchParams(location.search).get('token');
+        const verifyEmail = async () => {
+            try {
+                const response = dispatch(registrationActions.getVerifiedUserData(token));
+                console.log('Email verified successfully!', response.data);
+            }
+            catch (error) {
+                console.error('Failed to verify email:', error);
+            }
+        }
+
+        if (token) {
+            verifyEmail();
+        } else {
+            console.error('Email verification token not found!');
+        }
+    }, [dispatch,location.search]);
 
 
     const handleClick = () => {
@@ -55,7 +69,7 @@ const VerifiedRegistration = () => {
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
-                //  btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
+                    //  btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
                     handleBtnSecondaryClick={handleClick}
                 //  handlePrimaryClick={handleClick}
                 />
@@ -70,6 +84,13 @@ const VerifiedRegistration = () => {
                 />
                 }
             </div>
+            }
+            {userVerify?.error &&
+                <ModalPopup
+                    header={genericlabels.lblError}
+                    message1={`Failed to Register: ${userVerify.error}`}
+                    btnSecondaryText={genericlabels.lblClose}
+                />
             }
         </>);
 }
