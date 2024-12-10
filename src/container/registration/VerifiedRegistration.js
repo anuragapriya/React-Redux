@@ -1,27 +1,41 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ModalPopup } from '_components';
-import { verifiedRegistrationLabels, notVerifiedRegistrationLabels } from '_utils/labels';
+import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabels } from '_utils/labels';
 import { registrationActions } from '_store/registration.slice';
 import TimerModal from '_components/TimerModal';
+import { alertActions } from '_store';
 
 const VerifiedRegistration = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const userVerify = useSelector((x) => x.registration?.verifiedUserData);
     const data = userVerify?.Data;
     const isVerified = data?.IsVerified;
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
+    const token = new URLSearchParams(location.search).get('token');
 
-    useEffect(() => {
-        const id = 1001;
-        const portalId = 3;
-        dispatch(registrationActions.getVerifiedUserData({ id, portalId }));
-    }, [dispatch]);
+    useEffect(() => {        
+        const verifyEmail = async () => {
+            try {
+                const response = dispatch(registrationActions.getVerifiedUserData(token));
+                console.log('Email verified successfully!', response.data);
+            }
+            catch (error) {
+                dispatch(alertActions.error({ message: error, header: "Verification Failed" }));
+            }
+        }
 
+        if (token) {
+            verifyEmail();
+        } else {
+            dispatch(alertActions.error({ message: "Email verification token not found!", header: "Verification Failed" }));
+        }
+    }, [dispatch, location.search]);
 
     const handleClick = () => {
         if (portalKey.toLowerCase() === 'mc') {
@@ -30,13 +44,14 @@ const VerifiedRegistration = () => {
         else if (portalKey.toLowerCase() === 'sd') {
             navigate('/registration/diversity');
         }
-
         return;
     };
 
     const handleSubmit = () => {
         return;
     }
+
+    if(!token) return null;
 
     return (
         <>
@@ -55,9 +70,7 @@ const VerifiedRegistration = () => {
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
-                //  btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
                     handleBtnSecondaryClick={handleClick}
-                //  handlePrimaryClick={handleClick}
                 />
                 }
                 {!isVerified && <ModalPopup

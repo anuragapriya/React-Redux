@@ -49,7 +49,6 @@ const RouteList = () => {
     return (
         <div>
             <Nav /> 
-            {/* <Alert /> */}
             <Notification />
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
             <div className="  p-0">

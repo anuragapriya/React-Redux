@@ -22,7 +22,7 @@ const fakeBackend = () => {
                         return authenticate();
                     case url.endsWith('/users/refreshToken') && opts.method === 'POST':
                         return refreshToken();
-                    case url.endsWith('/users/Register') && opts.method === 'POST':
+                    case url.endsWith('/registration/Register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/users') && opts.method === 'GET':
                         return getUsers();
@@ -40,7 +40,7 @@ const fakeBackend = () => {
                         return postAccessData();
                     case url.endsWith('/registration') && opts.method === 'GET':
                         return getPortalData();
-                    case url.match(/\/registration\/verified\/\d+\/\d+$/) && opts.method === 'GET':
+                    case url.match(/\/registration\/verified\?token=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
                         return getVerifiedUserData();
                     default:
                         // pass through any requests not handled above
