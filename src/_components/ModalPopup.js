@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Grid, Box, Modal, Button,Link} from '@mui/material';
+import {  Box, Modal, Button,Link} from '@mui/material';
 import images from "images";
+import Grid from "@material-ui/core/Grid";
+import { labels } from "_utils/labels";
 const ModalPopup =({header,message1,message2, btnPrimaryText, btnSecondaryText,handlePrimaryClick})=>
 {
     const [open,setOpen]= useState(true);
@@ -16,10 +18,12 @@ const ModalPopup =({header,message1,message2, btnPrimaryText, btnSecondaryText,h
             className="displayblock">
             <Box className="  modalpopup">
                <Box className=" row modalpopupinner">
-                    <Grid item xs={3} >
-                        {/* <img src={images.tickicon} alt="Emailicon" /> */}
-                     </Grid>                   
-                     <Grid item xs={9}>
+                    <Grid item xs={12}>
+                       <Link href="#" variant="logo" className="wgllogo">
+                            <img src={images.logo} alt="logo"></img>
+                            {labels.eServicePortal}
+                        </Link> 
+                    
                         <h5><b>{header}</b></h5>
                         {message1 && <p> {message1}</p>}
                         {message2 && <p> {message2}</p>}

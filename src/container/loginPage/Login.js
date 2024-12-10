@@ -5,9 +5,10 @@ import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
 import OTPVerification from "_components/OTPVerification";
 import { labels } from '_utils/labels';
-import { Button, TextField, Link, Grid, Typography } from '@mui/material';
+import { Button, TextField, Link, Typography, Box, Modal } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
 import { ResetPassword } from "container/loginPage";
+import Grid from "@material-ui/core/Grid";
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false, error: null });
@@ -44,8 +45,10 @@ export default function Login() {
     return (
         <div >
             <Typography component="div" className="mobilebanner">
+            <Typography component="div" className="loginheader">
                 <Typography component="h1" variant="h5" className="Logincontent">
                     {labels.loginHeader}
+                </Typography>
                 </Typography>
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -56,7 +59,7 @@ export default function Login() {
                             required
                             fullWidth
                             id="email"
-                            label="Email"
+                            label="Company Email Address"
                             name="email"
                             autoFocus
                             error={!!errors.email}
@@ -84,14 +87,14 @@ export default function Login() {
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className="Loginbutton"
+                             className="Loginbutton Loginbuttonheight"
                             disabled={!isValid}
                         >
                             {labels.loginButtonLabel}
                         </Button>
                         <Grid container>
                             <Grid item className="accountSignup">
-                                <div>Don't have an account?</div>
+                                <div>Don’t have an account? Register </div>
                                 <Link href="./register" variant="body2">
                                     {labels.signUpLabel}
                                 </Link>

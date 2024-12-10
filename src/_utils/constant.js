@@ -162,7 +162,7 @@ export const userRegistrationVerified = {
       "FirstName": "Ravi",
       "LastName": "Soni",
       "Email": "Ravi.Soni1@sutherlandglobal.com",
-      "IsVerified": true,
+      "IsVerified": false,
       "PortalId": 3,
       "PortlaName": "Map Center",
       "PortalKey": "MC",

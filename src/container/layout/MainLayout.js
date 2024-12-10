@@ -4,11 +4,12 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import images from '../../images';
 import PortalZoom from "_components/PortalZoom";
+import { labels } from "_utils/labels";
 
 const MainLayout = () => (
     <>
-    <PortalZoom></PortalZoom>
-    <div className="row m-0">
+   <PortalZoom></PortalZoom>
+    <Grid container spacing={3}>
         <Grid item xs={12} sm={5} md={4} className="wglcontainerblock">
             <div className="wglcontainer">
                 <div className="wglcontainerinn">
@@ -16,13 +17,19 @@ const MainLayout = () => (
                         <ul className="list-type">
                             <li>
                                 <Link href="#" >
-                                    Support
+                                    Need Support
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#" >
+                                    Contact us
                                 </Link>
                             </li>
                         </ul>
                     </Grid>
                     <Link href="#" variant="logo" className="wgllogo">
                         <img src={images.logo} alt="logo"></img>
+                        {labels.eServicePortal}
                     </Link>
                     <Outlet />
                 </div>
@@ -31,18 +38,15 @@ const MainLayout = () => (
         <Grid item xs={8} sm={7} md={8} className="mobile-none">
             <div className="height-fix">
                 <div className="root">
-                    {/* <img src={images.bannerImg} alt="bannerImg" /> */}
-                    <ul className="list-type">
-                        <li>
-                            <Link href="#" >
-                               Support
-                            </Link>
-                        </li>
-                    </ul>
+                <Link href="#"  className="NeedSupport"  >
+                        <img src={images.headseticonwhite} alt="Do You Need Support" ></img>
+                       Support?
+                    </Link>               
                 </div>
             </div>
         </Grid>
-    </div>
+        </Grid>
+   
     </>
 );
 
