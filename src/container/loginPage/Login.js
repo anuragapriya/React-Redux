@@ -4,23 +4,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
 import OTPVerification from "_components/OTPVerification";
-import {  labels } from '_utils/labels';
+import { labels } from '_utils/labels';
 import { Button, TextField, Link, Grid, Typography } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
 import { ResetPassword } from "container/loginPage";
 
 export default function Login() {
-    const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false,error:null });
-   const [error,setError]= useState(null);
+    const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false, error: null });
+    const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
     // form validation rules 
-    const formOptions = { resolver: yupResolver(loginValidationSchema) };
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
+    const { register, handleSubmit, formState: { errors, isSubmitting,isValid },watch } = useForm({
+        resolver: yupResolver(loginValidationSchema),
+        mode:'onChange'
+    });
 
     const onSubmit = async ({ email, password }) => {
         try {
-             dispatch(authActions.login({ email, password }));
+            dispatch(authActions.login({ email, password }));
         } catch (error) {
             dispatch(alertActions.error({ message: error, header: "Login Failed" }));
         }
@@ -30,6 +32,14 @@ export default function Login() {
     const handleClose = () => setModalState({ ...modalState, open: false });
     const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
+
+    // Watch all form fields
+    const formValues = watch();
+
+    // Check if all required fields are filled
+    const isFormValid = () => {
+        return Object.values(formValues).every(value => value !== undefined && value !== '');
+    };
 
     return (
         <div >
@@ -75,7 +85,7 @@ export default function Login() {
                             variant="contained"
                             color="primary"
                             className="Loginbutton"
-                            disabled={isSubmitting}
+                            disabled={!isValid}
                         >
                             {labels.loginButtonLabel}
                         </Button>
