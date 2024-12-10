@@ -18,7 +18,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const dispatch = useDispatch();
 
-    // form validation rules 
     const formOptions = { resolver: yupResolver(resetValidationSchema) };
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
 
