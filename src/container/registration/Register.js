@@ -1,22 +1,22 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button, Link, Grid, } from '@mui/material';
+import { Typography, Button, Link, Grid } from '@mui/material';
 import { alertActions, registrationActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
-import {  verifyEmailLabels } from '_utils/labels';
-import { useNavigate } from 'react-router-dom';
+import { verifyEmailLabels } from '_utils/labels';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const registrationStatus = useSelector(x => x.registration?.status);
 
-    const { register, handleSubmit, control, formState: { errors, isSubmitting }, watch, trigger } = useForm({
-        resolver: yupResolver(registerValidationSchema)
+    const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
+        resolver: yupResolver(registerValidationSchema),
+        mode:'onChange'
     });
 
     const onSubmit = async (data) => {
@@ -30,7 +30,6 @@ const Register = () => {
                 message2: verifyEmailLabels.message2,
                 header: verifyEmailLabels.header
             }));
-
         } catch (error) {
             dispatch(alertActions.error({ message: error.message, header: "Registration Failed" }));
         }
@@ -41,14 +40,14 @@ const Register = () => {
             <Typography component="div" className="mobilebanner">
                 <Typography component="h1" variant="h5">Registration</Typography>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
-                    <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
+                    <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger} />
+                    <Button type="submit" fullWidth variant="contained" color="primary" disabled={!isValid}>
                         Register
                     </Button>
                     <Grid container>
                         <Grid item className="accountSignup">
                             <div>Do you already have an account? Login</div>
-                            <Link href="./" variant="body2">
+                            <Link component={RouterLink} to="/" variant="body2">
                                 here
                             </Link>
                         </Grid>
