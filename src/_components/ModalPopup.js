@@ -17,7 +17,7 @@ const ModalPopup =({header,message1,message2, btnPrimaryText, btnSecondaryText,h
             <Box className="  modalpopup">
                <Box className=" row modalpopupinner">
                     <Grid item xs={3} >
-                        <img src={images.tickicon} alt="Emailicon" />
+                        {/* <img src={images.tickicon} alt="Emailicon" /> */}
                      </Grid>                   
                      <Grid item xs={9}>
                         <h5><b>{header}</b></h5>
