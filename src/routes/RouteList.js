@@ -51,7 +51,7 @@ const RouteList = () => {
             <Nav /> 
             <Notification />
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
-            <div className="  p-0">
+            <div className="container">
                 <Routes >
                     {/* private */}
                     <Route element={<PrivateRoute />}>
