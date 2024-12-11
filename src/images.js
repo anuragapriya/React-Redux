@@ -8,7 +8,7 @@ import tickicon from './assets/images/tick.svg';
 import pdfIcon from './assets/images/Frame2208.png';
 import headseticonwhite from './assets/images/headseticon-white.svg';
 import icoutlineemail from './assets/images/ic_outline-email.svg';
-
+import supporticonblue from './assets/images/support-icon-blue.svg';
 const images = {
     logo,
     bannerImg,
@@ -18,7 +18,8 @@ const images = {
     tickicon,
     pdfIcon,
     headseticonwhite,
-    icoutlineemail
+    icoutlineemail,
+    supporticonblue
 };
 
 export default images;

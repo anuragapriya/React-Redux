@@ -56,24 +56,7 @@ const PasswordCheck = ({ password, confirmPassword }) => {
                     Passwords match.
                 </li> */}
             </ul>
-            <ul>
-                <li>
-                <Checkbox {...label} defaultChecked  color="success" /> At least 8 Characters
-                </li>
-                <li  >
-                <Checkbox {...label}  color="success" /> Upper case letter (A-Z).
-                </li>
-                <li  >
-                <Checkbox {...label}  color="success" /> Lower case letters (a-z)
-                </li>
-                <li >
-                <Checkbox {...label}  color="success" /> Numbers (0-9)
-                </li>
-                <li >
-                <Checkbox {...label}  color="success" />Symbols (!@#$%^&*?/\|"':;+)
-                </li>
-               
-            </ul>
+            
         </div>
     );
 };

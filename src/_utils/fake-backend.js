@@ -34,7 +34,7 @@ const fakeBackend = () => {
                         return deleteUser();
                     case url.match(/\/users\/\d+$/) && opts.method === 'POST':
                         return upload();
-                    case url.endsWith('/users/getAccessData') && opts.method === 'GET':
+                    case url.endsWith('/users/GetUserPortalRoleMapping') && opts.method === 'GET':
                         return getAccessData();
                     case url.endsWith('/users/postAccessData') && opts.method === 'POST':
                         return postAccessData();

@@ -77,7 +77,7 @@ const UserList = () => {
     columns,
     data,
     enableHiding: false,
-    enableGlobalFilter: false,
+    enableGlobalFilter: true,
     enableFullScreenToggle: false,
     enableColumnActions: false,
     paginationDisplayMode: 'pages',

@@ -5,7 +5,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-
+import images from "images";
+import { labels } from "_utils/labels";
+import { Link, Typography} from '@mui/material';
 const TimerModal = ({ timerCountdown, header, message1, message2, btnPrimaryText, btnSecondaryText, handleBtnPrimaryClick ,handleBtnSecondaryClick}) => {
   const [open, setOpen] = useState(true);
   const [countdown, setCountdown] = useState(timerCountdown); // Set initial countdown value
@@ -36,25 +38,32 @@ const TimerModal = ({ timerCountdown, header, message1, message2, btnPrimaryText
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        
       >
-        <DialogTitle id="alert-dialog-title">{header}</DialogTitle>
+        <Typography component="div" className="Verifyemail">
+        <Link href="#" variant="logo" className="wgllogo">
+                            <img src={images.logo} alt="logo"></img>
+                            {labels.eServicePortal}
+                        </Link> 
+        <DialogTitle id="alert-dialog-title"  className="headercontent" >{header}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {message1 && <p>{message1}</p>}
-            {message2 && <p>{message2}</p>}
-            It will close automatically in {countdown} seconds.
+          <DialogContentText id="alert-dialog-description" className="p-0">
+            {message1 && <p className="modalpopupcontent">{message1}</p>}
+            {message2 && <p className="modalpopupcontent">{message2}</p>}
+            <p className="modalpopupcontent" >It will close automatically in {countdown} seconds.</p>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {btnPrimaryText && <Button onClick={handleBtnPrimaryClick} color="primary">
+          {btnPrimaryText && <Button  className="Loginbutton" onClick={handleBtnPrimaryClick} color="primary">
             {btnPrimaryText}
           </Button>
           }
-          {btnSecondaryText && <Button onClick={handleClose} color="primary">
+          {btnSecondaryText && <Button className="closebutton" onClick={handleClose} color="primary">
             {btnSecondaryText}
           </Button>
           }
         </DialogActions>
+        </Typography>
       </Dialog>
     </div>
   );

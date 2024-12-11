@@ -29,11 +29,11 @@ const PortalZoom = () => {
                 <div className="zoom" id="zoomadd">
                     <div className=" login-container" >
                         <div className="App">
+                        <button className="remove" onClick={setzoom100}>
+                        Small A</button>
                             <button className="add" onClick={setzoom125}>
-                                125</button>
-                            <button className="remove" onClick={setzoom100}>
-                                100</button>
-                            <button className="toggle" onClick={setzoom150}> 150
+                                Medium A</button>                            
+                            <button className="toggle" onClick={setzoom150}> Large A
                             </button>
                         </div>
                     </div>
