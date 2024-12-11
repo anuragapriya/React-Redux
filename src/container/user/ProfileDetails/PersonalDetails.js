@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
+import {  FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import { ComboSelectBox, PasswordCheck, PasswordField } from '_components';
@@ -41,10 +41,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                     id="fullName"
                     type="text"
                     {...register('fullName', { required: 'Full Name is required' })}
-                    onBlur={(e) => {
-                        handleBlur(e);
-                        trigger('fullName');
-                    }}
+                    onBlur={handleBlur}
                     onFocus={handleOtherFocus}
                     endAdornment={
                         errors.fullName ? (
@@ -64,10 +61,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                     id="companyName"
                     type="text"
                     {...register('companyName', { required: 'Company Name is required' })}
-                    onBlur={(e) => {
-                        handleBlur(e);
-                        trigger('companyName');
-                    }}
+                    onBlur={handleBlur}
                     onFocus={handleOtherFocus}
                     endAdornment={
                         errors.companyName ? (
@@ -87,10 +81,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                     id="emailAddress"
                     type="text"
                     {...register('emailAddress', { required: 'Email Address is required' })}
-                    onBlur={(e) => {
-                        handleBlur(e);
-                        trigger('emailAddress');
-                    }}
+                    onBlur={handleBlur}
                     onFocus={handleOtherFocus}
                     endAdornment={
                         errors.emailAddress ? (
@@ -114,10 +105,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                         maskChar=""
                         value={field.value}
                         onChange={field.onChange}
-                        onBlur={(e) => {
-                            handleBlur(e);
-                            trigger('mobileNumber');
-                        }}
+                        onBlur={handleBlur}
                         onFocus={handleOtherFocus}
                     >
                         {(inputProps) => (
@@ -149,7 +137,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 onFocus={handlePasswordFocus}
-                onBlur={(e)=>{handleOtherFocus(); handleBlur(e);}}
+                onBlur={handleBlur}
                 isPasswordFocused={isPasswordFocused}
                 inputColors={inputColors}
             />
@@ -172,10 +160,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                         error={!!errors.selectPortal}
                         helperText={errors.selectPortal?.message}
                         onFocus={handleOtherFocus}
-                        onBlur={(e) => {
-                            handleBlur(e);
-                            trigger('selectPortal');
-                        }}
+                        onBlur={handleBlur}
                         inputColor={inputColors['selectPortal']}
                         trigger={trigger} // Pass the trigger function
                     />
