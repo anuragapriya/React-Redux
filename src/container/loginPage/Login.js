@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false, error: null });
     const [error, setError] = useState(null);
+    const [inputColors, setInputColors] = useState({});
     const dispatch = useDispatch();
 
     // form validation rules 
@@ -36,8 +37,11 @@ export default function Login() {
 
     const watchedValues = watch();
 
-    const getInputColor = (value) => {
-        return value ? 'inputBackground' : '';
+    const handleBlur = (e) => {
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [e.target.name]: e.target.value ? 'inputBackground' : ''
+        }));
     };
 
     return (
@@ -62,7 +66,8 @@ export default function Login() {
                             autoFocus
                             error={!!errors.email}
                             helperText={errors.email?.message}
-                            className={getInputColor(watchedValues['email'])}
+                            onBlur={handleBlur} 
+                            className={inputColors['email']}
                            // style={{ backgroundColor: getInputColor(watchedValues['email']) }} 
                         />
                         <TextField
@@ -78,7 +83,8 @@ export default function Login() {
                             autoComplete="current-password"
                             error={!!errors.password}
                             helperText={errors.password?.message}
-                            className={getInputColor(watchedValues['password'])}
+                            onBlur={handleBlur} 
+                            className={inputColors['password']}
                         />
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
