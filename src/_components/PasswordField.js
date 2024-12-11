@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { TextField, InputAdornment, IconButton } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import ErrorIcon from '@mui/icons-material/Error'; // Import an error icon from Material-UI
 
 const PasswordField = ({ register, error, helperText, onFocus, onBlur, isPasswordFocused }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [inputColor, setInputColor] = useState('');
 
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
     const handleMouseDownPassword = (event) => event.preventDefault();
+
+    const handleBlur = (e) => {
+        onBlur(e); // Call the parent onBlur function
+        setInputColor(!error && e.target.value ? 'inputBackground' : '');
+    };
 
     return (
         <TextField
@@ -19,10 +26,13 @@ const PasswordField = ({ register, error, helperText, onFocus, onBlur, isPasswor
             error={!!error}
             helperText={helperText}
             onFocus={onFocus}
-            onBlur={onBlur}
+            onBlur={handleBlur}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
+                        {error && (
+                            <ErrorIcon style={{ color: 'red' }} />
+                        )}
                         <IconButton
                             aria-label="toggle password visibility"
                             onClick={handleClickShowPassword}
@@ -33,6 +43,7 @@ const PasswordField = ({ register, error, helperText, onFocus, onBlur, isPasswor
                         </IconButton>
                     </InputAdornment>
                 ),
+                style: { backgroundColor: inputColor } // Apply the background color
             }}
         />
     );

@@ -147,22 +147,6 @@ body {
   color: lightgreen;
 }
 
-.UploadContainer{
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin: 10px 0px;
-}
-.UploadContainer h2{
-  font-weight: 700;
-}
-.UploadContainer p{
-  font-weight: 600;
-
-}
-.Upload-containerlist .UploadContainer {
-  margin-bottom: 15px;
-}
-
 :root {
   --font-size-small: 12px;
   --font-size-medium: 16px;
