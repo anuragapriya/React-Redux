@@ -182,3 +182,9 @@ body {
 .zoom150{
   zoom: 150%;
 }
+.inputBackground{
+  border-radius: 4px;
+  border: 1px solid var(--WG-Blue-100, #DFEDFF);
+  background: var(--WG-Blue-100, #DFEDFF);
+  box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+  }

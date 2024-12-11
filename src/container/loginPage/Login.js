@@ -34,12 +34,10 @@ export default function Login() {
     const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
 
-    // Watch all form fields
-    const formValues = watch();
+    const watchedValues = watch();
 
-    // Check if all required fields are filled
-    const isFormValid = () => {
-        return Object.values(formValues).every(value => value !== undefined && value !== '');
+    const getInputColor = (value) => {
+        return value ? 'inputBackground' : '';
     };
 
     return (
@@ -64,6 +62,8 @@ export default function Login() {
                             autoFocus
                             error={!!errors.email}
                             helperText={errors.email?.message}
+                            className={getInputColor(watchedValues['email'])}
+                           // style={{ backgroundColor: getInputColor(watchedValues['email']) }} 
                         />
                         <TextField
                             {...register('password')}
@@ -78,6 +78,7 @@ export default function Login() {
                             autoComplete="current-password"
                             error={!!errors.password}
                             helperText={errors.password?.message}
+                            className={getInputColor(watchedValues['password'])}
                         />
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
