@@ -39,7 +39,10 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                     id="fullName"
                     type="text"
                     {...register('fullName', { required: 'Full Name is required' })}
-                    onBlur={handleBlur}
+                    onBlur={(e) => {
+                        handleBlur(e);
+                        trigger('fullName');
+                    }}
                     onFocus={handleOtherFocus}
                     endAdornment={
                         errors.fullName ? (
@@ -59,7 +62,10 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                     id="companyName"
                     type="text"
                     {...register('companyName', { required: 'Company Name is required' })}
-                    onBlur={handleBlur}
+                    onBlur={(e) => {
+                        handleBlur(e);
+                        trigger('companyName');
+                    }}
                     onFocus={handleOtherFocus}
                     endAdornment={
                         errors.companyName ? (
@@ -136,6 +142,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
             />
             <PasswordField
                 register={register}
+                trigger={trigger}
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 onFocus={handlePasswordFocus}
@@ -160,6 +167,10 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                         error={!!errors.selectPortal}
                         helperText={errors.selectPortal?.message}
                         onFocus={handleOtherFocus}
+                        onBlur={(e) => {
+                            handleBlur(e);
+                            trigger('selectPortal');
+                        }}
                     />
                 )}
             />

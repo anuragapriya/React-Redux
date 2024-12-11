@@ -4,7 +4,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error'; // Import an error icon from Material-UI
 
-const PasswordField = ({ register, error, helperText, onFocus, onBlur, isPasswordFocused }) => {
+const PasswordField = ({ register,trigger, error, helperText, onFocus, onBlur, isPasswordFocused }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [inputColor, setInputColor] = useState('');
 
@@ -26,7 +26,10 @@ const PasswordField = ({ register, error, helperText, onFocus, onBlur, isPasswor
             error={!!error}
             helperText={helperText}
             onFocus={onFocus}
-            onBlur={handleBlur}
+            onBlur={(e) => {
+                handleBlur(e);
+                trigger('password');
+            }}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
