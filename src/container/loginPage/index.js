@@ -1,5 +1,5 @@
 import Login from "./Login";
-import NewPassword from "./Newpassword";
-import ResetPassword from "./Resetpassword";
+import NewPassword from "./NewPassword";
+import ResetPassword from "./ResetPassword";
 
 export {Login,NewPassword,ResetPassword};

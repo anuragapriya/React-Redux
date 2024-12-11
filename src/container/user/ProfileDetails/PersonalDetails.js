@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import { ComboSelectBox, PasswordCheck, PasswordField } from '_components';
 import { portalList } from '_utils/tempData';
+import ErrorIcon from '@mui/icons-material/Error'; // Import an error icon from Material-UI
 
 const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
+    const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
     const password = watch('password');
@@ -19,36 +21,89 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
         setIsPasswordFocused(false);
     };
 
+    const handleBlur = (e) => {
+        const fieldName = e.target.name;
+        const fieldError = errors[fieldName];
+
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
+
+        trigger(fieldName); // Trigger validation for the field
+    };
+
     return (
         <>
-            <TextField
-                {...register('fullName', { required: 'Full Name is required' })}
-                label="Full Name"
-                fullWidth
-                margin="normal"
-                error={!!errors.fullName}
-                helperText={errors.fullName?.message}
-                onFocus={handleOtherFocus}
-            />
-            <TextField
-                {...register('companyName', { required: 'Company Name is required' })}
-                label="Company Name"
-                fullWidth
-                margin="normal"
-                error={!!errors.companyName}
-                helperText={errors.companyName?.message}
-                onFocus={handleOtherFocus}
-            />
-            <TextField
-                {...register('emailAddress', { required: 'Email Address is required' })}
-                label="Email Address"
-                fullWidth
-                margin="normal"
-                error={!!errors.emailAddress}
-                helperText={errors.emailAddress?.message}
-                onFocus={handleOtherFocus}
-                onBlur={() => trigger('emailAddress')}
-            />
+            <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.fullName}>
+                <InputLabel htmlFor="fullName">Full Name</InputLabel>
+                <OutlinedInput
+                    id="fullName"
+                    type="text"
+                    {...register('fullName', { required: 'Full Name is required' })}
+                    onBlur={(e) => {
+                        handleBlur(e);
+                        trigger('fullName');
+                    }}
+                    onFocus={handleOtherFocus}
+                    endAdornment={
+                        errors.fullName ? (
+                            <InputAdornment position="end">
+                                <ErrorIcon style={{ color: 'red' }} />
+                            </InputAdornment>
+                        ) : null
+                    }
+                    label="Full Name"
+                    className={inputColors['fullName']}
+                />
+                <FormHelperText>{errors.fullName?.message}</FormHelperText>
+            </FormControl>
+            <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.companyName}>
+                <InputLabel htmlFor="companyName">Company Name</InputLabel>
+                <OutlinedInput
+                    id="companyName"
+                    type="text"
+                    {...register('companyName', { required: 'Company Name is required' })}
+                    onBlur={(e) => {
+                        handleBlur(e);
+                        trigger('companyName');
+                    }}
+                    onFocus={handleOtherFocus}
+                    endAdornment={
+                        errors.companyName ? (
+                            <InputAdornment position="end">
+                                <ErrorIcon style={{ color: 'red' }} />
+                            </InputAdornment>
+                        ) : null
+                    }
+                    label="Company Name"
+                    className={inputColors['companyName']}
+                />
+                <FormHelperText>{errors.companyName?.message}</FormHelperText>
+            </FormControl>
+            <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.emailAddress}>
+                <InputLabel htmlFor="emailAddress">Email Address</InputLabel>
+                <OutlinedInput
+                    id="emailAddress"
+                    type="text"
+                    {...register('emailAddress', { required: 'Email Address is required' })}
+                    onBlur={(e) => {
+                        handleBlur(e);
+                        trigger('emailAddress');
+                    }}
+                    onFocus={handleOtherFocus}
+                    endAdornment={
+                        errors.emailAddress ? (
+                            <InputAdornment position="end">
+                                <ErrorIcon style={{ color: 'red' }} />
+                            </InputAdornment>
+                        ) : null
+                    }
+                    label="Email Address"
+                    className={inputColors['emailAddress']}
+                />
+                <FormHelperText>{errors.emailAddress?.message}</FormHelperText>
+            </FormControl>
             <Controller
                 name="mobileNumber"
                 control={control}
@@ -59,30 +114,44 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                         maskChar=""
                         value={field.value}
                         onChange={field.onChange}
-                        onBlur={() => trigger('mobileNumber')}
+                        onBlur={(e) => {
+                            handleBlur(e);
+                            trigger('mobileNumber');
+                        }}
                         onFocus={handleOtherFocus}
                     >
                         {(inputProps) => (
-                            <TextField
-                                {...inputProps}
-                                label="Phone Number"
-                                fullWidth
-                                margin="normal"
-                                error={!!errors.mobileNumber}
-                                helperText={errors.mobileNumber?.message}
-                                onFocus={handleOtherFocus}
-                            />
+                            <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.mobileNumber}>
+                                <InputLabel htmlFor="mobileNumber">Phone Number</InputLabel>
+                                <OutlinedInput
+                                    {...inputProps}
+                                    id="mobileNumber"
+                                    name="mobileNumber"
+                                    endAdornment={
+                                        errors.mobileNumber ? (
+                                            <InputAdornment position="end">
+                                                <ErrorIcon style={{ color: 'red' }} />
+                                            </InputAdornment>
+                                        ) : null
+                                    }
+                                    label="Phone Number"
+                                    className={inputColors['mobileNumber']}
+                                />
+                                <FormHelperText>{errors.mobileNumber?.message}</FormHelperText>
+                            </FormControl>
                         )}
                     </InputMask>
                 )}
             />
             <PasswordField
                 register={register}
+                trigger={trigger}
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 onFocus={handlePasswordFocus}
-                onBlur={handleOtherFocus}
+                onBlur={(e)=>{handleOtherFocus(); handleBlur(e);}}
                 isPasswordFocused={isPasswordFocused}
+                inputColors={inputColors}
             />
             {showPasswordCheck && isPasswordFocused && <PasswordCheck password={password} confirmPassword='' />}
             <Controller
@@ -91,7 +160,8 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 rules={{ required: 'Please select any Portal' }}
                 render={({ field }) => (
                     <ComboSelectBox
-                    className="selectPortal"
+                        name="selectPortal"
+                        className="selectPortal"
                         {...field}
                         boxLabel="Select Portal"
                         options={portalList}
@@ -102,6 +172,12 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                         error={!!errors.selectPortal}
                         helperText={errors.selectPortal?.message}
                         onFocus={handleOtherFocus}
+                        onBlur={(e) => {
+                            handleBlur(e);
+                            trigger('selectPortal');
+                        }}
+                        inputColor={inputColors['selectPortal']}
+                        trigger={trigger} // Pass the trigger function
                     />
                 )}
             />

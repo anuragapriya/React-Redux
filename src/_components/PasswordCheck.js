@@ -14,7 +14,7 @@ const PasswordCheck = ({ password, confirmPassword }) => {
         lowercase: false,
         number: false,
         special: false,
-      //  match: false,
+        //  match: false,
     });
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const PasswordCheck = ({ password, confirmPassword }) => {
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
             special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
-           // match: password && password === confirmPassword,
+            // match: password && password === confirmPassword,
         });
     };
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -38,25 +38,25 @@ const PasswordCheck = ({ password, confirmPassword }) => {
             <p>Your password must contain</p>
             <ul>
                 <li style={{ color: validations.length ? 'green' : 'red' }}>
-                <Checkbox {...label} defaultChecked  color="success" /> At least 8 Characters
+                    <Checkbox {...label} checked={validations.length} color="success" /> At least 8 Characters
                 </li>
                 <li style={{ color: validations.uppercase ? 'green' : 'red' }}>
-                <Checkbox {...label}  color="success" /> Upper case letter (A-Z).
+                    <Checkbox {...label} checked={validations.uppercase} color="success" /> Upper case letter (A-Z).
                 </li>
                 <li style={{ color: validations.lowercase ? 'green' : 'red' }}>
-                <Checkbox {...label}  color="success" /> Lower case letters (a-z)
+                    <Checkbox {...label} checked={validations.lowercase} color="success" /> Lower case letters (a-z)
                 </li>
                 <li style={{ color: validations.number ? 'green' : 'red' }}>
-                <Checkbox {...label}  color="success" /> Numbers (0-9)
+                    <Checkbox {...label} checked={validations.number} color="success" /> Numbers (0-9)
                 </li>
                 <li style={{ color: validations.special ? 'green' : 'red' }}>
-                <Checkbox {...label}  color="success" />Symbols (!@#$%^&*?/\|"':;+)
+                    <Checkbox {...label} checked={validations.special} color="success" />Symbols (!@#$%^&*?/\|"':;+)
                 </li>
                 {/* <li style={{ color: validations.match ? 'green' : 'red' }}>
                     Passwords match.
                 </li> */}
             </ul>
-            
+
         </div>
     );
 };
