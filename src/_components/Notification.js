@@ -27,7 +27,7 @@ const Notification = () => {
     return (
         <><React.Fragment>
          <TimerModal
-                timerCountdown={5}
+                timerCountdown={1200}
                 header={alert.header}
                 message1={alert.message}
                 message2={alert.message2||''}

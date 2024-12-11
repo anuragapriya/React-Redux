@@ -24,20 +24,20 @@ const ModalPopup =({header,message1,message2, btnPrimaryText, btnSecondaryText,h
                             {labels.eServicePortal}
                         </Link> 
                     
-                        <h5><b>{header}</b></h5>
-                        {message1 && <p> {message1}</p>}
-                        {message2 && <p> {message2}</p>}
+                        <h5 className="headercontent"><b>{header}</b></h5>
+                        {message1 && <p className="modalpopupcontent"> {message1}</p>}
+                        {message2 && <p className="modalpopupcontent"> {message2}</p>}
                         {btnPrimaryText && <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className="Loginbutton"
+                            className="Loginbutton mar-48"
                             onClick={handlePrimaryClick}
                         >
                            {btnPrimaryText}
                         </Button>}
-                        {btnSecondaryText && <Link href="#" onClick={handleClose}>{btnSecondaryText}</Link> }
+                        {btnSecondaryText && <Link className="closebutton" href="#" onClick={handleClose}>{btnSecondaryText}</Link> }
                      </Grid>
                </Box>
             </Box>
