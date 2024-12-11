@@ -4,17 +4,12 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ErrorIcon from '@mui/icons-material/Error'; // Import an error icon from Material-UI
 
-const PasswordField = ({ register,trigger, error, helperText, onFocus, onBlur, isPasswordFocused }) => {
+const PasswordField = ({ register,trigger, error, helperText, onFocus, onBlur,inputColors, isPasswordFocused }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [inputColor, setInputColor] = useState('');
 
     const handleClickShowPassword = () => setShowPassword((prev) => !prev);
     const handleMouseDownPassword = (event) => event.preventDefault();
-
-    const handleBlur = (e) => {
-        onBlur(e); // Call the parent onBlur function
-        setInputColor(!error && e.target.value ? 'inputBackground' : '');
-    };
 
     return (
         <TextField
@@ -27,7 +22,7 @@ const PasswordField = ({ register,trigger, error, helperText, onFocus, onBlur, i
             helperText={helperText}
             onFocus={onFocus}
             onBlur={(e) => {
-                handleBlur(e);
+                onBlur(e);
                 trigger('password');
             }}
             InputProps={{
@@ -48,6 +43,7 @@ const PasswordField = ({ register,trigger, error, helperText, onFocus, onBlur, i
                 ),
                 style: { backgroundColor: inputColor } // Apply the background color
             }}
+            className={inputColors['password']}
         />
     );
 };

@@ -29,6 +29,8 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
             ...prevColors,
             [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
         }));
+
+        trigger(fieldName); // Trigger validation for the field
     };
 
     return (
@@ -124,6 +126,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                                 <OutlinedInput
                                     {...inputProps}
                                     id="mobileNumber"
+                                    name="mobileNumber"
                                     endAdornment={
                                         errors.mobileNumber ? (
                                             <InputAdornment position="end">
@@ -146,8 +149,9 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 onFocus={handlePasswordFocus}
-                onBlur={handleOtherFocus}
+                onBlur={(e)=>{handleOtherFocus(); handleBlur(e);}}
                 isPasswordFocused={isPasswordFocused}
+                inputColors={inputColors}
             />
             {showPasswordCheck && isPasswordFocused && <PasswordCheck password={password} confirmPassword='' />}
             <Controller
@@ -156,6 +160,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 rules={{ required: 'Please select any Portal' }}
                 render={({ field }) => (
                     <ComboSelectBox
+                        name="selectPortal"
                         className="selectPortal"
                         {...field}
                         boxLabel="Select Portal"
@@ -171,6 +176,8 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                             handleBlur(e);
                             trigger('selectPortal');
                         }}
+                        inputColor={inputColors['selectPortal']}
+                        trigger={trigger} // Pass the trigger function
                     />
                 )}
             />
