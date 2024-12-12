@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 const PasswordCheck = ({ password, confirmPassword }) => {
 
@@ -18,12 +16,13 @@ const PasswordCheck = ({ password, confirmPassword }) => {
     });
 
     useEffect(() => {
+        if(isPasswordValid)
         validatePassword(password, confirmPassword);
     }, [password, confirmPassword]);
 
     const validatePassword = (password, confirmPassword) => {
         setValidations({
-            length: password.length >= 8 && password.length <= 16,
+            length: password?.length >= 8 && password?.length <= 16,
             uppercase: /[A-Z]/.test(password),
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
