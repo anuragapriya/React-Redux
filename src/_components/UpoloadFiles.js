@@ -31,6 +31,14 @@ export default function UploadFiles() {
         whiteSpace: 'nowrap',
         width: 1,
     });
+    const handleFileInputChange = (event) => {
+        const file = event.target.files[0]; // Get the first selected file
+        if (file) {
+            //we can set value which is received from parent component.
+        //   onFileChange(file); 
+          // Pass the file to the parent via the callback update in the props
+        }
+      };
     return (
         <div >
             <Typography component="div" className="UploadContainer">
@@ -48,29 +56,32 @@ export default function UploadFiles() {
                                 startIcon={<CloudUploadIcon />}
                             >
                                 <span>Upload your files here</span>
-                                <span className="Browsechoose"> Browse and choose the file(s) you want to upload </span>
+    
+                                <span type="file"  onChange={handleFileInputChange} className="Browsechoose"> Browse and choose the file(s) you want to upload </span>
                                 <VisuallyHiddenInput
                                     type="file"
                                     onChange={(event) => console.log(event.target.files)}
                                     multiple />
                             </Button>
+
+                            <Typography component="div" className="SupportedFormats">
                             <Typography component="h3">Supported Formats</Typography>
-                            <Typography component="div">
+                            <Typography component="div" className="fileformat">
                                 <span>.pdf</span>
                                 <span>.jpg</span>
                                 <span>.png</span>
                             </Typography>
+                            </Typography>
 
                         
-                    </Grid>
-                    <Grid item xs={12} sm={5} md={12} className="">
-                        <Typography component="">Uploaded Documents </Typography>
+                    
+                         {/* <Typography component="">Uploaded Documents </Typography>
                       
                         <Typography component="p">Non-disclosure agreement</Typography>
                         <Typography component="p">Please Download NDA from this  <Link href="#" variant="body2" className="ResetPassword">
                             Link
-                        </Link>  . Then Upload signed version of this NDA in PDF,PNG & JPEG Formats</Typography>
-                    </Grid>
+                        </Link>  . Then Upload signed version of this NDA in PDF,PNG & JPEG Formats</Typography> */}
+                    </Grid> 
 
       </Grid>
 
