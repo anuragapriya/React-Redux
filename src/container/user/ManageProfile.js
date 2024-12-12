@@ -15,7 +15,7 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const dispatch = useDispatch();
     const user = useSelector(x => x.users?.item);
 
-    const { register, handleSubmit, control, reset, watch, formState: { errors, isSubmitting } } = useForm({
+    const { register, handleSubmit, control,trigger, reset, watch, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(registerValidationSchema,profileValidationSchema())
     });
 
@@ -56,7 +56,7 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
                         <Typography component="h1" variant="h5">{title}</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <PersonalDetails  register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
-                            <SecurityQuestions id={id}  register={register} errors={errors}  control={control} />
+                            <SecurityQuestions id={id}  register={register} errors={errors}  control={control} trigger={trigger}/>
                            
                             {id && <>
                                 <AssignToDetails errors={errors} control={control}></AssignToDetails>

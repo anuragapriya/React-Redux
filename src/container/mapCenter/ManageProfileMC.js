@@ -16,8 +16,9 @@ const ManageProfileMC = () => {
     const { id } = useParams();
     const user = useSelector(x => x.users?.item);
 
+    const combinedSchema = additionalDetailsValidationSchema.concat(companyValidationSchema);
     const { register, handleSubmit, control, reset, formState: { errors, isSubmitting }, watch, trigger } = useForm({
-        resolver: yupResolver(additionalDetailsValidationSchema, companyValidationSchema)
+        resolver: yupResolver(combinedSchema)
     });
 
     useEffect(() => {
@@ -71,7 +72,7 @@ const ManageProfileMC = () => {
                             <Typography component="div" className="Personal-Informationsheading">
                                 <Typography component="h2" variant="h5">Company Point of Contact</Typography>
                             </Typography>
-                            <CompanyDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger} />
+                            <CompanyDetails register={register} errors={errors}  control={control} trigger={trigger} />
                         </Typography>
                         </Grid>
                         <Grid item xs={12} sm={5} md={4} >
