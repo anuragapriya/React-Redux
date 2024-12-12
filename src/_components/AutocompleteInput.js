@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form';
 import ErrorIcon from '@mui/icons-material/Error';
 
 const AutocompleteInput = ({ control, name, label, options, error, helperText, handleBlur, onFocus, inputColor }) => (
-    <FormControl fullWidth margin="normal">
+    <FormControl fullWidth margin="normal"  className={inputColor}>
         <Controller
             name={name}
             control={control}
@@ -35,7 +35,7 @@ const AutocompleteInput = ({ control, name, label, options, error, helperText, h
                                 handleBlur(e);
                             }}
                             onFocus={onFocus}
-                            className={inputColor}
+                           
                             InputProps={{
                                 ...params.InputProps,
                                 endAdornment: (

@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 import {  Controller } from 'react-hook-form';
 import { ComboSelectBox } from '_components';
 import { selectOptions } from '_utils/tempData';
-const SecurityQuestions =({ id,register, errors,  control })=>
+const SecurityQuestions =({ id,register, errors,  control,trigger })=>
 {
     return (<>
         <Controller
@@ -17,6 +17,7 @@ const SecurityQuestions =({ id,register, errors,  control })=>
                         handleChange={(value) => field.onChange(value)}
                         error={!!errors.firstSecurityQuestion}
                         helperText={errors.firstSecurityQuestion?.message}
+                        trigger={trigger}
                     />
                 )}
             />
@@ -40,6 +41,7 @@ const SecurityQuestions =({ id,register, errors,  control })=>
                         handleChange={(value) => field.onChange(value)}
                         error={!!errors.secondSecurityQuestion}
                         helperText={errors.secondSecurityQuestion?.message}
+                        trigger={trigger}
                     />
                 )}
             />
@@ -63,6 +65,7 @@ const SecurityQuestions =({ id,register, errors,  control })=>
                         handleChange={(value) => field.onChange(value)}
                         error={!!errors.thirdSecurityQuestion}
                         helperText={errors.thirdSecurityQuestion?.message}
+                        trigger={trigger}
                     />
                 )}
             />

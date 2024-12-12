@@ -1,74 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
-const AdditionalDetails = ({ register, errors, control }) => {
-    return <>
-        <TextField
-            {...register('fullName', { required: 'Full Name is required' })}
-            label="First & Last Name"
-            fullWidth
-            margin="normal"
-            error={!!errors.fullName}
-            helperText={errors.fullName?.message}
-        />
+import { CustomFormControl } from '_components';
+const AdditionalDetails = ({ register, errors, control, trigger }) => {
+    const [inputColors, setInputColors] = useState({});
+    const handleBlur = (e) => {
+        const fieldName = e.target.name;
+        const fieldError = errors[fieldName];
 
-        <TextField
-            {...register('address', { required: 'Street Address is required' })}
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
+
+        trigger(fieldName); // Trigger validation for the field
+    };
+    return <>
+        <CustomFormControl
+            id="fullName"
+            label="Full Name"
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+        <CustomFormControl
+            id="address"
             label="Street Address"
-            fullWidth
-            margin="normal"
-            error={!!errors.address}
-            helperText={errors.address?.message}
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
-        <TextField
-            {...register('city', { required: 'City is required' })}
+        <CustomFormControl
+            id="city"
             label="City"
-            fullWidth
-            margin="normal"
-            error={!!errors.city}
-            helperText={errors.city?.message}
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
-       <Grid container spacing={3}>
-       <Grid item xs={12} sm={5} md={6} className="Personal-Information">
-            <TextField
-                {...register('state', { required: 'State is required' })}
-                label="State"
-                fullWidth
-                margin="normal"
-                error={!!errors.state}
-                helperText={errors.state?.message}
-            />
-            <TextField
-                {...register('zipcode', { required: 'Zip code is required' })}
-                label="Zip code"
-                fullWidth
-                margin="normal"
-                error={!!errors.zipcode}
-                helperText={errors.zipcode?.message}
-            />
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+                <CustomFormControl
+                    id="state"
+                    label="State"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
+                <CustomFormControl
+                    id="zipcode"
+                    label="Zip Code"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
             </Grid>
-        <Grid item xs={12} sm={5} md={6} className="Personal-Information">
-      
-            <TextField
-                {...register('drivinglicense', { required: 'Driving License is required' })}
-                label="Driving License"
-                fullWidth
-                margin="normal"
-                error={!!errors.drivinglicense}
-                helperText={errors.drivinglicense?.message}
-            />
-            <TextField
-                {...register('licenseStatus', { required: 'License status is required' })}
-                label="License status"
-                fullWidth
-                margin="normal"
-                error={!!errors.licenseStatus}
-                helperText={errors.licenseStatus?.message}
-            />
+            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+                <CustomFormControl
+                    id="drivinglicense"
+                    label="Driving License"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
+                <CustomFormControl
+                    id="licenseStatus"
+                    label="License State"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
             </Grid>
-            </Grid>
-        
-         
+        </Grid>
     </>
 };
 

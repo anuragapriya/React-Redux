@@ -2,58 +2,61 @@ import React, { useState } from 'react';
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
+import { CustomFormControl, MobileNumberInput } from '_components';
 
 const CompanyDetails = ({ register, errors, control, trigger }) => {
+    const [inputColors, setInputColors] = useState({});
+    const handleBlur = async (e) => {
+        const fieldName = e.target.name;
+
+        console.log(`Triggering validation for: ${fieldName}`);
+        const result = await trigger(fieldName); // Wait for the validation to complete
+        console.log(`Validation result for ${fieldName}:`, result);
+
+        const fieldError = errors[fieldName];
+        console.log(`Error for ${fieldName}:`, fieldError);
+
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
+    };
     return <>
-        <TextField
-            {...register('pocFullName', { required: 'Full Name is required' })}
+        <CustomFormControl
+            id="pocFullName"
             label="Full Name"
-            fullWidth
-            margin="normal"
-            error={!!errors.pocFullName}
-            helperText={errors.pocFullName?.message}
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
-        <Controller
-            name="pocMobileNumber"
+        <MobileNumberInput
             control={control}
+            name="pocMobileNumber"
+            label="Phone Number"
             rules={{ required: 'Phone Number is required' }}
-            render={({ field }) => (
-                <InputMask
-                    mask="999-999-9999"
-                    maskChar=""
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={() => trigger('pocMobileNumber')}
-                >
-                    {(inputProps) => (
-                        <TextField
-                            {...inputProps}
-                            label="Phone Number"
-                            fullWidth
-                            margin="normal"
-                            error={!!errors.pocMobileNumber}
-                            helperText={errors.pocMobileNumber?.message}
-                        />
-                    )}
-                </InputMask>
-            )}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
-        <TextField
-            {...register('pocEmailAddress', { required: 'Email Address is required' })}
+        <CustomFormControl
+            id="pocEmailAddress"
             label="Email Address"
-            fullWidth
-            margin="normal"
-            error={!!errors.pocEmailAddress}
-            helperText={errors.pocEmailAddress?.message}
-            onBlur={() => trigger('pocEmailAddress')}
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
-        <TextField
-            {...register('authorizedContact', { required: 'Authorized WGL Contact is required' })}
+        <CustomFormControl
+            id="authorizedContact"
             label="Authorized WGL Contact"
-            fullWidth
-            margin="normal"
-            error={!!errors.authorizedContact}
-            helperText={errors.authorizedContact?.message}
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
         />
     </>;
 };
