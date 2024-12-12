@@ -8,7 +8,7 @@ import { labels } from "_utils/labels";
 
 const MainLayout = () => (
     <>
-   
+    <PortalZoom></PortalZoom>
     <Grid container spacing={3}>
         <Grid item xs={12} sm={5} md={4} className="wglcontainerblock">
             <div className="wglcontainer">
@@ -37,8 +37,7 @@ const MainLayout = () => (
         </Grid>
         <Grid item xs={8} sm={7} md={8} className="mobile-none">
             <div className="height-fix">
-                <div className="root">
-                <PortalZoom></PortalZoom>
+                <div className="root">              
                 <Link href="#"  className="NeedSupport"  >
                         <img src={images.headseticonwhite} alt="Do You Need Support" ></img>
                        Support?

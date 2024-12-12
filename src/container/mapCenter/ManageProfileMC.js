@@ -8,15 +8,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { additionalDetailsValidationSchema, companyValidationSchema } from "_utils/validationSchema";
 import { CompanyDetails } from "container/user";
 import AdditionalDetails from "container/user/ProfileDetails/AdditionalDetails";
-
-const ManageProfileMC =()=>{
+import Grid from "@material-ui/core/Grid";
+import UploadFiles from '_components/UpoloadFiles'
+const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
     const user = useSelector(x => x.users?.item);
 
-    const { register, handleSubmit, control, reset,formState: { errors, isSubmitting }, watch, trigger } = useForm({
-        resolver: yupResolver(additionalDetailsValidationSchema,companyValidationSchema)
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting }, watch, trigger } = useForm({
+        resolver: yupResolver(additionalDetailsValidationSchema, companyValidationSchema)
     });
 
     useEffect(() => {
@@ -47,21 +48,54 @@ const ManageProfileMC =()=>{
         }
     };
 
-    return  <>
-    <Typography component="div" className="mobilebanner">
-        <Typography component="h1" variant="h5">Registration</Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <AdditionalDetails register={register} errors={errors} trigger={trigger}  control={control}/>
-            <CompanyDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}/>           
-            <Button   variant="contained" color="primary" disabled={isSubmitting}>
-                Cancel
-            </Button>
-            <Button type="submit"  variant="contained" color="primary" disabled={isSubmitting}>
-                Complete Registration
-            </Button>
-        </form>
-    </Typography>
-</>
+    return <>
+        <Typography component="div" className="MapCenterAccecss">
+            <Typography component="div" className="MapCenterAccecssheading">
+                <Typography component="h1" variant="h5">Map Center Access</Typography>
+            </Typography>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={12} className="Personal-Information-container">
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                        <Typography component="div" className="mapcontainer">
+                            <Typography component="div" className="Personal-Informationsheading">
+                                <Typography component="h2" variant="h5">Personal Information</Typography>
+                            </Typography>
+                            <AdditionalDetails register={register} errors={errors} control={control} trigger={trigger} />
+                        </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                            
+                        <Typography component="div" className="mapcontainer">
+                            <Typography component="div" className="Personal-Informationsheading">
+                                <Typography component="h2" variant="h5">Company Point of Contact</Typography>
+                            </Typography>
+                            <CompanyDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger} />
+                        </Typography>
+                        </Grid>
+                        <Grid item xs={12} sm={5} md={4} >
+                            <Typography component="div" className="UploadFiles-container mapcontainer">
+                        <UploadFiles/>
+                        </Typography>
+                        </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} className="Personal-Information">
+                        <Button variant="contained" color="primary" disabled={isSubmitting}>
+                            Cancel
+                        </Button>
+                        <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                            Complete Registration
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+
+            </form>
+        </Typography>
+    </>
 };
 
 export default ManageProfileMC;

@@ -9,6 +9,7 @@ import pdfIcon from './assets/images/Frame2208.png';
 import headseticonwhite from './assets/images/headseticon-white.svg';
 import icoutlineemail from './assets/images/ic_outline-email.svg';
 import supporticonblue from './assets/images/support-icon-blue.svg';
+import materialsymbolsupload from './assets/images/material-symbols_upload.svg';
 const images = {
     logo,
     bannerImg,
@@ -19,7 +20,8 @@ const images = {
     pdfIcon,
     headseticonwhite,
     icoutlineemail,
-    supporticonblue
+    supporticonblue,
+    materialsymbolsupload
 };
 
 export default images;
