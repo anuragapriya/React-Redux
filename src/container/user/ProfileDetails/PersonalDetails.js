@@ -60,8 +60,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 handleBlur={handleBlur}
                 handleFocus={handleOtherFocus}
                 inputColors={inputColors}
-            />
-           
+            />           
            <MobileNumberInput
                 control={control}
                 name="mobileNumber"

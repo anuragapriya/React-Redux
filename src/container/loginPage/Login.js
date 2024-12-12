@@ -10,6 +10,7 @@ import { loginValidationSchema } from "_utils/validationSchema";
 import { ResetPassword } from "container/loginPage";
 import Grid from "@material-ui/core/Grid";
 import ErrorIcon from '@mui/icons-material/Error';
+import { CustomFormControl, PasswordInput } from "_components";
 
 export default function Login() {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false, error: null });
@@ -18,7 +19,7 @@ export default function Login() {
     const dispatch = useDispatch();
 
     // form validation rules 
-    const { register, handleSubmit, formState: { errors, isSubmitting, isValid }, watch } = useForm({
+    const { register, handleSubmit,control, formState: { errors, isSubmitting, isValid }, watch ,trigger} = useForm({
         resolver: yupResolver(loginValidationSchema),
         mode: 'onChange'
     });
@@ -46,6 +47,8 @@ export default function Login() {
             ...prevColors,
             [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
         }));
+
+        trigger(fieldName); // Trigger validation for the field
     };
 
     return (
@@ -58,44 +61,24 @@ export default function Login() {
                 </Typography>
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.email}>
-                            <InputLabel htmlFor="email">Company Email Address</InputLabel>
-                            <OutlinedInput
-                                id="email"
-                                type="text"
-                                {...register('email')}
-                                onBlur={handleBlur}
-                                endAdornment={
-                                    errors.email ? (
-                                        <InputAdornment position="end">
-                                            <ErrorIcon style={{ color: 'red' }} />
-                                        </InputAdornment>
-                                    ) : null
-                                }
-                                label="Company Email Address"
-                                className={inputColors['email']}
-                            />
-                            <FormHelperText>{errors.email?.message}</FormHelperText>
-                        </FormControl>
-                        <FormControl variant="outlined" fullWidth margin="normal" error={!!errors.password}>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <OutlinedInput
-                                id="password"
-                                type="password"
-                                {...register('password')}
-                                onBlur={handleBlur}
-                                endAdornment={
-                                    errors.password ? (
-                                        <InputAdornment position="end">
-                                            <ErrorIcon style={{ color: 'red' }} />
-                                        </InputAdornment>
-                                    ) : null
-                                }
-                                label="Password"
-                                className={inputColors['password']}
-                            />
-                            <FormHelperText>{errors.password?.message}</FormHelperText>
-                        </FormControl>
+                        <CustomFormControl
+                            id="email"
+                            label="Email Address"
+                            type="text"
+                            register={register}
+                            errors={errors}
+                            handleBlur={handleBlur}
+                            inputColors={inputColors}
+                        />
+                        <PasswordInput
+                            control={control}
+                            name="password"
+                            label="Password"
+                            rules={{ required: 'Password is required' }}
+                            errors={errors}
+                            handleBlur={handleBlur}
+                            inputColors={inputColors}
+                        />
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
                         </Link>

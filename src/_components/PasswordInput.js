@@ -17,7 +17,7 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
             control={control}
             rules={rules}
             render={({ field }) => (
-                <FormControl variant="outlined" fullWidth margin="normal" error={!!errors[name]}>
+                <FormControl variant="outlined" fullWidth margin="normal"   className={inputColors[name]} error={!!errors[name]}>
                     <InputLabel htmlFor={name}>{label}</InputLabel>
                     <OutlinedInput
                         {...field}
@@ -38,12 +38,10 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
                                     edge="end"
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                                
+                                </IconButton>                            
                             </InputAdornment>
                         }
-                        label={label}
-                        className={inputColors[name]}
+                        label={label}                      
                     />
                     <FormHelperText>{errors[name]?.message}</FormHelperText>
                 </FormControl>
