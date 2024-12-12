@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ITC Avant Garde Std Md';
-    src: url('../assets/fontfamily/ITCAvantGardeGothicStdMedium.otf');
+    src: url('../assets/fontfamily/ITCAvantGardeStd-Bold.ttf');
 }
 
 @font-face {
@@ -59,12 +59,13 @@ body {
     text-transform: uppercase;
 }
 
-.loginheader {
+.wglcontainer .loginheader ,.loginheader {
     display: flex;
     height: 56px;
     align-items: center;
     gap: 12px;
     flex-shrink: 0;
+    margin: 20px 0px;
 }
 
 .wgllogo {
@@ -85,7 +86,7 @@ body {
 .MuiTypography-root.ResetPassword {
 
     float: right;
-    font-family: Proxima Nova Rg;
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -150,7 +151,9 @@ body {
     display: block;
     padding: 0px;
 }
-
+.width590{
+    width: 590px;
+}
 .modalpopup {
     position: absolute;
     top: 50%;
@@ -198,7 +201,7 @@ body {
 }
 
 .wglcontainer .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root {
-    font-family: Proxima Nova Rg;
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -217,6 +220,13 @@ body {
     background: var(--White, #FFFFFF);
 
     box-shadow: 0px 1px 1px 0px #0059B340 !important;
+}
+ .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input{
+    background: var(--WG-Blue-100, #DFEDFF);
+    color: var(--WG-Blue-900, #0A3B70);
+}
+.inputBackground  label{
+    display: none;
 }
 
 .wglcontainer .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root.Mui-error.Mui-focused,
@@ -470,10 +480,10 @@ input[type=number] {
     padding: 0px;
 }
 
-.Verifyemail .headercontent {
+.headercontent  ,.Verifyemail .headercontent {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -481,15 +491,18 @@ input[type=number] {
     padding: 16px 0px;
     letter-spacing: 0.15px;
 }
-
+.modalpopupinner {
+    width: 100%;
+}
 .modalpopupcontent {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px;
+    line-height: 28px;
+    margin: 0px;
     /* 150% */
     letter-spacing: 0.15px;
 }
@@ -502,7 +515,7 @@ input[type=number] {
     color: var(--Gray-700, #4D4C52);
     text-align: center;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -512,8 +525,8 @@ input[type=number] {
     width: 100%;
     display: block;
 }
-.Verifyemail .p-0{
-    padding: 0px;
+.Verifyemail .p-0 ,.MuiPaper-root .Verifyemail .p-0{
+    padding: 0px ;
 }
 .Verifyemail{
     padding: 0px 24px 24px;
@@ -605,6 +618,10 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
 background: #FFF;
 box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
 padding: 24px;
+}
+.modalpopupcontenterror{
+margin-top: 15px;
+color: #ef4444;
 }
 @media only screen and (max-width: 1124px) {
     .pb-10 {
