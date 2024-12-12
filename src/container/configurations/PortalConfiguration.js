@@ -32,7 +32,7 @@ const PortalConfiguration = (props) => {
         });
 
         accessNames.forEach(featureId => {
-            const featureName = portal.PortalRoleAccess[0].FeatureAccess.find(permission => permission.AccessID === featureId)?.AccessName;
+            const featureName = portal.PortalRoleAccess[0].FeatureAccess?.find(permission => permission.AccessID === featureId)?.AccessName;
             const row = { AccessID: featureId, FeatureName: featureName };
             Object.keys(roles[featureId]).forEach(roleId => {
                 row[roleId] = roles[featureId][roleId];
@@ -93,7 +93,7 @@ const PortalConfiguration = (props) => {
         if (pivotedData.length > 0) {
             Object.keys(pivotedData[0]).forEach(key => {
                 if (key !== 'AccessID' && key !== 'FeatureName') {
-                    const role = data.PortalRoleAccess.find(roleAccess => roleAccess.RoleID === parseInt(key)).RoleName;
+                    const role = data.PortalRoleAccess?.find(roleAccess => roleAccess.RoleID === parseInt(key)).RoleName;
                     dynamicColumns.push({
                         header: role,
                         accessorKey: key,

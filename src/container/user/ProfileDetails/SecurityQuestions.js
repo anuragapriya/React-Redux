@@ -1,84 +1,85 @@
-import React from 'react';
-import { TextField } from '@mui/material';
-import {  Controller } from 'react-hook-form';
-import { ComboSelectBox } from '_components';
+import React, { useState } from 'react';
+import { CustomFormControl,AutocompleteInput } from '_components';
 import { selectOptions } from '_utils/tempData';
-const SecurityQuestions =({ id,register, errors,  control,trigger })=>
-{
-    return (<>
-        <Controller
-                name="firstSecurityQuestion"
-                control={control}
-                render={({ field }) => (
-                    <ComboSelectBox
-                        {...field}
-                        boxLabel="First Security Question"
-                        options={selectOptions}
-                        handleChange={(value) => field.onChange(value)}
-                        error={!!errors.firstSecurityQuestion}
-                        helperText={errors.firstSecurityQuestion?.message}
-                        trigger={trigger}
-                    />
-                )}
-            />
-            <TextField
-                {...register('firstSecurityAnswer')}
-                label="First Security Answer"
-                fullWidth
-                margin="normal"
-                type={id ? 'password' : 'text'}
-                error={!!errors.firstSecurityAnswer}
-                helperText={errors.firstSecurityAnswer?.message}
-            />
-            <Controller
-                name="secondSecurityQuestion"
-                control={control}
-                render={({ field }) => (
-                    <ComboSelectBox
-                        {...field}
-                        boxLabel="Second Security Question"
-                        options={selectOptions}
-                        handleChange={(value) => field.onChange(value)}
-                        error={!!errors.secondSecurityQuestion}
-                        helperText={errors.secondSecurityQuestion?.message}
-                        trigger={trigger}
-                    />
-                )}
-            />
-            <TextField
-                {...register('secondSecurityAnswer')}
-                label="Second Security Answer"
-                fullWidth
-                margin="normal"
-                type={id ? 'password' : 'text'}
-                error={!!errors.secondSecurityAnswer}
-                helperText={errors.secondSecurityAnswer?.message}
-            />
-            <Controller
-                name="thirdSecurityQuestion"
-                control={control}
-                render={({ field }) => (
-                    <ComboSelectBox
-                        {...field}
-                        boxLabel="Third Security Question"
-                        options={selectOptions}
-                        handleChange={(value) => field.onChange(value)}
-                        error={!!errors.thirdSecurityQuestion}
-                        helperText={errors.thirdSecurityQuestion?.message}
-                        trigger={trigger}
-                    />
-                )}
-            />
-            <TextField
-                {...register('thirdSecurityAnswer')}
-                label="Third Security Answer"
-                fullWidth
-                margin="normal"
-                type={id ? 'password' : 'text'}
-                error={!!errors.thirdSecurityAnswer}
-                helperText={errors.thirdSecurityAnswer?.message}
-            />
-        </>);
+
+const SecurityQuestions = ({ id, register, errors, control, trigger }) => 
+{   
+    const [inputColors, setInputColors] = useState({});
+
+    const handleBlur = (e) => {
+        const fieldName = e.target.name;
+        const fieldError = errors[fieldName];
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
+
+        trigger(fieldName); // Trigger validation for the field
+    };
+    
+   return (
+    
+    <>
+        <AutocompleteInput
+            control={control}
+            name="firstSecurityQuestion"
+            label="First Security Question"
+            options={selectOptions}
+            error={!!errors.firstSecurityQuestion}
+            helperText={errors.firstSecurityQuestion?.message}
+            handleBlur={handleBlur}
+            inputColor={inputColors['firstSecurityQuestion']}
+        />
+        <CustomFormControl
+            id="firstSecurityAnswer"
+            label="First Security Answer"
+            type={id ? 'password' : 'text'}
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+        <AutocompleteInput
+            control={control}
+            name="secondSecurityQuestion"
+            label="Second Security Question"
+            options={selectOptions}
+            error={!!errors.secondSecurityQuestion}
+            helperText={errors.secondSecurityQuestion?.message}
+            handleBlur={handleBlur}
+            inputColor={inputColors['secondSecurityQuestion']}
+        />
+        <CustomFormControl
+            id="secondSecurityAnswer"
+            label="Second Security Answer"
+            type={id ? 'password' : 'text'}
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+        <AutocompleteInput
+            control={control}
+            name="thirdSecurityQuestion"
+            label="Third Security Question"
+            options={selectOptions}
+            error={!!errors.thirdSecurityQuestion}
+            helperText={errors.thirdSecurityQuestion?.message}
+            handleBlur={handleBlur}
+            inputColor={inputColors['thirdSecurityQuestion']}
+        />
+        <CustomFormControl
+            id="thirdSecurityAnswer"
+            label="Third Security Answer"
+            type={id ? 'password' : 'text'}
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+    </>
+);
+
 };
 
 export default SecurityQuestions;

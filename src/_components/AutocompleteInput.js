@@ -5,7 +5,7 @@ import { Autocomplete } from '@mui/lab';
 import { Controller } from 'react-hook-form';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const AutocompleteInput = ({ control, name, label, options, error, helperText, handleBlur, onFocus, inputColor }) => (
+const AutocompleteInput = ({ control, name,value, label, options, error, helperText, handleBlur, onFocus, inputColor,onChange }) => (
     <FormControl fullWidth margin="normal"  className={inputColor}>
         <Controller
             name={name}
@@ -18,10 +18,11 @@ const AutocompleteInput = ({ control, name, label, options, error, helperText, h
                     options={options}
                     getOptionLabel={(option) => option.label}
                     isOptionEqualToValue={(option, value) => option.value === value}
-                    value={options.find(option => option.value === field.value) || null}
+                    value={ options?.find(option => option.value === field.value || value) || null}
                     onChange={(e, newValue) => {
                         console.log('Selected Portal:', newValue);
                         field.onChange(newValue ? newValue.value : null);
+                       if(onChange) onChange(e, newValue);
                     }}
                     renderInput={(params) => (
                         <TextField
