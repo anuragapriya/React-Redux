@@ -3,8 +3,8 @@ import Checkbox from '@mui/material/Checkbox';
 const PasswordCheck = ({ password, confirmPassword }) => {
 
     // Ensure the password is a string
-    const isPasswordValid = typeof password === "string";
-    const isConfirmPasswordValid = typeof confirmPassword === "string";
+    // const isPasswordValid = typeof password === "string";
+    // const isConfirmPasswordValid = typeof confirmPassword === "string";
 
     const [validations, setValidations] = useState({
         length: false,
@@ -16,7 +16,7 @@ const PasswordCheck = ({ password, confirmPassword }) => {
     });
 
     useEffect(() => {
-        if(isPasswordValid)
+       // if(isPasswordValid)
         validatePassword(password, confirmPassword);
     }, [password, confirmPassword]);
 

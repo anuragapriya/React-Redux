@@ -6,7 +6,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
     const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-    const password = watch('password');
+    const password = watch('password','');
 
     const handlePasswordFocus = () => {
         setShowPasswordCheck(true);
