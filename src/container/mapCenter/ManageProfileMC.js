@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,7 @@ import { additionalDetailsValidationSchema, companyValidationSchema } from "_uti
 import { CompanyDetails } from "container/user";
 import AdditionalDetails from "container/user/ProfileDetails/AdditionalDetails";
 import Grid from "@material-ui/core/Grid";
-import UploadFiles from '_components/UpoloadFiles'
+import {UploadFiles} from '_components'
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
