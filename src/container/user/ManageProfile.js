@@ -7,16 +7,16 @@ import { userActions, alertActions } from '_store';
 import {registerValidationSchema, profileValidationSchema } from '_utils/validationSchema';
 import PersonalDetails from './ProfileDetails/PersonalDetails';
 import AssignToDetails from './ProfileDetails/AssignToDetails';
-import AdditionalDetails from './ProfileDetails/AdditionalDetails';
 import SecurityQuestions from './ProfileDetails/SecurityQuestions';
 
 const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const id = selectedrowId;
     const dispatch = useDispatch();
     const user = useSelector(x => x.users?.item);
+    const combinedSchema = registerValidationSchema.concat(profileValidationSchema());
 
     const { register, handleSubmit, control,trigger, reset, watch, formState: { errors, isSubmitting } } = useForm({
-        resolver: yupResolver(registerValidationSchema,profileValidationSchema())
+        resolver: yupResolver(combinedSchema)
     });
 
     useEffect(() => {
@@ -55,11 +55,11 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
                     (<Typography component="div" className="mobilebanner">
                         <Typography component="h1" variant="h5">{title}</Typography>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <PersonalDetails  register={register} errors={errors} watch={watch} control={control}></PersonalDetails>
+                            <PersonalDetails  register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
                             <SecurityQuestions id={id}  register={register} errors={errors}  control={control} trigger={trigger}/>
                            
                             {id && <>
-                                <AssignToDetails errors={errors} control={control}></AssignToDetails>
+                                <AssignToDetails errors={errors} watch={watch} control={control} trigger={trigger}></AssignToDetails>
                             </>}
                             <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit'}

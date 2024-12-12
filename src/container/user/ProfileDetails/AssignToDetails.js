@@ -1,73 +1,71 @@
-import React from 'react';
-import { Controller } from 'react-hook-form';
-import { ComboSelectBox, PasswordCheck } from '_components';
+import React, { useState } from 'react';
+import { AutocompleteInput } from '_components';
 import { jurisdictionList, organizationList } from '_utils/tempData';
 
-const AssignToDetails = (props) => {
+const AssignToDetails = ({ role, errors, control ,trigger}) => {
+    const [inputColors, setInputColors] = useState({});
 
-    const { role, errors, control } = props;
+    const handleBlur = (e) => {
+        const fieldName = e.target.name;
+        const fieldError = errors[fieldName];
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
 
-    return <>
-        <Controller
-            name="assignToAgency"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="Assign To Agency"
-                    options={organizationList}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.assignToAgency}
-                    helperText={errors.assignToAgency?.message}
-                />
-            )}
-        />
-        {(role && role == 'EA') && <Controller
-            name="assignToJurisdiction"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="Assign To Jurisdiction"
-                    options={jurisdictionList}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.assignToJurisdiction}
-                    helperText={errors.assignToJurisdiction?.message}
-                />
-            )}
-        />
-        }
-        {(role && role == 'Marketer') && <><Controller
-            name="selectAccessRight"
-            control={control}
-            render={({ field }) => (
-                <ComboSelectBox
-                    {...field}
-                    boxLabel="Select Access Right"
-                    options={jurisdictionList}
-                    handleChange={(value) => field.onChange(value)}
-                    error={!!errors.assignToJurisdiction}
-                    helperText={errors.assignToJurisdiction?.message}
-                />
-            )}
-        />
-            <Controller
-                name="selectAMarketer"
+        trigger(fieldName); // Trigger validation for the field
+    };
+
+    return (
+        <>
+            <AutocompleteInput
                 control={control}
-                render={({ field }) => (
-                    <ComboSelectBox
-                        {...field}
-                        boxLabel="Select a Marketer"
-                        options={organizationList}
-                        handleChange={(value) => field.onChange(value)}
-                        error={!!errors.assignToJurisdiction}
-                        helperText={errors.assignToJurisdiction?.message}
-                    />
-                )}
+                name="assignToAgency"
+                label="Assign To Agency"
+                options={organizationList}
+                error={!!errors.assignToAgency}
+                helperText={errors.assignToAgency?.message}
+                handleBlur={handleBlur}
+                inputColor={inputColors['assignToAgency']}
             />
+            {role === 'EA' && (
+                <AutocompleteInput
+                    control={control}
+                    name="assignToJurisdiction"
+                    label="Assign To Jurisdiction"
+                    options={jurisdictionList}
+                    error={!!errors.assignToJurisdiction}
+                    helperText={errors.assignToJurisdiction?.message}
+                    handleBlur={handleBlur}
+                    inputColor={inputColors['assignToJurisdiction']}
+                />
+            )}
+            {role === 'Marketer' && (
+                <>
+                    <AutocompleteInput
+                        control={control}
+                        name="selectAccessRight"
+                        label="Select Access Right"
+                        options={jurisdictionList}
+                        error={!!errors.selectAccessRight}
+                        helperText={errors.selectAccessRight?.message}
+                        handleBlur={handleBlur}
+                        inputColor={inputColors['selectAccessRight']}
+                    />
+                    <AutocompleteInput
+                        control={control}
+                        name="selectAMarketer"
+                        label="Select a Marketer"
+                        options={organizationList}
+                        error={!!errors.selectAMarketer}
+                        helperText={errors.selectAMarketer?.message}
+                        handleBlur={handleBlur}
+                        inputColor={inputColors['selectAMarketer']}
+                    />
+                </>
+            )}
         </>
-        }
-    </>;
+    );
 };
 
 export default AssignToDetails;
