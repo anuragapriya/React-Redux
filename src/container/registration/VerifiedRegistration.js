@@ -67,10 +67,11 @@ const VerifiedRegistration = () => {
                 />
                 }
                 {(isVerified && !isRequiredCompleteRegistration) && <TimerModal
-                    timerCountdown={5}
+                    timerCountdown={60}
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
+                    btnSecondaryText={genericlabels.lblClose}
                     handleBtnSecondaryClick={handleClick}
                 />
                 }

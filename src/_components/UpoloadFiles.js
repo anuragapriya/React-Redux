@@ -34,28 +34,11 @@ export default function UploadFiles() {
     return (
         <div >
             <Typography component="div" className="UploadContainer">
-                <div className="row m-0">
-                    <Grid item xs={12} sm={12} md={6}>
-                        <div>
-                            <Typography component="">Upload your Documents </Typography>
-                            <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                <InputLabel id="demo-simple-select-helper-label">Document Type</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-helper-label"
-                                    id="demo-simple-select-helper"
-                                    value={age}
-                                    label="Age"
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-
-                            </FormControl>
+            <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={12}>
+                        <Typography className="Personal-Informationsheading" >
+                            <Typography component="h2">Upload your Documents </Typography>
+                           </Typography>
                             <Button
                                 component="label"
                                 role={undefined}
@@ -78,47 +61,18 @@ export default function UploadFiles() {
                                 <span>.png</span>
                             </Typography>
 
-                        </div>
+                        
                     </Grid>
-                    <Grid item xs={12} sm={5} md={6} className="">
+                    <Grid item xs={12} sm={5} md={12} className="">
                         <Typography component="">Uploaded Documents </Typography>
-                        <FormControl className="width100">
-
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-
-                                name="radio-buttons-group"
-                            >
-                                <FormControlLabel value="female" control={<Radio />} label="Driving License (Back)" />
-                            </RadioGroup>
-                        </FormControl>
-                        <FormControl className="width100">
-
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-
-                                name="radio-buttons-group"
-                            >
-                                <FormControlLabel value="female" control={<Radio />} label="Non-disclosure Agreement" />
-                            </RadioGroup>
-                        </FormControl>
-                        <FormControl className="width100">
-
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-
-                                name="radio-buttons-group"
-                            >
-                                <FormControlLabel value="female" control={<Radio />} label="Driving License (Back)" />
-                            </RadioGroup>
-                        </FormControl>
+                      
                         <Typography component="p">Non-disclosure agreement</Typography>
                         <Typography component="p">Please Download NDA from this  <Link href="#" variant="body2" className="ResetPassword">
                             Link
                         </Link>  . Then Upload signed version of this NDA in PDF,PNG & JPEG Formats</Typography>
                     </Grid>
 
-                </div>
+      </Grid>
 
             </Typography>
         </div>

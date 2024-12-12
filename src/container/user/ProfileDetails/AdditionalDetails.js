@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@mui/material';
-
+import Grid from "@material-ui/core/Grid";
 const AdditionalDetails = ({ register, errors, control }) => {
     return <>
         <TextField
@@ -11,6 +11,7 @@ const AdditionalDetails = ({ register, errors, control }) => {
             error={!!errors.fullName}
             helperText={errors.fullName?.message}
         />
+
         <TextField
             {...register('address', { required: 'Street Address is required' })}
             label="Street Address"
@@ -27,7 +28,8 @@ const AdditionalDetails = ({ register, errors, control }) => {
             error={!!errors.city}
             helperText={errors.city?.message}
         />
-        <div className="row">
+       <Grid container spacing={3}>
+       <Grid item xs={12} sm={5} md={6} className="Personal-Information">
             <TextField
                 {...register('state', { required: 'State is required' })}
                 label="State"
@@ -44,8 +46,9 @@ const AdditionalDetails = ({ register, errors, control }) => {
                 error={!!errors.zipcode}
                 helperText={errors.zipcode?.message}
             />
-        </div>
-        <div className="row">
+            </Grid>
+        <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+      
             <TextField
                 {...register('drivinglicense', { required: 'Driving License is required' })}
                 label="Driving License"
@@ -62,7 +65,10 @@ const AdditionalDetails = ({ register, errors, control }) => {
                 error={!!errors.licenseStatus}
                 helperText={errors.licenseStatus?.message}
             />
-        </div>
+            </Grid>
+            </Grid>
+        
+         
     </>
 };
 

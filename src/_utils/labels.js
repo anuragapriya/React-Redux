@@ -1,5 +1,5 @@
 export const labels = {
-    loginHeader: "Log In",
+    loginHeader: "LogIn",
     loginButtonLabel: "LOGIN",
     resetPwdButtonLabel: "Forgot your password?",
     signUpLabel: "now",

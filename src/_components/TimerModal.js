@@ -38,19 +38,20 @@ const TimerModal = ({ timerCountdown, header, message1, message2, btnPrimaryText
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+   
         
       >
-        <Typography component="div" className="Verifyemail">
+        <Typography component="div" className="Verifyemail width590">
         <Link href="#" variant="logo" className="wgllogo">
                             <img src={images.logo} alt="logo"></img>
                             {labels.eServicePortal}
                         </Link> 
         <DialogTitle id="alert-dialog-title"  className="headercontent" >{header}</DialogTitle>
-        <DialogContent>
+        <DialogContent className='p-0'>
           <DialogContentText id="alert-dialog-description" className="p-0">
             {message1 && <p className="modalpopupcontent">{message1}</p>}
             {message2 && <p className="modalpopupcontent">{message2}</p>}
-            <p className="modalpopupcontent" >It will close automatically in {countdown} seconds.</p>
+            <p className="modalpopupcontent modalpopupcontenterror" >It will close automatically in {countdown} seconds.</p>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

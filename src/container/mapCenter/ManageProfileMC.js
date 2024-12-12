@@ -51,7 +51,7 @@ const ManageProfileMC =()=>{
     <Typography component="div" className="mobilebanner">
         <Typography component="h1" variant="h5">Registration</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <AdditionalDetails register={register} errors={errors}  control={control}/>
+            <AdditionalDetails register={register} errors={errors} trigger={trigger}  control={control}/>
             <CompanyDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}/>           
             <Button   variant="contained" color="primary" disabled={isSubmitting}>
                 Cancel

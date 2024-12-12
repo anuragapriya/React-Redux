@@ -15,6 +15,7 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Password is required')
         .min(8),
     selectPortal: Yup.number()
+        .nullable()
         .required('Please select any Portal'),
 });
 
