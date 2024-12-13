@@ -8,7 +8,7 @@ import DashboardLayout from "./DashboardLayout";
 const AccountInquiryLayout = () => {
     const authUser = useSelector(state => state.auth.value);
 
-    const isProfileCompleted = authUser?.UserAccess.find(item => item.PortalName.toLowerCase() === "accountinquiry")?.IsProfileCompleted;
+    const isProfileCompleted = authUser?.Data?.UserAccess.find(item => item.PortalKey.toLowerCase() === "ai")?.IsMandateDone;
 
     const menuItems = [
         {

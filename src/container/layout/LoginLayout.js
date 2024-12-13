@@ -4,11 +4,10 @@ import { Login } from 'container/loginPage';
 import { Register } from 'container/registration';
 import { MainLayout } from 'container/layout';
 
-const LoginLayout = () => {
-    const auth = useSelector(x => x.auth.value);
+const LoginLayout = ({isAuthenticated}) => {
 
     // redirect to home if already logged in
-    if (auth) {
+    if (isAuthenticated) {
         return <Navigate to="/home" />;
     }
 

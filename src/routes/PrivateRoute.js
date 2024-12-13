@@ -2,8 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {history} from '_utils';
 
-const PrivateRoute =()=> {
-    const isAuthenticated = useSelector(x => x.auth.value);
+const PrivateRoute =({isAuthenticated})=> {
 
     if (!isAuthenticated) {
       // not logged in so redirect to login page with the return url

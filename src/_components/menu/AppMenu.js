@@ -4,54 +4,12 @@ import List from '@material-ui/core/List';
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import AppMenuItem from './AppMenuItem';
 
-// const appMenuItems = [
-//   {
-//     name: 'Dashboard',
-//     link: '/',
-//     Icon: Dashboard,
-//   },
-//   {
-//     name: 'Orders',
-//     link: '/orders',
-//     Icon: ShoppingCart,
-//   },
-//   {
-//     name: 'Customers',
-//     link: '/customers',
-//     Icon: People,
-//   },
-//   {
-//     name: 'Reports',
-//     link: '/reports',
-//     Icon: BarChart,
-//   },
-//   {
-//     name: 'Nested Pages',
-//     Icon: LibraryBooks,
-//     items: [
-//       {
-//         name: 'Level 2',
-//       },
-//       {
-//         name: 'Level 2',
-//         items: [
-//           {
-//             name: 'Level 3',
-//           },
-//           {
-//             name: 'Level 3',
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ];
-
 const AppMenu = ({appMenuItems}) => {
     const classes = useStyles()
     const auth = useSelector(x => x.auth.value);
+    const isAuthenticated= auth?.Succeeded;
     // only show nav when logged in
-    if (!auth) return null;
+    if (!isAuthenticated) return null;
         
     return (
       <List component="nav" className={classes.appMenu} disablePadding>

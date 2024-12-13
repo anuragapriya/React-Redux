@@ -7,55 +7,51 @@ import { useEffect } from 'react';
 const Home = () => {
   const authUser = useSelector(x => x.auth.value);
   const navigate = useNavigate();
-
-  const data = authUser?.UserAccess?.flatMap(item => {
-    switch (item.PortalName.toLowerCase()) {
-      case 'accountinquiry':
+  const user = authUser?.Data;
+  const isAdmin= user?.UserDetails?.isAdmin;
+  let data = user?.UserAccess?.flatMap(item => {
+    switch (item.PortalKey.toLowerCase()) {
+      case 'ai':
         return [{
-          name: "accountInquiry",
-          title: "Account Inquiry",
-          description: "Account Inquiry",
-          path: item.IsProfileCompleted ? "accountInquiry/dashboard" : "accountInquiry/manageProfile"
+          name: "accountinquiry",
+          title: item.PortalName,
+          description: item.PortalName,
+          path: item.IsMandateDone ? "accountInquiry/dashboard" : "accountInquiry/manageProfile"
         }];
-      case 'energyassistance':
+      case 'ea':
         return [{
           name: "energyAssistance",
-          title: "Energy Assistance",
-          description: "Energy Assistance",
-          path: item.IsProfileCompleted ? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
+          title: item.PortalName,
+          description: item.PortalName,
+          path: item.IsMandateDone ? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
         }];
-      case 'bbs':
+      case 'mb':
         return [{
-          title: "BBS",
-          name: "bbs",
-          description: "BBS",
-          path: "bbs/dashboard"
-        }];
-      case 'marketer':
-        return [{
-          title: "Marketer",
           name: "marketer",
-          description: "Marketer",
-          path: ""
+          title: item.PortalName,
+          description: item.PortalName,
+          path: item.IsMandateDone ? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
         }];
-      case 'mapcenter':
+      case 'mc':
         return [{
-          title: "Map Center",
           name: "mapcenter",
-          description: "Map Center",
-          path: ""
-        }];
-      case 'usermanagement':
-        return [{
-          title: "User Management",
-          name: "userManagement",
-          description: "User Management",
-          path: "userManagement/managedprofile"
+          title: item.PortalName,
+          description: item.PortalName,
+          path: item.IsMandateDone ? "mapcenter/dashboard" : "mapcenter/manageProfile"
         }];
       default:
-        return []; // Return an empty array for unknown PortalName
+        return [];
     }
-  }) || []; // Fallback to an empty array if authUser or UserAccess is undefined
+  }) || [];
+
+  const usermanagement = {
+    title: "User Management",
+    name: "userManagement",
+    description: "User Management",
+    path: "userManagement/managedprofile"
+  };
+
+  data = isAdmin ? [...data, usermanagement ] : data;
 
   useEffect(() => {
     console.log(data);
@@ -69,6 +65,11 @@ const Home = () => {
     console.log(`Card ${path} clicked`);
     navigate(`/${path}`);
   };
+
+  // Ensure data is an array before mapping
+  if (!Array.isArray(data)) {
+    return null;
+  }
 
   if (data.length === 1) {
     // Render nothing if the user is being redirected
