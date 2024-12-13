@@ -1,89 +1,112 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { alertActions } from '_store';
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import images from 'images';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { PasswordCheck, PasswordInput } from "_components";
+import { passwordValidationSchema } from "_utils/validationSchema";
+import { resetSuccessLabels } from "_utils/labels";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const  NewPassword=(props)=> {
+const NewPassword = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(true);
+  const [inputColors, setInputColors] = useState({});
 
-  const open = props.open;
-  const handleClose=()=> props.handleClose();
-  //new password
-  const [showPassword, setShowPassword] = React.useState(false);
+  const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
+    resolver: yupResolver(passwordValidationSchema),
+  });
+  const password = watch('password', '');
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleBlur = (e) => {
+    const fieldName = e.target.name;
+    const fieldError = errors[fieldName];
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+    setInputColors(prevColors => ({
+      ...prevColors,
+      [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+    }));
+
+    trigger(fieldName); // Trigger validation for the field
   };
 
-  const handleMouseUpPassword = (event) => {
-    event.preventDefault();
+  const onSubmit = async ({ password }) => {
+    try {
+      handleClose();
+      navigate('/');
+      dispatch(alertActions.success({
+        showAfterRedirect: true,
+        message: resetSuccessLabels.message1
+      }));
+    } catch (error) {
+      dispatch(alertActions.error(error));
+    }
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <>
-      <React.Fragment>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
-          className="displayblock">
-          <Box className="  modalpopup">
-            <Box className=" row modalpopupinner ">
-              <div className="row m-0">
-                <Grid item xs={3} className="ResetLogo p-0">
-                  <img src={images.ResetpasswordLogo} alt="ResetLogo" />
-                </Grid>
-                <Grid item xs={9} className="Newpassword">
-                  <h5>New Password</h5>
-                </Grid>
-                <FormControl className="newpassword-list" variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          onMouseUp={handleMouseUpPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-                </FormControl>
-                <Box>
-                </Box>
+    <Modal
+      open={open}
+      aria-labelledby="child-modal-title"
+      aria-describedby="child-modal-description"
+      className="displayblock"
+    >
+      <Box className="modalpopup">
+        <Box className="row modalpopupinner">
+          <div className="row m-0">
+            <Grid item xs={3} className="ResetLogo p-0">
+              <img src={images.ResetpasswordLogo} alt="ResetLogo" />
+            </Grid>
+            <Grid item xs={9} className="Newpassword">
+              <h5>New Password</h5>
+              <span>Enter your new password</span>
+            </Grid>
+            <form onSubmit={handleSubmit(onSubmit)} className='newpassword-list'>
+              <PasswordInput
+                control={control}
+                name="password"
+                label="Password"
+                rules={{ required: 'Password is required' }}
+                errors={errors}
+                handleBlur={handleBlur}
+                inputColors={inputColors}
+              />
+              <PasswordCheck password={password} confirmPassword='' />
+              <Box>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className="Loginbutton"
+                  disabled={!isValid}
                 >
                   RESET PASSWORD
                 </Button>
-              </div>
-            </Box>
-          </Box>
-        </Modal>
-      </React.Fragment>
-    </>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className="buttonCancel"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Box>
+            </form>
+          </div>
+        </Box>
+      </Box>
+    </Modal>
   );
 }
 

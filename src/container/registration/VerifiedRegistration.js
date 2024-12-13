@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ModalPopup } from '_components';
-import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabels } from '_utils/labels';
+import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabels, emailSentLabels } from '_utils/labels';
 import { registrationActions } from '_store/registration.slice';
 import TimerModal from '_components/TimerModal';
 import { alertActions } from '_store';
@@ -20,7 +20,7 @@ const VerifiedRegistration = () => {
     const token = new URLSearchParams(location.search).get('token');
     const id = new URLSearchParams(location.search).get('user');
 
-    useEffect(() => {        
+    useEffect(() => {
         const verifyEmail = async () => {
             try {
                 const response = dispatch(registrationActions.getVerifiedUserData(token));
@@ -49,10 +49,18 @@ const VerifiedRegistration = () => {
     };
 
     const handleSubmit = () => {
-        return;
+        try {
+            dispatch(alertActions.success({
+                showAfterRedirect: true,
+                message: emailSentLabels.message1,
+                header: emailSentLabels.header
+            }));
+        } catch (error) {
+            dispatch(alertActions.error(error));
+        }
     }
 
-    if(!token) return null;
+    if (!token) return null;
 
     return (
         <>

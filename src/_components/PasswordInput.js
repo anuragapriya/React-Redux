@@ -18,7 +18,7 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
             defaultValue=""
             rules={rules}
             render={({ field }) => (
-                <FormControl variant="outlined" fullWidth margin="normal"   className={inputColors[name]} error={!!errors[name]}>
+                <FormControl variant="outlined" fullWidth margin="normal"  className={inputColors[name]} error={!!errors[name]}>
                     <InputLabel htmlFor={name}>{label}</InputLabel>
                     <OutlinedInput
                         {...field}
