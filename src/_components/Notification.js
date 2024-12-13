@@ -7,6 +7,7 @@ import { alertActions } from '_store';
 import images from "images";
 import TimerModal from "./TimerModal";
 import { genericlabels } from "_utils/labels";
+import { Stack,Alert } from '@mui/material';
 
 const Notification = () => {
     const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const Notification = () => {
     }
 
     return (
-        <><React.Fragment>
+        <>
+        <Stack sx={{ width: '100%' }} spacing={2}>
+        <Alert severity={`${alert.type}`}>
          <TimerModal
                 timerCountdown={60}
                 header={alert.header}
@@ -34,7 +37,8 @@ const Notification = () => {
                 btnSecondaryText={genericlabels.lblClose}
                 handleBtnSecondaryClick={handleClose}
             />
-      </React.Fragment>
+      </Alert>
+      </Stack>
       </>
     );
 };

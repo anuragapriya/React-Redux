@@ -19,6 +19,12 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Please select any Portal'),
 });
 
+export const passwordValidationSchema= Yup.object().shape({
+    password: Yup.string()
+    .required('Password is required')
+    .min(8)
+});
+
 export const additionalDetailsValidationSchema = Yup.object().shape({
     fullName: Yup.string()
         .required('Full Name is required'),
@@ -85,7 +91,4 @@ export const resetValidationSchema = Yup.object().shape({
     email: Yup.string()
         .required('Email is required')
         .email('Email is invalid'),
-    phoneNumber: Yup.string()
-        .required('Phone number is required')
-        .matches(/^[0-9]{10}$/, 'Phone number must be exactly 10 digits')
 });

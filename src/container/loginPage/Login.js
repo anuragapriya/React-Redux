@@ -7,7 +7,7 @@ import OTPVerification from "_components/OTPVerification";
 import { labels } from '_utils/labels';
 import { Button, TextField, Link, Typography, Box, Modal, FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import { ResetPassword } from "container/loginPage";
+import { NewPassword, ResetPassword } from "container/loginPage";
 import Grid from "@material-ui/core/Grid";
 import ErrorIcon from '@mui/icons-material/Error';
 import { CustomFormControl, PasswordInput } from "_components";
@@ -105,6 +105,7 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
+            <NewPassword></NewPassword>
         </div>
     );
 }
