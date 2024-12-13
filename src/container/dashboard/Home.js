@@ -46,9 +46,9 @@ const Home = () => {
 
   const usermanagement = {
     title: "User Management",
-    name: "userManagement",
+    name: "admin",
     description: "User Management",
-    path: "userManagement/managedprofile"
+    path: "admin/userprofile"
   };
 
   data = isAdmin ? [...data, usermanagement ] : data;
@@ -77,6 +77,8 @@ const Home = () => {
   }
 
   return (
+    <div>
+      <h5>{`Welcome, ${user?.UserDetails?.FirstName} ${user?.UserDetails?.LastName}`}</h5>
     <Grid2 container spacing={2}>
       {data.map((card) =>
         <Grid2 xs={12} sm={6} md={4} key={card.name}>
@@ -84,6 +86,7 @@ const Home = () => {
         </Grid2>
       )}
     </Grid2>
+    </div>
   );
 }
 
