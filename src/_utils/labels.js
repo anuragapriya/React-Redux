@@ -41,3 +41,14 @@ export const notVerifiedRegistrationLabels={
     btnSecondaryText:"Close",
     btnPrimaryText:"Re-Verify"
 }
+
+export const emailSentLabels={
+    header:"Email Sent",
+    message1:"Check you email and open the link we sent you to continue.",
+    btnSecondaryText:"Close",
+}
+
+export const resetSuccessLabels={
+    message1:"You Successfully reset your Password!",
+    btnSecondaryText:"Close",
+}

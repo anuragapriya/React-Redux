@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
@@ -7,24 +8,26 @@ import { Modal, Button, TextField, Typography } from '@mui/material';
 import images from '../../images';
 import { resetValidationSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
-import { labels } from "_utils/labels";
+import { emailSentLabels, labels } from "_utils/labels";
 import Link from "@material-ui/core/Link";
 import Box from '@mui/material/Box';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+
 const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const dispatch = useDispatch();
 
     const formOptions = { resolver: yupResolver(resetValidationSchema) };
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
+    const { register, handleSubmit, formState: { errors, isSubmitting ,isValid} } = useForm(formOptions);
 
-    const onSubmit = async ({ email, phoneNumber }) => {
+    const onSubmit = async ({ email }) => {
         try {
             handleClose();
-            onSubmitToOTP();
+            // onSubmitToOTP();
+            dispatch(alertActions.success({
+                showAfterRedirect: true,
+                message: emailSentLabels.message1,
+                header: emailSentLabels.header
+            }));
         } catch (error) {
             dispatch(alertActions.error(error));
         }
@@ -33,7 +36,6 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     return (
         <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
         >
@@ -45,50 +47,45 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                             {labels.eServicePortal}
                         </Link>
                         <Typography component="h2" variant="body1">
-                        Forgot your password?
+                            Forgot your password?
                         </Typography>
-                    
-
                         <Typography component="p" variant="body1">
                             Enter your email or phone number and we will send you a link/code to reset your password.
                         </Typography>
                     </Grid>
                     <form className="form forgotpasswordcontainer p-0" onSubmit={handleSubmit(onSubmit)}>
                         <Box sx={{ '& > :not(style)': { m: 1 } }} className="standardEamil">
-                            
                             <TextField
                                 id="input-with-icon-textfield"
-                                slotProps={{
-                                    input: {
-                                        startAdornment: (
-                                            <InputAdornment position="start">
-                                                <img src={images.icoutlineemail} alt="Email icon" />
-                                            </InputAdornment>
-                                        ),
-                                    },
+                                {...register('email')}
+                                error={!!errors.email}
+                                helperText={errors.email?.message}
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <img src={images.icoutlineemail} alt="Email icon" />
+                                        </InputAdornment>
+                                    ),
                                 }}
                                 variant="outlined"
                             />
-                            
                         </Box>
-
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className="Loginbutton"
-                            disabled={isSubmitting}
+                            disabled={!isValid}
                         >
-                            send link to email
+                            Send link to email
                         </Button>
                         <Button
-                            type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className="buttonCancel"
-                            disabled={isSubmitting}
+                            onClick={handleClose}
                         >
                             Cancel
                         </Button>
