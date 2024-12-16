@@ -1,51 +1,52 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { Home } from "container/admin";
-import { Dashboard ,Settings} from "@mui/icons-material";
+import { ManageAccounts ,AppSettingsAlt,SupportAgent,QuestionAnswerOutlined,NotificationsNone} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
 import { Configuration } from "container/configurations";
+import UnderConstruction from "_components/UnderConstruction";
 
 const UsersLayout = () => {
 
     const appMenuItems = [
         {
-            name: 'Managed Profile',
+            name: 'User Profiles',
             link: 'userprofile',
-            Icon: Dashboard,
+            Icon: ManageAccounts,
         },
         {
             name: 'Configuration',
             link: 'configuration',
-            Icon: Settings,
+            Icon: AppSettingsAlt,
         //    items:[ { name: 'View Profile', link: 'configuration' },
         //     { name: 'Edit Profile', link: 'userprofile' },
         //    ]
         },
-        // {
-        //     name: 'Users',
-        //     link: 'users',
-        //     Icon: People,
-        // },
-        // {
-        //     name: 'Users',
-        //     Icon: LibraryBooks,
-        //     items: [
-        //         {
-        //             name: 'Managed Profile',
-        //             link: 'dashboard',
-        //          },
-        //         {
-        //             name: 'Add User',
-        //             link: 'companyDetails',
-        //         },
-        //     ],
-        // },
+        {
+            name: 'Announcement',
+            link: 'announcement',
+            Icon: NotificationsNone,
+        },
+        {
+            name: 'FAQ',
+            link: 'faq',
+            Icon: QuestionAnswerOutlined,
+        },
+        ,
+        {
+            name: 'Help Desk',
+            link: 'helpdesk',
+            Icon: SupportAgent,
+        },
     ];
     return (
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>                   
                 <Route path='userprofile' element={<Home />} />
                 <Route path="configuration" element={<Configuration />} />
+                <Route path="announcement" element={<UnderConstruction/>}/>
+                <Route path="faq" element={<UnderConstruction/>}/>
+                <Route path="helpdesk" element={<UnderConstruction/>}/>
             </Route>
         </Routes>
     );

@@ -463,6 +463,7 @@ export const userRegistrationVerified = {
       "PortlaName": "Map Center",
       "PortalKey": "MC",
       "IsMandateDone": false,
+      "status":"submitted"
     }
 };
 
@@ -476,6 +477,9 @@ export const userDetails = {
   confirmEmail: '',
   password: '',
   confirmPassword: '',
+  createdDate:'',
+  status:null,
+  portalId:null,
   securityQuestions: [],
   firstSecurityQuestion: '',
   firstSecurityAnswer: '',
@@ -758,5 +762,38 @@ export const portalAccessData = {
         }
       ]
     }
+  ]
+}
+
+export const statusData={
+  "Succeeded": true,
+  "Message": "Status Recieved",
+  "Errors": null,
+  "Data": [
+    {
+      "StatusId":1,
+      "StatusKey":"submitted",
+      "StatusDescription":"Submitted"
+    },
+    {
+      "StatusId":2,
+      "StatusKey":"verified",
+      "StatusDescription":"Verified"
+    },
+    {
+      "StatusId":3,
+      "StatusKey":"partiallyverified",
+      "StatusDescription":"Partially Verified"
+    },
+    {
+      "StatusId":4,
+      "StatusKey":"approved",
+      "StatusDescription":"Approved"
+    },
+    {
+      "StatusId":5,
+      "StatusKey":"deny",
+      "StatusDescription":"Deny"
+    },
   ]
 }
