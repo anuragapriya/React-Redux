@@ -92,16 +92,16 @@ const UserList = () => {
     enableColumnActions: false,
     paginationDisplayMode: 'pages',
     enableRowActions: true,
-    enableExpanding: true,
-    positionExpandColumn:'first',
+    //enableExpanding: true,
+    positionExpandColumn: 'first',
     initialState: {
       columnOrder: [
         'mrt-row-expand',
         'fullName',
         'emailAddress',
         'status',
-        'createdDate',
-        'mrt-row-select', // move the built-in selection column to the end of the table
+        'createdDate',      
+        'mrt-row-actions', // move the built-in actions column to the end of the table
       ],
     },
     renderTopToolbarCustomActions: () => (
