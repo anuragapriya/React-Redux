@@ -27,7 +27,7 @@ const PortalZoom = () => {
         <div className=" p-0">
             <div className="row m-0">
                 <div className="zoom" id="zoomadd">
-                    <div className=" login-container" >
+                    <div className="" >
                         <div className="App">
                         <button className="remove" onClick={setzoom100}>
                         Small A</button>

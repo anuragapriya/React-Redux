@@ -36,13 +36,16 @@ const MainLayout = () => (
             </div>
         </Grid>
         <Grid item xs={8} sm={7} md={8} className="mobile-none">
-            <div className="height-fix">
-                <div className="root">              
-                <Link href="#"  className="NeedSupport"  >
+            <div className="">
+                <div className=" ration ration-1x1">    
+              
+                    <img src={images.bannerImg} alt="Banner images"></img> 
+                                     
+                </div>
+                {/* <Link href="#"  className="NeedSupport"  >
                         <img src={images.headseticonwhite} alt="Do You Need Support" ></img>
                        Support?
-                </Link>               
-                </div>
+                </Link>  */}
             </div>
         </Grid>
         </Grid>

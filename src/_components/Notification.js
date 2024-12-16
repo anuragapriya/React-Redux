@@ -31,7 +31,7 @@ const Notification = () => {
         <Alert severity={`${alert.type}`}>
          <TimerModal
                 alertType={alert.type}
-                timerCountdown={60}
+                timerCountdown={2340}
                 header={alert.header}
                 message1={alert.message}
                 message2={alert.message2||''}

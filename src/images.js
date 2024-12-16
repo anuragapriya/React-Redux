@@ -1,6 +1,7 @@
 // src/images.js
 import logo from './assets/images/WG_Logo.svg';
-import bannerImg from './assets/images/Frame2173.svg';
+//import bannerImg from './assets/images/Banner-img.svg';
+import bannerImg from './assets/images/WGLImage.jpg';
 import ResetpasswordLogo from './assets/images/washington-gas-logo.svg';
 import Phoneicon from './assets/images/Phone.svg';
 import Emailicon from './assets/images/Email.svg';
@@ -10,6 +11,8 @@ import headseticonwhite from './assets/images/headseticon-white.svg';
 import icoutlineemail from './assets/images/ic_outline-email.svg';
 import supporticonblue from './assets/images/support-icon-blue.svg';
 import materialsymbolsupload from './assets/images/material-symbols_upload.svg';
+import Check from './assets/images/Check.svg';
+
 const images = {
     logo,
     bannerImg,
@@ -21,7 +24,8 @@ const images = {
     headseticonwhite,
     icoutlineemail,
     supporticonblue,
-    materialsymbolsupload
+    materialsymbolsupload,
+    Check
 };
 
 export default images;

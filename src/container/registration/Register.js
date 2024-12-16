@@ -42,6 +42,7 @@ const Register = () => {
                     <Typography component="h1" variant="h5" className="Logincontent">Registration</Typography>
                     <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
                         <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
+                         <Typography component="div" className="loginbuttonfixed">
                         <Button type="submit" fullWidth variant="contained" className='Loginbutton' color="primary" disabled={!isValid}>
                             Register
                     </Button>
@@ -53,6 +54,7 @@ const Register = () => {
                             </Link>
                         </Grid>
                     </Grid>
+                    </Typography>
                 </form>
             </Typography>
         </>
