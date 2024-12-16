@@ -35,7 +35,7 @@ export default function UploadFiles() {
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12}>
                         <Typography className="Personal-Informationsheading" >
-                            <Typography component="h2">Upload your Documents </Typography>
+                            {/* <Typography component="h2">Upload your Documents </Typography> */}
                         </Typography>
                         <Button
                             component="label"
