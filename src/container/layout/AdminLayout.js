@@ -17,6 +17,9 @@ const UsersLayout = () => {
             name: 'Configuration',
             link: 'configuration',
             Icon: Settings,
+        //    items:[ { name: 'View Profile', link: 'configuration' },
+        //     { name: 'Edit Profile', link: 'userprofile' },
+        //    ]
         },
         // {
         //     name: 'Users',

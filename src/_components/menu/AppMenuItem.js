@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import Divider from '@material-ui/core/Divider';
+import Collapse from '@material-ui/core/Collapse';
+import List from '@material-ui/core/List';
 import { Button, Menu, MenuItem, Grid } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import AppMenuItemComponent from './AppMenuItemComponent';
@@ -33,9 +36,8 @@ export const AppMenuItem = (props) => {
     setAnchorEl(null);
   };
 
-  return (
-    <>
-      <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick}>
+  const MenuItemRoot = (
+    <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick} >
         {/* Display an icon if any */}
         {!!Icon && (
           <span className={classes.menuItemIcon}>
@@ -46,11 +48,32 @@ export const AppMenuItem = (props) => {
         {/* Display the expand menu if the item has children */}
         {isExpandable && (anchorEl ? <ExpandLess /> : <ExpandMore />)}
       </AppMenuItemComponent>
-      {isExpandable && (
+  );
+
+  const MenuItemChildren = 
+  isExpandable && (
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+       transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+    >
+      {items.map((item, index) => (
+        <AppMenuItem {...item} key={index} />
+      ))}
+    </Menu>
+  )
+  
+  return (
+    <>
+       {MenuItemRoot}
+       {MenuItemChildren}
+      {/* {isExpandable && (
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={handleClose}
+         // onClose={handleClose}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'left' }}
         >
@@ -60,7 +83,7 @@ export const AppMenuItem = (props) => {
             </MenuItem>
           ))}
         </Menu>
-      )}
+      )} */}
     </>
   );
 };
@@ -68,10 +91,17 @@ export const AppMenuItem = (props) => {
 const useStyles = makeStyles(theme =>
   createStyles({
     menuItem: {
-      margin: theme.spacing(1),
+      marginLeft: theme.spacing(4),
+      border: '1px solid #0dcaf0', 
+      '&.active': {
+        background: '#abdbe3',
+        border: '1px solid #0dcaf0'
+      },
+      
     },
     menuItemIcon: {
       marginRight: theme.spacing(1),
+      color: '#4577c6',
     },
   }),
 );

@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme =>
       alignItems: 'center',
       width: '100%', // Ensure it takes full width
       padding: theme.spacing(1), // Add some padding
+      margin:theme.spacing(4)
     },
   }),
 );
