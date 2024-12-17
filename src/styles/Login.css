@@ -7,6 +7,11 @@
     font-family: 'Proxima Nova Rg';
     src: url('../assets/fontfamily/proximanova_regular.ttf');
 }
+@font-face {
+    font-family: 'Roboto Light';
+    src: url('../assets/fontfamily/Roboto-Light.ttf');
+}
+
 
 .ul {
     margin: 0;
@@ -576,7 +581,7 @@ input[type=number] {
 }
 
 .Registrationcontainer .Loginbutton {
-    margin-top: 40px;
+    margin-top: 25%;
 }
 
 .passwordselect {
@@ -606,7 +611,7 @@ input[type=number] {
 .passwordselect ul li {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: Roboto;
+    font-family: Roboto Light;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -811,28 +816,38 @@ input[type=number] {
     background: #FFF;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
     padding: 24px !important;
+    margin-bottom: 24px;
 }
 
 .modalpopupcontenterror {
     margin-top: 15px;
     color: #ef4444;
 }
-.alertpopup{
+
+.alertpopup {
     display: flex;
+
 }
-.ration-1x1{
-    --bs-aspect-ration:60%;
+.alertpopup img{
+    padding-right: 30px;
 }
-.ration{
+
+.ration-1x1 {
+    --bs-aspect-ration: 60%;
+}
+
+.ration {
     position: relative;
     width: 100%;
 }
-.ration::before{
-   display: block;
-   content: '';
-   padding-top:100%;
+
+.ration::before {
+    display: block;
+    content: '';
+    padding-top: 100%;
 }
-.ration>*{
+
+.ration>* {
     position: absolute;
     top: 0;
     left: 0;
@@ -840,6 +855,79 @@ input[type=number] {
     height: 100%;
 
 }
+
+.inputBackground .css-1ll44ll-MuiOutlinedInput-notchedOutline {
+    border-width: 0px;
+}
+
+.Personal-Information .Cancelbutton {
+    border-radius: 4px;
+    background: var(--Gray-100, #F5F5F6);
+    padding: 16px 25px;
+    box-shadow: 0px 1px 1px 0px rgba(132, 132, 140, 0.25);
+    color: var(--Gray-400, #84848C);
+    text-align: center;
+    font-family: "ITC Avant Garde Gothic Std";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.Personal-Information .CompleteRegistration {
+    border-radius: 4px;
+    padding: 16px 25px;
+    float: right;
+    background: var(--WG-Blue-900, #0A3B70);
+    color: var(--White, #FFF);
+    text-align: center;
+    font-family: "ITC Avant Garde Gothic Std";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
+
+.Registrationcontainer .MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button .css-1umw9bq-MuiSvgIcon-root{
+    display: none
+}
+
+.MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator {
+    background: url('../assets/images/Vector.svg');
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.forgotpassword h2 {
+    color: var(--Gray-700, #4D4C52);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Proxima Nova";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+}
+.Personal-Information .MuiOutlinedInput-notchedOutline{
+    border-radius: 4px;
+border: 1px solid var(--WG-Blue-100, #DFEDFF);
+background: var(--White, #FFF);
+}
+.Personal-Information-container .mapcontainer  .supplierDetailes{
+    padding: 0px 12px;
+}
+.Documentsuplaod{
+    margin: 16px 0px;
+}
+
+
 
 @media only screen and (max-width: 1200px) {
     .container {
@@ -856,14 +944,16 @@ input[type=number] {
         bottom: 10px;
         width: 96%;
     }
+
     .wglcontainerblock {
         position: relative;
     }
 }
+
 @media only screen and (min-width: 1600px) {
 
-    .ration::before{
-        padding-top:75%;
+    .ration::before {
+        padding-top: 75%;
     }
 }
 
@@ -872,8 +962,9 @@ input[type=number] {
         max-width: 100%;
         padding: 0px 20px;
     }
-    .ration::before{
-        padding-top:100%;
+
+    .ration::before {
+        padding-top: 100%;
     }
 
 }

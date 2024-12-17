@@ -12,6 +12,7 @@ import icoutlineemail from './assets/images/ic_outline-email.svg';
 import supporticonblue from './assets/images/support-icon-blue.svg';
 import materialsymbolsupload from './assets/images/material-symbols_upload.svg';
 import Check from './assets/images/Check.svg';
+import error from './assets/images/error.svg';
 
 const images = {
     logo,
@@ -25,7 +26,8 @@ const images = {
     icoutlineemail,
     supporticonblue,
     materialsymbolsupload,
-    Check
+    Check,
+    error
 };
 
 export default images;

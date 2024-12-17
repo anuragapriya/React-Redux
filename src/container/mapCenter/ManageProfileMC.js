@@ -78,10 +78,11 @@ const ManageProfileMC = () => {
                 <Typography component="h1" variant="h5">Map Center Access</Typography>
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <Typography className="Personal-Information-container" component="div">
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} className="Personal-Information-container">
+                    <Grid item xs={12} sm={12} md={12} >
                         <Grid container spacing={3}>
-                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                            <Grid item xs={12} sm={6} md={4} className="Personal-Information">
                                 <Typography component="div" className="mapcontainer">
                                     <Typography component="div" className="Personal-Informationsheading">
                                         <Typography component="h2" variant="h5">Personal Information</Typography>
@@ -89,7 +90,7 @@ const ManageProfileMC = () => {
                                     <AdditionalDetails register={register} errors={errors} control={control} trigger={trigger} />
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                            <Grid item xs={12} sm={6} md={4} className="Personal-Information">
                                 <Typography component="div" className="mapcontainer">
                                     <Typography component="div" className="Personal-Informationsheading">
                                         <Typography component="h2" variant="h5">Company Point of Contact</Typography>
@@ -97,7 +98,7 @@ const ManageProfileMC = () => {
                                     <CompanyDetails register={register} errors={errors} control={control} trigger={trigger} />
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={5} md={4} >
+                            <Grid item xs={12} sm={6} md={4} >
                                 <Typography component="div" className="UploadFiles-container mapcontainer">
                                 <Typography component="div" className="Personal-Informationsheading">
                                         <Typography component="h2" variant="h5">Document Upload</Typography>
@@ -118,14 +119,16 @@ const ManageProfileMC = () => {
                             </Grid>
                         </Grid>
                     </Grid>
+                    </Grid>
+                    </Typography>
                     <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                        <Button variant="contained" color="primary" disabled={isSubmitting}>
+                        <Button variant="contained" className="Cancelbutton" color="primary" disabled={isSubmitting}>
                             Cancel
                         </Button>
-                        <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                        <Button type="submit" variant="contained" className="CompleteRegistration" color="primary" disabled={isSubmitting}>
                             Complete Registration
                         </Button>
-                    </Grid>
+                   
                 </Grid>
             </form>
         </Typography>

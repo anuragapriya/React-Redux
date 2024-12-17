@@ -44,7 +44,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information">
                 <CustomFormControl
                     id="state"
                     label="State"
@@ -64,7 +64,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
                     inputColors={inputColors}
                 />
             </Grid>
-            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information">
                 <CustomFormControl
                     id="drivinglicense"
                     label="Driving License"

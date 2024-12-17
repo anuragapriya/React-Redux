@@ -68,34 +68,25 @@ const ManageProfileSD = () => {
                 <Typography component="h1" variant="h5">Supplier Diversity</Typography>
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)}>
+                <Typography className="Personal-Information-container" component="div">
                 <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} className="Personal-Information-container">
+                    <Grid item xs={12} sm={12} md={12} >
                         <Grid container spacing={3}>
-                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                            <Grid item xs={12} sm={6} md={8} className="Personal-Information">
                                 <Typography component="div" className="mapcontainer">
-                                    <Typography component="div" className="Personal-Informationsheading">
-                                        {/* <Typography component="h2" variant="h5">Personal Information</Typography> */}
-                                    </Typography>
+                                    
                                     <SupplierDetails register={register} errors={errors} control={control} trigger={trigger} />
                                 </Typography>
                             </Grid>
-                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
-
-                                {/* <Typography component="div" className="mapcontainer">
-                                    <Typography component="div" className="Personal-Informationsheading">
-                                        <Typography component="h2" variant="h5">Company Point of Contact</Typography>
-                                    </Typography>
-                                    <CompanyDetails register={register} errors={errors} control={control} trigger={trigger} />
-                                </Typography> */}
-                            </Grid>
-                            <Grid item xs={12} sm={5} md={4} >
+                          
+                            <Grid item xs={12} sm={6} md={4} >
                                 <Typography component="div" className="Personal-Informationsheading">
                                     <Typography component="h2" variant="h5" >Documents uplaod</Typography>
                                     <Autocomplete
                                         disablePortal
                                         control={control}
                                         options={supplierDocumentTypeData}
-                                        sx={{ width: 300 }}
+                                       className='Documentsuplaod'
                                         error={!!errors.documentType}
                                         helperText={errors.documentType?.message}
                                         getSelectedDoctype={(option) => option}
@@ -108,16 +99,18 @@ const ManageProfileSD = () => {
                             </Grid>
                         </Grid>
                     </Grid>
+                    </Grid>
+                 </Typography>
                     <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                        <Button variant="contained" color="primary" disabled={isSubmitting}>
+                        <Button variant="contained" color="primary" className="Cancelbutton" disabled={isSubmitting}>
                             Cancel
                         </Button>
-                        <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                        <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={isSubmitting}>
                             Register
                         </Button>
                     </Grid>
 
-                </Grid>
+          
 
 
             </form>
