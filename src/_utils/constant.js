@@ -693,19 +693,19 @@ export const documentTypeData = [
 
 export const supplierDocumentTypeData = [
   {
-    documentId: "1",
-    documentType: "certificationDocument",
-    documentDescription: "Certification Document"
+    DocumentTypeID: "1",
+    DocumentType: "certificationDocument",
+    DocumentDescription: "Certification Document"
   },
   {
-    documentId: "2",
-    documentType: "capabilityStatement",
-    documentDescription: "Capability Statement"
+    DocumentTypeID: "2",
+    DocumentType: "capabilityStatement",
+    DocumentDescription: "Capability Statement"
   },
   {
-    documentId: "3",
-    documentType: "additionalDocuments",
-    documentDescription: "Additional Documents"
+    DocumentTypeID: "3",
+    DocumentType: "additionalDocuments",
+    DocumentDescription: "Additional Documents"
   }
 ]
 

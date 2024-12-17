@@ -117,13 +117,15 @@ export const uploadValidationSchema = Yup.object().shape({
         .nullable(),
 });
 export const SupplierDetailsSchema = Yup.object().shape({
-    companyDetails: Yup.string()
-        .required('Company Details is Required'),
+    companyName: Yup.string()
+        .required('Company Name is Required'),
     companyWebsite: Yup.string()
-        .required('Company Details is Required'),
+        .required('Company Website is Required'),
     businessCatagory: Yup.string()
+        .nullable()
         .required('Business Category is Required'),
     classification: Yup.string()
+        .nullable()
         .required('Classification is Required'),
     services: Yup.string()
         .required('Services are Required'),
@@ -132,7 +134,7 @@ export const SupplierDetailsSchema = Yup.object().shape({
     contactperson: Yup.string()
         .required('Contact Person is Required'),
     title: Yup.string()
-        .required('title is Required'),
+        .required('Title is Required'),
     email: Yup.string()
         .required('Email is required')
         .email('Please provide a valid email address'),
@@ -142,8 +144,10 @@ export const SupplierDetailsSchema = Yup.object().shape({
     address: Yup.string()
         .required('address is required'),
     state: Yup.string()
+        .nullable()
         .required('State is required'),
-    county: Yup.string()
+    country: Yup.string()
+        .nullable()
         .required('Country is Required'),
     zipcode: Yup.string()
         .required('Zip code is required'),
