@@ -47,7 +47,8 @@ const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnP
                         </Link> 
         <DialogTitle id="alert-dialog-title"  className="headercontent" >{header}</DialogTitle>
         <DialogContent className='p-0 alertpopup'>
-          {alertType && <img src={images.Check} alt="Check"></img>}
+          {/* {alertType && <img src={images.Check} alt="Check"></img>} */}
+         { alertType && <img src={ alertType==='error' ? images.error : images.Check} alt="Check"></img>}                  
          
          
           <DialogContentText id="alert-dialog-description" className="p-0">
