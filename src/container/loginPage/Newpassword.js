@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { alertActions } from '_store';
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import images from 'images';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
+import Link from "@material-ui/core/Link";
+import { Modal, Button, Typography } from '@mui/material';
 import { PasswordCheck, PasswordInput } from "_components";
 import { passwordValidationSchema } from "_utils/validationSchema";
 import { resetSuccessLabels } from "_utils/labels";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {  labels } from "_utils/labels";
 
 const NewPassword = () => {
   const dispatch = useDispatch();
@@ -63,14 +64,20 @@ const NewPassword = () => {
       <Box className="modalpopup">
         <Box className="row modalpopupinner">
           <div className="row m-0">
-            <Grid item xs={3} className="ResetLogo p-0">
-              <img src={images.ResetpasswordLogo} alt="ResetLogo" />
+            <Grid item xs={12} className="forgotpassword p-0">
+              <Link href="#" variant="logo" className="wgllogo">
+                <img src={images.logo} alt="logo"></img>
+                {labels.eServicePortal}
+              </Link>
+              <Typography component="h2" variant="body1">
+                New Password
+              </Typography>
+              <Typography component="p" variant="body1">
+                Enter your new password.
+              </Typography>
+
             </Grid>
-            <Grid item xs={9} className="Newpassword">
-              <h5>New Password</h5>
-              <span>Enter your new password</span>
-            </Grid>
-            <form onSubmit={handleSubmit(onSubmit)} className='newpassword-list'>
+            <form  onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
               <PasswordInput
                 control={control}
                 name="password"

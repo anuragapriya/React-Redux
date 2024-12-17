@@ -91,6 +91,8 @@ const fakeBackend = () => {
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
+                user.createdDate=new Date();
+                user.status=1;
                 users.push(user);
                 localStorage.setItem(usersKey, JSON.stringify(users));
                 

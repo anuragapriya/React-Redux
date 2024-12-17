@@ -5,7 +5,7 @@ import { usePromiseTracker } from 'react-promise-tracker';
 import { store, authActions } from '_store';
 import PrivateRoute from './PrivateRoute';
 import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
-import {LoginLayout,UsersLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
+import {LoginLayout,AdminLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
 import {Home} from 'container/dashboard';
 import DocumentViewer from '_components/DocumentViewer';
 import RegistrationLayout from 'container/layout/RegistrationLayout';
@@ -18,17 +18,18 @@ const RouteList = () => {
     const logout = () => dispatch(authActions.logout());
     const auth = useSelector(x => x.auth.value);
     const thresholdMinsToRefreshTokenBeforeExpiry = 2; // 5 mins
-    
+    const isAuthenticated = auth?.Succeeded;
     const getToken = useCallback(() => {
         // Get new token if and only if existing token is available
         const auth = store.getState().auth.value;
-        if (auth) {
+        if (auth?.Data) {
+            const tokenExpiry= auth?.Data?.UserDetails?.tokenExpiry;
             const now = new Date();
             const hours = now.getHours();
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            const tokenExpiryDateTime = new Date(auth?.tokenExpiry);
+            const tokenExpiryDateTime = new Date(tokenExpiry);
             tokenExpiryDateTime.setMinutes(tokenExpiryDateTime.getMinutes() - thresholdMinsToRefreshTokenBeforeExpiry);
             const targetHours = tokenExpiryDateTime.getHours();
             const targetMinutes = tokenExpiryDateTime.getMinutes();
@@ -48,27 +49,27 @@ const RouteList = () => {
   
     return (
         <div>
-            <Nav /> 
+            <Nav isAuthenticated={isAuthenticated} /> 
             <Notification />
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
             <div className="container">
                 <Routes >
                     {/* private */}
-                    <Route element={<PrivateRoute />}>
+                    <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
                         <Route path="home" element={<Home />} />
-                        <Route path="userManagement/*" element={<UsersLayout />} />
+                        <Route path="admin/*" element={<AdminLayout />} />
                         <Route path="accountInquiry/*" element={<AccountInquiryLayout />} />
                         <Route path="energyAssistance/*" element={<EnergyAssistanceLayout />} />
                         <Route path="/document" element={<DocumentViewer />} />
                     </Route>
                     {/* public */}
-                    <Route path="/*" element={<LoginLayout />} />
+                    <Route path="/*" element={<LoginLayout isAuthenticated={isAuthenticated} />} />
 
                     <Route path="registration/*" element={<RegistrationLayout/>}/>
 
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
-                <SessionTimeout onLogout={logout} isAuthenticated={auth} />
+                <SessionTimeout onLogout={logout} isAuthenticated={isAuthenticated} />
             </div>
         </div>
     );

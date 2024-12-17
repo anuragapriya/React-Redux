@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import {registerValidationSchema, profileValidationSchema } from '_utils/validationSchema';
-import PersonalDetails from './ProfileDetails/PersonalDetails';
-import AssignToDetails from './ProfileDetails/AssignToDetails';
-import SecurityQuestions from './ProfileDetails/SecurityQuestions';
+import { PersonalDetails ,AssignToDetails,SecurityQuestions} from 'container/user';
 
 const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const id = selectedrowId;

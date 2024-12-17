@@ -1,48 +1,25 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import InputMask from 'react-input-mask';
-import { CustomFormControl, MobileNumberInput } from '_components';
+import Grid from "@material-ui/core/Grid";
+import { CustomFormControl } from '_components';
+import CompanyPOC from './CompanyPOC';
 
 const CompanyDetails = ({ register, errors, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
-    const handleBlur = async (e) => {
+    const handleBlur = (e) => {
         const fieldName = e.target.name;
-
-        console.log(`Triggering validation for: ${fieldName}`);
-        const result = await trigger(fieldName); // Wait for the validation to complete
-        console.log(`Validation result for ${fieldName}:`, result);
-
         const fieldError = errors[fieldName];
-        console.log(`Error for ${fieldName}:`, fieldError);
 
         setInputColors(prevColors => ({
             ...prevColors,
             [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
         }));
+
+        trigger(fieldName); // Trigger validation for the field
     };
     return <>
         <CustomFormControl
-            id="pocFullName"
-            label="Full Name"
-            type="text"
-            register={register}
-            errors={errors}
-            handleBlur={handleBlur}
-            inputColors={inputColors}
-        />
-        <MobileNumberInput
-            control={control}
-            name="pocMobileNumber"
-            label="Phone Number"
-            rules={{ required: 'Phone Number is required' }}
-            errors={errors}
-            handleBlur={handleBlur}
-            inputColors={inputColors}
-        />
-        <CustomFormControl
-            id="pocEmailAddress"
-            label="Email Address"
+            id="CompanyName"
+            label="Company Name"
             type="text"
             register={register}
             errors={errors}
@@ -50,15 +27,58 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="authorizedContact"
-            label="Authorized WGL Contact"
+            id="TaxIdentificationNumber"
+            label="Tax Identification Number"
             type="text"
             register={register}
             errors={errors}
             handleBlur={handleBlur}
             inputColors={inputColors}
         />
-    </>;
+        <CustomFormControl
+            id="CompanyStreetAddress1"
+            label="Street Address"
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+        <CustomFormControl
+            id="CompanyCity"
+            label="City"
+            type="text"
+            register={register}
+            errors={errors}
+            handleBlur={handleBlur}
+            inputColors={inputColors}
+        />
+        <Grid container spacing={3}>
+            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+                <CustomFormControl
+                    id="CompanyState"
+                    label="State"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
+                </Grid>
+                <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+                <CustomFormControl
+                    id="CompanyZipCode"
+                    label="Zip Code"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    inputColors={inputColors}
+                />
+            </Grid>  
+            <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} />
+        </Grid>
+    </>
 };
 
 export default CompanyDetails;

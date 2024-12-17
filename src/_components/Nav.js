@@ -4,13 +4,12 @@ import { authActions } from '_store';
 import Link from "@material-ui/core/Link";
 import images from '../images.js';
 import { labels } from "_utils/labels";
-const Nav = () => {
-    const auth = useSelector(x => x.auth.value);
+const Nav = ({isAuthenticated}) => {
     const dispatch = useDispatch();
     const logout = () => dispatch(authActions.logout());
 
     // only show nav when logged in
-    if (!auth) return null;
+    if (!isAuthenticated) return null;
 
     return (
         // <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
