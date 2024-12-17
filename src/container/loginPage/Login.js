@@ -82,6 +82,8 @@ export default function Login() {
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
                         </Link>
+                        
+                        <Typography component="div" className="loginbuttonfixed">
                         <Button
                             type="submit"
                             fullWidth
@@ -100,6 +102,7 @@ export default function Login() {
                                 </Link>
                             </Grid>
                         </Grid>
+                        </Typography>
                     </form>
                 </div>
             </Typography>

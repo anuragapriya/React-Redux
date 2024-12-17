@@ -1,4 +1,3 @@
-//import {useLocation} from 'react-router-dom'
 import React from "react";
 import { Outlet } from 'react-router-dom';
 import Link from "@material-ui/core/Link";
@@ -7,25 +6,27 @@ import images from '../../images';
 import PortalZoom from "_components/PortalZoom";
 import { labels } from "_utils/labels";
 
-// const location = useLocation();
-
-
-// if(location =='/register'){
-//     //const element = document.getElementById('Bannerimages');
-//     Bannerimages.classList.remove('Bannerimageslogin');
-//     Bannerimages.classList.add('Bannerimagesregister');
-// }
-// else{
-//     Bannerimages.classList.add('Bannerimageslogin');
-// }
-const MainLayout = () => (
+const RegisterMainLayout = () => (
     <>
     <PortalZoom></PortalZoom>
     <Grid container spacing={3}>
         <Grid item xs={12} sm={5} md={4} className="wglcontainerblock">
             <div className="wglcontainer">
                 <div className="wglcontainerinn">
-                   
+                    <Grid item xs={12} className="mobile-block" >
+                        <ul className="list-type">
+                            <li>
+                                <Link href="#" >
+                                    Need Support
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="#" >
+                                    Contact us
+                                </Link>
+                            </li>
+                        </ul>
+                    </Grid>
                     <Link href="#" variant="logo" className="wgllogo">
                         <img src={images.logo} alt="logo"></img>
                         {labels.eServicePortal}
@@ -34,9 +35,9 @@ const MainLayout = () => (
                 </div>
             </div>
         </Grid>
-        <Grid item xs={8} sm={7} md={8} className="mobile-none"  exact to={["/one", "/two"]}  activeClassName="one" id="Bannerimages">
+        <Grid item xs={8} sm={7} md={8} className="mobile-none">
             <div className="">
-                <div className="ration ration-1x1">    
+                <div className=" ration ration-1x1">    
               
                     <img src={images.bannerImg} alt="Banner images"></img> 
                                      
@@ -52,4 +53,4 @@ const MainLayout = () => (
     </>
 );
 
-export default MainLayout;
+export default RegisterMainLayout;

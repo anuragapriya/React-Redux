@@ -1,8 +1,8 @@
-import Home from "./Home";
-import ManagedProfile from "./ManageProfile";
-import UserList from "./UserList";
+import ManagedProfile from "../admin/userProfile/ManageProfile";
 import CompanyDetails from "./ProfileDetails/CompanyDetails";
 import PersonalDetails from "./ProfileDetails/PersonalDetails";
+import AssignToDetails from "./ProfileDetails/AssignToDetails";
+import SecurityQuestions from "./ProfileDetails/SecurityQuestions";
 
 
-export {Home,ManagedProfile,UserList,CompanyDetails,PersonalDetails};
+export {ManagedProfile,CompanyDetails,PersonalDetails,AssignToDetails,SecurityQuestions};

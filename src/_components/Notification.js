@@ -30,7 +30,8 @@ const Notification = () => {
         <Stack sx={{ width: '100%' }} spacing={2}>
         <Alert severity={`${alert.type}`}>
          <TimerModal
-                timerCountdown={60}
+                alertType={alert.type}
+                timerCountdown={2340}
                 header={alert.header}
                 message1={alert.message}
                 message2={alert.message2||''}

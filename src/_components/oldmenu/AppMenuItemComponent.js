@@ -1,37 +1,35 @@
 import React from 'react';
-import { Button } from '@mui/material';
+import ListItem from '@material-ui/core/ListItem';
 import { NavLink } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-
-
 
 const AppMenuItemComponent = (props) => {
   const { className, onClick, link, children } = props;
 
-  // If link is not set, return an ordinary Button
+  // If link is not set return the ordinary ListItem
   if (!link || typeof link !== 'string') {
     return (
-      <Button
+      <ListItem
+        button
         className={className}
-        style={{ border: '1px solid #0dcaf0' }}
         onClick={onClick}
       >
         {children}
-      </Button>
+      </ListItem>
     );
   }
 
-  // Return a Button with a link component
+  // Return a ListItem with a link component
   return (
-    <Button
-      style={{ border: '1px solid #0dcaf0',margin:10 }}
+    <ListItem
+      button
       className={className}
       component={React.forwardRef((props, ref) => <NavLink exact {...props} innerRef={ref} />)}
       to={link}
     >
       {children}
-    </Button>
+    </ListItem>
   );
 };
 
 export default AppMenuItemComponent;
+

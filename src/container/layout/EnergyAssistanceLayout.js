@@ -8,7 +8,7 @@ import DashboardLayout from "./DashboardLayout"; // Corrected spelling
 const EnergyAssistanceLayout = () => {
     const authUser = useSelector(state => state.auth.value);
 
-    const isProfileCompleted = authUser?.UserAccess.find(item => item.PortalName === "EnergyAssistance")?.IsProfileCompleted;
+    const isProfileCompleted = authUser.Data?.UserAccess.find(item => item.PortalKey === "ea")?.IsMandateDone;
 
     const menuItems = [
         {

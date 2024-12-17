@@ -1,5 +1,5 @@
 import NavTab from "_components/NavTab";
-import UserList from "./UserList";
+import UserList from "./userProfile/UserList";
 import { Jurisdiction } from "container/energyAssistance";
 
 
