@@ -62,8 +62,8 @@ const NewPassword = () => {
       className="displayblock"
     >
       <Box className="modalpopup">
-        <Box className="row modalpopupinner">
-          <div className="row m-0">
+        <Box className=" modalpopupinner">
+          <Grid container>
             <Grid item xs={12} className="forgotpassword p-0">
               <Link href="#" variant="logo" className="wgllogo">
                 <img src={images.logo} alt="logo"></img>
@@ -110,7 +110,7 @@ const NewPassword = () => {
                 </Button>
               </Box>
             </form>
-          </div>
+          </Grid>
         </Box>
       </Box>
     </Modal>
