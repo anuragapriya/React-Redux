@@ -43,6 +43,21 @@ export const additionalDetailsValidationSchema = Yup.object().shape({
 });
 
 export const companyValidationSchema = Yup.object().shape({
+    companyName: Yup.string()
+        .required('Full Name is required'),
+    taxId: Yup.string()
+        .required('Tax Identification Number is required'),
+    companyAddress: Yup.string()
+        .required('Address is required'),
+    companyCity: Yup.string()
+        .required('City is required'),
+    companyState: Yup.string()
+        .required('State is required'),
+    companyZipcode: Yup.string()
+        .required('Zip Code is required'),
+});
+
+export const companyPOCValidationSchema = Yup.object().shape({
     pocFullName: Yup.string()
         .required('Full Name is required'),
     pocMobileNumber: Yup.string()
@@ -93,6 +108,14 @@ export const resetValidationSchema = Yup.object().shape({
         .email('Email is invalid'),
 });
 
+export const uploadValidationSchema = Yup.object().shape({
+    file: Yup.mixed().test('fileSize', 'File is too large', (value) => {
+        return value && value.size <= 1000000; // 1MB limit
+    }).required('File is required'),
+    documentType: Yup.string()
+    .required('Document type is required')
+    .nullable(),
+});
 export const SupplierDetailsSchema = Yup.object().shape({
     companyDetails: Yup.string()
         .required('Company Details is Required'),
