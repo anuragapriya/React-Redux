@@ -164,7 +164,7 @@ const ManageProfileMC = () => {
                                         <Typography component="div" className="Personal-Informationsheading">
                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                         </Typography>
-                                        <AdditionalDetails register={register} errors={errors} control={control} trigger={trigger} />
+                                        <AdditionalDetails inputColors={inputColors} onBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4} className="Personal-Information">
@@ -172,7 +172,7 @@ const ManageProfileMC = () => {
                                         <Typography component="div" className="Personal-Informationsheading">
                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                         </Typography>
-                                        <CompanyDetails register={register} errors={errors} control={control} trigger={trigger} />
+                                        <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4} >
