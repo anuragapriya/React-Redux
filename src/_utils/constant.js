@@ -797,3 +797,23 @@ export const statusData={
     },
   ]
 }
+
+export const documentTypeData=[
+  {
+    documentId:"1",
+    documentType:"drivingLicenseFront",
+    documentDescription:"Driving License(Front)"
+  },
+  {
+    documentId:"2",
+    documentType:"drivingLicenseLast",
+    documentDescription:"Driving License(Last)"
+  },
+  {
+    documentId:"3",
+    documentType:"nondisclosureagreement",
+    documentDescription:"Non disclosure agreement"
+  }
+]
+
+export const supportedFormat=['.jpg','.png','.doc','.docx','.pdf']

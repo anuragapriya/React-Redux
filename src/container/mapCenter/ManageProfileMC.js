@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,12 +9,19 @@ import { additionalDetailsValidationSchema, companyValidationSchema } from "_uti
 import { CompanyDetails } from "container/user";
 import AdditionalDetails from "container/user/ProfileDetails/AdditionalDetails";
 import Grid from "@material-ui/core/Grid";
-import {UploadFiles} from '_components'
+import { AutocompleteInput, UploadFiles } from '_components'
+import { documentTypeData, supportedFormat } from '_utils/constant';
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
     const user = useSelector(x => x.users?.item);
+     const [inputColors, setInputColors] = useState({});
+     const [selectedDocumentType,setSelectedDocumentType]=useState(null);
+     const documentData = documentTypeData.map(x => ({
+        label: x.documentDescription,
+        value: x.documentId
+      }));
 
     const combinedSchema = additionalDetailsValidationSchema.concat(companyValidationSchema);
     const { register, handleSubmit, control, reset, formState: { errors, isSubmitting }, watch, trigger } = useForm({
@@ -49,6 +56,22 @@ const ManageProfileMC = () => {
         }
     };
 
+    const handleBlur = (e) => {
+        const fieldName = e.target.name;
+        const fieldError = errors[fieldName];
+
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
+
+        trigger(fieldName); // Trigger validation for the field
+    };
+
+    const handleOnChange = (event,newvalue) => {
+        setSelectedDocumentType(newvalue.value);
+    };
+
     return <>
         <Typography component="div" className="MapCenterAccecss">
             <Typography component="div" className="MapCenterAccecssheading">
@@ -57,29 +80,42 @@ const ManageProfileMC = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12} className="Personal-Information-container">
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={5} md={4} className="Personal-Information">
-                        <Typography component="div" className="mapcontainer">
-                            <Typography component="div" className="Personal-Informationsheading">
-                                <Typography component="h2" variant="h5">Personal Information</Typography>
-                            </Typography>
-                            <AdditionalDetails register={register} errors={errors} control={control} trigger={trigger} />
-                        </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={5} md={4} className="Personal-Information">
-                            
-                        <Typography component="div" className="mapcontainer">
-                            <Typography component="div" className="Personal-Informationsheading">
-                                <Typography component="h2" variant="h5">Company Point of Contact</Typography>
-                            </Typography>
-                            <CompanyDetails register={register} errors={errors}  control={control} trigger={trigger} />
-                        </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={5} md={4} >
-                            <Typography component="div" className="UploadFiles-container mapcontainer">
-                        <UploadFiles/>
-                        </Typography>
-                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                                <Typography component="div" className="mapcontainer">
+                                    <Typography component="div" className="Personal-Informationsheading">
+                                        <Typography component="h2" variant="h5">Personal Information</Typography>
+                                    </Typography>
+                                    <AdditionalDetails register={register} errors={errors} control={control} trigger={trigger} />
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={5} md={4} className="Personal-Information">
+                                <Typography component="div" className="mapcontainer">
+                                    <Typography component="div" className="Personal-Informationsheading">
+                                        <Typography component="h2" variant="h5">Company Point of Contact</Typography>
+                                    </Typography>
+                                    <CompanyDetails register={register} errors={errors} control={control} trigger={trigger} />
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} sm={5} md={4} >
+                                <Typography component="div" className="UploadFiles-container mapcontainer">
+                                <Typography component="div" className="Personal-Informationsheading">
+                                        <Typography component="h2" variant="h5">Upload Documents</Typography>
+                                    </Typography>
+                                    <AutocompleteInput
+                                        control={control}
+                                        name="documentType"
+                                        label="Document Type"
+                                        options={documentData}
+                                        error={!!errors.documentType}
+                                        helperText={errors.documentType?.message}
+                                        handleBlur={handleBlur}
+                                        inputColor={inputColors['documentType']}
+                                        onChange={handleOnChange}                       
+                                    />
+                                    <UploadFiles  selectedDocumentType={selectedDocumentType} supportedFormats={supportedFormat} documentTypes={documentTypeData} />
+                                </Typography>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} className="Personal-Information">
@@ -90,10 +126,7 @@ const ManageProfileMC = () => {
                             Complete Registration
                         </Button>
                     </Grid>
-
                 </Grid>
-
-
             </form>
         </Typography>
     </>
