@@ -1,17 +1,20 @@
 import React, { useState, useRef } from "react";
-import { Button, Typography } from '@mui/material';
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import { useDispatch } from "react-redux";
 import axios from 'axios';
 import Blob from 'blob';
 import FormData from 'form-data';
-import images from '../images';
+import { Button, Typography } from '@mui/material';
+import Grid from "@material-ui/core/Grid";
 import { styled } from '@mui/material/styles';
 import fileExtension from "_utils/files/fileExtension";
 import fileSizeReadable from '_utils/files/fileSizeReadable';
 import fileTypeAcceptable from '_utils/files/fileTypeAcceptable';
+import { DeleteForever, Download } from '@mui/icons-material';
+import IconButton from '@mui/material/IconButton';
+import { alertActions } from "_store";
+import images from '../images';
 
-const UploadFiles=({
+const UploadFiles = ({
     selectedDocumentType,
     multiple = true,
     documentTypes,
@@ -19,31 +22,33 @@ const UploadFiles=({
     maxFiles = Infinity,
     maxFileSize = Infinity,
     minFileSize = 0,
-}) =>{
+}) => {
     const [files, setFiles] = useState([]);
+    const dispatch= useDispatch();
     const idCounter = useRef(1);
 
     const handleError = (error, file) => {
-        console.log(`error code ${error.code}: ${error.message}`);
+        //console.log(`error code ${error.code}: ${error.message}`);
+         dispatch(alertActions.error(error.message));
     };
 
     const handleChange = (event) => {
         event.preventDefault();
         let filesAdded = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-    
+
         if (multiple === false && filesAdded.length > 1) {
             filesAdded = [filesAdded[0]];
         }
-    
+
         const fileResults = [];
         for (let i = 0; i < filesAdded.length; i += 1) {
             const file = filesAdded[i];
             file.id = `files-${idCounter.current}`;
             idCounter.current += 1;
-            file.documentType = selectedDocumentType;
+            file.documentTypeId = selectedDocumentType;
             file.extension = fileExtension(file);
             file.sizeReadable = fileSizeReadable(file.size);
-    
+
             if (file.type && file.type.split('/')[0] === 'image') {
                 file.preview = {
                     type: 'image',
@@ -55,7 +60,7 @@ const UploadFiles=({
                     url: window.URL.createObjectURL(file),
                 };
             }
-    
+
             if (file.size > maxFileSize) {
                 handleError({
                     code: 2,
@@ -63,7 +68,7 @@ const UploadFiles=({
                 }, file);
                 break;
             }
-    
+
             if (file.size < minFileSize) {
                 handleError({
                     code: 3,
@@ -71,7 +76,7 @@ const UploadFiles=({
                 }, file);
                 break;
             }
-    
+
             if (!fileTypeAcceptable(supportedFormats, file)) {
                 handleError({
                     code: 1,
@@ -79,18 +84,18 @@ const UploadFiles=({
                 }, file);
                 break;
             }
-    
+
             fileResults.push(file);
         }
-    
+
         setFiles(prevFiles => {
             const updatedFiles = prevFiles.filter(prevFile => prevFile.documentType !== selectedDocumentType);
             return [...updatedFiles, ...fileResults];
         });
     };
 
-    const handleFileRemove = (fileId) => {
-        setFiles(prevFiles => prevFiles.filter(prevFile => prevFile.id !== fileId));
+    const handleFileRemove = (documentTypeId) => {
+        setFiles(prevFiles => prevFiles.filter(prevFile => prevFile.documentTypeId !== documentTypeId));
     };
 
     const VisuallyHiddenInput = styled('input')({
@@ -164,15 +169,26 @@ const UploadFiles=({
                             <Typography component="h3">Uploaded Documents</Typography>
                             <Typography component="div" className="fileformat">
                                 {documentTypes && documentTypes.map(type => {
-                                    const uploadedDocument = files.filter(x => x.documentType === type.documentId);
+                                    const uploadedDocument = files.filter(x => x.documentTypeId === type.documentId);
                                     if (uploadedDocument && uploadedDocument.length > 0) {
                                         return (
-                                            <Link  onClick={() => handleOpen(uploadedDocument[0].preview.url)} key={type.documentId}>
-                                                {type.documentType}
-                                            </Link>
+                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                                <span key={type.documentId}>{type.documentDescription}</span>
+                                                <IconButton onClick={() => handleOpen(uploadedDocument[0].preview.url)}>
+                                                    <Download variant="contained" color="secondary" />
+                                                </IconButton>
+                                                <IconButton onClick={() => handleFileRemove(type.documentId)}>
+                                                    <DeleteForever variant="contained" color="secondary" />
+                                                </IconButton>
+                                            </div>
+                                            // <Link  onClick={() => handleOpen(uploadedDocument[0].preview.url)} key={type.documentId}>
+                                            //     {type.documentType}
+                                            // </Link>
                                         );
                                     } else {
-                                        return <span key={type.documentId}>{type.documentType}</span>;
+                                        return <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                            <span key={type.documentId}>{type.documentDescription}</span>
+                                        </div>
                                     }
                                 })}
                             </Typography>
