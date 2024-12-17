@@ -24,7 +24,7 @@ const CompanyPOC = ({ register, errors, control, trigger }) => {
             <Typography component="h2" variant="h5">Company Point of Contact</Typography>
         </Typography>
         <CustomFormControl
-            id="pocFullName"
+            id="CompanyContactName"
             label="Full Name"
             type="text"
             register={register}
@@ -34,7 +34,7 @@ const CompanyPOC = ({ register, errors, control, trigger }) => {
         />
         <MobileNumberInput
             control={control}
-            name="pocMobileNumber"
+            name="CompanyContactTelephone"
             label="Phone Number"
             rules={{ required: 'Phone Number is required' }}
             errors={errors}
@@ -42,7 +42,7 @@ const CompanyPOC = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="pocEmailAddress"
+            id="CompanyContactEmailAddress"
             label="Email Address"
             type="text"
             register={register}
@@ -51,7 +51,7 @@ const CompanyPOC = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="authorizedContact"
+            id="AuthorizedWGLContact"
             label="Authorized WGL Contact"
             type="text"
             register={register}

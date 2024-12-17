@@ -28,45 +28,45 @@ export const passwordValidationSchema = Yup.object().shape({
 export const additionalDetailsValidationSchema = Yup.object().shape({
     fullName: Yup.string()
         .required('Full Name is required'),
-    address: Yup.string()
+    HomeStreetAddress1: Yup.string()
         .required('address is required'),
-    city: Yup.string()
+    HomeCity: Yup.string()
         .required('City is required'),
-    state: Yup.string()
+    HomeState: Yup.string()
         .required('State is required'),
-    zipcode: Yup.string()
+    HomeZipCode: Yup.string()
         .required('Zip code is required'),
-    drivinglicense: Yup.string()
+    DLNumber: Yup.string()
         .required('Driving License is required'),
-    licenseStatus: Yup.string()
-        .required('License status is required'),
+    DLState: Yup.string()
+        .required('License state is required'),
 });
 
 export const companyValidationSchema = Yup.object().shape({
-    companyName: Yup.string()
+    CompanyName: Yup.string()
         .required('Full Name is required'),
-    taxId: Yup.string()
+    TaxIdentificationNumber: Yup.string()
         .required('Tax Identification Number is required'),
-    companyAddress: Yup.string()
+    CompanyStreetAddress1: Yup.string()
         .required('Address is required'),
-    companyCity: Yup.string()
+    CompanyCity: Yup.string()
         .required('City is required'),
-    companyState: Yup.string()
+    CompanyState: Yup.string()
         .required('State is required'),
-    companyZipcode: Yup.string()
+    CompanyZipCode: Yup.string()
         .required('Zip Code is required'),
 });
 
 export const companyPOCValidationSchema = Yup.object().shape({
-    pocFullName: Yup.string()
+    CompanyContactName: Yup.string()
         .required('Full Name is required'),
-    pocMobileNumber: Yup.string()
+    CompanyContactTelephone: Yup.string()
         .required('Phone Number is required')
         .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
-    pocEmailAddress: Yup.string()
+    CompanyContactEmailAddress: Yup.string()
         .required('Email Address is required')
         .email('Email Address is invalid'),
-    authorizedContact: Yup.string()
+    AuthorizedWGLContact: Yup.string()
         .required('Authorized WG Contact is required')
 });
 
@@ -113,8 +113,8 @@ export const uploadValidationSchema = Yup.object().shape({
         return value && value.size <= 1000000; // 1MB limit
     }).required('File is required'),
     documentType: Yup.string()
-    .required('Document type is required')
-    .nullable(),
+        .required('Document type is required')
+        .nullable(),
 });
 export const SupplierDetailsSchema = Yup.object().shape({
     companyDetails: Yup.string()

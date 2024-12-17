@@ -18,7 +18,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
     };
     return <>
         <CustomFormControl
-            id="companyName"
+            id="CompanyName"
             label="Company Name"
             type="text"
             register={register}
@@ -27,7 +27,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="taxId"
+            id="TaxIdentificationNumber"
             label="Tax Identification Number"
             type="text"
             register={register}
@@ -36,7 +36,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="companyAddress"
+            id="CompanyStreetAddress1"
             label="Street Address"
             type="text"
             register={register}
@@ -45,7 +45,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="companyCity"
+            id="CompanyCity"
             label="City"
             type="text"
             register={register}
@@ -56,7 +56,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
         <Grid container spacing={3}>
             <Grid item xs={12} sm={5} md={6} className="Personal-Information">
                 <CustomFormControl
-                    id="companyState"
+                    id="CompanyState"
                     label="State"
                     type="text"
                     register={register}
@@ -67,7 +67,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
                 </Grid>
                 <Grid item xs={12} sm={5} md={6} className="Personal-Information">
                 <CustomFormControl
-                    id="companyZipcode"
+                    id="CompanyZipCode"
                     label="Zip Code"
                     type="text"
                     register={register}

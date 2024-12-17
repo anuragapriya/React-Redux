@@ -1,129 +1,4 @@
-// export const user = {
-//   id: 1,
-//   userName: '',
-//   isVerified: false,
-//   jwtToken: '',
-//   tokenExpiry: '',
-//   refreshToken: '',
-//   refreshTokenExpiry: '',
-//   UserDetails: {
-//     FirstName: "Ravi",
-//     LastName: "Soni",
-//     EmailAddress: "ravi.soni1@sutherlandglobal.com"
-//   },
-//   UserAccess: [
-//     {
-//       PortalKey: "AI",
-//       PortalName: "AccountInquiry",
-//       PortalRole: "Admin",
-//       IsProfileCompleted: 1,
-//       PortalAccess:
-//       {
-//         UnlockProfile: 1,
-//         ResetPassword: 1,
-//         DeleteProfile: 1,
-//         ForgotPassword: 1,
-//         AssignAgency: 1,
-//         UserRegistration: 1,
-//         ApproveProfileRegistration: 1,
-//         RejectProfileRegistration: 1,
-//         SearchbyAccountHolder: 1,
-//         WashingtonGasAccount: 1,
-//         TelephoneNumber: 1,
-//         ServiceAddress: 1,
-//         SearchResult: 1,
-//         ViewOrganizationProfiles: 1
-//       }
-//     },
-//     {
-//       PortalKey: "EA",
-//       PortalName: "EnergyAssistance",
-//       PortalRole: "Admin",
-//       IsProfileCompleted: 0,
-//       PortalAccess:
-//       {
-//         UnlockProfile: 1,
-//         ResetPassword: 1,
-//         DeleteProfile: 1,
-//         ForgotPassword: 1,
-//         AssignAgency: 1,
-//         UserRegistration: 1,
-//         ApproveProfileRegistration: 1,
-//         RejectProfileRegistration: 1,
-//         SearchbyAccountHolder: 1,
-//         WashingtonGasAccount: 1,
-//         TelephoneNumber: 1,
-//         ServiceAddress: 1,
-//         SearchResult: 1,
-//         ViewOrganizationProfiles: 1
-//       }
-//     },
-//     {
-//       PortalKey: "MC",
-//       PortalName: "MapCenter",
-//       PortalRole: "SecurityReviewer",
-//       IsProfileCompleted: 0,
-//       PortalAccess:
-//       {
-//         UnlockProfile: 0,
-//         ResetPassword: 0,
-//         DeleteProfile: 0,
-//         UpdateTaxID: 0,
-//         ApproveProfileRegistration: 1,
-//         RejectProfileRegistration: 1,
-//         VerifyProfileRegistration: 0,
-//         EmailMapRequest: 0,
-//         MapCenterAdminReport: 0,
-//         ProfileSearch: 0,
-//         MapRequestSearch: 0
-
-//       }
-//     },
-//     {
-//       PortalKey: "SD",
-//       PortalName: "Suplier Diversity",
-//       PortalRole: "Admin",
-//       IsProfileCompleted: 0,
-//       PortalAccess:
-//       {
-//         UnlockProfile: 0,
-//         ResetPassword: 0,
-//         DeleteProfile: 0,
-//         UpdateTaxID: 0,
-//         ApproveProfileRegistration: 1,
-//         RejectProfileRegistration: 1,
-//         VerifyProfileRegistration: 0,
-//         EmailMapRequest: 0,
-//         MapCenterAdminReport: 0,
-//         ProfileSearch: 0,
-//         MapRequestSearch: 0
-
-//       }
-//     },
-//     {
-//       PortalName: "usermanagement",
-//       PortalRole: "Admin",
-//       IsProfileCompleted: 1,
-//       PortalAccess:
-//       {
-//         UnlockProfile: 1,
-//         ResetPassword: 1,
-//         DeleteProfile: 1,
-//         UpdateTaxID: 1,
-//         ApproveProfileRegistration: 1,
-//         RejectProfileRegistration: 1,
-//         VerifyProfileRegistration: 1,
-//         EmailMapRequest: 1,
-//         MapCenterAdminReport: 1,
-//         ProfileSearch: 1,
-//         MapRequestSearch: 1
-//       }
-//     },
-
-//   ]
-// };
-
-export const user ={
+export const user = {
   "Succeeded": true,
   "Message": null,
   "Errors": null,
@@ -137,7 +12,7 @@ export const user ={
       "jwToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJSYXZpLlNvbmkxQHN1dGhlcmxhbmRnbG9iYWwuY29tIiwianRpIjoiNDlhMWMwZjYtMGVlMy00ZjYxLTk4OTMtNWRiNGJmZWVhOTFjIiwiZW1haWwiOiJSYXZpLlNvbmkxQHN1dGhlcmxhbmRnbG9iYWwuY29tIiwidWlkIjoiUmF2aS5Tb25pMUBzdXRoZXJsYW5kZ2xvYmFsLmNvbSIsImlwIjoiMTkyLjE2OC4xLjUiLCJleHAiOjE3MzQwMTc4MzgsImlzcyI6Ildhc2hnYXMtZVNlcnZpY2UiLCJhdWQiOiJXYXNoZ2FzLWVTZXJ2aWNlIn0.gWctwIu5Uu-CbgbIi05dBAog9TP7C7Adxwvf07B_2xE",
       "Status": "Approved",
       "tokenExpiry": "2024-12-12T21:07:19.0712093+05:30",
-      "isAdmin":true
+      "isAdmin": true
     },
     "UserAccess": [
       {
@@ -453,18 +328,18 @@ export const portalData = [
 ];
 
 export const userRegistrationVerified = {
-    "Data": {
-      "Id": 1001,
-      "FirstName": "Ravi",
-      "LastName": "Soni",
-      "Email": "Ravi.Soni1@sutherlandglobal.com",
-      "IsVerified": true,
-      "PortalId": 3,
-      "PortlaName": "Map Center",
-      "PortalKey": "MC",
-      "IsMandateDone": false,
-      "status":"submitted"
-    }
+  "Data": {
+    "Id": 1001,
+    "FirstName": "Ravi",
+    "LastName": "Soni",
+    "Email": "Ravi.Soni1@sutherlandglobal.com",
+    "IsVerified": true,
+    "PortalId": 3,
+    "PortlaName": "Map Center",
+    "PortalKey": "MC",
+    "IsMandateDone": false,
+    "status": "submitted"
+  }
 };
 
 export const userDetails = {
@@ -477,9 +352,9 @@ export const userDetails = {
   confirmEmail: '',
   password: '',
   confirmPassword: '',
-  createdDate:'',
-  status:null,
-  portalId:null,
+  createdDate: '',
+  status: null,
+  portalId: null,
   securityQuestions: [],
   firstSecurityQuestion: '',
   firstSecurityAnswer: '',
@@ -765,75 +640,111 @@ export const portalAccessData = {
   ]
 }
 
-export const statusData={
+export const statusData = {
   "Succeeded": true,
   "Message": "Status Recieved",
   "Errors": null,
   "Data": [
     {
-      "StatusId":1,
-      "StatusKey":"submitted",
-      "StatusDescription":"Submitted"
+      "StatusId": 1,
+      "StatusKey": "submitted",
+      "StatusDescription": "Submitted"
     },
     {
-      "StatusId":2,
-      "StatusKey":"verified",
-      "StatusDescription":"Verified"
+      "StatusId": 2,
+      "StatusKey": "verified",
+      "StatusDescription": "Verified"
     },
     {
-      "StatusId":3,
-      "StatusKey":"partiallyverified",
-      "StatusDescription":"Partially Verified"
+      "StatusId": 3,
+      "StatusKey": "partiallyverified",
+      "StatusDescription": "Partially Verified"
     },
     {
-      "StatusId":4,
-      "StatusKey":"approved",
-      "StatusDescription":"Approved"
+      "StatusId": 4,
+      "StatusKey": "approved",
+      "StatusDescription": "Approved"
     },
     {
-      "StatusId":5,
-      "StatusKey":"deny",
-      "StatusDescription":"Deny"
+      "StatusId": 5,
+      "StatusKey": "deny",
+      "StatusDescription": "Deny"
     },
   ]
 }
 
-export const documentTypeData=[
+export const documentTypeData = [
   {
-    documentId:"1",
-    documentType:"drivingLicenseFront",
-    documentDescription:"Driving License(Front)"
+    DocumentTypeID: "1",
+    DocumentType: "drivingLicenseFront",
+    DocumentDescription: "Driving License(Front)"
   },
   {
-    documentId:"2",
-    documentType:"drivingLicenseLast",
-    documentDescription:"Driving License(Last)"
+    DocumentTypeID: "2",
+    DocumentType: "drivingLicenseLast",
+    DocumentDescription: "Driving License(Last)"
   },
   {
-    documentId:"3",
-    documentType:"nondisclosureagreement",
-    documentDescription:"Non disclosure agreement"
+    DocumentTypeID: "3",
+    DocumentType: "nondisclosureagreement",
+    DocumentDescription: "Non disclosure agreement"
   }
 ]
 
-export const supplierDocumentTypeData=[
+export const supplierDocumentTypeData = [
   {
-    documentId:"1",
-    documentType:"certificationDocument",
-    documentDescription:"Certification Document"
+    documentId: "1",
+    documentType: "certificationDocument",
+    documentDescription: "Certification Document"
   },
   {
-    documentId:"2",
-    documentType:"capabilityStatement",
-    documentDescription:"Capability Statement"
+    documentId: "2",
+    documentType: "capabilityStatement",
+    documentDescription: "Capability Statement"
   },
   {
-    documentId:"3",
-    documentType:"additionalDocuments",
-    documentDescription:"Additional Documents"
+    documentId: "3",
+    documentType: "additionalDocuments",
+    documentDescription: "Additional Documents"
   }
 ]
 
-export const supportedFormat=['.jpg','.png','.doc','.docx','.pdf']
+export const supportedFormat = ['.jpg', '.png', '.doc', '.docx', '.pdf']
 
-export const supplierSupportedFormat=['.pdf','.doc','.docs','.csv','.xslx','.xls','txt','.bmp','.jpg','.gif']
+export const supplierSupportedFormat = ['.pdf', '.doc', '.docs', '.csv', '.xslx', '.xls', 'txt', '.bmp', '.jpg', '.gif']
+
+export const registerMapCenter =
+{
+  "Data": [
+    {
+      "UserID": 1,
+      "AlternateEmail": "rar@test.com",
+      "DLState": "CA",
+      "DLNumber": "CA45154",
+      "HomeStreetAddress1": "TEST",
+      "HomeStreetAddress2": "TES",
+      "HomeCity": "TES",
+      "HomeState": "TES",
+      "HomeZipCode": "125487",
+      "CompanyName": "TESA",
+      "TaxIdentificationNumber": "41254SAW",
+      "CompanyStreetAddress1": "DADAS",
+      "CompanyStreetAddress2": "DASD",
+      "CompanyCity": "DASD",
+      "CompanyState": "DASD",
+      "CompanyZipCode": "DASD",
+      "CompanyContactName": "DASD",
+      "CompanyContactTelephone": "DASD",
+      "CompanyContactEmailAddress": "DAS",
+      "AuthorizedWGLContact": "REWR",
+      "FileData": [{
+        "DocumentTypeID": "DAS",
+        "FileName": "WER",
+        "Format": "PDF",
+        "Size": "200KB",
+        "Portalkey": "AI",
+        "File": "FS"
+      }]
+    }
+  ]
+}

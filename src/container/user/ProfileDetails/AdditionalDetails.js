@@ -26,7 +26,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="address"
+            id="HomeStreetAddress1"
             label="Street Address"
             type="text"
             register={register}
@@ -35,7 +35,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
             inputColors={inputColors}
         />
         <CustomFormControl
-            id="city"
+            id="HomeCity"
             label="City"
             type="text"
             register={register}
@@ -46,7 +46,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
         <Grid container spacing={3}>
             <Grid item xs={12} sm={5} md={6} className="Personal-Information">
                 <CustomFormControl
-                    id="state"
+                    id="HomeState"
                     label="State"
                     type="text"
                     register={register}
@@ -55,7 +55,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
                     inputColors={inputColors}
                 />
                 <CustomFormControl
-                    id="zipcode"
+                    id="HomeZipCode"
                     label="Zip Code"
                     type="text"
                     register={register}
@@ -66,7 +66,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={5} md={6} className="Personal-Information">
                 <CustomFormControl
-                    id="drivinglicense"
+                    id="DLNumber"
                     label="Driving License"
                     type="text"
                     register={register}
@@ -75,7 +75,7 @@ const AdditionalDetails = ({ register, errors, control, trigger }) => {
                     inputColors={inputColors}
                 />
                 <CustomFormControl
-                    id="licenseStatus"
+                    id="DLState"
                     label="License State"
                     type="text"
                     register={register}

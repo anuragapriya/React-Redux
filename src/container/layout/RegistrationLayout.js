@@ -18,7 +18,7 @@ const RegistrationLayout = () => {
             <Route element={<Header />}>
             <Route path="accountInquiry" element={<UnderConstruction />} />
             <Route path="energyAssistance" element={<UnderConstruction />} />
-            <Route path="mapCenter/:id" element={<ManageProfileMC />} />
+            <Route path="mapCenter/:portalkey/:id" element={<ManageProfileMC />} />
             <Route path="bbs" element={<UnderConstruction />} />
             <Route path="diversity" element={<UnderConstruction />} />
             </Route>
