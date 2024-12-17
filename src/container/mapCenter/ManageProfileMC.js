@@ -100,7 +100,7 @@ const ManageProfileMC = () => {
                             <Grid item xs={12} sm={5} md={4} >
                                 <Typography component="div" className="UploadFiles-container mapcontainer">
                                 <Typography component="div" className="Personal-Informationsheading">
-                                        <Typography component="h2" variant="h5">Upload Documents</Typography>
+                                        <Typography component="h2" variant="h5">Document Upload</Typography>
                                     </Typography>
                                     <AutocompleteInput
                                         control={control}
