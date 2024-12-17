@@ -22,6 +22,8 @@ const UploadFiles = ({
     maxFiles = Infinity,
     maxFileSize = Infinity,
     minFileSize = 0,
+    control,
+    errors
 }) => {
     const [files, setFiles] = useState([]);
     const dispatch= useDispatch();
@@ -156,6 +158,7 @@ const UploadFiles = ({
                                 multiple
                             />
                         </Button>
+                        {errors.file && <p>{errors.file.message}</p>}
                         <Typography component="div" className="SupportedFormats">
                             <Typography component="h3">Supported Formats</Typography>
                             <Typography component="div" className="fileformat">
@@ -178,9 +181,6 @@ const UploadFiles = ({
                                                     <DeleteForever variant="contained" color="secondary" />
                                                 </IconButton>
                                             </div>
-                                            // <Link  onClick={() => handleOpen(uploadedDocument[0].preview.url)} key={type.documentId}>
-                                            //     {type.documentType}
-                                            // </Link>
                                         );
                                     } else {
                                         return <div style={{ display: 'flex', gap: '0.5rem' }}>

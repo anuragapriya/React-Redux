@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button } from '@mui/material';
 import { alertActions, userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
-import { additionalDetailsValidationSchema, companyValidationSchema } from "_utils/validationSchema";
+import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, uploadValidationSchema } from "_utils/validationSchema";
 import { CompanyDetails } from "container/user";
 import AdditionalDetails from "container/user/ProfileDetails/AdditionalDetails";
 import Grid from "@material-ui/core/Grid";
@@ -23,8 +23,11 @@ const ManageProfileMC = () => {
         value: x.documentId
       }));
 
-    const combinedSchema = additionalDetailsValidationSchema.concat(companyValidationSchema);
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting }, watch, trigger } = useForm({
+    const combinedSchema = additionalDetailsValidationSchema
+    .concat(companyValidationSchema)
+    .concat(companyPOCValidationSchema);
+  //  .concat(uploadValidationSchema);
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting,isValid }, watch, trigger } = useForm({
         resolver: yupResolver(combinedSchema)
     });
 
@@ -69,7 +72,7 @@ const ManageProfileMC = () => {
     };
 
     const handleOnChange = (event,newvalue) => {
-        setSelectedDocumentType(newvalue.value);
+        setSelectedDocumentType(newvalue?.value);
     };
 
     return <>
@@ -92,7 +95,7 @@ const ManageProfileMC = () => {
                             <Grid item xs={12} sm={5} md={4} className="Personal-Information">
                                 <Typography component="div" className="mapcontainer">
                                     <Typography component="div" className="Personal-Informationsheading">
-                                        <Typography component="h2" variant="h5">Company Point of Contact</Typography>
+                                        <Typography component="h2" variant="h5">Company Information</Typography>
                                     </Typography>
                                     <CompanyDetails register={register} errors={errors} control={control} trigger={trigger} />
                                 </Typography>
@@ -113,16 +116,13 @@ const ManageProfileMC = () => {
                                         inputColor={inputColors['documentType']}
                                         onChange={handleOnChange}                       
                                     />
-                                    <UploadFiles  selectedDocumentType={selectedDocumentType} supportedFormats={supportedFormat} documentTypes={documentTypeData} />
+                                    <UploadFiles  selectedDocumentType={selectedDocumentType} supportedFormats={supportedFormat} documentTypes={documentTypeData} control={control} errors={errors} />
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                        <Button variant="contained" color="primary" disabled={isSubmitting}>
-                            Cancel
-                        </Button>
-                        <Button type="submit" variant="contained" color="primary" disabled={isSubmitting}>
+                    <Grid item xs={12} sm={12} md={12} className="Personal-Information">                       
+                        <Button type="submit" variant="contained" color="primary" disabled={!isValid}>
                             Complete Registration
                         </Button>
                     </Grid>
