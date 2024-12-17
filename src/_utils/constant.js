@@ -816,4 +816,24 @@ export const documentTypeData=[
   }
 ]
 
+export const supplierDocumentTypeData=[
+  {
+    documentId:"1",
+    documentType:"certificationDocument",
+    documentDescription:"Certification Document"
+  },
+  {
+    documentId:"2",
+    documentType:"capabilityStatement",
+    documentDescription:"Capability Statement"
+  },
+  {
+    documentId:"3",
+    documentType:"additionalDocuments",
+    documentDescription:"Additional Documents"
+  }
+]
+
 export const supportedFormat=['.jpg','.png','.doc','.docx','.pdf']
+
+export const supplierSupportedFormat=['.pdf','.doc','.docs','.csv','.xslx','.xls','txt','.bmp','.jpg','.gif']
