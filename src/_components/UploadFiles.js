@@ -167,7 +167,7 @@ const UploadFiles=({
                                     const uploadedDocument = files.filter(x => x.documentType === type.documentId);
                                     if (uploadedDocument && uploadedDocument.length > 0) {
                                         return (
-                                            <Link key={type.documentId} onClick={() => handleOpen(uploadedDocument[0].preview.url)} key={type.documentId}>
+                                            <Link  onClick={() => handleOpen(uploadedDocument[0].preview.url)} key={type.documentId}>
                                                 {type.documentType}
                                             </Link>
                                         );
