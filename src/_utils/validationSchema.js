@@ -116,3 +116,35 @@ export const uploadValidationSchema = Yup.object().shape({
     .required('Document type is required')
     .nullable(),
 });
+export const SupplierDetailsSchema = Yup.object().shape({
+    companyDetails: Yup.string()
+        .required('Company Details is Required'),
+    companyWebsite: Yup.string()
+        .required('Company Details is Required'),
+    businessCatagory: Yup.string()
+        .required('Business Category is Required'),
+    classification: Yup.string()
+        .required('Classification is Required'),
+    services: Yup.string()
+        .required('Services are Required'),
+    expirydate: Yup.string()
+        .required('Expiry Date is Required'),
+    contactperson: Yup.string()
+        .required('Contact Person is Required'),
+    title: Yup.string()
+        .required('title is Required'),
+    email: Yup.string()
+        .required('Email is required')
+        .email('Please provide a valid email address'),
+    mobileNumber: Yup.string()
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
+    address: Yup.string()
+        .required('address is required'),
+    state: Yup.string()
+        .required('State is required'),
+    county: Yup.string()
+        .required('Country is Required'),
+    zipcode: Yup.string()
+        .required('Zip code is required'),
+})
