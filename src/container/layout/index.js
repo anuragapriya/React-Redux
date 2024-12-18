@@ -1,6 +1,6 @@
 import LoginLayout from "./LoginLayout";
 import MainLayout from "./MainLayout";
-import RegisterMainLayout from "./RegistrationLayout";
+import RegisterMainLayout from "./RegisterMainLayout"
 import DashboardLayout from "./DashboardLayout";
 import AdminLayout from "./AdminLayout";
 import AccountInquiryLayout from "./AccountInquiryLayout";

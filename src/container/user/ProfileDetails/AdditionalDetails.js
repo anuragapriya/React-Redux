@@ -1,20 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
 import { CustomFormControl } from '_components';
-const AdditionalDetails = ({ register, errors, control, trigger }) => {
-    const [inputColors, setInputColors] = useState({});
-    const handleBlur = (e) => {
-        const fieldName = e.target.name;
-        const fieldError = errors[fieldName];
-
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
-
-        trigger(fieldName); // Trigger validation for the field
-    };
+const AdditionalDetails = ({ register, errors, control, trigger, inputColors, handleBlur }) => {
     return <>
         <CustomFormControl
             id="fullName"
