@@ -3,19 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { CustomFormControl } from '_components';
 import CompanyPOC from './CompanyPOC';
 
-const CompanyDetails = ({ register, errors, control, trigger }) => {
-    const [inputColors, setInputColors] = useState({});
-    const handleBlur = (e) => {
-        const fieldName = e.target.name;
-        const fieldError = errors[fieldName];
-
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
-
-        trigger(fieldName); // Trigger validation for the field
-    };
+const CompanyDetails = ({ register, errors, control, trigger, inputColors, handleBlur }) => {
     return <>
         <CustomFormControl
             id="CompanyName"
@@ -76,7 +64,7 @@ const CompanyDetails = ({ register, errors, control, trigger }) => {
                     inputColors={inputColors}
                 />
             </Grid>  
-            <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} />
+            <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
         </Grid>
     </>
 };

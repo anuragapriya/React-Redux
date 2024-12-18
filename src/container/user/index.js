@@ -3,6 +3,7 @@ import CompanyDetails from "./ProfileDetails/CompanyDetails";
 import PersonalDetails from "./ProfileDetails/PersonalDetails";
 import AssignToDetails from "./ProfileDetails/AssignToDetails";
 import SecurityQuestions from "./ProfileDetails/SecurityQuestions";
+import AdditionalDetails from "./ProfileDetails/AdditionalDetails";
 
 
-export {ManagedProfile,CompanyDetails,PersonalDetails,AssignToDetails,SecurityQuestions};
+export {ManagedProfile,CompanyDetails,PersonalDetails,AssignToDetails,SecurityQuestions,AdditionalDetails};
