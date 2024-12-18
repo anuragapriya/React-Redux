@@ -1,13 +1,14 @@
-import { user } from '_utils/constant';
+import { getMapCenterData, user } from '_utils/constant';
 import { portalAccessData } from '_utils/constant';
-import { portalData,userRegistrationVerified } from '_utils/constant';
+import { portalData, userRegistrationVerified } from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
 const portalAccessKey = 'portal-access-data';
+const mapCenterUserKey = 'map-center-user-datas';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
-let registerPortalData= portalData;
-let userVerifyData=userRegistrationVerified;
+let registerPortalData = portalData;
+let userVerifyData = userRegistrationVerified;
 
 const fakeBackend = () => {
     let realFetch = window.fetch;
@@ -42,6 +43,10 @@ const fakeBackend = () => {
                         return getPortalData();
                     case url.match(/\/registration\/verified\?token=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
                         return getVerifiedUserData();
+                    case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                        return getMapCenterUser(url);
+                    case url.match(/\/mapcenter\/\d+$/) && opts.method === 'POST':
+                        return updateMapCenterUser();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -91,11 +96,11 @@ const fakeBackend = () => {
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
-                user.createdDate=new Date();
-                user.status=1;
+                user.createdDate = new Date();
+                user.status = 1;
                 users.push(user);
                 localStorage.setItem(usersKey, JSON.stringify(users));
-                
+
                 return ok();
             }
 
@@ -114,8 +119,8 @@ const fakeBackend = () => {
             function updateUser() {
                 if (!isAuthenticated()) return unauthorized();
 
-                const {data,portalName} = body();
-                let params=data;
+                const { data, portalName } = body();
+                let params = data;
                 console.log(data);
                 let user = users.find(x => x.id === idFromUrl());
 
@@ -130,7 +135,7 @@ const fakeBackend = () => {
                 }
 
                 // update and save user
-               
+
                 let userAccess = {
                     ...params,
                     UserAccess: params.UserAccess.map(portal =>
@@ -142,7 +147,7 @@ const fakeBackend = () => {
                 console.log(userAccess);
 
                 Object.assign(user, userAccess);
-               
+
                 localStorage.setItem(usersKey, JSON.stringify(users));
                 return ok();
             }
@@ -164,17 +169,17 @@ const fakeBackend = () => {
             }
 
             function getAccessData() {
-                let accessData =  JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData; ;
+                let accessData = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;;
                 return ok(accessData);
             }
 
             function postAccessData() {
                 // Retrieve the access data from the body function
                 const accessData = body();
-                let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;               
+                let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
                 console.log(accessData);
-                let newAccesData={...portalAccess};
-               
+                let newAccesData = { ...portalAccess };
+
                 // Create a new array for the updated portal access data
                 const updatedPortalAccess = portalAccess?.Data.map(portal => {
                     // Create a shallow copy of the portal object
@@ -197,23 +202,55 @@ const fakeBackend = () => {
                     });
                     return newPortal;
                 });
-            
-                newAccesData.Data=updatedPortalAccess;
+
+                newAccesData.Data = updatedPortalAccess;
                 // Store the updated portal access data in localStorage
                 localStorage.setItem(portalAccessKey, JSON.stringify(newAccesData));
-            
+
                 // Return a successful response
                 return ok();
             }
 
             function getPortalData() {
-                
+
                 return ok(registerPortalData.map(x => basicDetails(x)));
             }
 
             function getVerifiedUserData() {
-                
+
                 return ok(userVerifyData);
+            }
+
+            function getMapCenterUser() {
+                let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
+                return ok(mapCenterUser);
+            }
+
+            function updateMapCenterUser() {
+                try {
+                    const mapCenterData = body();
+                    const mapCenterUser= mapCenterData.Data;
+                    let mapCenterUserData = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;
+
+                    // Create a new object with updated data
+                    let newData = { ...mapCenterUserData };
+
+                    // Append FileData if it exists
+                    if (mapCenterUser.FileData) {
+                        newData.FileData = [...(mapCenterUserData.FileData || []), ...mapCenterUser.FileData];
+                    }
+
+                    newData.DocumentData = [...mapCenterUserData.Data.DocumentData];
+
+                    // Save the updated data back to localStorage
+                    localStorage.setItem(mapCenterUserKey, JSON.stringify(newData));
+
+                    // Return a successful response
+                    return ok();
+                } catch (err) {
+                    console.error('Error updating map center user:', err);
+                    return error('Failed to update map center user');
+                }
             }
 
             // helper functions

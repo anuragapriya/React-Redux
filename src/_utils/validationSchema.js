@@ -26,7 +26,7 @@ export const passwordValidationSchema = Yup.object().shape({
 });
 
 export const additionalDetailsValidationSchema = Yup.object().shape({
-    fullName: Yup.string()
+    FullName: Yup.string()
         .required('Full Name is required'),
     HomeStreetAddress1: Yup.string()
         .required('address is required'),
