@@ -20,7 +20,12 @@ const ManageProfileSD = () => {
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [inputColors, setInputColors] = useState({});
     const [files, setFiles] = useState([]);
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting }, watch, trigger } = useForm({
+    const documentData = supplierDocumentTypeData.map(x => ({
+        label: x.DocumentDescription,
+        value: x.DocumentType
+    }));
+
+    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting,isValid }, watch, trigger } = useForm({
         resolver: yupResolver(SupplierDetailsSchema)
     });
 
@@ -66,10 +71,7 @@ const ManageProfileSD = () => {
 
         trigger(fieldName); // Trigger validation for the field
     };
-    const documentData = supplierDocumentTypeData.map(x => ({
-        label: x.DocumentDescription,
-        value: x.DocumentId
-    }));
+
 
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue.value);
@@ -125,20 +127,12 @@ const ManageProfileSD = () => {
                     </Grid>
                 </Typography>
                 <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                    <Button variant="contained" color="primary" className="Cancelbutton" disabled={isSubmitting}>
-                        Cancel
-                    </Button>
-                    <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={isSubmitting}>
-                        Register
+                    <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={!isValid}>
+                        Complete Registration
                     </Button>
                 </Grid>
-
-
-
-
             </form>
         </Typography>
-
     </>;
 };
 

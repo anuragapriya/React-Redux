@@ -6,8 +6,7 @@ import { Typography, Button } from '@mui/material';
 import { alertActions, userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, uploadValidationSchema } from "_utils/validationSchema";
-import { CompanyDetails } from "container/user";
-import AdditionalDetails from "container/user/ProfileDetails/AdditionalDetails";
+import { CompanyDetails,AdditionalDetails } from "container/user";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UploadFiles } from '_components';
 import { documentTypeData, supportedFormat } from '_utils/constant';
@@ -27,8 +26,7 @@ const ManageProfileMC = () => {
         value: x.DocumentType
     }));
 
-    const combinedSchema = additionalDetailsValidationSchema
-        .concat(companyValidationSchema)
+    const combinedSchema = additionalDetailsValidationSchema.concat(companyValidationSchema)
         .concat(companyPOCValidationSchema);
     //   .concat(uploadValidationSchema);
 
@@ -164,7 +162,7 @@ const ManageProfileMC = () => {
                                         <Typography component="div" className="Personal-Informationsheading">
                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                         </Typography>
-                                        <AdditionalDetails inputColors={inputColors} onBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
+                                        <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={4} className="Personal-Information">

@@ -44,7 +44,7 @@ export const additionalDetailsValidationSchema = Yup.object().shape({
 
 export const companyValidationSchema = Yup.object().shape({
     CompanyName: Yup.string()
-        .required('Full Name is required'),
+        .required('Company Name is required'),
     TaxIdentificationNumber: Yup.string()
         .required('Tax Identification Number is required'),
     CompanyStreetAddress1: Yup.string()
