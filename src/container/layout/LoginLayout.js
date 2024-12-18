@@ -15,6 +15,8 @@ const LoginLayout = ({ isAuthenticated }) => {
       <Routes>
         <Route element={<MainLayout />}>
           <Route index element={<Login />} />
+        </Route>
+        <Route element={<RegisterMainLayout />}>
           <Route path='register' element={<Register />} />
         </Route>
       </Routes>
