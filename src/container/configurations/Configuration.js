@@ -10,7 +10,7 @@ import { AutocompleteInput } from '_components';
 const Configuration = () => {
     const dispatch = useDispatch();
     const portalAccessData = useSelector((x) => x.configs?.portalAccessGetData);
-    const accessData = portalAccessData ? portalAccessData.Data : [];
+    const accessData =  portalAccessData?.Data || [];
     const [selectedPortal, setSelectedPortal] = useState(null);
     const [data, setData] = useState(null);
     const options=(accessData?.map(portal => ({

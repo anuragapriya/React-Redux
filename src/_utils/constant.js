@@ -715,10 +715,38 @@ export const supplierSupportedFormat = ['.pdf', '.doc', '.docs', '.csv', '.xslx'
 
 export const registerMapCenter =
 {
-  "Data": [
-    {
+  "Data": {
       "UserID": 1,
+      "FullName": "Anu Vijay",
       "AlternateEmail": "rar@test.com",
+      "DLState": "CA",
+      "DLNumber": "CA45154",
+      "HomeStreetAddress1": "TEST",
+      "HomeStreetAddress2": "TES",
+      "HomeCity": "TES",
+      "HomeState": "TES",
+      "HomeZipCode": "125487",
+      "CompanyName": "TESA",
+      "TaxIdentificationNumber": "41254SAW",
+      "CompanyStreetAddress1": "DADAS",
+      "CompanyStreetAddress2": "DASD",
+      "CompanyCity": "DASD",
+      "CompanyState": "DASD",
+      "CompanyZipCode": "DASD",
+      "CompanyContactName": "DASD",
+      "CompanyContactTelephone": "1234567890",
+      "CompanyContactEmailAddress": "DAS@test.com",
+      "AuthorizedWGLContact": "REWR",
+      "AdditionalID": null,
+      "FileData": []
+    }
+}
+
+export const getMapCenterData =
+{
+  "Data": {
+      "UserID": 70,
+      "FullName": "Ravi",
       "DLState": "CA",
       "DLNumber": "CA45154",
       "HomeStreetAddress1": "TEST",
@@ -737,14 +765,24 @@ export const registerMapCenter =
       "CompanyContactTelephone": "DASD",
       "CompanyContactEmailAddress": "DAS",
       "AuthorizedWGLContact": "REWR",
-      "FileData": [{
-        "DocumentTypeID": "DAS",
-        "FileName": "WER",
-        "Format": "PDF",
-        "Size": "200KB",
-        "Portalkey": "AI",
-        "File": "FS"
-      }]
+      "AdditionalID": null,
+      "FileData": [],
+      "DocumentData": [
+        {
+          "DocumentTypeID": "1",
+          "DocumentType": "drivingLicenseFront",
+          "DocumentDescription": "Driving License(Front)"
+        },
+        {
+          "DocumentTypeID": "2",
+          "DocumentType": "drivingLicenseLast",
+          "DocumentDescription": "Driving License(Last)"
+        },
+        {
+          "DocumentTypeID": "3",
+          "DocumentType": "nondisclosureagreement",
+          "DocumentDescription": "Non disclosure agreement"
+        }
+      ]
     }
-  ]
 }

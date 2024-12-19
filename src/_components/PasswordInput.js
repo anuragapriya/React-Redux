@@ -5,11 +5,17 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handleFocus, inputColors }) => {
+const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handleFocus, inputColors, isPasswordValid }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [touched, setTouched] = useState(false);
 
     const handleClickShowPassword = () => setShowPassword(!showPassword);
     const handleMouseDownPassword = (event) => event.preventDefault();
+
+    const handleBlurWithTouch = (e) => {
+        setTouched(true);
+        handleBlur(e);
+    };
 
     return (
         <Controller
@@ -18,20 +24,19 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
             defaultValue=""
             rules={rules}
             render={({ field }) => (
-                <FormControl variant="outlined" fullWidth margin="normal"  className={inputColors[name]} error={!!errors[name]}>
+                <FormControl variant="outlined" fullWidth margin="normal" className={inputColors[name]} error={!!errors[name] || (!isPasswordValid && touched)}>
                     <InputLabel htmlFor={name}>{label}</InputLabel>
                     <OutlinedInput
                         {...field}
                         id={name}
                         type={showPassword ? 'text' : 'password'}
-                        onBlur={handleBlur}
+                        onBlur={handleBlurWithTouch}
                         onFocus={handleFocus}
                         endAdornment={
                             <InputAdornment position="end">
-                                {errors[name] && (
+                                {(errors[name] || (!isPasswordValid && touched)) && (
                                     <ErrorIcon style={{ color: 'red' }} />
                                 )}
-                                
                                 <IconButton
                                     aria-label="toggle password visibility"
                                     onClick={handleClickShowPassword}
@@ -39,10 +44,10 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
                                     edge="end"
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>                            
+                                </IconButton>
                             </InputAdornment>
                         }
-                        label={label}                      
+                        label={label}
                     />
                     <FormHelperText>{errors[name]?.message}</FormHelperText>
                 </FormControl>

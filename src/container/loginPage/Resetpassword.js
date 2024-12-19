@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,9 +15,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const dispatch = useDispatch();
-
+    const [inputColors, setInputColors] = useState({});
     const formOptions = { resolver: yupResolver(resetValidationSchema) };
-    const { register, handleSubmit, formState: { errors, isSubmitting ,isValid} } = useForm(formOptions);
+    const { register, handleSubmit,trigger, formState: { errors, isSubmitting ,isValid} } = useForm(formOptions);
 
     const onSubmit = async ({ email }) => {
         try {
@@ -31,6 +31,18 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
         } catch (error) {
             dispatch(alertActions.error(error));
         }
+    };
+
+    const handleBlur = async (e) => {
+        const fieldName = e.target.name;
+        await trigger(fieldName); // Trigger validation for the field
+
+        const fieldError = errors[fieldName];
+
+        setInputColors(prevColors => ({
+            ...prevColors,
+            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        }));
     };
 
     return (
@@ -60,6 +72,7 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                                 {...register('email')}
                                 error={!!errors.email}
                                 helperText={errors.email?.message}
+                                onBlur={handleBlur}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">

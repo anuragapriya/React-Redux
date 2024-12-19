@@ -27,8 +27,6 @@ const Notification = () => {
 
     return (
         <>
-        <Stack sx={{ width: '100%' }} spacing={2}>
-        <Alert severity={`${alert.type}`}>
          <TimerModal
                 alertType={alert.type}
                 timerCountdown={2340}
@@ -38,8 +36,6 @@ const Notification = () => {
                 btnSecondaryText={genericlabels.lblClose}
                 handleBtnSecondaryClick={handleClose}
             />
-      </Alert>
-      </Stack>
       </>
     );
 };
