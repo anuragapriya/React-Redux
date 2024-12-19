@@ -7,7 +7,7 @@ import OTPVerification from "_components/OTPVerification";
 import { labels } from '_utils/labels';
 import { Button, TextField, Link, Typography, Box, Modal, FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import {  ResetPassword } from "container/loginPage";
+import {  NewPassword, ResetPassword } from "container/loginPage";
 import Grid from "@material-ui/core/Grid";
 import { CustomFormControl, PasswordInput } from "_components";
 
@@ -35,8 +35,6 @@ export default function Login() {
     const handleClose = () => setModalState({ ...modalState, open: false });
     const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
-
-    const watchedValues = watch();
 
     const handleBlur = (e) => {
         const fieldName = e.target.name;
@@ -76,12 +74,12 @@ export default function Login() {
                             rules={{ required: 'Password is required' }}
                             errors={errors}
                             handleBlur={handleBlur}
-                            inputColors={inputColors}
+                            inputColors={inputColors}   
+                            isPasswordValid={true}
                         />
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
-                        </Link>
-                        
+                        </Link>                        
                         <Typography component="div" className="loginbuttonfixed">
                         <Button
                             type="submit"
@@ -107,6 +105,7 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
+            <NewPassword></NewPassword>
         </div>
     );
 }

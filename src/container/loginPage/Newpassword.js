@@ -12,13 +12,14 @@ import { passwordValidationSchema } from "_utils/validationSchema";
 import { resetSuccessLabels } from "_utils/labels";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {  labels } from "_utils/labels";
+import { labels } from "_utils/labels";
 
 const NewPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const [inputColors, setInputColors] = useState({});
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
     resolver: yupResolver(passwordValidationSchema),
@@ -29,10 +30,17 @@ const NewPassword = () => {
     const fieldName = e.target.name;
     const fieldError = errors[fieldName];
 
-    setInputColors(prevColors => ({
-      ...prevColors,
-      [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-    }));
+    if (fieldName === 'password') {
+      setInputColors(prevColors => ({
+        ...prevColors,
+        [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
+      }));
+    } else {
+      setInputColors(prevColors => ({
+        ...prevColors,
+        [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+      }));
+    }
 
     trigger(fieldName); // Trigger validation for the field
   };
@@ -52,6 +60,10 @@ const NewPassword = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handlePasswordValidation = (isValid) => {
+    setIsPasswordValid(isValid);
   };
 
   return (
@@ -77,7 +89,7 @@ const NewPassword = () => {
               </Typography>
 
             </Grid>
-            <form  onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
+            <form onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
               <PasswordInput
                 control={control}
                 name="password"
@@ -86,8 +98,9 @@ const NewPassword = () => {
                 errors={errors}
                 handleBlur={handleBlur}
                 inputColors={inputColors}
+                isPasswordValid={isPasswordValid}
               />
-              <PasswordCheck password={password} confirmPassword='' />
+              <PasswordCheck password={password} onValidationChange={handlePasswordValidation} />
               <Box>
                 <Button
                   type="submit"
