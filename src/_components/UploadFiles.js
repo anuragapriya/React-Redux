@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import axios from 'axios';
-import Blob from 'blob';
-import FormData from 'form-data';
 import { Button, Typography } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
 import { styled } from '@mui/material/styles';
@@ -13,9 +10,13 @@ import { DeleteForever, Download } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { alertActions } from "_store";
 import images from '../images';
-import { documentTypeData } from "_utils/constant";
+import base64ToFile from "_utils/files/base64ToFile";
+import { convertToBase64 } from '_utils';
+import { uploadLabels } from "_utils/labels";
+import ModalPopup from "./ModalPopup";
 
 const UploadFiles = ({
+    portalKey,
     selectedDocumentType,
     multiple = true,
     documentTypes,
@@ -28,6 +29,8 @@ const UploadFiles = ({
 }) => {
 
     const [files, setFiles] = useState(initialFiles);
+    const [open, setOpen] = useState(false);
+    const [fileToRemove, setFileToRemove] = useState(null);
     const dispatch = useDispatch();
     const idCounter = useRef(1);
 
@@ -39,7 +42,7 @@ const UploadFiles = ({
         dispatch(alertActions.error(error.message));
     };
 
-    const handleChange = (event) => {
+    const handleChange = async (event) => {
         event.preventDefault();
         let filesAdded = event.dataTransfer ? event.dataTransfer.files : event.target.files;
 
@@ -63,18 +66,6 @@ const UploadFiles = ({
 
             file.extension = fileExtension(file);
             file.sizeReadable = fileSizeReadable(file.size);
-
-            if (file.type && file.type.split('/')[0] === 'image') {
-                file.preview = {
-                    type: 'image',
-                    url: window.URL.createObjectURL(file),
-                };
-            } else {
-                file.preview = {
-                    type: 'file',
-                    url: window.URL.createObjectURL(file),
-                };
-            }
 
             if (file.size > maxFileSize) {
                 handleError({
@@ -100,13 +91,32 @@ const UploadFiles = ({
                 break;
             }
 
-            fileResults.push(file);
+            const base64 = await convertToBase64(file);
+            const fileData = {
+                ID: null, // This will be updated if replacing an existing file
+                DocumentTypeID: file.DocumentTypeID,
+                FileName: file.name,
+                Format: file.extension,
+                Size: file.size,
+                Portalkey: portalKey, // Replace with actual portal key if needed
+                File: base64
+            };
+
+            fileResults.push(fileData);
         }
 
         setFiles(prevFiles => {
-            const updatedFiles = prevFiles.filter(prevFile => prevFile.DocumentTypeID !== selectedDocumentType);
-            const newFiles = [...updatedFiles, ...fileResults];
-            onFileChange(newFiles); // Notify parent component of file changes
+            const updatedFiles = prevFiles.map(prevFile => {
+                const newFile = fileResults.find(newFile => newFile.DocumentTypeID === prevFile.DocumentTypeID);
+                return newFile ? { ...newFile, ID: prevFile.ID } : prevFile;
+            });
+
+            const newUniqueFiles = fileResults.filter(newFile => 
+                !prevFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
+            );
+
+            const newFiles = [...updatedFiles, ...newUniqueFiles];
+            onFileChange(newFiles); 
             return newFiles;
         });
     };
@@ -117,6 +127,12 @@ const UploadFiles = ({
             onFileChange(updatedFiles); // Notify parent component of file changes
             return updatedFiles;
         });
+        setOpen(false);
+    };
+
+    const handleDialogOpen = (documentTypeId) => {
+        setFileToRemove(documentTypeId);
+        setOpen(true);
     };
 
     const VisuallyHiddenInput = styled('input')({
@@ -142,6 +158,10 @@ const UploadFiles = ({
         window.open(fileUrl, '_blank');
     };
 
+    const handleDownload = (base64String, fileName) => {
+        base64ToFile(base64String, fileName);
+    };
+
     return (
         <Typography component="div" className="UploadContainer">
             <Grid container spacing={3}>
@@ -158,7 +178,6 @@ const UploadFiles = ({
                         <VisuallyHiddenInput
                             type="file"
                             onChange={handleChange}
-                            multiple
                         />
                     </Button>
                     <Typography component="div" className="SupportedFormats">
@@ -171,22 +190,22 @@ const UploadFiles = ({
                         <Typography component="h3">Uploaded Documents</Typography>
                         <Typography component="div" className="fileformat">
                             {documentTypes && documentTypes.map(type => {
-                                const uploadedDocument = files.filter(x => x.DocumentTypeID === type.DocumentType);
+                                const uploadedDocument = files.filter(x => x.DocumentTypeID === type.DocumentTypeID);
                                 if (uploadedDocument && uploadedDocument.length > 0) {
                                     return (
-                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentType}>
+                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentTypeID}>
                                             <span>{type.DocumentDescription}</span>
-                                            <IconButton onClick={() => handleOpen(uploadedDocument[0].preview.url)}>
+                                            <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
                                                 <Download variant="contained" color="secondary" />
                                             </IconButton>
-                                            <IconButton onClick={() => handleFileRemove(type.DocumentType)}>
+                                            <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
                                                 <DeleteForever variant="contained" color="secondary" />
                                             </IconButton>
                                         </div>
                                     );
                                 } else {
                                     return (
-                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentType}>
+                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentTypeID}>
                                             <span>{type.DocumentDescription}</span>
                                         </div>
                                     );
@@ -196,6 +215,13 @@ const UploadFiles = ({
                     </Typography>
                 </Grid>
             </Grid>
+            {open && <ModalPopup
+                    header={uploadLabels.header}
+                    message1={uploadLabels.message1}
+                    btnPrimaryText={uploadLabels.btnPrimaryText}
+                    btnSecondaryText={uploadLabels.btnSecondaryText}
+                    handlePrimaryClick={()=>handleFileRemove(fileToRemove)}
+                />}
         </Typography>
     );
 };

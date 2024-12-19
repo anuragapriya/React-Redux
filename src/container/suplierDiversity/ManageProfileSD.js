@@ -22,7 +22,7 @@ const ManageProfileSD = () => {
     const [files, setFiles] = useState([]);
     const documentData = supplierDocumentTypeData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentType
+        value: x.DocumentTypeID
     }));
 
     const { register, handleSubmit, control, reset, formState: { errors, isSubmitting,isValid }, watch, trigger } = useForm({
@@ -60,16 +60,16 @@ const ManageProfileSD = () => {
     // const handleOnChange = (event,newvalue) => {
     //     setSelectedDocumentType(newvalue.value);
     // };
-    const handleBlur = (e) => {
+    const handleBlur = async (e) => {
         const fieldName = e.target.name;
+        await trigger(fieldName); // Trigger validation for the field
+    
         const fieldError = errors[fieldName];
-
+    
         setInputColors(prevColors => ({
             ...prevColors,
             [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
         }));
-
-        trigger(fieldName); // Trigger validation for the field
     };
 
 

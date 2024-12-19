@@ -5,7 +5,7 @@ import { CustomFormControl } from '_components';
 const AdditionalDetails = ({ register, errors, control, trigger, inputColors, handleBlur }) => {
     return <>
         <CustomFormControl
-            id="fullName"
+            id="FullName"
             label="Full Name"
             type="text"
             register={register}
