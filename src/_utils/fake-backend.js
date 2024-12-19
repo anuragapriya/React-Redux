@@ -222,25 +222,25 @@ const fakeBackend = () => {
             }
 
             function getMapCenterUser() {
-                let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
-                return ok(mapCenterUser);
+                try {
+                    let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
+                    return ok(mapCenterUser);
+                }
+                catch (error) {
+                    return error('Failed to get map center user');
+                }
             }
 
             function updateMapCenterUser() {
                 try {
                     const mapCenterData = body();
-                    const mapCenterUser= mapCenterData.Data;
+                    const mapCenterUser = mapCenterData.Data;
                     let mapCenterUserData = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;
 
-                    // Create a new object with updated data
-                    let newData = { ...mapCenterUserData };
+                    // Create a deep copy of the object to avoid modifying read-only properties
+                    let newData = JSON.parse(JSON.stringify(mapCenterData));
 
-                    // Append FileData if it exists
-                    if (mapCenterUser.FileData) {
-                        newData.FileData = [...(mapCenterUserData.FileData || []), ...mapCenterUser.FileData];
-                    }
-
-                    newData.DocumentData = [...mapCenterUserData.Data.DocumentData];
+                    newData.Data.DocumentData = [...mapCenterUserData.Data.DocumentData];
 
                     // Save the updated data back to localStorage
                     localStorage.setItem(mapCenterUserKey, JSON.stringify(newData));

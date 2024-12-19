@@ -10,11 +10,13 @@ import { CompanyDetails, AdditionalDetails } from "container/user";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UploadFiles } from '_components';
 import { supportedFormat } from '_utils/constant';
+import UnderConstruction from '_components/UnderConstruction';
 
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { portalkey, id } = useParams();
+    const header ='Map Center';
     const user = useSelector(x => x.mapcenter?.userData);
     const [inputColors, setInputColors] = useState({});
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
@@ -34,9 +36,10 @@ const ManageProfileMC = () => {
     });
 
     useEffect(() => {
-        dispatch(mapCenterAction.clear());
-        if (id) {
-            dispatch(mapCenterAction.get({ id: id, portal: portalkey })).unwrap().then(user => {
+        const fetchData = async () => {
+            try {
+                dispatch(mapCenterAction.clear());
+                const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
                 console.log(data);
@@ -52,13 +55,16 @@ const ManageProfileMC = () => {
                         File: file.File
                     })));
                 }
-            });
-        } else {
-            console.log('Resetting form with initial user data:', user); // Debugging line
-            reset(user?.Data); // Reset form state when adding a new user
-            applyInitialColors(user);
-        }
-    }, [id, dispatch, reset]);
+            } catch (error) {
+                dispatch(alertActions.error({
+                    message: error,
+                    header: header
+                }));
+                reset(user);
+            }
+        };
+        fetchData();
+    }, [id, dispatch, reset, portalkey]);
 
     const applyInitialColors = (user) => {
         const colors = {};
@@ -78,49 +84,55 @@ const ManageProfileMC = () => {
                 !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
             );
 
-            // if (missingDocumentTypes.length > 0) {
-            //     const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
-            //     dispatch(alertActions.error({
-            //         message: `Missing files for document types: ${missingDescriptions}`,
-            //         header: "Validation Error"
-            //     }));
-            //     return;
-            // }
+            if (missingDocumentTypes.length > 0) {
+                const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
+                dispatch(alertActions.error({
+                    message: `Missing files for document types: ${missingDescriptions}`,
+                    header: header
+                }));
+                return;
+            }
 
             const transformedData = {
-                        UserID: id,
-                        FullName: data.FullName,
-                        AlternateEmail: user.AlternateEmail,
-                        DLState: data.DLState,
-                        DLNumber: data.DLNumber,
-                        HomeStreetAddress1: data.HomeStreetAddress1,
-                        HomeStreetAddress2: data.HomeStreetAddress2 || '',
-                        HomeCity: data.HomeCity,
-                        HomeState: data.HomeState,
-                        HomeZipCode: data.HomeZipCode,
-                        CompanyName: data.CompanyName,
-                        TaxIdentificationNumber: data.TaxIdentificationNumber,
-                        CompanyStreetAddress1: data.CompanyStreetAddress1,
-                        CompanyStreetAddress2: data.CompanyStreetAddress2 || '',
-                        CompanyCity: data.CompanyCity,
-                        CompanyState: data.CompanyState,
-                        CompanyZipCode: data.CompanyZipCode,
-                        CompanyContactName: data.CompanyContactName,
-                        CompanyContactTelephone: data.CompanyContactTelephone,
-                        CompanyContactEmailAddress: data.CompanyContactEmailAddress,
-                        AuthorizedWGLContact: data.AuthorizedWGLContact,
-                        AdditionalID: user?.AdditionalID || null,
-                        FileData: files
+                UserID: id,
+                FullName: data.FullName,
+                AlternateEmail: user.AlternateEmail,
+                DLState: data.DLState,
+                DLNumber: data.DLNumber,
+                HomeStreetAddress1: data.HomeStreetAddress1,
+                HomeStreetAddress2: data.HomeStreetAddress2 || '',
+                HomeCity: data.HomeCity,
+                HomeState: data.HomeState,
+                HomeZipCode: data.HomeZipCode,
+                CompanyName: data.CompanyName,
+                TaxIdentificationNumber: data.TaxIdentificationNumber,
+                CompanyStreetAddress1: data.CompanyStreetAddress1,
+                CompanyStreetAddress2: data.CompanyStreetAddress2 || '',
+                CompanyCity: data.CompanyCity,
+                CompanyState: data.CompanyState,
+                CompanyZipCode: data.CompanyZipCode,
+                CompanyContactName: data.CompanyContactName,
+                CompanyContactTelephone: data.CompanyContactTelephone,
+                CompanyContactEmailAddress: data.CompanyContactEmailAddress,
+                AuthorizedWGLContact: data.AuthorizedWGLContact,
+                AdditionalID: user?.AdditionalID || null,
+                FileData: files
             };
 
-         const a=   dispatch(mapCenterAction.update({id,Data:transformedData}));
-         console.log(a);
-           // dispatch(alertActions.success('Form submitted successfully!'));
-           // navigate('/');
+            const result = await dispatch(mapCenterAction.update({ id, Data: transformedData }));
+            console.log(result);
+            if (result?.error) {
+                dispatch(alertActions.error({ message: result?.error.message, header: header }));
+                return;
+            }
+            navigate('/');
+            dispatch(alertActions.success({ message: 'Form submitted successfully!', header: header, showAfterRedirect: true }));
+
         } catch (error) {
-            dispatch(alertActions.error({ message: error.message, header: "Submission Failed" }));
+            dispatch(alertActions.error({ message: error.message, header: header }));
         }
     };
+
 
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
@@ -144,10 +156,11 @@ const ManageProfileMC = () => {
 
     return (
         <>
-         {!(user?.loading || user?.error) && (    <Typography component="div" className="MapCenterAccecss">
-                    <Typography component="div" className="MapCenterAccecssheading">
-                        <Typography component="h1" variant="h5">Map Center Access</Typography>
-                    </Typography>
+            <Typography component="div" className="MapCenterAccecss">
+                <Typography component="div" className="MapCenterAccecssheading">
+                    <Typography component="h1" variant="h5">Map Center Access</Typography>
+                </Typography>
+                {!(user?.loading || user?.error) && (
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography className="Personal-Information-container" component="div">
                             <Grid container spacing={3}>
@@ -207,8 +220,9 @@ const ManageProfileMC = () => {
                             </Button>
                         </Grid>
                     </form>
-                </Typography>
-         )}
+                )}
+                {user?.error && <UnderConstruction />}
+            </Typography>
         </>
     );
 };
