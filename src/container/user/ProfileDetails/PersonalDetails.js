@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { portalList } from '_utils/tempData';
 import {PasswordCheck,CustomFormControl,MobileNumberInput,PasswordInput,AutocompleteInput} from '_components';
+import { Typography } from '@mui/material';
 
 const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
@@ -71,6 +72,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 handleFocus={handleOtherFocus}
                 inputColors={inputColors}
             />
+            <Typography component="div" className='passwordcheck'>
              <PasswordInput
                 control={control}
                 name="password"
@@ -82,6 +84,7 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 inputColors={inputColors}
             />
             {showPasswordCheck && isPasswordFocused && <PasswordCheck password={password} confirmPassword='' />}
+            </Typography>
             <AutocompleteInput
                 control={control}
                 name="selectPortal"

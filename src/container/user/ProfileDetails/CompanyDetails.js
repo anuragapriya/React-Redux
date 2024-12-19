@@ -41,8 +41,8 @@ const CompanyDetails = ({ register, errors, control, trigger, inputColors, handl
             handleBlur={handleBlur}
             inputColors={inputColors}
         />
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+        <Grid container spacing={3} >
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
                 <CustomFormControl
                     id="CompanyState"
                     label="State"
@@ -53,7 +53,7 @@ const CompanyDetails = ({ register, errors, control, trigger, inputColors, handl
                     inputColors={inputColors}
                 />
                 </Grid>
-                <Grid item xs={12} sm={5} md={6} className="Personal-Information">
+                <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
                 <CustomFormControl
                     id="CompanyZipCode"
                     label="Zip Code"
@@ -64,7 +64,7 @@ const CompanyDetails = ({ register, errors, control, trigger, inputColors, handl
                     inputColors={inputColors}
                 />
             </Grid>  
-            <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
+           
         </Grid>
     </>
 };

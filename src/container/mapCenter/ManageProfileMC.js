@@ -6,13 +6,12 @@ import { Typography, Button } from '@mui/material';
 import { alertActions, userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, uploadValidationSchema } from "_utils/validationSchema";
-import { CompanyDetails,AdditionalDetails } from "container/user";
+import { CompanyDetails,AdditionalDetails ,CompanyPOC } from "container/user";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UploadFiles } from '_components';
 import { documentTypeData, supportedFormat } from '_utils/constant';
 import { convertToBase64 } from '_utils';
 import axios from 'axios';
-
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -200,6 +199,9 @@ const ManageProfileMC = () => {
                                             onFileChange={handleFileChange}
                                         />
                                     </Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={8}>
+                                <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
                                 </Grid>
                             </Grid>
                         </Grid>

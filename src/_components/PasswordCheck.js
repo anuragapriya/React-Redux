@@ -58,21 +58,7 @@ const PasswordCheck = ({ password, confirmPassword }) => {
                     <input type="checkbox" checked={validations.special} color="success"></input>
                     <span class="checkmark"></span>Symbols (!@#$%^&*?/\|"':;+)
                 </label></li>
-                {/* <li style={{ color: validations.uppercase ? 'green' : 'red' }}>
-                    <Checkbox {...label} checked={validations.uppercase} color="success" /> 
-                </li> */}
-                {/* <li style={{ color: validations.lowercase ? 'green' : 'red' }}>
-                    <Checkbox {...label} checked={validations.lowercase} color="success" /> Lower case letters (a-z)
-                </li> */}
-                {/* <li style={{ color: validations.number ? 'green' : 'red' }}>
-                    <Checkbox {...label} checked={validations.number} color="success" /> Numbers (0-9)
-                </li>
-                <li style={{ color: validations.special ? 'green' : 'red' }}>
-                    <Checkbox {...label} checked={validations.special} color="success" />Symbols (!@#$%^&*?/\|"':;+)
-                </li> */}
-                {/* <li style={{ color: validations.match ? 'green' : 'red' }}>
-                    Passwords match.
-                </li> */}
+              
             </ul>
 
         </div>
