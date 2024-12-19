@@ -222,10 +222,9 @@ const fakeBackend = () => {
             }
 
             function getMapCenterUser() {
-                try {
-                    return error('Failed to get map center user');
-                    // let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
-                    // return ok(mapCenterUser);
+                try {                   
+                    let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
+                    return ok(mapCenterUser);
                 }
                 catch (error) {
                     return error('Failed to get map center user');

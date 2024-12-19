@@ -1,32 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portalList } from '_utils/tempData';
-import {PasswordCheck,CustomFormControl,MobileNumberInput,PasswordInput,AutocompleteInput} from '_components';
+import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
 
-const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
+const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-    const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-    const password = watch('password','');
+    const password = watch('password', '');
+
+    useEffect(() => {
+        if (errors.password) {
+            setShowPasswordCheck(true);
+        }
+    }, [errors.password]);
 
     const handlePasswordFocus = () => {
-        setShowPasswordCheck(true);
-        setIsPasswordFocused(true);
-    };
-
-    const handleOtherFocus = () => {
-        setIsPasswordFocused(false);
+        if (!isPasswordValid) {
+            setShowPasswordCheck(true);
+        }
     };
 
     const handleBlur = (e) => {
         const fieldName = e.target.name;
         const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
-
+        if (fieldName === 'password') {
+            setInputColors(prevColors => ({
+                ...prevColors,
+                [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
+            }));
+            if (isPasswordValid && !fieldError) {
+                setShowPasswordCheck(false);
+            }
+        } else {
+            setInputColors(prevColors => ({
+                ...prevColors,
+                [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+            }));
+        }
         trigger(fieldName); // Trigger validation for the field
+    };
+
+    const handlePasswordValidation = (isValid) => {
+        setIsPasswordValid(isValid);
+        if (isValid) {
+            setShowPasswordCheck(false);
+        }
     };
 
     return (
@@ -38,7 +56,6 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                handleFocus={handleOtherFocus}
                 inputColors={inputColors}
             />
             <CustomFormControl
@@ -48,7 +65,6 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                handleFocus={handleOtherFocus}
                 inputColors={inputColors}
             />
             <CustomFormControl
@@ -58,20 +74,18 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                handleFocus={handleOtherFocus}
                 inputColors={inputColors}
-            />           
-           <MobileNumberInput
+            />
+            <MobileNumberInput
                 control={control}
                 name="mobileNumber"
                 label="Phone Number"
                 rules={{ required: 'Phone Number is required' }}
                 errors={errors}
                 handleBlur={handleBlur}
-                handleFocus={handleOtherFocus}
                 inputColors={inputColors}
             />
-             <PasswordInput
+            <PasswordInput
                 control={control}
                 name="password"
                 label="Password"
@@ -80,8 +94,11 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 handleBlur={handleBlur}
                 handleFocus={handlePasswordFocus}
                 inputColors={inputColors}
+                isPasswordValid={isPasswordValid}
             />
-            {showPasswordCheck && isPasswordFocused && <PasswordCheck password={password} confirmPassword='' />}
+            {showPasswordCheck && (
+                <PasswordCheck password={password} onValidationChange={handlePasswordValidation} />
+            )}
             <AutocompleteInput
                 control={control}
                 name="selectPortal"
@@ -90,7 +107,6 @@ const PersonalDetails = ({ register, errors, watch, control, trigger }) => {
                 error={!!errors.selectPortal}
                 helperText={errors.selectPortal?.message}
                 handleBlur={handleBlur}
-                onFocus={handleOtherFocus}
                 inputColor={inputColors['selectPortal']}
             />
         </>
