@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,10 +14,11 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const registrationStatus = useSelector(x => x.registration?.status);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
 
     const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
         resolver: yupResolver(registerValidationSchema),
-        mode:'onChange'
+        mode: 'onChange'
     });
 
     const onSubmit = async (data) => {
@@ -37,14 +38,28 @@ const Register = () => {
     };
 
     return (
-        <>
-            <Typography component="div" className="Registrationcontainerlist">
-                    <Typography component="h1" variant="h5" className="Logincontent">Registration</Typography>
-                    <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
-                        <PersonalDetails register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
-                         <Typography component="div" className="loginbuttonfixed">
-                        <Button type="submit" fullWidth variant="contained" className='Loginbutton' color="primary" disabled={!isValid}>
-                            Register
+        <Typography component="div" className="Registrationcontainerlist">
+            <Typography component="h1" variant="h5" className="Logincontent">Registration</Typography>
+            <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
+                <PersonalDetails
+                isPasswordValid={isPasswordValid}
+                    register={register}
+                    errors={errors}
+                    watch={watch}
+                    control={control}
+                    trigger={trigger}
+                    setIsPasswordValid={setIsPasswordValid}
+                />
+                <Typography component="div" className="loginbuttonfixed">
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        className='Loginbutton'
+                        color="primary"
+                        disabled={!isValid || !isPasswordValid}
+                    >
+                        Register
                     </Button>
                     <Grid container>
                         <Grid item className="accountSignup">
@@ -54,10 +69,9 @@ const Register = () => {
                             </Link>
                         </Grid>
                     </Grid>
-                    </Typography>
-                </form>
-            </Typography>
-        </>
+                </Typography>
+            </form>
+        </Typography>
     );
 };
 

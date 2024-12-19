@@ -52,3 +52,10 @@ export const resetSuccessLabels={
     message1:"You Successfully reset your Password!",
     btnSecondaryText:"Close",
 }
+
+export const uploadLabels={
+    header:"Upload",
+    message1:"Are you sure you want to delete the file?",
+    btnSecondaryText:"No",
+    btnPrimaryText:"Yes"
+}
