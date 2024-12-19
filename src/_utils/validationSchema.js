@@ -146,9 +146,9 @@ export const SupplierDetailsSchema = Yup.object().shape({
     state: Yup.string()
         .nullable()
         .required('State is required'),
-    country: Yup.string()
+    city: Yup.string()
         .nullable()
-        .required('Country is Required'),
+        .required('City is Required'),
     zipcode: Yup.string()
         .required('Zip code is required'),
 })
