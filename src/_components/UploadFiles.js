@@ -12,6 +12,8 @@ import { alertActions } from "_store";
 import images from '../images';
 import base64ToFile from "_utils/files/base64ToFile";
 import { convertToBase64 } from '_utils';
+import { uploadLabels } from "_utils/labels";
+import ModalPopup from "./ModalPopup";
 
 const UploadFiles = ({
     portalKey,
@@ -27,6 +29,8 @@ const UploadFiles = ({
 }) => {
 
     const [files, setFiles] = useState(initialFiles);
+    const [open, setOpen] = useState(false);
+    const [fileToRemove, setFileToRemove] = useState(null);
     const dispatch = useDispatch();
     const idCounter = useRef(1);
 
@@ -123,6 +127,12 @@ const UploadFiles = ({
             onFileChange(updatedFiles); // Notify parent component of file changes
             return updatedFiles;
         });
+        setOpen(false);
+    };
+
+    const handleDialogOpen = (documentTypeId) => {
+        setFileToRemove(documentTypeId);
+        setOpen(true);
     };
 
     const VisuallyHiddenInput = styled('input')({
@@ -188,7 +198,7 @@ const UploadFiles = ({
                                             <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
                                                 <Download variant="contained" color="secondary" />
                                             </IconButton>
-                                            <IconButton onClick={() => handleFileRemove(type.DocumentTypeID)}>
+                                            <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
                                                 <DeleteForever variant="contained" color="secondary" />
                                             </IconButton>
                                         </div>
@@ -205,6 +215,13 @@ const UploadFiles = ({
                     </Typography>
                 </Grid>
             </Grid>
+            {open && <ModalPopup
+                    header={uploadLabels.header}
+                    message1={uploadLabels.message1}
+                    btnPrimaryText={uploadLabels.btnPrimaryText}
+                    btnSecondaryText={uploadLabels.btnSecondaryText}
+                    handlePrimaryClick={()=>handleFileRemove(fileToRemove)}
+                />}
         </Typography>
     );
 };

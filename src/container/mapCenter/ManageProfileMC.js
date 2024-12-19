@@ -16,7 +16,7 @@ const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { portalkey, id } = useParams();
-    const header ='Map Center';
+    const header = 'Map Center';
     const user = useSelector(x => x.mapcenter?.userData);
     const [inputColors, setInputColors] = useState({});
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
@@ -156,11 +156,11 @@ const ManageProfileMC = () => {
 
     return (
         <>
-            <Typography component="div" className="MapCenterAccecss">
-                <Typography component="div" className="MapCenterAccecssheading">
-                    <Typography component="h1" variant="h5">Map Center Access</Typography>
-                </Typography>
-                {!(user?.loading || user?.error) && (
+            {!(user?.loading || user?.error) && (
+                <Typography component="div" className="MapCenterAccecss">
+                    <Typography component="div" className="MapCenterAccecssheading">
+                        <Typography component="h1" variant="h5">Map Center Access</Typography>
+                    </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography className="Personal-Information-container" component="div">
                             <Grid container spacing={3}>
@@ -220,9 +220,9 @@ const ManageProfileMC = () => {
                             </Button>
                         </Grid>
                     </form>
-                )}
-                {user?.error && <UnderConstruction />}
-            </Typography>
+                </Typography>
+            )}
+            {user?.error && <UnderConstruction />}
         </>
     );
 };
