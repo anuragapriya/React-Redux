@@ -1,7 +1,8 @@
 @font-face {
-    font-family: 'ITC Avant Garde Std Md';
-    src: url('../assets/fontfamily/ITCAvantGardeStd-Bold.ttf');
+    font-family: 'ITC Avant Garde Gothic Std Md';
+    src: url('../assets/fontfamily/ITC-Avant-Garde-Gothic-Std-Bold.otf');
 }
+
 
 @font-face {
     font-family: 'Proxima Nova Rg';
@@ -11,6 +12,10 @@
     font-family: 'Roboto Light';
     src: url('../assets/fontfamily/Roboto-Light.ttf');
 }
+/* @font-face {
+    font-family: 'ITC Avant Garde Std Md';
+    src: url('../assets/fontfamily/ITCAvantGardeStd-Bold.ttf');
+} */
 
 
 .ul {
@@ -160,7 +165,7 @@ body {
 
 .MuiTypography-h5.Logincontent {
     color: var(--WG-Blue-900, #0A3B70);
-    font-family: "ITC Avant Garde Std Md";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
@@ -205,6 +210,7 @@ body {
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
     color: var(--Gray-700, #4D4C52);
+    text-decoration: none;
 
 
 }
@@ -236,7 +242,7 @@ body {
     background: var(--WG-Blue-900, #0A3B70);
     color: var(--White, #FFF);
     text-align: center;
-    font-family: "ITC Avant Garde Std Md";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -251,15 +257,67 @@ body {
     top: 0px;
 }
 
-.login-container .MuiOutlinedInput-root {
+.login-container .MuiOutlinedInput-root  .MuiOutlinedInput-input {
     border-radius: 4px;
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
 }
 
+.MuiFormLabel-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border: 2px solid #1F5FAC;
+
+}
+.wglcontainer .MuiOutlinedInput-notchedOutline {
+    border: 1px solid var(--WG-Blue-100, #DFEDFF)
+}
+
+.login-container .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
+    border: 2px solid var(--WG-Blue-100, #1976d2);
+    border-radius: 4px;
+}
+.login-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input  {
+    border: 2px solid var(--WG-Blue-100, #1976d2);
+}
+.login-container .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input  {
+   
+    border: 0px solid var(--WG-Blue-100, #DFEDFF); 
+    background: var(--White, #FFF);
+     box-shadow: 0px 0px 0px 0px rgba(0, 89, 179, 0.25); 
+}
+.Registrationcontainer .MuiFormControl-fullWidth  {
+    margin: 0px 0px 16px;
+    background-color: #fff;
+}
+.MuiFormControl-fullWidth{
+    background-color: #fff;
+}
+ 
+.login-container .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
+    border-radius: 0px;
+    border: 0px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 0px 0px 0px rgba(0, 89, 179, 0.25);
+}
+.login-container .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
+    border-radius: 0px;
+    border: 0px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 0px 0px 0px rgba(0, 89, 179, 0.25);
+}
+
+
+/* .login-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input:hover {
+    border: 0px solid var(--WG-Blue-100, #1976d2);
+} */
+.login-container .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input:hover {
+    border: 0px solid var(--WG-Blue-100, #1976d2);
+}
 .wglcontainer .css-qxc2i0-MuiButtonBase-root-MuiButton-root.Mui-disabled {
     color: var(--White, #FFF);
+}
+.login-container .MuiOutlinedInput-root.Mui-focused.Mui-error .MuiOutlinedInput-input{
+    border: 0px solid var(--WG-Blue-100, #1976d2);
 }
 
 
@@ -311,18 +369,13 @@ body {
 .MuiFormLabel-root.Mui-focused {
     background-color: #FFF;
     z-index: 9999;
-    top: -5px;
-    padding: 4px;
+    top: 0px;
+    padding:0px 10px;
 }
 
-.wglcontainer .MuiFormLabel-root.Mui-focused {
-    background-color: transparent;
-}
 
-.MuiFormLabel-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border: 2px solid #1F5FAC;
 
-}
+
 
 .wglcontainer .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root {
     font-family: "Proxima Nova Rg";
@@ -336,23 +389,7 @@ body {
     color: var(--Gray-500, #71717A);
 }
 
-.wglcontainer .MuiOutlinedInput-notchedOutline {
-    border: 1px solid var(--WG-Blue-100, #DFEDFF)
-}
 
-.login-container .MuiOutlinedInput-root:hover {
-    border: 2px solid var(--WG-Blue-100, #1976d2);
-    border-radius: 4px;
-}
-
-.login-container .MuiOutlinedInput-root.Mui-focused:hover {
-    border: 2px solid var(--WG-Blue-100, #1976d2);
-}
-
-/* .login-container .MuiOutlinedInput-root.Mui-focused , */
-.login-container .MuiOutlinedInput-root.Mui-error:hover {
-    border: 0px solid var(--WG-Blue-100, #1976d2);
-}
 
 .wglcontainer .css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
 .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
@@ -577,9 +614,8 @@ input[type=number] {
     margin-bottom: 15px;
 }
 
-.Registrationcontainer .MuiFormControl-fullWidth {
-    margin: 0px 0px 16px;
-}
+
+
 
 .Registrationcontainerlist .Logincontent {
     margin: 12px 0px 24px;
@@ -595,6 +631,9 @@ input[type=number] {
     background: var(--White, #FFF);
     padding: 16px;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    /* position: absolute;
+    z-index: 9999;
+    width: -webkit-fill-available; */
 }
 
 .passwordselect p {
@@ -827,6 +866,7 @@ input[type=number] {
 .modalpopupcontenterror {
     margin-top: 15px;
     color: #ef4444;
+    margin-bottom: 20px;
 }
 
 .alertpopup {
@@ -931,17 +971,28 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
 .Documentsuplaod{
     margin: 16px 0px;
 }
-
-
-
-@media only screen and (max-width: 1200px) {
-    .container {
-        max-width: 100%;
-        margin: auto;
-        padding: 0px 20px;
-    }
+.mobile-block{
+    
+    display: none;
+}
+.mobile-none {
+    display: block;
 }
 
+.loginpagebanner .ration::before {
+    padding-top: 73%;
+}
+.passwordcheck{
+    position: relative;
+}
+
+
+@media only screen and (min-width: 1600px) {
+
+    .ration::before {
+        padding-top: 75%;
+    }
+}
 @media only screen and (min-width: 1400px) {
 
     .loginbuttonfixed {
@@ -953,14 +1004,13 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
     .wglcontainerblock {
         position: relative;
     }
-}
-
-@media only screen and (min-width: 1600px) {
-
-    .ration::before {
-        padding-top: 75%;
+    .loginpagebanner .ration::before {
+        padding-top: 73%;
     }
+   
+   
 }
+
 
 @media only screen and (min-width: 1200px) {
     .container {
@@ -971,14 +1021,110 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
     .ration::before {
         padding-top: 100%;
     }
+    .loginpagebanner .ration::before {
+        padding-top: 72%;
+    }
 
 }
 
+
+@media only screen and (max-width: 1200px) {
+    .form .Loginbutton.Loginbuttonheight {
+        margin-top: 30%;
+    }
+    .loginpagebanner .ration::before {
+        padding-top: 72%;
+    }
+    .container {
+        max-width: 100%;
+        margin: auto;
+        padding: 0px 20px;
+    }
+    .Registrationcontainer .Loginbutton {
+        margin-top: 6%;
+    }
+}
 @media only screen and (max-width: 1124px) {
     .pb-10 {
         padding: 5pc 30px 5pc 30px;
     }
+   
 }
+@media only screen and (max-width: 1024px) {
+.accountSignup div ,.accountSignup a{
+    font-size: 14px;
+}
+.MuiGrid-item.accountSignup{
+    margin-top: 5px;
+}
+.Registrationcontainerlist .Logincontent{
+    font-size: 22px;
+    margin: 12px 0px 12px;
+}
+.wglcontainer input{
+    padding:11.5px 14px ;
+}
+.wglcontainer .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root{
+    font-size: 14px;
+    top: -5px;
+}
+.MuiButton-containedPrimary.Loginbutton, .MuiButton-containedPrimary.Loginbutton:hover{
+    height: 40px;
+    font-size: 14px;
+    margin-top: 25%;
+}
+.checkmark {
+ 
+    top: 5px;
+
+    height: 15px;
+    width: 15px;
+  
+}
+
+.passwordselectli .checkmark:after {
+    left: 3px;
+    top: 1px;
+    width: 5px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+.passwordselectli{
+    padding-left: 25px;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+.passwordselect p{
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.Registrationcontainer .MuiFormControl-fullWidth {
+    margin: 0px 0px 8px;
+}
+.wglcontainer{
+    margin-top: 0px;
+}
+.wgllogo{
+    height: 45px;
+}
+.loginpagebanner {
+    display: none;
+}
+.wglcontainerblock.MuiGrid-grid-sm-5 {
+    max-width: 400px;
+    margin: auto;
+    flex-basis:400px;
+}
+.loginbuttonfixed.css-rizt0-MuiTypography-root{
+    position: absolute;
+    width: 375px;
+    bottom: auto;
+}
+
+}
+
 
 @media only screen and (max-width: 999px) {
     .pb-10 {
@@ -1008,21 +1154,21 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
 
     .mobile-block {
         display: block;
-        padding-bottom: 20px;
+       
     }
-    .loginbuttonfixed.css-rizt0-MuiTypography-root{
-        position: fixed;
-        width: -webkit-fill-available;
-        bottom: 7px;
-        margin-right: 20px;
-    }
+    
     .login-container{
         margin-bottom: 100px;
     }
     .width590{
         width: 100%;
+        padding: 0px 15px 15px;
     }
     .form .Loginbutton.Loginbuttonheight{
+        margin-top: 30%;
+    }
+   .Registrationcontainer .Loginbutton {
+    
         margin: 0px;
     }
     
@@ -1044,13 +1190,12 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
     }
 
   
-
-    /* .MuiTypography-root.mobilebanner {
-        background-color: #fff;
-        border-radius: 10px;
-        margin-top: 40px;
-        padding: 20px;
-    } */
+    .alertpopup {
+        display: block;
+    }
+    .alertTypeinner{
+        text-align: center;
+    }
 
 
     .list-type {
@@ -1060,17 +1205,89 @@ border: 1px solid var(--WG-Blue-100, #DFEDFF);
 
     .modalpopup {
         width: 90%;
-        padding: 20px;
+        padding: 15px;
     }
 
-    .MuiGrid-grid-sm-5.wglcontainerblock {
-        flex-grow: 0;
-        max-width: 100%;
-        flex-basis: 100%;
+
+   .wglcontainerblock.MuiGrid-grid-sm-5 {
+    max-width: 400px;
+    margin: auto;
+    flex-basis:400px;
+}
+    .headercontent, .Verifyemail .headercontent{
+        padding: 5px 0px;
+        font-size: 14px;
+    }
+    .modalpopupcontenterror ,.modalpopupcontent ,.forgotpassword h2 ,.passwordselect p ,.passwordselectli{
+        margin: 0px;
+        font-size: 14px;
+    }
+  
+    .alertpopup img {
+        width: 75px;
+    }
+    .modalpopupinner .closebutton, .Verifyemail .closebutton ,
+    .MuiButton-containedPrimary.Loginbutton,
+     .MuiButton-containedPrimary.Loginbutton:hover,
+     .forgotpasswordcontainer .buttonCancel, .closebutton ,.wgllogo{
+        height: 40px;
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+    .wglcontainer .loginheader, .loginheader{
+        height: 40px;
+        margin: 10px 0px;
+    }
+    .accountSignup div ,.MuiTypography-root.ResetPassword{
+        font-size: 14px;
+    }
+    .MuiGrid-item.accountSignup{
+        margin-top: 5px;
+    }
+    
+    .newpassword-list .css-16mfwdg-MuiFormControl-root{
+        margin-top: 0px;
+    }
+    .MapCenterAccecss .Personal-Information-container .CompanyDetails{
+        padding: 0px 12px;
+    }
+    .forgotpasswordcontainer .passwordselect{
+        margin-bottom: 5px;
+    }
+    .checkmark {
+ 
+        top: 5px;
+  
+        height: 15px;
+        width: 15px;
+      
+    }
+  
+    .passwordselectli .checkmark:after {
+        left: 3px;
+        top: 1px;
+        width: 5px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+    .forgotpasswordcontainer .passwordselect{
+        margin-bottom: 8px;
     }
 }
 
 @media only screen and (max-width: 420px) {
+    .wglcontainerblock.MuiGrid-grid-sm-5 {
+        max-width: 100%;
+        margin: auto;
+        flex-basis:100%;
+    }
+    .loginbuttonfixed.css-rizt0-MuiTypography-root{
+        
+        width: -webkit-fill-available;
+    
+    }
 
     .modalpopup{
         padding: 15px;

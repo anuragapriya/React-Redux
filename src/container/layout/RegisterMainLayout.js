@@ -23,7 +23,7 @@ const RegisterMainLayout = () => {
                 </div>
             </div>
         </Grid>
-        <Grid item xs={8} sm={7} md={8} className="mobile-none"  exact to={["/one", "/two"]}  activeClassName="one" id="Bannerimages">
+        <Grid item xs={8} sm={7} md={8} className="mobile-none"  >
             <div className="">
                 <div className="ration ration-1x1">    
               

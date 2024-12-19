@@ -6,7 +6,7 @@ import { Typography, Button } from '@mui/material';
 import { alertActions, mapCenterAction, userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, uploadValidationSchema } from "_utils/validationSchema";
-import { CompanyDetails, AdditionalDetails } from "container/user";
+import { CompanyDetails,AdditionalDetails ,CompanyPOC } from "container/user";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UploadFiles } from '_components';
 import { supportedFormat } from '_utils/constant';
@@ -211,6 +211,9 @@ const ManageProfileMC = () => {
                                             </Typography>
                                         </Grid>
                                     </Grid>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={8}>
+                                <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
                                 </Grid>
                             </Grid>
                         </Typography>
