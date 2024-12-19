@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import CardDetail from '_components/CardDetail';
 import Grid2 from '@mui/material/Grid2';
 import { useEffect } from 'react';
+import ManageProfileMC from '../mapCenter/ManageProfileMC'
+import ManageProfileSD from '../suplierDiversity/ManageProfileSD'
 
 const Home = () => {
   const authUser = useSelector(x => x.auth.value);
@@ -86,6 +88,8 @@ const Home = () => {
         </Grid2>
       )}
     </Grid2>
+    <ManageProfileMC/>
+    <ManageProfileSD/>
     </div>
   );
 }

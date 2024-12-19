@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { portalList } from '_utils/tempData';
-import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
+import {PasswordCheck,CustomFormControl,MobileNumberInput,PasswordInput,AutocompleteInput} from '_components';
+import { Typography } from '@mui/material';
 
 const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
     const [inputColors, setInputColors] = useState({});
@@ -85,7 +86,8 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 handleBlur={handleBlur}
                 inputColors={inputColors}
             />
-            <PasswordInput
+            <Typography component="div" className='passwordcheck'>
+             <PasswordInput
                 control={control}
                 name="password"
                 label="Password"
@@ -96,6 +98,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 inputColors={inputColors}
                 isPasswordValid={isPasswordValid}
             />
+             </Typography>
             {showPasswordCheck && (
                 <PasswordCheck password={password} onValidationChange={handlePasswordValidation} />
             )}
