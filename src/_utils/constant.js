@@ -709,6 +709,67 @@ export const supplierDocumentTypeData = [
   }
 ]
 
+export const supplierClassificationData = [
+  {
+    DocumentTypeID: "1",
+    DocumentType: "minorityOwnedBusiness",
+    DocumentDescription: "Minority-Owned Business"
+  },
+  {
+    DocumentTypeID: "2",
+    DocumentType: "womenOwnedBusiness",
+    DocumentDescription: "Women-Owned Business"
+  },
+  {
+    DocumentTypeID: "3",
+    DocumentType: "hubZone",
+    DocumentDescription: "Hub-Zone"
+  },
+  {
+    DocumentTypeID: "4",
+    DocumentType: "serviceDisabledVeteranBusiness",
+    DocumentDescription: "Service Disabled Veteran Business"
+  },
+  {
+    DocumentTypeID: "5",
+    DocumentType: "veteranOwnedBusiness",
+    DocumentDescription: "Veteran Owned Business"
+  },
+  {
+    DocumentTypeID: "6",
+    DocumentType: "notForProfitEntity",
+    DocumentDescription: "Not For Profit Entity"
+  }
+]
+
+export const supplierBusinessData = [
+  {
+    DocumentTypeID: "1",
+    DocumentType: "constructionSupportServices",
+    DocumentDescription: "Construction Support Services"
+  },
+  {
+    DocumentTypeID: "2",
+    DocumentType: "digitalIt",
+    DocumentDescription: "Digital/IT"
+  },
+  {
+    DocumentTypeID: "3",
+    DocumentType: "electrical",
+    DocumentDescription: "Electrical"
+  },
+  {
+    DocumentTypeID: "4",
+    DocumentType: "energyEfficiency",
+    DocumentDescription: "Energy Efficiency"
+  },
+  {
+    DocumentTypeID: "5",
+    DocumentType: "fuel",
+    DocumentDescription: "Fuel"
+  }
+]
+
 export const supportedFormat = ['.jpg', '.png', '.doc', '.docx', '.pdf']
 
 export const supplierSupportedFormat = ['.pdf', '.doc', '.docs', '.csv', '.xslx', '.xls', 'txt', '.bmp', '.jpg', '.gif']
