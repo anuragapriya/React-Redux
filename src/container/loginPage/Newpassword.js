@@ -87,7 +87,6 @@ const NewPassword = () => {
               <Typography component="p" variant="body1">
                 Enter your new password.
               </Typography>
-
             </Grid>
             <form onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
               <PasswordInput
@@ -100,7 +99,7 @@ const NewPassword = () => {
                 inputColors={inputColors}
                 isPasswordValid={isPasswordValid}
               />
-              <PasswordCheck password={password} onValidationChange={handlePasswordValidation} />
+              <PasswordCheck password={password} userName={''} onValidationChange={handlePasswordValidation} />
               <Box>
                 <Button
                   type="submit"

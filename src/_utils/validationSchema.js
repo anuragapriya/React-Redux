@@ -12,8 +12,7 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Email Address is required')
         .email('Email Address is invalid'),
     password: Yup.string()
-        .required('Password is required')
-        .min(8),
+        .required('Password is required'),
     selectPortal: Yup.number()
         .nullable()
         .required('Please select any Portal'),
@@ -21,8 +20,7 @@ export const registerValidationSchema = Yup.object().shape({
 
 export const passwordValidationSchema = Yup.object().shape({
     password: Yup.string()
-        .required('Password is required')
-        .min(8)
+        .required('Password is required'),
 });
 
 export const additionalDetailsValidationSchema = Yup.object().shape({
@@ -98,8 +96,7 @@ export const loginValidationSchema = Yup.object().shape({
         .required('Email is required')
         .email('Please provide a valid email address'),
     password: Yup.string()
-        .required('Password is required')
-        .min(8, '')
+        .required('Password is required'),
 });
 
 export const resetValidationSchema = Yup.object().shape({

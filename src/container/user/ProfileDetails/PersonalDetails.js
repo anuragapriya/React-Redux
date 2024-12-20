@@ -7,6 +7,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
     const password = watch('password', '');
+    const fullName = watch('fullName', '');
 
     useEffect(() => {
         if (errors.password) {
@@ -100,7 +101,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
             />
              </Typography>
             {showPasswordCheck && (
-                <PasswordCheck password={password} onValidationChange={handlePasswordValidation} />
+                <PasswordCheck password={password} userName={fullName} onValidationChange={handlePasswordValidation} />
             )}
             <AutocompleteInput
                 control={control}
