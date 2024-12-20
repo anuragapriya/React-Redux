@@ -88,8 +88,6 @@ const Home = () => {
         </Grid2>
       )}
     </Grid2>
-    <ManageProfileMC/>
-    <ManageProfileSD/>
     </div>
   );
 }
