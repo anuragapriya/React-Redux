@@ -329,7 +329,7 @@ export const portalData = [
 
 export const userRegistrationVerified = {
   "Data": {
-    "Id": 1001,
+    "Id": 70,
     "FirstName": "Ravi",
     "LastName": "Soni",
     "Email": "Ravi.Soni1@sutherlandglobal.com",

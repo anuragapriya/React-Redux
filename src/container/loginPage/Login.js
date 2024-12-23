@@ -67,6 +67,7 @@ export default function Login() {
                             handleBlur={handleBlur}
                             inputColors={inputColors}
                         />
+                        <Typography component="div" className="PasswordInput">
                         <PasswordInput
                             control={control}
                             name="password"
@@ -77,10 +78,12 @@ export default function Login() {
                             inputColors={inputColors}   
                             isPasswordValid={true}
                         />
+                        </Typography>
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
                         </Link>                        
                         <Typography component="div" className="loginbuttonfixed">
+                        <Typography component="div" className="loginbuttonfixedbutton">
                         <Button
                             type="submit"
                             fullWidth
@@ -100,12 +103,13 @@ export default function Login() {
                             </Grid>
                         </Grid>
                         </Typography>
+                        </Typography>
                     </form>
                 </div>
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
-            <NewPassword></NewPassword>
+            {/* <NewPassword></NewPassword> */}
         </div>
     );
 }
