@@ -17,8 +17,8 @@ const VerifiedRegistration = () => {
     const isVerified = data?.IsVerified;
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
-    const token = new URLSearchParams(location.search).get('token');
-    const id = new URLSearchParams(location.search).get('user');
+    const token = new URLSearchParams(location.search).get('verifyId');
+    const id = data?.Id;
 
     useEffect(() => {
         const verifyEmail = async () => {
@@ -34,16 +34,18 @@ const VerifiedRegistration = () => {
         if (token) {
             verifyEmail();
         } else {
-            dispatch(alertActions.error({ message: "Email verification token not found!", header: "Verification Failed" }));
+            dispatch(alertActions.error({ message: "Email verification Id not found!", header: "Verification Failed" }));
         }
     }, [dispatch, location.search]);
 
     const handleClick = () => {
-        if (portalKey.toLowerCase() === 'mc') {
-            navigate(`/registration/mapCenter/${id}`);
-        }
-        else if (portalKey.toLowerCase() === 'sd') {
-            navigate(`/registration/diversity/${id}`);
+        if (id) {
+            if (portalKey.toLowerCase() === 'mc') {
+                navigate(`/registration/mapCenter/${portalKey}/${id}`);
+            }
+            else if (portalKey.toLowerCase() === 'sd') {
+                navigate(`/registration/diversity/${portalKey}/${id}`);
+            }
         }
         return;
     };
