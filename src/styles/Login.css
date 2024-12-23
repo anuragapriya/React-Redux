@@ -44,7 +44,7 @@ ul li.checked::before {
     width: 7px;
 }
 
-.passwordselectli {
+.passwordselect .passwordselectli {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -114,7 +114,7 @@ body {
     overflow: auto;
 }
 
-.Registrationcontainer .MuiFormControl-fullWidth ul li {
+.inputtags .MuiFormControl-fullWidth ul li {
 
     color: #4E4E4F;
     font-family: "Proxima Nova";
@@ -124,7 +124,7 @@ body {
     line-height: normal;
 }
 
-.Registrationcontainer .MuiFormControl-fullWidth ul li:hover {
+.inputtags .MuiFormControl-fullWidth ul li:hover {
     color: #0A3B70;
     background-color: transparent;
 
@@ -253,19 +253,24 @@ body {
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
 }
 
-.login-container .PrivateNotchedOutline-root-1 {
+.inputtags .PrivateNotchedOutline-root-1 {
 
     border: 0px;
     top: 0px;
 }
 
-.login-container .MuiOutlinedInput-root .MuiOutlinedInput-input,
-.login-container .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root,
-.login-container .css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root {
+.inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input,
+.inputtags .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root,
+.inputtags .css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root ,
+.passwordcheck.mar-top-16 .MuiAutocomplete-root .MuiInputBase-root{
     border-radius: 4px;
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
+.passwordcheck label{
+background-color: #fff;
+padding: 0px 8px;
 }
 
 
@@ -274,20 +279,20 @@ body {
 
 }
 
-.wglcontainer .MuiOutlinedInput-notchedOutline {
+.inputtags .MuiOutlinedInput-notchedOutline {
     border: 1px solid var(--WG-Blue-100, #DFEDFF)
 }
 
-.login-container .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
+.inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
     border: 2px solid var(--WG-Blue-100, #1976d2);
     border-radius: 4px;
 }
 
-.login-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
+.inputtags .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
     border: 2px solid var(--WG-Blue-100, #1976d2);
 }
 
-.login-container .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input {
+.inputtags .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input {
 
     border: 0px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
@@ -303,15 +308,15 @@ body {
     background-color: #fff;
 }
 
-.login-container .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
+.inputtags .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
     border-radius: 0px;
     border: 0px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
     box-shadow: 0px 0px 0px 0px rgba(0, 89, 179, 0.25);
 }
 
-.login-container .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input,
-.login-container .PasswordInput .MuiOutlinedInput-root .MuiOutlinedInput-input {
+.inputtags .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input,
+.inputtags .PasswordInput .MuiOutlinedInput-root .MuiOutlinedInput-input {
     border-radius: 0px;
     border: 0px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
@@ -322,7 +327,7 @@ body {
 /* .login-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input:hover {
     border: 0px solid var(--WG-Blue-100, #1976d2);
 } */
-.login-container .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input:hover {
+.inputtags .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-input:hover {
     border: 0px solid var(--WG-Blue-100, #1976d2);
 }
 
@@ -330,8 +335,8 @@ body {
     color: var(--White, #FFF);
 }
 
-.login-container .MuiOutlinedInput-root.Mui-focused.Mui-error .MuiOutlinedInput-input 
-.login-container .passwordcheck .MuiOutlinedInput-root:hover.Mui-error .MuiOutlinedInput-notchedOutline {
+.inputtags.MuiOutlinedInput-root.Mui-focused.Mui-error .MuiOutlinedInput-input 
+.inputtags .passwordcheck .MuiOutlinedInput-root:hover.Mui-error .MuiOutlinedInput-notchedOutline {
     border: 0px solid var(--WG-Blue-100, #1976d2);
 }
 
@@ -416,7 +421,7 @@ body {
     border-width: 2px;
 
 }
-.inputBackground .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl:hover .MuiOutlinedInput-notchedOutline{
+.inputtags .inputBackground .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl:hover .MuiOutlinedInput-notchedOutline{
     border-color: var(--WG-Blue-700, #0059B3) !important;
     border-width: 0px;
 
@@ -426,16 +431,17 @@ body {
 
 .wglcontainer .css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
 .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline 
-.login-container .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline
-.login-container .passwordcheck .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline{
+.inputtags .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline
+.inputtags .passwordcheck .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline{
     border-color: transparent;
 }
 
-body .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
-.login-container .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
-.login-container .inputBackground .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
+.inputtags .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
+.inputtags .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
+.inputtags .inputBackground .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
     background: var(--WG-Blue-100, #DFEDFF);
-    color: var(--WG-Blue-900, #0A3B70);
+    color: var(--WG-Blue-900, #07254A);
+    border-radius: 4px;
 }
 
 
@@ -452,7 +458,7 @@ body .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
     color: var(--WG-Blue-700, #0059B3);
 
 }
-.login-container .passwordcheck .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+.inputtags .passwordcheck .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
 .css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
 .css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline 
  {
@@ -816,16 +822,50 @@ input[type=number] {
 
 .SupportedFormats .fileformat {
     margin: 15px 0px;
+    word-break: break-word;
 }
 
 .fileformat span {
-    color: var(--WG-Blue-900, #0A3B70);
+    color: var(--Gray-700, #4D4C52);
+    font-feature-settings: 'liga' off, 'clig' off;
     font-family: "Proxima Nova";
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    margin: 0px 5px;
+    letter-spacing: 0.25px;
+}
+.fileformat h4{
+    color: var(--Gray-700, #4D4C52);
+font-feature-settings: 'liga' off, 'clig' off;
+font-family: "ITC Avant Garde Gothic Std Md";
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 0.25px;
+text-transform: uppercase;
+width: 100%;
+}
+.SupportedFormats  .fileformatlist{
+    margin: 15px 0px;
+}
+.fileformatlist span{
+    color: var(--WG-Blue-900, #0A3B70);
+font-family: "Proxima Nova";
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin:  8px;
+float: left;
+}
+.SupportedFormats {
+    float: left;
+    width: 100%;
+}
+.MapCenterAccecss  .margin-bottom-12{
+    margin-bottom: 12px;
 }
 
 .SupportedFormats h3 {
@@ -881,6 +921,7 @@ input[type=number] {
     line-height: normal;
     text-transform: uppercase;
     height: 56px;
+    width: 100%;
 }
 
 .MapCenterAccecssheading {
@@ -903,7 +944,7 @@ input[type=number] {
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: #FFF;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
-    padding: 24px !important;
+    padding: 24px ;
     margin-bottom: 24px;
 }
 
@@ -949,6 +990,17 @@ input[type=number] {
 .inputBackground .css-1ll44ll-MuiOutlinedInput-notchedOutline {
     border-width: 0px;
 }
+ .inputtags  input ,.inputtags select , .inputtags textarea {
+    color: var(--WG-Blue-950, #71717A);
+font-feature-settings: 'liga' off, 'clig' off;
+font-family: "Proxima Nova Rg"!important;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 24px; /* 150% */
+letter-spacing: 0.15px;
+box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
 
 .Personal-Information .Cancelbutton {
     border-radius: 4px;
@@ -986,8 +1038,12 @@ input[type=number] {
 .Registrationcontainer .MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button .css-1umw9bq-MuiSvgIcon-root {
     display: none
 }
-
-.MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator {
+.MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator svg,
+.passwordcheck.mar-top-16 .MuiAutocomplete-root .MuiAutocomplete-endAdornment button svg{
+display: none;
+}
+.MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator ,
+.passwordcheck.mar-top-16 .MuiAutocomplete-root .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator{
     background: url('../assets/images/Vector.svg');
     width: 18px;
     height: 18px;
@@ -1009,6 +1065,7 @@ input[type=number] {
 .Personal-Information .MuiOutlinedInput-notchedOutline {
     border-radius: 4px;
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
 
 }
 
@@ -1036,7 +1093,12 @@ input[type=number] {
 .passwordcheck {
     position: relative;
 }
-
+.inputtags .mar-top-16{
+    margin-top: 16px;
+}
+ .Personal-Information-container .CompanyDetails-container .CompanyDetails {
+padding: 0px 12px;
+}
 
 @media only screen and (min-width: 1600px) {
 
@@ -1210,6 +1272,12 @@ input[type=number] {
     .pb-10 {
         padding: 3pc 15px 3pc 15px;
     }
+    .MapCenterAccecss .Personal-Information-container{
+        border: 0px;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0px;
+    }
 
     .MuiTypography-h5.Logincontent {
 
@@ -1230,13 +1298,35 @@ input[type=number] {
 }
 
 @media only screen and (max-width: 768px) {
-
+    .inputtags .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input{
+        font-size: 14px;
+    }
 
     .mobile-block {
         display: block;
 
     }
-
+    .Browsechoose{
+        font-size: 12px;
+    }
+    .UploadContainer .Uploadfiles ,.SupportedFormats h3 ,.Personal-Information .CompleteRegistration ,.Personal-Informationsheading h2{
+        font-size: 14px;
+    }
+   
+    .inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input, .inputtags .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root, .inputtags .css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root{
+        padding: 12px;
+    }
+    .inputtags   .MuiOutlinedInput-root.Mui-error.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+        padding: 0px;
+        padding-right: 10px;
+    }
+    .inputtags .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root{
+    top: -3px;
+    font-size: 14px;
+    }
+    .inputtags .passwordcheck .MuiOutlinedInput-root{
+        padding: 5px;
+    }
     /* .login-container {
         margin-bottom: 100px;
     } */
@@ -1397,6 +1487,11 @@ input[type=number] {
         bottom: 0px;
         margin-right: 20px;
         
+    }
+    .Personal-Informationsheading h2{
+        border-radius: 4px;
+background: var(--WG-Blue-100, #DFEDFF);
+padding: 8px 16px;
     }
 
 

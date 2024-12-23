@@ -11,6 +11,7 @@ import { UploadFiles } from '_components';
 import { AutocompleteInput } from '_components';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
 import { supplierDocumentTypeData, supplierSupportedFormat } from '_utils/constant';
+import images from 'images';
 
 const ManageProfileSD = () => {
     const dispatch = useDispatch();
@@ -89,16 +90,23 @@ const ManageProfileSD = () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={12} md={12} >
                             <Grid container spacing={3}>
-                                <Grid item xs={12} sm={6} md={8} className="Personal-Information">
+                                <Grid item xs={12} sm={12} md={8} className="Personal-Information">
                                     <Typography component="div" className="mapcontainer">
+                                    <Typography component="div" className="Personal-Informationsheading">
+                                                    <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
+                                                </Typography>
                                         <SupplierDetails register={register} errors={errors} control={control} trigger={trigger} />
                                     </Typography>
                                 </Grid>
 
-                                <Grid item xs={12} sm={6} md={4} >
+                                <Grid item xs={12} sm={12} md={4} >
                                     <Typography component="div" className="Personal-Informationsheading">
-                                        <Typography component="h2" variant="h5" >Documents uplaod</Typography>
-                                        <AutocompleteInput
+                                        
+                                    <Grid item xs={12} sm={6} md={12} >
+                                        <Typography component="h2" variant="h5" >Documents uplaod <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
+                                        
+                                        <Typography  component="div" className="passwordcheck">
+                                            <AutocompleteInput
                                             control={control}
                                             name="documentType"
                                             label="Document Type"
@@ -109,6 +117,8 @@ const ManageProfileSD = () => {
                                             inputColor={inputColors['documentType']}
                                             onChange={handleOnChange}
                                         />
+                                        </Typography>
+                                        </Grid>
                                         <UploadFiles
                                             initialFiles={files}
                                             portalKey={portalkey}

@@ -52,7 +52,7 @@ const RouteList = () => {
             <Nav isAuthenticated={isAuthenticated} /> 
             <Notification />
             <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay> 
-            <div className="container">
+            <div className="container inputtags">
                 <Routes >
                     {/* private */}
                     <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>

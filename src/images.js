@@ -13,6 +13,10 @@ import supporticonblue from './assets/images/support-icon-blue.svg';
 import materialsymbolsupload from './assets/images/material-symbols_upload.svg';
 import Check from './assets/images/Check.svg';
 import error from './assets/images/error.svg';
+import materialsymbolsdownload from './assets/images/material-symbols_download.svg';
+import midelete from './assets/images/mi_delete.svg';
+import raphaelinfo from './assets/images/raphael_info.svg';
+
 
 const images = {
     logo,
@@ -27,7 +31,10 @@ const images = {
     supporticonblue,
     materialsymbolsupload,
     Check,
-    error
+    error,
+    materialsymbolsdownload,
+    midelete,
+    raphaelinfo
 };
 
 export default images;
