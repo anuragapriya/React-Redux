@@ -6,12 +6,28 @@ import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 
-const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur }) => {
-
+const MultiSelectInput = React.memo(({ options, onChange, label, error, helperText, handleBlur }) => {
   const [selectedOptions, setSelectedOptions] = React.useState([]);
 
   const handleChange = (event, value, reason) => {
-    if (reason === 'selectOption' && value[value.length - 1]?.value === 'Select All') {
+    if (reason === 'clear') {
+      setSelectedOptions([]);
+      onChange([]);
+      return;
+    }
+  
+    if (reason === 'removeOption') {
+      const removedValue = value.map(option => option.value);
+      const filteredValue = selectedOptions.filter(option => removedValue.includes(option.value));
+      setSelectedOptions(filteredValue);
+      onChange(filteredValue);
+      return;
+    }
+  
+    const checkedValue = event.target.value;
+    const isChecked = event.target.checked;
+  
+    if (checkedValue === 'Select All') {
       if (selectedOptions.length === options.length) {
         setSelectedOptions([]);
         onChange([]);
@@ -20,10 +36,23 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         onChange(options);
       }
     } else {
-      const filteredValue = value.filter(option => option.value !== 'Select All');
+      let filteredValue;
+      if (isChecked) {
+        // Add the checked item to the selected options
+        filteredValue = [...selectedOptions, options.find(option => option.value === checkedValue)];
+      } else {
+        // Remove the unchecked item from the selected options
+        filteredValue = selectedOptions.filter(option => option.value !== checkedValue);
+      }
+  
+      filteredValue = filteredValue.filter(option => option.value !== 'Select All');
       setSelectedOptions(filteredValue);
       onChange(filteredValue);
     }
+  };
+
+  const isOptionSelected = (option) => {
+    return selectedOptions.some(selectedOption => selectedOption.value === option.value);
   };
 
   return (
@@ -34,15 +63,19 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
         filterOptions={createFilterOptions({ matchFrom: 'start' })}
-        renderOption={(props, option, { selected }) => (
-          <li {...props}>
-            <Checkbox
-              style={{ marginRight: 8 }}
-              checked={option.value === 'Select All' ? selectedOptions.length === options.length : selected}
-            />
-            {option.label}
-          </li>
-        )}
+        renderOption={(props, option) => {
+          const isSelected = option.value === 'Select All' ? selectedOptions.length === options.length : isOptionSelected(option);
+          return (
+            <li {...props}>
+              <Checkbox
+                style={{ marginRight: 8 }}
+                checked={isSelected}
+                value={option.value} // Set the value here
+              />
+              {option.label}
+            </li>
+          );
+        }}
         renderInput={(params) => (
           <TextField 
             {...params} 
@@ -65,6 +98,6 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
       />
     </Box>
   );
-}
+});
 
 export default MultiSelectInput;

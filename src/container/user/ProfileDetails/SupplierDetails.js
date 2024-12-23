@@ -21,17 +21,15 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
     const handleSelectionChange = (newValue) => {
         console.log(newValue);
         setSelectedOptions(newValue);
-        console.log(selectedOptions);
       };
-
 
     const supplierClassificationDropdownData = supplierClassificationData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentTypeId
+        value: x.DocumentTypeID
     }));
     const supplierBusinessDropdownData = supplierBusinessData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentTypeId
+        value: x.DocumentTypeID
     }));
     return <>
         <Grid container spacing={3}>
@@ -83,21 +81,8 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     error={!!errors.classification}
                     helperText={errors.classification?.message}
                     handleBlur={handleBlur}
-                    // onFocus={handleClassificationFocus}
                     inputColor={inputColors['selectPortal']}
                 />
-                {/* <MultiSelectInput
-                    id="classification"
-                    name="classification"
-                    label="Classification"
-                    control={control}
-                    options={supplierClassificationDropdownData}
-                    onChange={handleSelectionChange}
-                    error={!!errors.classification}
-                    helperText={errors.classification?.message}
-                    handleBlur={handleBlur}
-                    inputColor={inputColors['selectPortal']}
-                /> */}
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl

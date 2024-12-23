@@ -91,7 +91,6 @@ const ManageProfileSD = () => {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={6} md={8} className="Personal-Information">
                                     <Typography component="div" className="mapcontainer">
-
                                         <SupplierDetails register={register} errors={errors} control={control} trigger={trigger} />
                                     </Typography>
                                 </Grid>
