@@ -99,10 +99,12 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 inputColors={inputColors}
                 isPasswordValid={isPasswordValid}
             />
-             </Typography>
+            
             {showPasswordCheck && (
                 <PasswordCheck password={password} userName={fullName} onValidationChange={handlePasswordValidation} />
             )}
+             </Typography>
+            <Typography component="div" className='passwordcheck mobile-padding'>
             <AutocompleteInput
                 control={control}
                 name="selectPortal"
@@ -113,6 +115,8 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 handleBlur={handleBlur}
                 inputColor={inputColors['selectPortal']}
             />
+            </Typography>
+            
         </>
     );
 };

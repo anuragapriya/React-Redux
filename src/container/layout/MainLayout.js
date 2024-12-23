@@ -39,12 +39,12 @@ const MainLayout = () => (
                 <div className="ration ration-1x1">    
               
                     <img src={images.bannerImg} alt="Banner images"></img> 
-                                     
-                </div>
-                {/* <Link href="#"  className="NeedSupport"  >
+                              <Link href="#"  className="NeedSupport"  >
                         <img src={images.headseticonwhite} alt="Do You Need Support" ></img>
                        Support?
-                </Link>  */}
+                </Link>         
+                </div>
+               
             </div>
         </Grid>
         </Grid>

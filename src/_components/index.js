@@ -20,9 +20,10 @@ import CustomFormControl from "./CustomFormControl";
 import MobileNumberInput from "./MobileNumberInput";
 import AutocompleteInput from "./AutocompleteInput";
 import UploadFiles from "./UploadFiles";
-import MultiSelectAutocomplete from './MultiSelectAutocomplete'
+import MultiSelectAutocomplete from './MultiSelectAutocomplete';
+import MultiSelectInput from "./MultiSelectInput";
 
 export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,
     SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab,ErrorBoundary,
     AutocompleteInput,PasswordCheck,ModalPopup,PasswordInput,CustomFormControl,MobileNumberInput,
-    MultiSelectAutocomplete,UploadFiles};
+    MultiSelectAutocomplete,UploadFiles,MultiSelectInput};

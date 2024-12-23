@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
 import { PortalRegistration, VerifiedRegistration, VerifyRegistration,Header } from "container/registration";
-import UnderConstruction from "_components/UnderConstruction";
 import ManageProfileMC from "container/mapCenter/ManageProfileMC";
 import { ManageProfileSD } from "container/suplierDiversity";
 

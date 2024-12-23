@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { CustomFormControl } from '_components';
+import { CustomFormControl, MultiSelectInput } from '_components';
 import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete } from '_components'
 import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
 const SupplierDetails = ({ register, errors, control, trigger }) => {
@@ -27,11 +27,11 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
 
     const supplierClassificationDropdownData = supplierClassificationData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentId
+        value: x.DocumentTypeId
     }));
     const supplierBusinessDropdownData = supplierBusinessData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentId
+        value: x.DocumentTypeId
     }));
     return <>
         <Grid container spacing={3}>
@@ -73,11 +73,10 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <MultiSelectAutocomplete
+                <MultiSelectInput
                     id="classification"
                     name="classification"
                     label="Classification"
-                    value={selectedOptions}
                     control={control}
                     options={supplierClassificationDropdownData}
                     onChange={handleSelectionChange}
@@ -87,6 +86,18 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     // onFocus={handleClassificationFocus}
                     inputColor={inputColors['selectPortal']}
                 />
+                {/* <MultiSelectInput
+                    id="classification"
+                    name="classification"
+                    label="Classification"
+                    control={control}
+                    options={supplierClassificationDropdownData}
+                    onChange={handleSelectionChange}
+                    error={!!errors.classification}
+                    helperText={errors.classification?.message}
+                    handleBlur={handleBlur}
+                    inputColor={inputColors['selectPortal']}
+                /> */}
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
