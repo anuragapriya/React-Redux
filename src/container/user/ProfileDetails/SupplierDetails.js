@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { CustomFormControl, MultiSelectInput } from '_components';
 import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete } from '_components'
 import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
+import { Typography, Button } from '@mui/material';
 const SupplierDetails = ({ register, errors, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -21,17 +22,15 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
     const handleSelectionChange = (newValue) => {
         console.log(newValue);
         setSelectedOptions(newValue);
-        console.log(selectedOptions);
       };
-
 
     const supplierClassificationDropdownData = supplierClassificationData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentTypeId
+        value: x.DocumentTypeID
     }));
     const supplierBusinessDropdownData = supplierBusinessData.map(x => ({
         label: x.DocumentDescription,
-        value: x.DocumentTypeId
+        value: x.DocumentTypeID
     }));
     return <>
         <Grid container spacing={3}>
@@ -59,6 +58,7 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Typography  component="div" className="passwordcheck border-none">
                 <AutocompleteInput
                     id="businessCatagory"
                     name="businessCatagory"
@@ -71,8 +71,10 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     // onFocus={handleOtherFocus}
                     inputColor={inputColors['selectPortal']}
                 />
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Typography  component="div" className="passwordcheck mar-top-16">
                 <MultiSelectInput
                     id="classification"
                     name="classification"
@@ -83,21 +85,9 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     error={!!errors.classification}
                     helperText={errors.classification?.message}
                     handleBlur={handleBlur}
-                    // onFocus={handleClassificationFocus}
                     inputColor={inputColors['selectPortal']}
                 />
-                {/* <MultiSelectInput
-                    id="classification"
-                    name="classification"
-                    label="Classification"
-                    control={control}
-                    options={supplierClassificationDropdownData}
-                    onChange={handleSelectionChange}
-                    error={!!errors.classification}
-                    helperText={errors.classification?.message}
-                    handleBlur={handleBlur}
-                    inputColor={inputColors['selectPortal']}
-                /> */}
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
