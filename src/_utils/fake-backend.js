@@ -58,8 +58,8 @@ const fakeBackend = () => {
             // route functions
 
             function authenticate() {
-                const { email, password } = body();
-                const user = users.find(x => x.emailAddress === email && x.password === password);
+                const { Email, Password } = body();
+                const user = users.find(x => x.emailAddress === Email && x.password === Password);
 
                 if (!user) return error('You have entered an incorrect password for the profile associated with this email address.');
 
@@ -91,8 +91,8 @@ const fakeBackend = () => {
             function register() {
                 const user = body();
 
-                if (users.find(x => x.emailAddress === user.emailAddress)) {
-                    return error('email "' + user.emailAddress + '" is already taken')
+                if (users.find(x => x.emailAddress === user.EmailAddress)) {
+                    return error('email "' + user.EmailAddress + '" is already taken')
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;

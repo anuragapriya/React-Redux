@@ -24,13 +24,13 @@ const NewPassword = () => {
   const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
     resolver: yupResolver(passwordValidationSchema),
   });
-  const password = watch('password', '');
+  const password = watch('Password', '');
 
   const handleBlur = (e) => {
     const fieldName = e.target.name;
     const fieldError = errors[fieldName];
 
-    if (fieldName === 'password') {
+    if (fieldName === 'Password') {
       setInputColors(prevColors => ({
         ...prevColors,
         [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
@@ -45,7 +45,7 @@ const NewPassword = () => {
     trigger(fieldName); // Trigger validation for the field
   };
 
-  const onSubmit = async ({ password }) => {
+  const onSubmit = async ({ Password }) => {
     try {
       handleClose();
       navigate('/');
@@ -91,7 +91,7 @@ const NewPassword = () => {
             <form onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
               <PasswordInput
                 control={control}
-                name="password"
+                name="Password"
                 label="Password"
                 rules={{ required: 'Password is required' }}
                 errors={errors}

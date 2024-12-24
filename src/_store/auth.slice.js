@@ -47,10 +47,10 @@ function createExtraActions() {
 
     function login() { 
         return createAsyncThunk(
-            `${name}/login`, async ({ email, password }, { dispatch }) => {
+            `${name}/login`, async ({ Email, Password }, { dispatch }) => {
                 dispatch(alertActions.clear());
                 try {
-                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/Authenticate`, { email, password }));
+                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/Authenticate`, { Email, Password }));
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));
                     // store user details and jwt token in local storage to keep user logged in between page refreshes

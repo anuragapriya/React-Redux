@@ -27,7 +27,6 @@ const ModalPopup = ({ header, message1, message2, btnPrimaryText, btnSecondaryTe
                         <img src={images.logo} alt="logo"></img>
                         {labels.eServicePortal}
                      </Link>
-
                      <h5 className="headercontent"><b>{header}</b></h5>
                      {message1 && <p className="modalpopupcontent"> {message1}</p>}
                      {message2 && <p className="modalpopupcontent"> {message2}</p>}

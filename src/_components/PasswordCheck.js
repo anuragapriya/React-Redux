@@ -21,7 +21,7 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
             special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
-            fullname: password && !password.includes(userName),
+            fullname: password && !password.toLowerCase().includes(userName.toLowerCase()),
         };
         setValidations(newValidations);
 

@@ -6,8 +6,8 @@ import { Typography } from '@mui/material';
 const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-    const password = watch('Password', '');
-    const fullName = watch('FirstName', '');
+    const Password = watch('Password', '');
+    const FirstName = watch('FirstName', '');
 
     useEffect(() => {
         if (errors.Password) {
@@ -21,8 +21,9 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
         }
     };
 
-    const handleBlur = (e) => {
+    const handleBlur = async (e) => {
         const fieldName = e.target.name;
+        await trigger(fieldName); 
         const fieldError = errors[fieldName];
 
         if (fieldName === 'Password') {
@@ -38,8 +39,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 ...prevColors,
                 [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
             }));
-        }
-        trigger(fieldName); // Trigger validation for the field
+        }       
     };
 
     const handlePasswordValidation = (isValid) => {
@@ -101,7 +101,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
             />
             
             {showPasswordCheck && (
-                <PasswordCheck password={password} userName={fullName} onValidationChange={handlePasswordValidation} />
+                <PasswordCheck password={Password} userName={FirstName} onValidationChange={handlePasswordValidation} />
             )}
              </Typography>
             <Typography component="div" className='passwordcheck mobile-padding'>
