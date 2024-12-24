@@ -169,7 +169,7 @@ const UploadFiles = ({
     return (
         <Typography component="div" className="UploadContainer">
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={12} md={12}>
+                <Grid item xs={12} sm={6} md={12}>
                     <Button
                         component="label"
                         role={undefined}
@@ -178,39 +178,47 @@ const UploadFiles = ({
                         className="Uploadfiles"
                         startIcon={<img src={images.materialsymbolsupload} alt="Upload" />}
                     >
+                        <span> Upload your files here</span>
                         <span type="file" onChange={handleFileInputChange} className="Browsechoose"> Browse and choose the file(s) you want to upload </span>
                         <VisuallyHiddenInput
                             type="file"
                             onChange={handleChange}
                         />
                     </Button>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={12}>
                     <Typography component="div" className="SupportedFormats">
                         <Typography component="h3">Supported Formats</Typography>
-                        <Typography component="div" className="fileformat">
+                        <Typography component="div" className="fileformatlist">
                             {supportedFormats && supportedFormats.map(format => <span key={format}>{format}</span>)}
                         </Typography>
                     </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={12}>
                     <Typography component="div" className="SupportedFormats">
-                        <Typography component="h3">Uploaded Documents</Typography>
+                        <Typography component="h2">Uploaded Documents</Typography>
                         <Typography component="div" className="fileformat">
                             {documentTypes && documentTypes.map(type => {
                                 const uploadedDocument = files.filter(x => x.DocumentTypeID === type.DocumentTypeID);
                                 if (uploadedDocument && uploadedDocument.length > 0) {
                                     return (
-                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentTypeID}>
-                                            <span>{type.DocumentDescription}</span>
+                                        <div className="mar-top-16"  key={type.DocumentTypeID}>
+                                            <Typography component="h4">{type.DocumentType}</Typography>
+                                            <Typography component="div"><span>{type.DocumentDescription}</span>
                                             <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
-                                                <Download variant="contained" color="secondary" />
+                                                <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
                                             </IconButton>
                                             <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
-                                                <DeleteForever variant="contained" color="secondary" />
+                                                <img src={images.midelete} alt="material-midelete"></img>
                                             </IconButton>
+                                            </Typography> 
                                         </div>
                                     );
                                 } else {
                                     return (
                                         <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentTypeID}>
-                                            <span>{type.DocumentDescription}</span>
+                                           
+                                            <Typography component="div"><span>{type.DocumentDescription}</span></Typography>
                                         </div>
                                     );
                                 }

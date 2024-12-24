@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UploadFiles } from '_components';
 import { supportedFormat } from '_utils/constant';
 import UnderConstruction from '_components/UnderConstruction';
+import images from '../../images';
 
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
@@ -183,10 +184,11 @@ const ManageProfileMC = () => {
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4}>
-                                            <Typography component="div" className="UploadFiles-container mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5">Document Upload</Typography>
+                                            <Typography component="div" className="UploadFiles-container mapcontainer  ">
+                                                <Typography component="div" className="Personal-Informationsheading ">
+                                                    <Typography component="h2" variant="h5">Document Upload  <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                 </Typography>
+                                                <Typography  component="div" className="passwordcheck">
                                                 <AutocompleteInput
                                                     control={control}
                                                     name="documentType"
@@ -197,7 +199,9 @@ const ManageProfileMC = () => {
                                                     handleBlur={handleBlur}
                                                     inputColor={inputColors['documentType']}
                                                     onChange={handleOnChange}
+                                                   
                                                 />
+                                                </Typography>
                                                 <UploadFiles
                                                     initialFiles={files}
                                                     portalKey={portalkey}

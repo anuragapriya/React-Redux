@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { CustomFormControl, MultiSelectInput } from '_components';
 import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete } from '_components'
 import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
+import { Typography, Button } from '@mui/material';
 const SupplierDetails = ({ register, errors, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -57,6 +58,7 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Typography  component="div" className="passwordcheck border-none">
                 <AutocompleteInput
                     id="businessCatagory"
                     name="businessCatagory"
@@ -69,8 +71,10 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     // onFocus={handleOtherFocus}
                     inputColor={inputColors['selectPortal']}
                 />
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Typography  component="div" className="passwordcheck mar-top-16">
                 <MultiSelectInput
                     id="classification"
                     name="classification"
@@ -83,6 +87,7 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     handleBlur={handleBlur}
                     inputColor={inputColors['selectPortal']}
                 />
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
