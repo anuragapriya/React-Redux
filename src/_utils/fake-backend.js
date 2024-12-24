@@ -19,7 +19,7 @@ const fakeBackend = () => {
 
             function handleRoute() {
                 switch (true) {
-                    case url.endsWith('/users/authenticate') && opts.method === 'POST':
+                    case url.endsWith('/users/Authenticate') && opts.method === 'POST':
                         return authenticate();
                     case url.endsWith('/users/refreshToken') && opts.method === 'POST':
                         return refreshToken();
@@ -41,11 +41,11 @@ const fakeBackend = () => {
                         return postAccessData();
                     case url.endsWith('/registration') && opts.method === 'GET':
                         return getPortalData();
-                    case url.match(/\/registration\/verified\?token=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
+                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
                         return getVerifiedUserData();
                     case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
-                    case url.match(/\/mapcenter\/\d+$/) && opts.method === 'POST':
+                    case url.match('/mapcenter/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
                     default:
                         // pass through any requests not handled above
@@ -234,7 +234,7 @@ const fakeBackend = () => {
             function updateMapCenterUser() {
                 try {
                     const mapCenterData = body();
-                    const mapCenterUser = mapCenterData.Data;
+
                     let mapCenterUserData = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;
 
                     // Create a deep copy of the object to avoid modifying read-only properties

@@ -1,25 +1,25 @@
 import * as Yup from 'yup';
 
 export const registerValidationSchema = Yup.object().shape({
-    fullName: Yup.string()
+    FirstName: Yup.string()
         .required('Full Name is required'),
-    companyName: Yup.string()
+    CompanyName: Yup.string()
         .required('Company Name is required'),
-    mobileNumber: Yup.string()
+    MobileNumber: Yup.string()
         .required('Phone Number is required')
         .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
-    emailAddress: Yup.string()
+    EmailAddress: Yup.string()
         .required('Email Address is required')
         .email('Email Address is invalid'),
-    password: Yup.string()
+    Password: Yup.string()
         .required('Password is required'),
-    selectPortal: Yup.number()
+    PortalId: Yup.number()
         .nullable()
         .required('Please select any Portal'),
 });
 
 export const passwordValidationSchema = Yup.object().shape({
-    password: Yup.string()
+    Password: Yup.string()
         .required('Password is required'),
 });
 
@@ -92,10 +92,10 @@ export const otpValidationSchema = Yup.object().shape({
 });
 
 export const loginValidationSchema = Yup.object().shape({
-    email: Yup.string()
+    Email: Yup.string()
         .required('Email is required')
         .email('Please provide a valid email address'),
-    password: Yup.string()
+    Password: Yup.string()
         .required('Password is required'),
 });
 

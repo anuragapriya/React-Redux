@@ -6,14 +6,14 @@ import { Typography } from '@mui/material';
 const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-    const password = watch('password', '');
-    const fullName = watch('fullName', '');
+    const password = watch('Password', '');
+    const fullName = watch('FirstName', '');
 
     useEffect(() => {
-        if (errors.password) {
+        if (errors.Password) {
             setShowPasswordCheck(true);
         }
-    }, [errors.password]);
+    }, [errors.Password]);
 
     const handlePasswordFocus = () => {
         if (!isPasswordValid) {
@@ -25,7 +25,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
         const fieldName = e.target.name;
         const fieldError = errors[fieldName];
 
-        if (fieldName === 'password') {
+        if (fieldName === 'Password') {
             setInputColors(prevColors => ({
                 ...prevColors,
                 [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
@@ -52,7 +52,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
     return (
         <>
             <CustomFormControl
-                id="fullName"
+                id="FirstName"
                 label="Full Name"
                 type="text"
                 register={register}
@@ -61,7 +61,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 inputColors={inputColors}
             />
             <CustomFormControl
-                id="companyName"
+                id="CompanyName"
                 label="Company Name"
                 type="text"
                 register={register}
@@ -70,7 +70,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 inputColors={inputColors}
             />
             <CustomFormControl
-                id="emailAddress"
+                id="EmailAddress"
                 label="Email Address"
                 type="text"
                 register={register}
@@ -80,7 +80,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
             />
             <MobileNumberInput
                 control={control}
-                name="mobileNumber"
+                name="MobileNumber"
                 label="Phone Number"
                 rules={{ required: 'Phone Number is required' }}
                 errors={errors}
@@ -90,7 +90,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
             <Typography component="div" className='passwordcheck'>
              <PasswordInput
                 control={control}
-                name="password"
+                name="Password"
                 label="Password"
                 rules={{ required: 'Password is required' }}
                 errors={errors}
@@ -107,13 +107,13 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
             <Typography component="div" className='passwordcheck mobile-padding'>
             <AutocompleteInput
                 control={control}
-                name="selectPortal"
+                name="PortalId"
                 label="Select Portal"
                 options={portalList}
-                error={!!errors.selectPortal}
-                helperText={errors.selectPortal?.message}
+                error={!!errors.PortalId}
+                helperText={errors.PortalId?.message}
                 handleBlur={handleBlur}
-                inputColor={inputColors['selectPortal']}
+                inputColor={inputColors['PortalId']}
             />
             </Typography>
             
