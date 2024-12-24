@@ -37,6 +37,7 @@ function createReducers() {
 
 function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         login: login(),
@@ -44,12 +45,12 @@ function createExtraActions() {
         refreshToken: refreshToken()
     };
 
-    function login() {
+    function login() { 
         return createAsyncThunk(
             `${name}/login`, async ({ email, password }, { dispatch }) => {
                 dispatch(alertActions.clear());
                 try {
-                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/authenticate`, { email, password }));
+                    const user = await trackPromise(fetchWrapper.post(`${baseUrl}/Authenticate`, { email, password }));
                     // set auth user in redux state
                     dispatch(authActions.setAuth(user));
                     // store user details and jwt token in local storage to keep user logged in between page refreshes

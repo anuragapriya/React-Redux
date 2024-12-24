@@ -6,7 +6,8 @@ import { styled } from '@mui/material/styles';
 import fileExtension from "_utils/files/fileExtension";
 import fileSizeReadable from '_utils/files/fileSizeReadable';
 import fileTypeAcceptable from '_utils/files/fileTypeAcceptable';
-import { DeleteForever, Download } from '@mui/icons-material';
+import { CheckCircleRounded } from '@mui/icons-material';
+import { green } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import { alertActions } from "_store";
 import images from '../images';
@@ -14,7 +15,6 @@ import base64ToFile from "_utils/files/base64ToFile";
 import { convertToBase64 } from '_utils';
 import { uploadLabels } from "_utils/labels";
 import ModalPopup from "./ModalPopup";
-
 const UploadFiles = ({
     portalKey,
     selectedDocumentType,
@@ -27,7 +27,6 @@ const UploadFiles = ({
     onFileChange,
     initialFiles = []
 }) => {
-
     const [files, setFiles] = useState(initialFiles);
     const [open, setOpen] = useState(false);
     const [fileToRemove, setFileToRemove] = useState(null);
@@ -94,12 +93,14 @@ const UploadFiles = ({
             const base64 = await convertToBase64(file);
             const fileData = {
                 ID: null, // This will be updated if replacing an existing file
+                AdditionalID: 0,
                 DocumentTypeID: file.DocumentTypeID,
                 FileName: file.name,
                 Format: file.extension,
                 Size: file.size,
                 Portalkey: portalKey, // Replace with actual portal key if needed
-                File: base64
+                File: base64,
+                Url: null
             };
 
             fileResults.push(fileData);
@@ -108,15 +109,19 @@ const UploadFiles = ({
         setFiles(prevFiles => {
             const updatedFiles = prevFiles.map(prevFile => {
                 const newFile = fileResults.find(newFile => newFile.DocumentTypeID === prevFile.DocumentTypeID);
-                return newFile ? { ...newFile, ID: prevFile.ID } : prevFile;
+                return newFile ? {
+                    ...newFile, ID: prevFile.ID,
+                    AdditionalID: prevFile.AdditionalID || 0,
+                    Url: prevFile.Url || ''
+                } : prevFile;
             });
 
-            const newUniqueFiles = fileResults.filter(newFile => 
+            const newUniqueFiles = fileResults.filter(newFile =>
                 !prevFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
             );
 
             const newFiles = [...updatedFiles, ...newUniqueFiles];
-            onFileChange(newFiles); 
+            onFileChange(newFiles);
             return newFiles;
         });
     };
@@ -128,11 +133,17 @@ const UploadFiles = ({
             return updatedFiles;
         });
         setOpen(false);
+        setFileToRemove(null); // Reset fileToRemove state
     };
 
     const handleDialogOpen = (documentTypeId) => {
         setFileToRemove(documentTypeId);
         setOpen(true);
+    };
+
+    const handleDialogClose = () => {
+        setOpen(false);
+        setFileToRemove(null); // Reset fileToRemove state
     };
 
     const VisuallyHiddenInput = styled('input')({
@@ -152,10 +163,6 @@ const UploadFiles = ({
         if (file) {
             // Handle file input change
         }
-    };
-
-    const handleOpen = (fileUrl) => {
-        window.open(fileUrl, '_blank');
     };
 
     const handleDownload = (base64String, fileName) => {
@@ -181,40 +188,39 @@ const UploadFiles = ({
                             onChange={handleChange}
                         />
                     </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12}>
+                </Grid>
+                <Grid item xs={12} sm={6} md={12}>
                     <Typography component="div" className="SupportedFormats">
                         <Typography component="h3">Supported Formats</Typography>
                         <Typography component="div" className="fileformatlist">
                             {supportedFormats && supportedFormats.map(format => <span key={format}>{format}</span>)}
                         </Typography>
                     </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12}>
+                </Grid>
+                <Grid item xs={12} sm={6} md={12}>
                     <Typography component="div" className="SupportedFormats">
-                        <Typography component="h2">Uploaded Documents</Typography>
+                        <Typography component="h3">Uploaded Documents</Typography>
                         <Typography component="div" className="fileformat">
                             {documentTypes && documentTypes.map(type => {
                                 const uploadedDocument = files.filter(x => x.DocumentTypeID === type.DocumentTypeID);
                                 if (uploadedDocument && uploadedDocument.length > 0) {
                                     return (
-                                        <div className="mar-top-16"  key={type.DocumentTypeID}>
-                                            <Typography component="h4">{type.DocumentType}</Typography>
-                                            <Typography component="div"><span>{type.DocumentDescription}</span>
-                                            <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
-                                                <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
-                                            </IconButton>
-                                            <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
-                                                <img src={images.midelete} alt="material-midelete"></img>
-                                            </IconButton>
-                                            </Typography> 
+                                        <div className="mar-top-16" key={type.DocumentTypeID}>
+                                            <Typography component="div">
+                                                <CheckCircleRounded fontSize="small" style={{ color: green[500] }} /> {type.DocumentDescription}
+                                                <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
+                                                    <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                </IconButton>
+                                                <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
+                                                    <img src={images.midelete} alt="material-midelete"></img>
+                                                </IconButton>
+                                            </Typography>
                                         </div>
                                     );
                                 } else {
                                     return (
-                                        <div style={{ display: 'flex', gap: '0.5rem' }} key={type.DocumentTypeID}>
-                                           
-                                            <Typography component="div"><span>{type.DocumentDescription}</span></Typography>
+                                        <div className="mar-top-16" key={type.DocumentTypeID}>
+                                            <Typography component="div"><CheckCircleRounded fontSize="small" color="disabled" /> {type.DocumentDescription}</Typography>
                                         </div>
                                     );
                                 }
@@ -224,12 +230,13 @@ const UploadFiles = ({
                 </Grid>
             </Grid>
             {open && <ModalPopup
-                    header={uploadLabels.header}
-                    message1={uploadLabels.message1}
-                    btnPrimaryText={uploadLabels.btnPrimaryText}
-                    btnSecondaryText={uploadLabels.btnSecondaryText}
-                    handlePrimaryClick={()=>handleFileRemove(fileToRemove)}
-                />}
+                header={uploadLabels.header}
+                message1={uploadLabels.message1}
+                btnPrimaryText={uploadLabels.btnPrimaryText}
+                btnSecondaryText={uploadLabels.btnSecondaryText}
+                handlePrimaryClick={() => handleFileRemove(fileToRemove)}
+                handleSecondaryClick={handleDialogClose} 
+            />}
         </Typography>
     );
 };

@@ -97,7 +97,7 @@ const ManageProfileMC = () => {
             const transformedData = {
                 UserID: id,
                 FullName: data.FullName,
-                AlternateEmail: user.AlternateEmail,
+                AlternateEmail: user.AlternateEmail || '',
                 DLState: data.DLState,
                 DLNumber: data.DLNumber,
                 HomeStreetAddress1: data.HomeStreetAddress1,
@@ -116,17 +116,17 @@ const ManageProfileMC = () => {
                 CompanyContactTelephone: data.CompanyContactTelephone,
                 CompanyContactEmailAddress: data.CompanyContactEmailAddress,
                 AuthorizedWGLContact: data.AuthorizedWGLContact,
-                AdditionalID: user?.AdditionalID || null,
+                AdditionalID: user?.AdditionalID || 0,
                 FileData: files
             };
 
-            const result = await dispatch(mapCenterAction.update({ id, Data: transformedData }));
+            const result = await dispatch(mapCenterAction.update({ id, transformedData }));
             console.log(result);
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
                 return;
             }
-            navigate('/');
+           // navigate('/');
             dispatch(alertActions.success({ message: 'Form submitted successfully!', header: header, showAfterRedirect: true }));
 
         } catch (error) {
