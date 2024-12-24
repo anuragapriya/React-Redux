@@ -28,7 +28,7 @@ function createInitialState() {
 
 function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/registration`;
-    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         register: register(),
@@ -40,6 +40,7 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/register`,
             async (user) => {
+                user={...user, LastName:''};
                 const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user));
                 return response;
             }
@@ -53,13 +54,13 @@ function createExtraActions() {
         );
     }
 
-    function getVerifiedUserData() {
+    function getVerifiedUserData() { 
         return createAsyncThunk(
             `${name}/getVerifiedUserData`,
-            async (token) => {
+            async (verifyId) => {
                 // Construct the URL with the token as a query parameter
-                const url = new URL(`${baseUrl}/verified`);
-                url.searchParams.append('token', token);
+                const url = new URL(`${baseUrl}/VerifiedEmailByUser`);
+                url.searchParams.append('userId', verifyId);
 
                 // Fetch the data from the constructed URL
                 const response = await trackPromise(fetchWrapper.get(url.toString()));

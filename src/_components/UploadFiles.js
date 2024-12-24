@@ -94,12 +94,14 @@ const UploadFiles = ({
             const base64 = await convertToBase64(file);
             const fileData = {
                 ID: null, // This will be updated if replacing an existing file
+                AdditionalID:0,
                 DocumentTypeID: file.DocumentTypeID,
                 FileName: file.name,
                 Format: file.extension,
                 Size: file.size,
                 Portalkey: portalKey, // Replace with actual portal key if needed
-                File: base64
+                File: base64,
+                Url: null
             };
 
             fileResults.push(fileData);
@@ -108,7 +110,9 @@ const UploadFiles = ({
         setFiles(prevFiles => {
             const updatedFiles = prevFiles.map(prevFile => {
                 const newFile = fileResults.find(newFile => newFile.DocumentTypeID === prevFile.DocumentTypeID);
-                return newFile ? { ...newFile, ID: prevFile.ID } : prevFile;
+                return newFile ? { ...newFile, ID: prevFile.ID,
+                    AdditionalID: prevFile.AdditionalID || 0,
+                    Url : prevFile.Url ||'' } : prevFile;
             });
 
             const newUniqueFiles = fileResults.filter(newFile => 

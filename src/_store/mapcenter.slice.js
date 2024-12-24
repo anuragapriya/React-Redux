@@ -52,9 +52,9 @@ function createExtraActions() {
     function update() {
         return createAsyncThunk(
             `${name}/update`,
-            async ({ id, Data }, { rejectWithValue }) => {
+            async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/${id}`, { Data }));
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
                 } catch (error) {
                     return rejectWithValue(error);
                 }
