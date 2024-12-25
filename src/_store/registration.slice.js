@@ -40,7 +40,7 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/register`,
             async (user) => {
-                user={...user, LastName:''};
+                user={...user, LastName:'',FirstName:user.FullName};
                 const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user));
                 return response;
             }
@@ -63,7 +63,7 @@ function createExtraActions() {
                 url.searchParams.append('userId', verifyId);
 
                 // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.get(url.toString()));
+                const response = await trackPromise(fetchWrapper.post(url.toString()));
                 return response; // Return the response data
             }
         );

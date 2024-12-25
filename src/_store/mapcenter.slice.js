@@ -20,7 +20,8 @@ export const mapCenterReducer = slice.reducer;
 
 function createInitialState() {
     return {
-        userData: null
+        userData: null,
+        document: null
     }
 }
 
@@ -30,7 +31,8 @@ function createExtraActions() {
 
     return {
         get: get(),
-        update: update()
+        update: update(),
+        getNondisclosureDocument: getNondisclosureDocument()
     };
 
     function get() {
@@ -61,6 +63,21 @@ function createExtraActions() {
             }
         );
     }
+
+    function getNondisclosureDocument() {
+        return createAsyncThunk(
+            `${name}/getNondisclosureDocument`,
+            async ({ id, portal }, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/getNondisclosureDocument`));
+                    return response;
+                } catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
 }
 
 function createReducers() {
@@ -76,6 +93,7 @@ function createReducers() {
 function createExtraReducers() {
     return (builder) => {
         get();
+        getNondisclosureDocument();
 
         function get() {
             var { pending, fulfilled, rejected } = extraActions.get;
@@ -90,6 +108,20 @@ function createExtraReducers() {
                 })
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };
+                });
+        }
+
+        function getNondisclosureDocument() {
+            var { pending, fulfilled, rejected } = extraActions.getNondisclosureDocument;
+            builder
+                .addCase(pending, (state) => {
+                    state.document = { loading: true };
+                })
+                .addCase(fulfilled, (state, action) => {
+                    state.document = action.payload;
+                })
+                .addCase(rejected, (state, action) => {
+                    state.document = { error: action.error };
                 });
         }
     };

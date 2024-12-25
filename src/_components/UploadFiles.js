@@ -1,20 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Typography } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
+import { Button, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import fileExtension from "_utils/files/fileExtension";
-import fileSizeReadable from '_utils/files/fileSizeReadable';
-import fileTypeAcceptable from '_utils/files/fileTypeAcceptable';
-import { CheckCircleRounded } from '@mui/icons-material';
 import { green } from '@mui/material/colors';
-import IconButton from '@mui/material/IconButton';
+import { CheckCircleRounded } from '@mui/icons-material';
+import {} from "_utils";
 import { alertActions } from "_store";
-import images from '../images';
-import base64ToFile from "_utils/files/base64ToFile";
-import { convertToBase64 } from '_utils';
+import { convertToBase64,base64ToFile ,fileExtension ,fileSizeReadable,fileTypeAcceptable} from '_utils';
 import { uploadLabels } from "_utils/labels";
 import ModalPopup from "./ModalPopup";
+import images from '../images';
+
 const UploadFiles = ({
     portalKey,
     selectedDocumentType,
@@ -32,6 +29,17 @@ const UploadFiles = ({
     const [fileToRemove, setFileToRemove] = useState(null);
     const dispatch = useDispatch();
     const idCounter = useRef(1);
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+    });
 
     useEffect(() => {
         setFiles(initialFiles);
@@ -145,18 +153,6 @@ const UploadFiles = ({
         setOpen(false);
         setFileToRemove(null); // Reset fileToRemove state
     };
-
-    const VisuallyHiddenInput = styled('input')({
-        clip: 'rect(0 0 0 0)',
-        clipPath: 'inset(50%)',
-        height: 1,
-        overflow: 'hidden',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        whiteSpace: 'nowrap',
-        width: 1,
-    });
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];

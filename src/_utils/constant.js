@@ -294,38 +294,43 @@ export const user = {
   }
 }
 
-export const portalData = [
-  {
-    PortalID: "1",
-    PortalKey: "AI",
-    PortalName: "Account Inquiry",
-    Description: "To Manage Account Inquiry Details"
-  },
-  {
-    PortalID: "2",
-    PortalKey: "EA",
-    PortalName: "Energy Assistance",
-    Description: "To Manage Energy Assistance Details"
-  },
-  {
-    PortalID: "3",
-    PortalKey: "MC",
-    PortalName: "Map Center",
-    Description: "To Manage Map Center Details"
-  },
-  {
-    PortalID: "4",
-    PortalKey: "MB",
-    PortalName: "Marketer & BBS",
-    Description: "To Manage Marketer & BBS Details"
-  },
-  {
-    PortalID: "5",
-    PortalKey: "SD",
-    PortalName: "Supplier Diversity",
-    Description: "To Manage Supplier Diversity Details"
-  },
-];
+export const portalData = {
+  "Succeeded": true,
+  "Message": "Dcoument Type Received Successfully!!",
+  "Errors": null,
+  "Data": [
+    {
+      "PortalID": 1,
+      "PortalName": "Account Inquiry",
+      "PortalDescription": "Account Inquiry",
+      "PortalKey":"AI"
+    },
+    {
+      "PortalID": 2,
+      "PortalName": "Energy Assistance",
+      "PortalDescription": "Energy Assistance",
+      "PortalKey" : "EA"
+    },
+    {
+      "PortalID": 3,
+      "PortalName": "Map Center",
+      "PortalDescription": "Map Center",
+      "PortalKey":"MC"
+    },
+    {
+      "PortalID": 4,
+      "PortalName": "Marketer & BBS",
+      "PortalDescription": "Marketer & BBS",
+      "PortalKey":"MB"
+    },
+    {
+      "PortalID": 5,
+      "PortalName": "Supplier Diversity",
+      "PortalDescription": "Supplier Diversity",
+      "PortalKey":"SD"
+    }
+  ]
+};
 
 export const userRegistrationVerified = {
   "Data": {

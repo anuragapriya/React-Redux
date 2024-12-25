@@ -39,9 +39,9 @@ const fakeBackend = () => {
                         return getAccessData();
                     case url.endsWith('/users/postAccessData') && opts.method === 'POST':
                         return postAccessData();
-                    case url.endsWith('/registration') && opts.method === 'GET':
+                    case url.endsWith('/master/GetPortalDetails') && opts.method === 'GET':
                         return getPortalData();
-                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
+                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'POST':
                         return getVerifiedUserData();
                     case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
@@ -58,8 +58,8 @@ const fakeBackend = () => {
             // route functions
 
             function authenticate() {
-                const { email, password } = body();
-                const user = users.find(x => x.emailAddress === email && x.password === password);
+                const { Email, Password } = body();
+                const user = users.find(x => x.emailAddress === Email && x.password === Password);
 
                 if (!user) return error('You have entered an incorrect password for the profile associated with this email address.');
 
@@ -91,8 +91,8 @@ const fakeBackend = () => {
             function register() {
                 const user = body();
 
-                if (users.find(x => x.emailAddress === user.emailAddress)) {
-                    return error('email "' + user.emailAddress + '" is already taken')
+                if (users.find(x => x.emailAddress === user.EmailAddress)) {
+                    return error('email "' + user.EmailAddress + '" is already taken')
                 }
 
                 user.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
@@ -212,8 +212,7 @@ const fakeBackend = () => {
             }
 
             function getPortalData() {
-
-                return ok(registerPortalData.map(x => basicDetails(x)));
+                return ok(registerPortalData);
             }
 
             function getVerifiedUserData() {

@@ -80,7 +80,7 @@ const VerifiedRegistration = () => {
                     timerCountdown={60}
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
-                    message2={verifiedRegistrationLabels.message2}
+                    message2={verifiedRegistrationLabels.message2NonRegistration}
                     btnSecondaryText={genericlabels.lblClose}
                     handleBtnSecondaryClick={handleClick}
                 />

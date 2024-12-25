@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 
-const MultiSelectInput = React.memo(({ options, onChange, label, error, helperText, handleBlur }) => {
+const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur }) => {
   const [selectedOptions, setSelectedOptions] = React.useState([]);
 
   const handleChange = (event, value, reason) => {
@@ -98,6 +98,6 @@ const MultiSelectInput = React.memo(({ options, onChange, label, error, helperTe
       />
     </Box>
   );
-});
+}
 
 export default MultiSelectInput;

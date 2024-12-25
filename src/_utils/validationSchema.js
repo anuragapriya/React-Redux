@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
-
 export const registerValidationSchema = Yup.object().shape({
-    FirstName: Yup.string()
+    FullName: Yup.string()
         .required('Full Name is required'),
     CompanyName: Yup.string()
         .required('Company Name is required'),
@@ -12,7 +11,16 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Email Address is required')
         .email('Email Address is invalid'),
     Password: Yup.string()
-        .required('Password is required'),
+        .required('Password is required')
+        .test('minLength', value => value && value.length >= 16)
+        .test('uppercase', value => /[A-Z]/.test(value))
+        .test('lowercase', value => /[a-z]/.test(value))
+        .test('number', value => /[0-9]/.test(value))
+        .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
+        .test('FullName', function(value) {
+            const { FullName } = this.parent;
+            return value && !value.toLowerCase().includes(FullName.toLowerCase());
+        }),
     PortalId: Yup.number()
         .nullable()
         .required('Please select any Portal'),
@@ -20,7 +28,16 @@ export const registerValidationSchema = Yup.object().shape({
 
 export const passwordValidationSchema = Yup.object().shape({
     Password: Yup.string()
-        .required('Password is required'),
+    .required('Password is required')
+    .test('minLength', value => value && value.length >= 16)
+    .test('uppercase', value => /[A-Z]/.test(value))
+    .test('lowercase', value => /[a-z]/.test(value))
+    .test('number', value => /[0-9]/.test(value))
+    .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
+    .test('FullName', function(value) {
+        const { FullName } = this.parent;
+        return value && !value?.toLowerCase().includes(FullName?.toLowerCase());
+    }),
 });
 
 export const additionalDetailsValidationSchema = Yup.object().shape({

@@ -10,7 +10,6 @@ const RegistrationLayout = () => {
         
         <Routes>
             <Route path="verified" element={<VerifiedRegistration />} />
-            <Route path="dashboard" element={<PortalRegistration />} />
             <Route element={<Header />}>
             <Route path="mapCenter/:portalkey/:id" element={<ManageProfileMC />} />
             <Route path="diversity/:portalkey/:id" element={<ManageProfileSD />} />

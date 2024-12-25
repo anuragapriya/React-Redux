@@ -23,9 +23,9 @@ export default function Login() {
         mode: 'onChange'
     });
 
-    const onSubmit = async ({ email, password }) => {
+    const onSubmit = async ({ Email, Password }) => {
         try {
-            dispatch(authActions.login({ email, password }));
+            dispatch(authActions.login({ Email, Password }));
         } catch (error) {
             dispatch(alertActions.error({ message: error, header: "Login Failed" }));
         }
@@ -59,7 +59,7 @@ export default function Login() {
                 <div className="paper">
                     <form className="form" onSubmit={handleSubmit(onSubmit)}>
                         <CustomFormControl
-                            id="email"
+                            id="Email"
                             label="Email Address"
                             type="text"
                             register={register}
@@ -70,7 +70,7 @@ export default function Login() {
                         <Typography component="div" className="PasswordInput">
                         <PasswordInput
                             control={control}
-                            name="password"
+                            name="Password"
                             label="Password"
                             rules={{ required: 'Password is required' }}
                             errors={errors}
