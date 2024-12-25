@@ -39,9 +39,9 @@ const fakeBackend = () => {
                         return getAccessData();
                     case url.endsWith('/users/postAccessData') && opts.method === 'POST':
                         return postAccessData();
-                    case url.endsWith('/registration') && opts.method === 'GET':
+                    case url.endsWith('/master/GetPortalDetails') && opts.method === 'GET':
                         return getPortalData();
-                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
+                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'POST':
                         return getVerifiedUserData();
                     case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
@@ -212,8 +212,7 @@ const fakeBackend = () => {
             }
 
             function getPortalData() {
-
-                return ok(registerPortalData.map(x => basicDetails(x)));
+                return ok(registerPortalData);
             }
 
             function getVerifiedUserData() {

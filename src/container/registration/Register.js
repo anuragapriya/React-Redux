@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button, Link } from '@mui/material';
-import { alertActions, registrationActions } from '_store';
+import { alertActions, masterActions, registrationActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
 import Grid from "@material-ui/core/Grid";
@@ -13,13 +13,21 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const registrationStatus = useSelector(x => x.registration?.status);
+    const portals = useSelector((x) => x.master?.portalData);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const portalData = (!portals?.loading && !portals?.error) ? portals?.map(x => ({
+        label: x.PortalDescription,
+        value: x.PortalID
+    })) : [];
 
     const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
         resolver: yupResolver(registerValidationSchema),
         mode: 'onChange'
-    });
+    });    
+        useEffect(() => {
+            dispatch(masterActions.getPortalData());
+    
+        }, [dispatch]);
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
@@ -42,13 +50,14 @@ const Register = () => {
             <Typography component="h1" variant="h5" className="Logincontent">Registration</Typography>
             <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
                 <PersonalDetails
-                isPasswordValid={isPasswordValid}
+                    isPasswordValid={isPasswordValid}
                     register={register}
                     errors={errors}
                     watch={watch}
                     control={control}
                     trigger={trigger}
                     setIsPasswordValid={setIsPasswordValid}
+                    portalData={portalData}
                 />
                 <Typography component="div" className="loginbuttonfixed">
                     <Button

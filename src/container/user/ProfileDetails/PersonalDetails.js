@@ -3,11 +3,11 @@ import { portalList } from '_utils/tempData';
 import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
 import { Typography } from '@mui/material';
 
-const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
+const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid,portalData }) => {
     const [inputColors, setInputColors] = useState({});
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
     const Password = watch('Password', '');
-    const FirstName = watch('FirstName', '');
+    const FullName = watch('FullName', '');
 
     useEffect(() => {
         if (errors.Password) {
@@ -54,7 +54,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
     return (
         <>
             <CustomFormControl
-                id="FirstName"
+                id="FullName"
                 label="Full Name"
                 type="text"
                 register={register}
@@ -102,7 +102,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                     isPasswordValid={isPasswordValid}
                 />
                 {showPasswordCheck && (
-                    <PasswordCheck password={Password} userName={FirstName} onValidationChange={handlePasswordValidation} />
+                    <PasswordCheck password={Password} userName={FullName} onValidationChange={handlePasswordValidation} />
                 )}
             </Typography>
             <Typography component="div" className='passwordcheck mobile-padding'>
@@ -110,7 +110,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                     control={control}
                     name="PortalId"
                     label="Select Portal"
-                    options={portalList}
+                    options={portalData}
                     error={!!errors.PortalId}
                     helperText={errors.PortalId?.message}
                     handleBlur={handleBlur}

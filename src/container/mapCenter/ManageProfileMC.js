@@ -58,7 +58,7 @@ const ManageProfileMC = () => {
                 }
             } catch (error) {
                 dispatch(alertActions.error({
-                    message: error,
+                    message: error?.message || error,
                     header: header
                 }));
                 reset(user);
@@ -162,7 +162,7 @@ const ManageProfileMC = () => {
         }
         catch (error) {
             dispatch(alertActions.error({
-                message: error,
+                message: error?.message || error,
                 header: header
             }));
         }

@@ -6,6 +6,7 @@ import { usersReducer } from './users.slice';
 import { portalAccessReducer } from './configuration.slice';
 import { registrationReducer } from './registration.slice';
 import { mapCenterReducer } from './mapcenter.slice';
+import { masterReducer } from './master.slice';
 
 
 export * from './alert.slice';
@@ -14,6 +15,7 @@ export * from './users.slice';
 export * from './configuration.slice';
 export * from './registration.slice';
 export * from './mapcenter.slice';
+export * from './master.slice';
 
 
 export const store = configureStore({
@@ -23,7 +25,7 @@ export const store = configureStore({
         users: usersReducer,
         configs:portalAccessReducer,
         registration:registrationReducer,
-        mapcenter:mapCenterReducer
-
+        mapcenter:mapCenterReducer,
+        master:masterReducer
     },
 });

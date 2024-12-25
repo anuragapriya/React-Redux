@@ -30,6 +30,7 @@ export const verifiedRegistrationLabels={
     header:"Verification Completed",
     message1:"Thank you for verifying your email address!",
     message2:"Please click on the below button to complete registration.",
+    message2NonRegistration:"Your request is pending for admin approval. You will be notified once request is approved.",
     btnSecondaryText:"Close",
     btnPrimaryText:"Complete registration"
 }

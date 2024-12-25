@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 export const registerValidationSchema = Yup.object().shape({
-    FirstName: Yup.string()
+    FullName: Yup.string()
         .required('Full Name is required'),
     CompanyName: Yup.string()
         .required('Company Name is required'),
@@ -17,9 +17,9 @@ export const registerValidationSchema = Yup.object().shape({
         .test('lowercase', value => /[a-z]/.test(value))
         .test('number', value => /[0-9]/.test(value))
         .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
-        .test('FirstName', function(value) {
-            const { FirstName } = this.parent;
-            return value && !value.toLowerCase().includes(FirstName.toLowerCase());
+        .test('FullName', function(value) {
+            const { FullName } = this.parent;
+            return value && !value.toLowerCase().includes(FullName.toLowerCase());
         }),
     PortalId: Yup.number()
         .nullable()
@@ -34,9 +34,9 @@ export const passwordValidationSchema = Yup.object().shape({
     .test('lowercase', value => /[a-z]/.test(value))
     .test('number', value => /[0-9]/.test(value))
     .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
-    .test('FirstName', function(value) {
-        const { FirstName } = this.parent;
-        return value && !value?.toLowerCase().includes(FirstName?.toLowerCase());
+    .test('FullName', function(value) {
+        const { FullName } = this.parent;
+        return value && !value?.toLowerCase().includes(FullName?.toLowerCase());
     }),
 });
 
