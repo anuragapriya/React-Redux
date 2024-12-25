@@ -59,7 +59,7 @@ const fakeBackend = () => {
 
             function authenticate() {
                 const { Email, Password } = body();
-                const user = users.find(x => x.emailAddress === Email && x.password === Password);
+                const user = users.find(x => x.EmailAddress === Email && x.Password === Password);
 
                 if (!user) return error('You have entered an incorrect password for the profile associated with this email address.');
 
@@ -91,7 +91,7 @@ const fakeBackend = () => {
             function register() {
                 const user = body();
 
-                if (users.find(x => x.emailAddress === user.EmailAddress)) {
+                if (users.find(x => x.EmailAddress === user.EmailAddress)) {
                     return error('email "' + user.EmailAddress + '" is already taken')
                 }
 
@@ -291,7 +291,16 @@ const fakeBackend = () => {
 
             function basicDetails(userdetail) {
                 // const {id,userName,email,roles,isVerified,jwtToken,tokenExpiry,refreshToken,refreshTokenExpiry} = user;
-                const updatedUser = Object.assign({}, user, userdetail);
+                const updatedUser = {
+                    ...user,
+                    Data: {
+                      ...user.Data,
+                      UserDetails: {
+                        ...user.Data.UserDetails,
+                        ...userdetail
+                      }
+                    }
+                  };
                 return updatedUser;
             }
         });
