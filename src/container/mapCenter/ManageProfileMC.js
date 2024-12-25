@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button } from '@mui/material';
-import { alertActions, mapCenterAction, userActions } from '_store';
-import { useNavigate, useParams } from 'react-router-dom';
-import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, uploadValidationSchema } from "_utils/validationSchema";
-import { CompanyDetails,AdditionalDetails ,CompanyPOC } from "container/user";
-import Grid from "@material-ui/core/Grid";
-import { AutocompleteInput, UploadFiles } from '_components';
+import { Grid, IconButton } from "@material-ui/core";
+import { alertActions, mapCenterAction } from '_store';
+import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema } from "_utils/validationSchema";
 import { supportedFormat } from '_utils/constant';
-import UnderConstruction from '_components/UnderConstruction';
+import { base64ToFile } from '_utils';
+import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
+import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
 import images from '../../images';
 
 const ManageProfileMC = () => {
@@ -32,7 +32,7 @@ const ManageProfileMC = () => {
         .concat(companyValidationSchema)
         .concat(companyPOCValidationSchema);
 
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting, isValid }, watch, trigger } = useForm({
+    const { register, handleSubmit, control, reset, formState: { errors, isValid }, trigger } = useForm({
         resolver: yupResolver(combinedSchema)
     });
 
@@ -126,14 +126,13 @@ const ManageProfileMC = () => {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
                 return;
             }
-           // navigate('/');
+            navigate('/');
             dispatch(alertActions.success({ message: 'Form submitted successfully!', header: header, showAfterRedirect: true }));
 
         } catch (error) {
             dispatch(alertActions.error({ message: error.message, header: header }));
         }
     };
-
 
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
@@ -153,6 +152,20 @@ const ManageProfileMC = () => {
 
     const handleFileChange = (newFiles) => {
         setFiles(newFiles);
+    };
+
+    const handleDownload = async (base64String, fileName) => {
+        try {
+            const file = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
+          //  base64ToFile(base64String, fileName);
+          return;
+        }
+        catch (error) {
+            dispatch(alertActions.error({
+                message: error,
+                header: header
+            }));
+        }
     };
 
     return (
@@ -188,19 +201,18 @@ const ManageProfileMC = () => {
                                                 <Typography component="div" className="Personal-Informationsheading ">
                                                     <Typography component="h2" variant="h5">Document Upload  <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                 </Typography>
-                                                <Typography  component="div" className="passwordcheck">
-                                                <AutocompleteInput
-                                                    control={control}
-                                                    name="documentType"
-                                                    label="Document Type"
-                                                    options={documentData}
-                                                    error={!!errors.documentType}
-                                                    helperText={errors.documentType?.message}
-                                                    handleBlur={handleBlur}
-                                                    inputColor={inputColors['documentType']}
-                                                    onChange={handleOnChange}
-                                                   
-                                                />
+                                                <Typography component="div" className="passwordcheck">
+                                                    <AutocompleteInput
+                                                        control={control}
+                                                        name="documentType"
+                                                        label="Document Type"
+                                                        options={documentData}
+                                                        error={!!errors.documentType}
+                                                        helperText={errors.documentType?.message}
+                                                        handleBlur={handleBlur}
+                                                        inputColor={inputColors['documentType']}
+                                                        onChange={handleOnChange}
+                                                    />
                                                 </Typography>
                                                 <UploadFiles
                                                     initialFiles={files}
@@ -212,12 +224,22 @@ const ManageProfileMC = () => {
                                                     errors={errors}
                                                     onFileChange={handleFileChange}
                                                 />
+                                                <Typography component="div" className="SupportedFormats">
+                                                    <Typography component="h3" >Download Template</Typography>
+                                                    <div className="mar-top-16" >
+                                                        <Typography component="div">Non-disclosure agreement
+                                                            <IconButton onClick={handleDownload}>
+                                                                <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                            </IconButton>
+                                                        </Typography>
+                                                    </div>
+                                                </Typography>
                                             </Typography>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12} sm={6} md={8}>
-                                <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
+                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
                                 </Grid>
                             </Grid>
                         </Typography>

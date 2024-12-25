@@ -22,8 +22,9 @@ import AutocompleteInput from "./AutocompleteInput";
 import UploadFiles from "./UploadFiles";
 import MultiSelectAutocomplete from './MultiSelectAutocomplete';
 import MultiSelectInput from "./MultiSelectInput";
+import UnderConstruction from "./UnderConstruction";
 
 export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,
     SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab,ErrorBoundary,
     AutocompleteInput,PasswordCheck,ModalPopup,PasswordInput,CustomFormControl,MobileNumberInput,
-    MultiSelectAutocomplete,UploadFiles,MultiSelectInput};
+    MultiSelectAutocomplete,UploadFiles,MultiSelectInput,UnderConstruction};
