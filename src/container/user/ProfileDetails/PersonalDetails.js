@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { portalList } from '_utils/tempData';
-import {PasswordCheck,CustomFormControl,MobileNumberInput,PasswordInput,AutocompleteInput} from '_components';
+import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
 import { Typography } from '@mui/material';
 
 const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid }) => {
@@ -12,6 +12,8 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
     useEffect(() => {
         if (errors.Password) {
             setShowPasswordCheck(true);
+        } else {
+            setShowPasswordCheck(false);
         }
     }, [errors.Password]);
 
@@ -88,35 +90,33 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 inputColors={inputColors}
             />
             <Typography component="div" className='passwordcheck'>
-             <PasswordInput
-                control={control}
-                name="Password"
-                label="Password"
-                rules={{ required: 'Password is required' }}
-                errors={errors}
-                handleBlur={handleBlur}
-                handleFocus={handlePasswordFocus}
-                inputColors={inputColors}
-                isPasswordValid={isPasswordValid}
-            />
-            
-            {showPasswordCheck && (
-                <PasswordCheck password={Password} userName={FirstName} onValidationChange={handlePasswordValidation} />
-            )}
-             </Typography>
-            <Typography component="div" className='passwordcheck mobile-padding'>
-            <AutocompleteInput
-                control={control}
-                name="PortalId"
-                label="Select Portal"
-                options={portalList}
-                error={!!errors.PortalId}
-                helperText={errors.PortalId?.message}
-                handleBlur={handleBlur}
-                inputColor={inputColors['PortalId']}
-            />
+                <PasswordInput
+                    control={control}
+                    name="Password"
+                    label="Password"
+                    rules={{ required: 'Password is required' }}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                    handleFocus={handlePasswordFocus}
+                    inputColors={inputColors}
+                    isPasswordValid={isPasswordValid}
+                />
+                {showPasswordCheck && (
+                    <PasswordCheck password={Password} userName={FirstName} onValidationChange={handlePasswordValidation} />
+                )}
             </Typography>
-            
+            <Typography component="div" className='passwordcheck mobile-padding'>
+                <AutocompleteInput
+                    control={control}
+                    name="PortalId"
+                    label="Select Portal"
+                    options={portalList}
+                    error={!!errors.PortalId}
+                    helperText={errors.PortalId?.message}
+                    handleBlur={handleBlur}
+                    inputColor={inputColors['PortalId']}
+                />
+            </Typography>
         </>
     );
 };

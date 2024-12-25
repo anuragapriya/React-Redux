@@ -66,7 +66,7 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
                 <li style={{ color: validations.fullname ? 'green' : 'red' }}>
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.fullname} readOnly />
-                        <span className="checkmark"></span>Password should contain Name
+                        <span className="checkmark"></span>Password should not contain your FullName
                     </label>
                 </li>
             </ul>
