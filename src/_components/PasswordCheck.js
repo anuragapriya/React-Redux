@@ -21,7 +21,7 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
             special: /[!@#$%^&*(),.?":{}|<>']/.test(password),
-            fullname: password && !password.includes(userName),
+            fullname: password && !password.toLowerCase().includes(userName.toLowerCase()),
         };
         setValidations(newValidations);
 
@@ -66,7 +66,7 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
                 <li style={{ color: validations.fullname ? 'green' : 'red' }}>
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.fullname} readOnly />
-                        <span className="checkmark"></span>Password should contain Name
+                        <span className="checkmark"></span>Password should not contain your FullName
                     </label>
                 </li>
             </ul>
