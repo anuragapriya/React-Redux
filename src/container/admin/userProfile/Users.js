@@ -5,7 +5,7 @@ const Users = () => {
     const portalKey = 'AI';
     const [data, setData] = useState([
         { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
-        { ID: 2, name: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
+        { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
     ]);
 
     const [errors, setErrors] = useState({});

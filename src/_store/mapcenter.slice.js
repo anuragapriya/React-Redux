@@ -27,8 +27,8 @@ function createInitialState() {
 
 function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
-    //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
-
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    const ndaUrl= `${process.env.REACT_APP_API_URL}/api/NDAFile`;
     return {
         get: get(),
         update: update(),
@@ -67,9 +67,9 @@ function createExtraActions() {
     function getNondisclosureDocument() {
         return createAsyncThunk(
             `${name}/getNondisclosureDocument`,
-            async ({ id, portal }, { rejectWithValue }) => {
+            async (_, { rejectWithValue }) => {
                 try {
-                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/getNondisclosureDocument`));
+                    const response = await trackPromise(fetchWrapper.get(`${ndaUrl}/download`));
                     return response;
                 } catch (error) {
                     console.log(error.message);

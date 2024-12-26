@@ -8,16 +8,15 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const handleBlur = (e) => {
+    const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        const fieldError = errors[fieldName];
+        await trigger(fieldName); 
+        // const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
-
-        trigger(fieldName); // Trigger validation for the field
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
     const handleSelectionChange = (newValue) => {
         console.log(newValue);

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { TextField } from '@mui/material';
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
 const AdditionalDetails = ({ register, errors, control, stateData, inputColors, handleBlur }) => {
