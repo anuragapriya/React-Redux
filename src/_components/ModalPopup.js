@@ -22,7 +22,7 @@ const ModalPopup = ({ header, message1, message2, btnPrimaryText, btnSecondaryTe
             className="displayblock">
             <Box className="  modalpopup">
                <Box className=" row modalpopupinner">
-                  <Grid item xs={12}>
+                  <Grid item xs={12} className="p-0">
                      <Link href="#" variant="logo" className="wgllogo">
                         <img src={images.logo} alt="logo"></img>
                         {labels.eServicePortal}

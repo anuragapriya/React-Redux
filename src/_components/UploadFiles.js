@@ -194,8 +194,8 @@ const UploadFiles = ({
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={6} md={12}>
-                    <Typography component="div" className="SupportedFormats">
-                        <Typography component="h3">Uploaded Documents</Typography>
+                    <Typography component="div" className="SupportedFormats Personal-Informationsheading">
+                        <Typography component="h2">Uploaded Documents</Typography>
                         <Typography component="div" className="fileformat">
                             {documentTypes && documentTypes.map(type => {
                                 const uploadedDocument = files.filter(x => x.DocumentTypeID === type.DocumentTypeID);

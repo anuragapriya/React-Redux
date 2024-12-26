@@ -8,7 +8,7 @@ export const labels = {
     seasonStartLabel: "SEASON START",
     seasonEndLabel: "SEASON END",
     manageProfileLabel: "Manage Profile",
-    eServicePortal:"eService Portal"
+    eServicePortal:"eServices Portals"
 }
 
 export const genericlabels={

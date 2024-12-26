@@ -7,6 +7,7 @@
   }
 
 @import './styles/Login.css';
+@import './styles/AdminLogin.css';
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -166,6 +167,6 @@ body {
 .zoom150{
   zoom: 150%;
 }
-.zoom{
+/* .zoom{
   display: none;
-}
+} */
