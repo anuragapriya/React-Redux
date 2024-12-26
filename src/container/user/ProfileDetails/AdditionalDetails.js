@@ -32,7 +32,7 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
             inputColors={inputColors}
         />
         <Grid container spacing={3}>
-            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
                 <AutocompleteInput
                     control={control}
                     name="HomeState"

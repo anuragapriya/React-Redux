@@ -30,7 +30,7 @@ const ManageProfileMC = () => {
         value: x.DocumentTypeID
     }));
 
-    const stateData= states.map(x => ({
+    const stateData = states.map(x => ({
         label: x.StateName,
         value: x.StateID
     }));
@@ -51,7 +51,7 @@ const ManageProfileMC = () => {
                 const data = user?.Data;
                 reset(data);
                 //console.log(data);
-               // applyInitialColors(data);
+                // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -164,8 +164,8 @@ const ManageProfileMC = () => {
     const handleDownload = async (base64String, fileName) => {
         try {
             const file = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
-          //  base64ToFile(base64String, fileName);
-          return;
+            //  base64ToFile(base64String, fileName);
+            return;
         }
         catch (error) {
             dispatch(alertActions.error({
@@ -187,21 +187,30 @@ const ManageProfileMC = () => {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={12} md={12}>
                                     <Grid container spacing={3}>
-                                        <Grid item xs={12} sm={6} md={4} className="Personal-Information">
-                                            <Typography component="div" className="mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5">Personal Information</Typography>
-                                                </Typography>
-                                                <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} md={4} className="Personal-Information">
-                                            <Typography component="div" className="mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5">Company Information</Typography>
-                                                </Typography>
-                                                <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
-                                            </Typography>
+                                        <Grid item xs={12} sm={12} md={8}>
+                                            <Grid container spacing={3}>
+                                                <Grid item xs={12} sm={6} md={6} className="Personal-Information">
+                                                    <Typography component="div" className="mapcontainer">
+                                                        <Typography component="div" className="Personal-Informationsheading">
+                                                            <Typography component="h2" variant="h5">Personal Information</Typography>
+                                                        </Typography>
+                                                        <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={6} md={6} className="Personal-Information">
+                                                    <Typography component="div" className="mapcontainer">
+                                                        <Typography component="div" className="Personal-Informationsheading">
+                                                            <Typography component="h2" variant="h5">Company Information</Typography>
+                                                        </Typography>
+                                                        <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={12}>
+                                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
+
+
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">
@@ -245,9 +254,7 @@ const ManageProfileMC = () => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={8}>
-                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
-                                </Grid>
+
                             </Grid>
                         </Typography>
                         <Grid item xs={12} sm={12} md={12} className="Personal-Information">
