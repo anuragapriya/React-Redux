@@ -12,6 +12,7 @@ import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
 import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
 import images from '../../images';
+import { mapCenterRegistrationLabels } from '_utils/labels';
 
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
@@ -85,7 +86,7 @@ const ManageProfileMC = () => {
                 !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
             );
 
-            if (missingDocumentTypes.length > 0) {
+            if (!documentData || missingDocumentTypes.length > 0) {
                 const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
                 dispatch(alertActions.error({
                     message: `Missing files for document types: ${missingDescriptions}`,
@@ -127,7 +128,7 @@ const ManageProfileMC = () => {
                 return;
             }
             navigate('/');
-            dispatch(alertActions.success({ message: 'Form submitted successfully!', header: header, showAfterRedirect: true }));
+            dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
             dispatch(alertActions.error({ message: error.message, header: header }));

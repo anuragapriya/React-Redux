@@ -49,6 +49,18 @@ export const emailSentLabels={
     btnSecondaryText:"Close",
 }
 
+export const mapCenterRegistrationLabels={
+    header:"Map Center Access",
+    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
+    btnSecondaryText:"Close",
+}
+
+export const diversityRegistrationLabels={
+    header:"Supplier Diversity Access",
+    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
+    btnSecondaryText:"Close",
+}
+
 export const resetSuccessLabels={
     message1:"You Successfully reset your Password!",
     btnSecondaryText:"Close",
