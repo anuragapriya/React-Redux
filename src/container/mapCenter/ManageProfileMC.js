@@ -24,9 +24,15 @@ const ManageProfileMC = () => {
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
+    const states = user?.State || [];
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
+    }));
+
+    const stateData= states.map(x => ({
+        label: x.StateName,
+        value: x.StateID
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -44,8 +50,8 @@ const ManageProfileMC = () => {
                 const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                console.log(data);
-                applyInitialColors(data);
+                //console.log(data);
+               // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -68,15 +74,15 @@ const ManageProfileMC = () => {
         fetchData();
     }, [id, dispatch, reset, portalkey]);
 
-    const applyInitialColors = (user) => {
-        const colors = {};
-        for (const key in user) {
-            if (user[key]) {
-                colors[key] = 'inputBackground'; // Your desired class
-            }
-        }
-        setInputColors(colors);
-    };
+    // const applyInitialColors = (user) => {
+    //     const colors = {};
+    //     for (const key in user) {
+    //         if (user[key]) {
+    //             colors[key] = 'inputBackground'; // Your desired class
+    //         }
+    //     }
+    //     setInputColors(colors);
+    // };
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
@@ -139,12 +145,12 @@ const ManageProfileMC = () => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
 
-        const fieldError = errors[fieldName];
+        // const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
 
     const handleOnChange = (event, newvalue) => {
@@ -186,7 +192,7 @@ const ManageProfileMC = () => {
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5">Personal Information</Typography>
                                                 </Typography>
-                                                <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} trigger={trigger} errors={errors} />
+                                                <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4} className="Personal-Information">
@@ -194,7 +200,7 @@ const ManageProfileMC = () => {
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5">Company Information</Typography>
                                                 </Typography>
-                                                <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
+                                                <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4}>

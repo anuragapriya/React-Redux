@@ -12,7 +12,6 @@ import ImageUpload from "./ImageUpload";
 import DocumentViewer from "./DocumentViewer";
 import NavTab from "./NavTab";
 import ErrorBoundary from "./ErrorBoundary";
-import ComboSelectBox from "./ComboSelectBox";
 import PasswordCheck from "./PasswordCheck";
 import ModalPopup from "./ModalPopup";
 import PasswordInput from "./PasswordInput";
@@ -23,8 +22,9 @@ import UploadFiles from "./UploadFiles";
 import MultiSelectAutocomplete from './MultiSelectAutocomplete';
 import MultiSelectInput from "./MultiSelectInput";
 import UnderConstruction from "./UnderConstruction";
+import AutocompleteTable from "./AutocompleteTable";
 
 export {Alert,Download,LoadingOverlay,Nav,Notification,OTPVerification,SessionTimeout,
     SessionTimeoutDialog,CardDetail,AppMenu,ImageUpload,DocumentViewer,NavTab,ErrorBoundary,
     AutocompleteInput,PasswordCheck,ModalPopup,PasswordInput,CustomFormControl,MobileNumberInput,
-    MultiSelectAutocomplete,UploadFiles,MultiSelectInput,UnderConstruction};
+    MultiSelectAutocomplete,UploadFiles,MultiSelectInput,UnderConstruction,AutocompleteTable};

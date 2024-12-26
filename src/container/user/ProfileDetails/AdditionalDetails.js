@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
-import { CustomFormControl } from '_components';
-const AdditionalDetails = ({ register, errors, control, trigger, inputColors, handleBlur }) => {
+import { AutocompleteInput, CustomFormControl } from '_components';
+const AdditionalDetails = ({ register, errors, control, stateData, inputColors, handleBlur }) => {
     return <>
         <CustomFormControl
             id="FullName"
@@ -33,14 +33,15 @@ const AdditionalDetails = ({ register, errors, control, trigger, inputColors, ha
         />
         <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
-                <CustomFormControl
-                    id="HomeState"
+                <AutocompleteInput
+                    control={control}
+                    name="HomeState"
                     label="State"
-                    type="text"
-                    register={register}
-                    errors={errors}
+                    options={stateData}
+                    error={!!errors.HomeState}
+                    helperText={errors.HomeState?.message}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
+                    inputColor={inputColors['HomeState']}
                 />
                 <CustomFormControl
                     id="HomeZipCode"
