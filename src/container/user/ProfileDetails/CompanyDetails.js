@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { CustomFormControl } from '_components';
-import CompanyPOC from './CompanyPOC';
+import { AutocompleteInput, CustomFormControl } from '_components';
 
-const CompanyDetails = ({ register, errors, control, trigger, inputColors, handleBlur }) => {
+const CompanyDetails = ({ register, errors, control, stateData, inputColors, handleBlur }) => {
     return <>
         <CustomFormControl
             id="CompanyName"
@@ -42,15 +41,16 @@ const CompanyDetails = ({ register, errors, control, trigger, inputColors, handl
             inputColors={inputColors}
         />
         <Grid container spacing={3} >
-            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
-                <CustomFormControl
-                    id="CompanyState"
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
+                <AutocompleteInput
+                    control={control}
+                    name="CompanyState"
                     label="State"
-                    type="text"
-                    register={register}
-                    errors={errors}
+                    options={stateData}
+                    error={!!errors.CompanyState}
+                    helperText={errors.CompanyState?.message}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
+                    inputColor={inputColors['CompanyState']}
                 />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">

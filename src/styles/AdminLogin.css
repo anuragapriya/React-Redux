@@ -1,0 +1,10 @@
+.welcometext{
+    color: var(--WG-Blue-900, #0A3B70);
+font-family: "ITC Avant Garde Gothic Std Md";
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-transform: uppercase;
+margin: 24px 0px;
+}

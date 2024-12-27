@@ -36,16 +36,15 @@ export default function Login() {
     const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
     const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
 
-    const handleBlur = (e) => {
+    const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        const fieldError = errors[fieldName];
+        await trigger(fieldName); 
+        // const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
-
-        trigger(fieldName); // Trigger validation for the field
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
 
     return (

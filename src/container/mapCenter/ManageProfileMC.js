@@ -12,6 +12,7 @@ import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
 import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
 import images from '../../images';
+import { mapCenterRegistrationLabels } from '_utils/labels';
 
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
@@ -23,9 +24,15 @@ const ManageProfileMC = () => {
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
+    const states = user?.State || [];
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
+    }));
+
+    const stateData = states.map(x => ({
+        label: x.StateName,
+        value: x.StateID
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -43,8 +50,8 @@ const ManageProfileMC = () => {
                 const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                console.log(data);
-                applyInitialColors(data);
+                //console.log(data);
+                // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -67,15 +74,15 @@ const ManageProfileMC = () => {
         fetchData();
     }, [id, dispatch, reset, portalkey]);
 
-    const applyInitialColors = (user) => {
-        const colors = {};
-        for (const key in user) {
-            if (user[key]) {
-                colors[key] = 'inputBackground'; // Your desired class
-            }
-        }
-        setInputColors(colors);
-    };
+    // const applyInitialColors = (user) => {
+    //     const colors = {};
+    //     for (const key in user) {
+    //         if (user[key]) {
+    //             colors[key] = 'inputBackground'; // Your desired class
+    //         }
+    //     }
+    //     setInputColors(colors);
+    // };
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
@@ -85,7 +92,7 @@ const ManageProfileMC = () => {
                 !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
             );
 
-            if (missingDocumentTypes.length > 0) {
+            if (!documentData || missingDocumentTypes.length > 0) {
                 const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
                 dispatch(alertActions.error({
                     message: `Missing files for document types: ${missingDescriptions}`,
@@ -127,7 +134,7 @@ const ManageProfileMC = () => {
                 return;
             }
             navigate('/');
-            dispatch(alertActions.success({ message: 'Form submitted successfully!', header: header, showAfterRedirect: true }));
+            dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
             dispatch(alertActions.error({ message: error.message, header: header }));
@@ -138,12 +145,12 @@ const ManageProfileMC = () => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
 
-        const fieldError = errors[fieldName];
+        // const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
 
     const handleOnChange = (event, newvalue) => {
@@ -156,9 +163,11 @@ const ManageProfileMC = () => {
 
     const handleDownload = async (base64String, fileName) => {
         try {
-            const file = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
-          //  base64ToFile(base64String, fileName);
-          return;
+            const result = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
+            if (!result?.error) {
+                base64ToFile(result.File, result.FileName);
+            }
+
         }
         catch (error) {
             dispatch(alertActions.error({
@@ -180,21 +189,30 @@ const ManageProfileMC = () => {
                             <Grid container spacing={3}>
                                 <Grid item xs={12} sm={12} md={12}>
                                     <Grid container spacing={3}>
-                                        <Grid item xs={12} sm={6} md={4} className="Personal-Information">
-                                            <Typography component="div" className="mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5">Personal Information</Typography>
-                                                </Typography>
-                                                <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} trigger={trigger} errors={errors} />
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} md={4} className="Personal-Information">
-                                            <Typography component="div" className="mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5">Company Information</Typography>
-                                                </Typography>
-                                                <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} trigger={trigger} />
-                                            </Typography>
+                                        <Grid item xs={12} sm={12} md={8}>
+                                            <Grid container spacing={3}>
+                                                <Grid item xs={12} sm={6} md={6} className="Personal-Information">
+                                                    <Typography component="div" className="mapcontainer">
+                                                        <Typography component="div" className="Personal-Informationsheading">
+                                                            <Typography component="h2" variant="h5">Personal Information</Typography>
+                                                        </Typography>
+                                                        <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={6} md={6} className="Personal-Information">
+                                                    <Typography component="div" className="mapcontainer">
+                                                        <Typography component="div" className="Personal-Informationsheading">
+                                                            <Typography component="h2" variant="h5">Company Information</Typography>
+                                                        </Typography>
+                                                        <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xs={12} sm={12} md={12}>
+                                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
+
+
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">
@@ -238,9 +256,7 @@ const ManageProfileMC = () => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={6} md={8}>
-                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
-                                </Grid>
+
                             </Grid>
                         </Typography>
                         <Grid item xs={12} sm={12} md={12} className="Personal-Information">

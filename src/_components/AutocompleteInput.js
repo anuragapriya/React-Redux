@@ -19,7 +19,6 @@ const AutocompleteInput = ({ control, name,value, label, options, error, helperT
                     isOptionEqualToValue={(option, value) => option.value === value}
                     value={ options?.find(option => option.value === field.value || value) || null}
                     onChange={(e, newValue) => {
-                        console.log('Selected Portal:', newValue);
                         field.onChange(newValue ? newValue.value : null);
                        if(onChange) onChange(e, newValue);
                     }}

@@ -80,7 +80,7 @@ const Home = () => {
 
   return (
     <div>
-      <h5>{`Welcome, ${user?.UserDetails?.FirstName} ${user?.UserDetails?.LastName}`}</h5>
+      <h1 className='welcometext'>{`Welcome, ${user?.UserDetails?.FirstName} ${user?.UserDetails?.LastName}`}</h1>
     <Grid2 container spacing={2}>
       {data.map((card) =>
         <Grid2 xs={12} sm={6} md={4} key={card.name}>

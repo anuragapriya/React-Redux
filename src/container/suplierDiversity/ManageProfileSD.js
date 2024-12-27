@@ -3,58 +3,120 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button } from '@mui/material';
-import { alertActions, userActions } from '_store';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SupplierDetailsSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
 import { UploadFiles } from '_components';
 import { AutocompleteInput } from '_components';
+import { alertActions, supplyDiversityAction, userActions } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
 import { supplierDocumentTypeData, supplierSupportedFormat } from '_utils/constant';
 import images from 'images';
+import { diversityRegistrationLabels } from '_utils/labels';
 
 const ManageProfileSD = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const header = 'Supplier Diversity';
     const { portalkey, id } = useParams();
     const user = useSelector(x => x.users?.item);
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [inputColors, setInputColors] = useState({});
+    const documentTypeData = user?.DocumentData || [];
     const [files, setFiles] = useState([]);
     const documentData = supplierDocumentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
     }));
-
+    const states = user?.State || [];
+    const stateData = states.map(x => ({
+        label: x.StateName,
+        value: x.StateID
+    }));
     const { register, handleSubmit, control, reset, formState: { errors, isSubmitting,isValid }, watch, trigger } = useForm({
         resolver: yupResolver(SupplierDetailsSchema)
     });
 
     useEffect(() => {
-        dispatch(userActions.clear());
-        if (id) {
-
-            dispatch(userActions.getById(id)).unwrap().then(user => reset(user));
-        } else {
-
-            reset(user); // Reset form state when adding a new user
-        }
-    }, [id, dispatch, reset]);
+        const fetchData = async () => {
+            try {
+                dispatch(supplyDiversityAction.clear());
+                const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
+                const data = user?.Data;
+                reset(data);
+                //console.log(data);
+                // applyInitialColors(data);
+                if (data?.FileData) {
+                    setFiles(data?.FileData.map(file => ({
+                        ID: file.ID,
+                        DocumentTypeID: file.DocumentTypeID,
+                        FileName: file.FileName,
+                        Format: file.Format,
+                        Size: file.Size,
+                        Portalkey: file.Portalkey,
+                        File: file.File
+                    })));
+                }
+            } catch (error) {
+                dispatch(alertActions.error({
+                    message: error?.message || error,
+                    header: header
+                }));
+                reset(user);
+            }
+        };
+        fetchData();
+    }, [id, dispatch, reset, portalkey]);
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
-            // await dispatch(registrationActions.register(data)).unwrap();
-            // navigate('/');
-            // dispatch(alertActions.success({
-            //     showAfterRedirect: true,
-            //     message: verifyEmailLabels.message1,
-            //     message2: verifyEmailLabels.message2,
-            //     header: verifyEmailLabels.header
-            // }));
+            // Validate that all required document types have files
+            const missingDocumentTypes = documentTypeData.filter(docType =>
+                !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
+            );
+
+            if (!documentData || missingDocumentTypes.length > 0) {
+                const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
+                dispatch(alertActions.error({
+                    message: `Missing files for document types: ${missingDescriptions}`,
+                    header: header
+                }));
+                return;
+            }
+
+            const transformedData = {  
+                AdditionalID: user?.AdditionalID || 0,
+                UserID: id,
+                CompanyName: data.CompanyName,
+                ContactPerson: data.ContactPerson,
+                Title: data.Title,
+                Address: data.Address,
+                City: data.City,
+                State: data.State,
+                CompanyWebsite: data.CompanyWebsite,
+                Email: data.Email,
+                ZipCode: data.ZipCode,
+                PhoneNumber: data.PhoneNumber,
+                Fax: data.Fax,
+                CellPhone: data.CellPhone,
+                CategoryID: data.CategoryID,
+                ClassificationID: data.ClassificationID,
+                ServicesProductsProvided: data.ServicesProductsProvided,
+                FileData: files,
+            };
+
+            const result = await dispatch(supplyDiversityAction.update({ id, transformedData }));
+            console.log(result);
+            if (result?.error) {
+                dispatch(alertActions.error({ message: result?.error.message, header: header }));
+                return;
+            }
+            navigate('/');
+            dispatch(alertActions.success({ message: diversityRegistrationLabels.message1, header: diversityRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
-            dispatch(alertActions.error({ message: error.message, header: "Registration Failed" }));
+            dispatch(alertActions.error({ message: error.message, header: header }));
         }
     };
 
@@ -65,12 +127,12 @@ const ManageProfileSD = () => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
     
-        const fieldError = errors[fieldName];
+        // const fieldError = errors[fieldName];
     
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
 
 
@@ -95,7 +157,7 @@ const ManageProfileSD = () => {
                                     <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                        <SupplierDetails register={register} errors={errors} control={control} trigger={trigger} />
+                                        <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} trigger={trigger} />
                                     </Typography>
                                 </Grid>
 

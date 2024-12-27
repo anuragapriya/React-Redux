@@ -29,19 +29,19 @@ const NewPassword = () => {
    const handleBlur = async (e) => {
         const fieldName = e.target.name;
         await trigger(fieldName); 
-        const fieldError = errors[fieldName];
+        // const fieldError = errors[fieldName];
 
-        if (fieldName === 'Password') {
-            setInputColors(prevColors => ({
-                ...prevColors,
-                [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
-            }));
-        } else {
-            setInputColors(prevColors => ({
-                ...prevColors,
-                [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-            }));
-        }       
+        // if (fieldName === 'Password') {
+        //     setInputColors(prevColors => ({
+        //         ...prevColors,
+        //         [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
+        //     }));
+        // } else {
+        //     setInputColors(prevColors => ({
+        //         ...prevColors,
+        //         [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        //     }));
+        // }       
     };
 
   const onSubmit = async ({ Password }) => {

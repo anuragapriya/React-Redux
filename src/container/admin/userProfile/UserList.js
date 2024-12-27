@@ -14,7 +14,8 @@ const UserList = () => {
   const filename = 'Users';
   const users = useSelector((x) => x.users?.list);
   const dispatch = useDispatch();
-  const rows = users?.value;
+  const userData = users?.value?.map(user => user.Data);
+  const rows = userData?.map(user => user.UserDetails);
 
   const [open, setOpen] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState(null);
@@ -26,17 +27,17 @@ const UserList = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'fullName',
+        accessorKey: 'FullName',
         header: 'Name',
         enableSorting: true,
       },
       {
-        accessorKey: 'emailAddress',
+        accessorKey: 'EmailAddress',
         header: 'Email',
         enableSorting: true,
       },
       {
-        accessorKey: 'status',
+        accessorKey: 'Status',
         header: 'Status',
         enableSorting: true,
       },
@@ -53,7 +54,6 @@ const UserList = () => {
     return rows
       ? rows.map((user) => ({
           ...user,
-          userName: `${user.firstName} ${user.lastName}`,
           createdDate: dayjs(user.createdDate).isValid() ? dayjs(user.createdDate).format('MM/DD/YYYY') : user.createdDate,
         }))
       : [];
@@ -93,13 +93,13 @@ const UserList = () => {
     paginationDisplayMode: 'pages',
     enableRowActions: true,
     //enableExpanding: true,
-    positionExpandColumn: 'first',
+   // positionExpandColumn: 'first',
     initialState: {
       columnOrder: [
-        'mrt-row-expand',
-        'fullName',
-        'emailAddress',
-        'status',
+        //'mrt-row-expand',
+        'FullName',
+        'EmailAddress',
+        'Status',
         'createdDate',      
         'mrt-row-actions', // move the built-in actions column to the end of the table
       ],
@@ -132,25 +132,25 @@ const UserList = () => {
         </IconButton>
       </div>
     ),
-    renderDetailPanel: ({ row }) => (
-      <Box sx={{ padding: 2 }}>
-        <Typography variant="h6">Details for {row.original.fullName}</Typography>
-        <Typography variant="body1">Email: {row.original.emailAddress}</Typography>
-        <Typography variant="body1">Status: {row.original.status}</Typography>
-        <Typography variant="body1">Created Date: {row.original.createdDate}</Typography>
-      </Box>
-    ),
-    muiTableBodyRowProps: ({ row }) => ({
-      onClick: () => handleRowClick(row),
-      sx: {
-        cursor: 'pointer',
-      },
-    }),
-    muiExpandButtonProps: {
-      sx: {
-        display: 'none',
-      },
-    },
+    // renderDetailPanel: ({ row }) => (
+    //   <Box sx={{ padding: 2 }}>
+    //     <Typography variant="h6">Details for {row.original.FullName}</Typography>
+    //     <Typography variant="body1">Email: {row.original.EmailAddress}</Typography>
+    //     <Typography variant="body1">Status: {row.original.Status}</Typography>
+    //     <Typography variant="body1">Created Date: {row.original.createdDate}</Typography>
+    //   </Box>
+    // ),
+    // muiTableBodyRowProps: ({ row }) => ({
+    //   onClick: () => handleRowClick(row),
+    //   sx: {
+    //     cursor: 'pointer',
+    //   },
+    // }),
+    // muiExpandButtonProps: {
+    //   sx: {
+    //     display: 'none',
+    //   },
+    // },
   });
 
   return (
