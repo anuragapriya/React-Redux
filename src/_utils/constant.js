@@ -862,7 +862,7 @@ export const registerSupplyDiversityData=
     "CompanyName": "TESA",
     "ContactPerson": "Ravi",
     "Title": "Raj",
-    "Street": "Test",
+    "Address": "Test",
     "City": "Test",
     "State": "Test",
     "CompanyWebsite": "Test",
@@ -879,99 +879,146 @@ export const registerSupplyDiversityData=
 }
 
 export const  getSupplierDiversityData={
+  "Succeeded": true,
+  "Message": "Successfull",
+  "Errors": null,
   "Data": {
-    "AdditionalID": 0,
-    "UserID": 70,
-    "CompanyName": "TESA",
-    "ContactPerson": "Ravi",
-    "Title": "Raj",
-    "Street": "Test",
-    "City": "Test",
-    "State": 1,
-    "CompanyWebsite": "Test",
-    "Email": "test@gmail.com",
-    "ZipCode": "132456",
-    "PhoneNumber": "1234567899",
-    "Fax": "string",
-    "CellPhone": "2341567",
-    "CategoryID": 0,
-    "ClassificationID": 0,
-    "ServicesProductsProvided": "Test Service",
+    "AdditionalID": 1,
+    "UserID": 1041,
+    "CompanyName": "Microsoft",
+    "ContactPerson": "Satya",
+    "Title": "Mr",
+    "Address": "WashingtonStreet",
+    "City": "WashingtonCity",
+    "State": "NY",
+    "CompanyWebsite": "www.microsoft.com",
+    "Email": "satya.nandela@mircosoft.com",
+    "ZipCode": "123456",
+    "PhoneNumber": "9987654321",
+    "Fax": "9987654321",
+    "CellPhone": "9987654321",
+    "CategoryID": 3,
+    "ClassificationID": 1,
+    "ServicesProductsProvided": "Website Development",
     "FileData": [
       {
-        "ID": 1,
-        "AdditionalID": 0,
-        "DocumentTypeID": 1,
-        "FileName": "Test",
-        "Format": "Test",
-        "Size": 120,
+        "ID": 20,
+        "AdditionalID": 1,
+        "DocumentTypeID": 4,
+        "FileName": "Certification12",
+        "Format": "PDF",
+        "Size": 3000,
         "PortalKey": "SD",
-        "File": "Base64 format",
-        "Url": "string"
+        "File": "",
+        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
+      },
+      {
+        "ID": 21,
+        "AdditionalID": 1,
+        "DocumentTypeID": 5,
+        "FileName": "Capability",
+        "Format": "PDF",
+        "Size": 3000,
+        "PortalKey": "SD",
+        "File": "",
+        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
+      },
+      {
+        "ID": 22,
+        "AdditionalID": 1,
+        "DocumentTypeID": 6,
+        "FileName": "Additional1",
+        "Format": "PDF",
+        "Size": 3000,
+        "PortalKey": "SD",
+        "File": "",
+        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
       }
     ],
-	 "DocumentData": [
-                {
-                    "DocumentTypeID": "1",
-                    "DocumentType": "drivingLicenseFront",
-                    "DocumentDescription": "Driving License(Front)"
-                },
-                {
-                    "DocumentTypeID": "2",
-                    "DocumentType": "drivingLicenseLast",
-                    "DocumentDescription": "Driving License(Last)"
-                },
-                {
-                    "DocumentTypeID": "3",
-                    "DocumentType": "nondisclosureagreement",
-                    "DocumentDescription": "Non disclosure agreement"
-                }
-            ],
-            "State": [
-                {
-                    "StateId": "1",
-                    "StateName": "Texas"
-                }
-            ],
-		"BusinessCategory"	: [
-		 {
-      "CategoryID": 1,
-      "CategoryName": "Advertising/Marketing"
-    },
-    {
-      "CategoryID": 2,
-      "CategoryName": "Construction Support Services"
-    },
-    {
-      "CategoryID": 3,
-      "CategoryName": "Digital/IT"
-    },
-    {
-      "CategoryID": 4,
-      "CategoryName": "Electrical"
-    },
-    {
-      "CategoryID": 5,
-      "CategoryName": "Energy Efficiency"
-    }
-		],
-	"Classfication" :[
-	 {
-      "ClassificationID": 1,
-      "ClassificationName": "Minority-Owned Business"
-    },
-    {
-      "ClassificationID": 2,
-      "ClassificationName": "Women-Owned Business"
-    },
-    {
-      "ClassificationID": 3,
-      "ClassificationName": "Service Disabled Veteran Business"
-    },
-    {
-      "ClassificationID": 4,
-      "ClassificationName": "Veteran Owned Business"
-    }
-	]					
+    "DocumentData": [
+      {
+        "DocumentTypeID": 4,
+        "DocumentType": "Certification Document",
+        "DocumentDescription": "Certification Documnet"
+      },
+      {
+        "DocumentTypeID": 5,
+        "DocumentType": "Capability Statement",
+        "DocumentDescription": "Capability Statement"
+      },
+      {
+        "DocumentTypeID": 6,
+        "DocumentType": "Additional1 Document",
+        "DocumentDescription": "Additional1 Document"
+      },
+      {
+        "DocumentTypeID": 7,
+        "DocumentType": "Additional2 Documnet",
+        "DocumentDescription": "Additional2 Documnet"
+      },
+      {
+        "DocumentTypeID": 8,
+        "DocumentType": "Additional3 Document",
+        "DocumentDescription": "Additional3 Document"
+      }
+    ],
+    "State1": [
+      {
+        "StateId": 2,
+        "StateName": "AL"
+      },
+      {
+        "StateId": 3,
+        "StateName": "NY"
+      },
+      {
+        "StateId": 4,
+        "StateName": "WC"
+      },
+      {
+        "StateId": 5,
+        "StateName": "CL"
+      }
+    ],
+    "BusinessCategory": [
+      {
+        "CategoryID": 1,
+        "CategoryName": "Advertising/Marketing"
+      },
+      {
+        "CategoryID": 2,
+        "CategoryName": "Construction Support Services"
+      },
+      {
+        "CategoryID": 3,
+        "CategoryName": "Digital/IT"
+      },
+      {
+        "CategoryID": 4,
+        "CategoryName": "Electrical"
+      },
+      {
+        "CategoryID": 5,
+        "CategoryName": "Energy Efficiency"
+      }
+    ],
+    "Classification": [
+      {
+        "ClassificationID": 1,
+        "ClassificationName": "Minority-Owned Business"
+      },
+      {
+        "ClassificationID": 2,
+        "ClassificationName": "Women-Owned Business"
+      },
+      {
+        "ClassificationID": 3,
+        "ClassificationName": "Service Disabled Veteran Business"
+      },
+      {
+        "ClassificationID": 4,
+        "ClassificationName": "Veteran Owned Business"
+      }
+    ]
   }
 }
