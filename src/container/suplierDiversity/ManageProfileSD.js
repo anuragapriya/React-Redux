@@ -6,8 +6,7 @@ import { Typography, Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SupplierDetailsSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
-import { UploadFiles } from '_components';
-import { AutocompleteInput } from '_components';
+import { AutocompleteInput,UnderConstruction ,UploadFiles } from '_components';
 import { alertActions, supplyDiversityAction, userActions } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
 import { supplierDocumentTypeData, supplierSupportedFormat } from '_utils/constant';
@@ -28,7 +27,7 @@ const ManageProfileSD = () => {
         label: x.DocumentDescription,
         value: x.DocumentTypeID
     }));
-    const states = user?.State || [];
+    const states = user?.State1 || [];
     const stateData = states.map(x => ({
         label: x.StateName,
         value: x.StateID
@@ -44,7 +43,7 @@ const ManageProfileSD = () => {
                 const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                //console.log(data);
+                console.log(data);
                 // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
@@ -142,7 +141,9 @@ const ManageProfileSD = () => {
     const handleFileChange = (newFiles) => {
         setFiles(newFiles);
     };
-    return <>
+    return (
+    <>
+    {!(user?.loading || user?.error) && (
         <Typography component="div" className="MapCenterAccecss">
             <Typography component="div" className="MapCenterAccecssheading">
                 <Typography component="h1" variant="h5">Supplier Diversity</Typography>
@@ -204,7 +205,10 @@ const ManageProfileSD = () => {
                 </Grid>
             </form>
         </Typography>
-    </>;
+         )}
+         {user?.error && <UnderConstruction />}
+    </>
+    );
 };
 
 export default ManageProfileSD;

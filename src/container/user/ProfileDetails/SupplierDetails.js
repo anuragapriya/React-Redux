@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { CustomFormControl, MultiSelectInput } from '_components';
-import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete } from '_components'
+import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete,CustomFormControl,MultiSelectInput } from '_components'
 import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
 import { Typography, Button } from '@mui/material';
 const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
@@ -35,7 +34,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="companyName"
+                    id="CompanyName"
                     label="Company Name"
                     type="text"
                     register={register}
@@ -46,7 +45,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="companyWebsite"
+                    id="CompanyWebsite"
                     label="Company Website"
                     type="text"
                     register={register}
@@ -59,8 +58,8 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
             <Typography  component="div" className="passwordcheck border-none">
                 <AutocompleteInput
-                    id="businessCatagory"
-                    name="businessCatagory"
+                    id="BusinessCatagory"
+                    name="BusinessCatagory"
                     label="Business Category"
                     control={control}
                     options={supplierBusinessDropdownData}
@@ -75,8 +74,8 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
             <Typography  component="div" className="passwordcheck mar-top-16">
                 <MultiSelectInput
-                    id="classification"
-                    name="classification"
+                    id="Classification"
+                    name="Classification"
                     label="Classification"
                     control={control}
                     options={supplierClassificationDropdownData}
@@ -90,7 +89,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="services"
+                    id="ServicesProductsProvided"
                     label="Services / Products Provided"
                     type="text"
                     register={register}
@@ -112,7 +111,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="contactperson"
+                    id="ContactPerson"
                     label="Contact Person"
                     type="text"
                     register={register}
@@ -123,7 +122,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="title"
+                    id="Title"
                     label="Title"
                     type="text"
                     register={register}
@@ -134,7 +133,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="email"
+                    id="Email"
                     label="Email"
                     type="text"
                     register={register}
@@ -146,7 +145,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <MobileNumberInput
                     control={control}
-                    name="mobileNumber"
+                    name="PhoneNumber"
                     label="Phone Number"
                     rules={{ required: 'Phone Number is required' }}
                     errors={errors}
@@ -156,7 +155,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={12} md={12} className='supplierDetailes'>
                 <CustomFormControl
-                    id="address"
+                    id="Address"
                     label="Address"
                     type="text"
                     register={register}
@@ -167,7 +166,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
                 <CustomFormControl
-                    id="city"
+                    id="City"
                     label="City"
                     type="text"
                     register={register}
@@ -188,7 +187,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
                 /> */}
                  <AutocompleteInput
                     control={control}
-                    name="state"
+                    name="State"
                     label="State"
                     options={stateData}
                     error={!!errors.state}
@@ -199,7 +198,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
                 <CustomFormControl
-                    id="zipcode"
+                    id="ZipCode"
                     label="ZipCode"
                     type="text"
                     register={register}
