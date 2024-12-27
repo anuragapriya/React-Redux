@@ -975,3 +975,13 @@ export const  getSupplierDiversityData={
 	]					
   }
 }
+
+export const getAIUserProfileData=[
+  { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
+  { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
+]
+
+export const getMBUserProfileData=[
+  { ID: 3, FullName: 'Item 3', RoleID: null, StatusID: null, JurisdictionID: null },
+  { ID: 4, FullName: 'Item 4', RoleID: null, StatusID: null, JurisdictionID: null },
+]

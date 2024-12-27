@@ -10,14 +10,14 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
   const columns = [
     { accessorKey: 'FullName', header: 'Name' },
     {
-      accessorKey: 'role',
+      accessorKey: 'RoleID',
       header: 'Role',
       Cell: ({ cell }) => (
         <AutocompleteTable
           value={cell.getValue()}
           onChange={(newValue) => {
             setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'role');
+            handleChange(newValue, cell.row.original, 'RoleID');
           }}
           options={roles}
           getOptionLabel={(option) => option.RoleName}
@@ -27,14 +27,14 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       )
     },
     {
-      accessorKey: 'status',
+      accessorKey: 'StatusID',
       header: 'Status',
       Cell: ({ cell }) => (
         <AutocompleteTable
           value={cell.getValue()}
           onChange={(newValue) => {
             setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'status');
+            handleChange(newValue, cell.row.original, 'StatusID');
           }}
           options={statuses}
           getOptionLabel={(option) => option.StatusName}
@@ -44,14 +44,14 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       )
     },
     {
-      accessorKey: 'agency',
+      accessorKey: 'AgencyID',
       header: 'Agency',
       Cell: ({ cell }) => (
         <AutocompleteTable
           value={cell.getValue()}
           onChange={(newValue) => {
             setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'agency');
+            handleChange(newValue, cell.row.original, 'AgencyID');
           }}
           options={agencies}
           getOptionLabel={(option) => option.AgencyName}

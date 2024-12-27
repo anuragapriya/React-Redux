@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { UserProfileAI, UserProfileMB } from "container/admin";
+import { UserProfileAI, UserProfileMB,UserFilter } from "container/admin";
 
 const Users = () => {
-    const portalKey = 'AI';
+    const [portalKey, setPortalKey] = useState('AI');
     const [data, setData] = useState([
         { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
         { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
@@ -45,8 +45,14 @@ const Users = () => {
         }
     };
 
+    const handleFilterSubmit = (newData, newPortalKey) => {
+        setData(newData);
+        setPortalKey(newPortalKey);
+    };
+
     return (
         <>
+            {/* <UserFilter handleFilterSubmit={handleFilterSubmit}></UserFilter> */}
             {portalKey === 'AI' && (
                 <UserProfileAI
                     data={data}
@@ -58,15 +64,17 @@ const Users = () => {
                     handleChange={handleChange}
                 />
             )}
-            {portalKey === 'MB' && <UserProfileMB
-                data={data}
-                setData={setData}
-                errors={errors}
-                setErrors={setErrors}
-                editedRowId={editedRowId}
-                setEditedRowId={setEditedRowId}
-                handleChange={handleChange}
-            />}
+            {portalKey === 'MB' && (
+                <UserProfileMB
+                    data={data}
+                    setData={setData}
+                    errors={errors}
+                    setErrors={setErrors}
+                    editedRowId={editedRowId}
+                    setEditedRowId={setEditedRowId}
+                    handleChange={handleChange}
+                />
+            )}
             <button onClick={handleSubmit}>Submit</button>
         </>
     );

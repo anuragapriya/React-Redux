@@ -7,5 +7,6 @@ import HelpDesk from "./HelpDesk";
 import Users from "./userProfile/Users";
 import UserProfileMB from "./userProfile/profiles/UserProfileMB";
 import UserProfileAI from "./userProfile/profiles/UserProfileAI";
+import UserFilter from "./userProfile/UserFilter";
 
-export {Home,UserList,ManageProfile,Announcement,FAQ,HelpDesk,Users,UserProfileMB,UserProfileAI};
+export {Home,UserList,ManageProfile,Announcement,FAQ,HelpDesk,Users,UserProfileMB,UserProfileAI,UserFilter};
