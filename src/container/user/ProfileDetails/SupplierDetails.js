@@ -4,7 +4,7 @@ import { CustomFormControl, MultiSelectInput } from '_components';
 import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete } from '_components'
 import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
 import { Typography, Button } from '@mui/material';
-const SupplierDetails = ({ register, errors, control, trigger }) => {
+const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -177,7 +177,7 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
-                <CustomFormControl
+                {/* <CustomFormControl
                     id="state"
                     label="State"
                     type="text"
@@ -185,6 +185,16 @@ const SupplierDetails = ({ register, errors, control, trigger }) => {
                     errors={errors}
                     handleBlur={handleBlur}
                     inputColors={inputColors}
+                /> */}
+                 <AutocompleteInput
+                    control={control}
+                    name="state"
+                    label="State"
+                    options={stateData}
+                    error={!!errors.state}
+                    helperText={errors.state?.message}
+                    handleBlur={handleBlur}
+                    inputColor={inputColors['HomeState']}
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
