@@ -853,3 +853,135 @@ export const getMapCenterData =
       ]
     }
 }
+
+export const registerSupplyDiversityData=
+{
+  "Data": {
+    "AdditionalID": 0,
+    "UserID": 70,
+    "CompanyName": "TESA",
+    "ContactPerson": "Ravi",
+    "Title": "Raj",
+    "Street": "Test",
+    "City": "Test",
+    "State": "Test",
+    "CompanyWebsite": "Test",
+    "Email": "test@gmail.com",
+    "ZipCode": "132456",
+    "PhoneNumber": "1234567899",
+    "Fax": "string",
+    "CellPhone": "2341567",
+    "CategoryID": 0,
+    "ClassificationID": 0,
+    "ServicesProductsProvided": "Test Service",
+    "FileData": []
+  }
+}
+
+export const  getSupplierDiversityData={
+  "Data": {
+    "AdditionalID": 0,
+    "UserID": 70,
+    "CompanyName": "TESA",
+    "ContactPerson": "Ravi",
+    "Title": "Raj",
+    "Street": "Test",
+    "City": "Test",
+    "State": 1,
+    "CompanyWebsite": "Test",
+    "Email": "test@gmail.com",
+    "ZipCode": "132456",
+    "PhoneNumber": "1234567899",
+    "Fax": "string",
+    "CellPhone": "2341567",
+    "CategoryID": 0,
+    "ClassificationID": 0,
+    "ServicesProductsProvided": "Test Service",
+    "FileData": [
+      {
+        "ID": 1,
+        "AdditionalID": 0,
+        "DocumentTypeID": 1,
+        "FileName": "Test",
+        "Format": "Test",
+        "Size": 120,
+        "PortalKey": "SD",
+        "File": "Base64 format",
+        "Url": "string"
+      }
+    ],
+	 "DocumentData": [
+                {
+                    "DocumentTypeID": "1",
+                    "DocumentType": "drivingLicenseFront",
+                    "DocumentDescription": "Driving License(Front)"
+                },
+                {
+                    "DocumentTypeID": "2",
+                    "DocumentType": "drivingLicenseLast",
+                    "DocumentDescription": "Driving License(Last)"
+                },
+                {
+                    "DocumentTypeID": "3",
+                    "DocumentType": "nondisclosureagreement",
+                    "DocumentDescription": "Non disclosure agreement"
+                }
+            ],
+            "State": [
+                {
+                    "StateId": "1",
+                    "StateName": "Texas"
+                }
+            ],
+		"BusinessCategory"	: [
+		 {
+      "CategoryID": 1,
+      "CategoryName": "Advertising/Marketing"
+    },
+    {
+      "CategoryID": 2,
+      "CategoryName": "Construction Support Services"
+    },
+    {
+      "CategoryID": 3,
+      "CategoryName": "Digital/IT"
+    },
+    {
+      "CategoryID": 4,
+      "CategoryName": "Electrical"
+    },
+    {
+      "CategoryID": 5,
+      "CategoryName": "Energy Efficiency"
+    }
+		],
+	"Classfication" :[
+	 {
+      "ClassificationID": 1,
+      "ClassificationName": "Minority-Owned Business"
+    },
+    {
+      "ClassificationID": 2,
+      "ClassificationName": "Women-Owned Business"
+    },
+    {
+      "ClassificationID": 3,
+      "ClassificationName": "Service Disabled Veteran Business"
+    },
+    {
+      "ClassificationID": 4,
+      "ClassificationName": "Veteran Owned Business"
+    }
+	]					
+  }
+}
+
+export const getAIUserProfileData=[
+  { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
+  { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
+]
+
+export const getMBUserProfileData=[
+  { ID: 3, FullName: 'Item 3', RoleID: null, StatusID: null, JurisdictionID: null },
+  { ID: 4, FullName: 'Item 4', RoleID: null, StatusID: null, JurisdictionID: null },
+]

@@ -1,11 +1,13 @@
 import { getMapCenterData, user } from '_utils/constant';
 import { portalAccessData } from '_utils/constant';
 import { portalData, userRegistrationVerified } from '_utils/constant';
+import { getSupplierDiversityData } from '_utils/constant';
 
 // array in local storage for registered users
 const usersKey = 'react-18-redux-registration-login-example-users';
 const portalAccessKey = 'portal-access-data';
 const mapCenterUserKey = 'map-center-user-datas';
+const supplierDiversityUserKey="supply-diversity-user-datas";
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 let registerPortalData = portalData;
 let userVerifyData = userRegistrationVerified;
@@ -43,10 +45,14 @@ const fakeBackend = () => {
                         return getPortalData();
                     case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'POST':
                         return getVerifiedUserData();
-                    case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                    case url.match(/\/mapcenter\/GetRegisterMapCentreAsync\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
                     case url.match('/mapcenter/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
+                    case url.match(/\/diversity\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                        return getSupplierDiversityUser(url);
+                    case url.match('/diversity/Register-MC') && opts.method === 'POST':
+                        return updateSupplierDiversityUser();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -221,12 +227,22 @@ const fakeBackend = () => {
             }
 
             function getMapCenterUser() {
-                try {                   
+                try {
                     let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
                     return ok(mapCenterUser);
                 }
                 catch (error) {
                     return error('Failed to get map center user');
+                }
+            }
+
+            function getSupplierDiversityUser() {
+                try {
+                    let supplierDiversityUser = JSON.parse(localStorage.getItem(supplierDiversityUserKey)) || getSupplierDiversityData;
+                    return ok(supplierDiversityUser);
+                }
+                catch (error) {
+                    return error('Failed to get Supplier Diversity User');
                 }
             }
 
@@ -249,6 +265,28 @@ const fakeBackend = () => {
                 } catch (err) {
                     console.error('Error updating map center user:', err);
                     return error('Failed to update map center user');
+                }
+            }
+
+            function updateSupplierDiversityUser() {
+                try {
+                    const supplierDiversityData = body();
+
+                    let supplierDiversityUserData = JSON.parse(localStorage.getItem(supplierDiversityUserKey)) || getSupplierDiversityData;
+
+                    // Create a deep copy of the object to avoid modifying read-only properties
+                    let newData = JSON.parse(JSON.stringify(supplierDiversityData));
+
+                    newData.Data.DocumentData = [...supplierDiversityUserData.Data.DocumentData];
+
+                    // Save the updated data back to localStorage
+                    localStorage.setItem(supplierDiversityUserKey, JSON.stringify(newData));
+
+                    // Return a successful response
+                    return ok();
+                } catch (err) {
+                    console.error('Error updating Supplier Diversity user:', err);
+                    return error('Failed to update Supplier Diversity user');
                 }
             }
 
@@ -294,13 +332,13 @@ const fakeBackend = () => {
                 const updatedUser = {
                     ...user,
                     Data: {
-                      ...user.Data,
-                      UserDetails: {
-                        ...user.Data.UserDetails,
-                        ...userdetail
-                      }
+                        ...user.Data,
+                        UserDetails: {
+                            ...user.Data.UserDetails,
+                            ...userdetail
+                        }
                     }
-                  };
+                };
                 return updatedUser;
             }
         });

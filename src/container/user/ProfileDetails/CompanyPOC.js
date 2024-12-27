@@ -11,7 +11,7 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             <Typography component="h2" variant="h5"  className='margin-bottom-12'>Company Point of Contact</Typography>
         </Typography>
         <Grid container spacing={3} className='CompanyDetails-container'>
-            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+            <Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
         <CustomFormControl
             id="CompanyContactName"
             label="Full Name"
@@ -22,7 +22,7 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             inputColors={inputColors}
         />
         </Grid>
-       <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+       <Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
         <CustomFormControl
             id="CompanyContactEmailAddress"
             label="Email Address"
@@ -33,7 +33,7 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             inputColors={inputColors}
         />
         </Grid>
-        <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+        <Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
         <MobileNumberInput
             control={control}
             name="CompanyContactTelephone"
@@ -44,7 +44,7 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             inputColors={inputColors}
         />
         </Grid>
-       < Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+       < Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
            <CustomFormControl
             id="AuthorizedWGLContact"
             label="Authorized WGL Contact"

@@ -58,12 +58,8 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/getVerifiedUserData`,
             async (verifyId) => {
-                // Construct the URL with the token as a query parameter
-                const url = new URL(`${baseUrl}/VerifiedEmailByUser`);
-                url.searchParams.append('userId', verifyId);
-
                 // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.post(url.toString()));
+                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/VerifiedEmailByUser`,{userId:verifyId}));
                 return response; // Return the response data
             }
         );

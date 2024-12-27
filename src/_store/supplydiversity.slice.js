@@ -4,7 +4,7 @@ import { fetchWrapper } from '_utils/fetch-wrapper';
 
 // create slice
 
-const name = 'mapcenter';
+const name = 'supplydiversity';
 const initialState = createInitialState();
 const extraActions = createExtraActions();
 const reducers = createReducers();
@@ -13,8 +13,8 @@ const slice = createSlice({ name, initialState, reducers, extraReducers });
 
 // exports
 
-export const mapCenterAction = { ...slice.actions, ...extraActions };
-export const mapCenterReducer = slice.reducer;
+export const supplyDiversityAction = { ...slice.actions, ...extraActions };
+export const supplyDiversityReducer = slice.reducer;
 
 // implementation
 
@@ -26,24 +26,20 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
-  //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
-    const ndaUrl= `${process.env.REACT_APP_API_URL}/api/NDAFile`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/diversity`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     return {
         get: get(),
-        update: update(),
-        getNondisclosureDocument: getNondisclosureDocument()
+        update: update()
     };
 
-    function get() { 
+    function get() {
         return createAsyncThunk(
             `${name}/getUserData`,
             async ({ id, portal }, { rejectWithValue }) => {
                 try {
-                    const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync`);
-                    url.searchParams.append('userId', id);
-
-                    const response = await trackPromise(fetchWrapper.get(url.toString()));
+                    const url = `${baseUrl}/${id}?portal=${portal}`;
+                    const response = await trackPromise(fetchWrapper.get(url));
                     return response;
                 } catch (error) {
                     console.log(error.message);
@@ -58,7 +54,7 @@ function createExtraActions() {
             `${name}/update`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-SD`, { Data: transformedData }));
                 } catch (error) {
                     return rejectWithValue(error);
                 }
@@ -66,20 +62,6 @@ function createExtraActions() {
         );
     }
 
-    function getNondisclosureDocument() {
-        return createAsyncThunk(
-            `${name}/getNondisclosureDocument`,
-            async (_, { rejectWithValue }) => {
-                try {
-                    const response = await trackPromise(fetchWrapper.get(`${ndaUrl}/download`));
-                    return response;
-                } catch (error) {
-                    console.log(error.message);
-                    return rejectWithValue(error);
-                }
-            }
-        );
-    }
 }
 
 function createReducers() {
@@ -95,7 +77,6 @@ function createReducers() {
 function createExtraReducers() {
     return (builder) => {
         get();
-        getNondisclosureDocument();
 
         function get() {
             var { pending, fulfilled, rejected } = extraActions.get;
@@ -110,20 +91,6 @@ function createExtraReducers() {
                 })
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };
-                });
-        }
-
-        function getNondisclosureDocument() {
-            var { pending, fulfilled, rejected } = extraActions.getNondisclosureDocument;
-            builder
-                .addCase(pending, (state) => {
-                    state.document = { loading: true };
-                })
-                .addCase(fulfilled, (state, action) => {
-                    state.document = action.payload;
-                })
-                .addCase(rejected, (state, action) => {
-                    state.document = { error: action.error };
                 });
         }
     };

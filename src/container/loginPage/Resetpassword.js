@@ -37,12 +37,12 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
 
-        const fieldError = errors[fieldName];
+        // const fieldError = errors[fieldName];
 
-        setInputColors(prevColors => ({
-            ...prevColors,
-            [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        }));
+        // setInputColors(prevColors => ({
+        //     ...prevColors,
+        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
+        // }));
     };
 
     return (

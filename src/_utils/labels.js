@@ -8,7 +8,7 @@ export const labels = {
     seasonStartLabel: "SEASON START",
     seasonEndLabel: "SEASON END",
     manageProfileLabel: "Manage Profile",
-    eServicePortal:"eService Portal"
+    eServicePortal:"eServices Portals"
 }
 
 export const genericlabels={
@@ -46,6 +46,18 @@ export const notVerifiedRegistrationLabels={
 export const emailSentLabels={
     header:"Email Sent",
     message1:"Check you email and open the link we sent you to continue.",
+    btnSecondaryText:"Close",
+}
+
+export const mapCenterRegistrationLabels={
+    header:"Map Center Access",
+    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
+    btnSecondaryText:"Close",
+}
+
+export const diversityRegistrationLabels={
+    header:"Supplier Diversity Access",
+    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
     btnSecondaryText:"Close",
 }
 

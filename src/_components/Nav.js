@@ -18,8 +18,9 @@ const Nav = ({isAuthenticated}) => {
         //         <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
         //     </div>
         // </nav>
+        <div className='container'>
          <nav className="navbar navbar-expand  nav-bar-container">
-         <div className='container'>
+         
          <div className="navbar-nav">
                 <Link href="/home" variant="logo" className="wgllogo">
                      <img src={images.logo} alt="logo"></img>
@@ -35,8 +36,9 @@ const Nav = ({isAuthenticated}) => {
              {/* <NavLink to="/home" className="nav-item nav-link">Home</NavLink>
              <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button> */}
          </div>
-         </div>
+        
      </nav>
+     </div>
     );
 }
 

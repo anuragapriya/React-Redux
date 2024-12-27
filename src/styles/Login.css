@@ -8,6 +8,10 @@
     font-family: 'Proxima Nova Rg';
     src: url('../assets/fontfamily/proximanova_regular.ttf');
 }
+@font-face {
+    font-family: 'Proxima Nova';
+    src: url('../assets/fontfamily/proximanova_extrabold.otf');
+}
 
 @font-face {
     font-family: 'Roboto Light';
@@ -112,12 +116,13 @@ ul li.checked::before {
 body {
     background: var(--WG-Blue-25, #F7FBFF);
     overflow: auto;
+
 }
 
 .inputtags .MuiFormControl-fullWidth ul li {
 
     color: #4E4E4F;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -271,6 +276,7 @@ body {
 .passwordcheck label{
 background-color: #fff;
 padding: 0px 8px;
+font-family: "Proxima Nova Rg";
 }
 
 
@@ -280,7 +286,7 @@ padding: 0px 8px;
 }
 
 .inputtags .MuiOutlinedInput-notchedOutline {
-    border: 1px solid var(--WG-Blue-100, #DFEDFF)
+    border: 0px solid var(--WG-Blue-100, #DFEDFF)
 }
 
 .inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
@@ -386,11 +392,11 @@ padding: 0px 8px;
     margin: 0px;
 }
 
-.MuiFormLabel-root.Mui-focused {
+.MuiFormLabel-root.Mui-focused , .MuiFormControl-root .MuiFormLabel-root {
     background-color: #FFF;
-    z-index: 9999;
+    z-index: 1;
     top: 0px;
-    padding: 0px 10px;
+     padding: 0px 5px; 
 }
 
 
@@ -421,11 +427,11 @@ padding: 0px 8px;
     border-width: 2px;
 
 }
-.inputtags .inputBackground .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl:hover .MuiOutlinedInput-notchedOutline{
+/* .inputtags .inputBackground .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl:hover .MuiOutlinedInput-notchedOutline{
     border-color: var(--WG-Blue-700, #0059B3) !important;
     border-width: 0px;
 
-}
+} */
   
   
 
@@ -439,15 +445,15 @@ padding: 0px 8px;
 .inputtags .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
 .inputtags .inputBackground .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input,
 .inputtags .inputBackground .passwordcheck .MuiOutlinedInput-root .MuiOutlinedInput-input {
-    background: var(--WG-Blue-100, #DFEDFF);
+    /* background: var(--WG-Blue-100, #DFEDFF);
     color: var(--WG-Blue-900, #07254A);
-    border-radius: 4px;
+    border-radius: 4px; */
 }
 
 
-.inputBackground label {
+/* .inputBackground label {
     display: none;
-}
+} */
 
 .wglcontainer .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root.Mui-error.Mui-focused,
 .wglcontainer .css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-error.Mui-focused {
@@ -615,7 +621,7 @@ input[type=number] {
 .forgotpassword h3 {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova Rg";
+    font-family: "Proxima Nova ";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -638,13 +644,13 @@ input[type=number] {
 
 .forgotpasswordcontainer .buttonCancel,
 .closebutton {
-    color: var(--Gray-700, #fff);
+    color: var(--Gray-700, #0A3B70);
     text-align: center;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova Rg";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 14px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 24px;
     letter-spacing: 0.15px;
     margin-top: 8px;
@@ -657,14 +663,11 @@ input[type=number] {
     gap: 10px;
     align-self: stretch;
     border-radius: 4px;
-    background: var(--WG-Blue-900, #0A3B70);
+    background: #DFEDFF;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
     margin-bottom: 15px;
+    text-transform: uppercase;
 }
-
-
-
-
 .Registrationcontainerlist .Logincontent {
     margin: 12px 0px 24px;
 }
@@ -692,7 +695,6 @@ input[type=number] {
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    /* 125% */
     letter-spacing: 0.25px;
 }
 
@@ -721,7 +723,7 @@ input[type=number] {
 .Verifyemail .headercontent {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova Rg";
+    font-family: "Proxima Nova ";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -743,38 +745,41 @@ input[type=number] {
     font-weight: 400;
     line-height: 28px;
     margin: 0px;
-    /* 150% */
     letter-spacing: 0.15px;
 }
 
 .Loginbutton.mar-48 {
     margin-top: 48px;
 }
-
+.modalpopupinner button ,.modalpopupinner  .Loginbutton.mar-48{
+    margin-top: 15px;
+}
 .modalpopupinner .closebutton,
 .Verifyemail .closebutton {
-    color: var(--Gray-700, #fff);
+    color: var(--Gray-700, #0A3B70);
     text-align: center;
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova Rg";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 14px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 24px;
     letter-spacing: 0.15px;
     margin-top: 8px;
     box-shadow: none;
     display: flex;
     height: 48px;
+    text-transform: uppercase;
     padding: 16px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     align-self: stretch;
     border-radius: 4px;
-    background: var(--WG-Blue-900, #0A3B70);
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
     width: 100%;
+    text-decoration: none;
+    background: #DFEDFF;
 }
 
 .Verifyemail .p-0,
@@ -802,7 +807,7 @@ input[type=number] {
     gap: 8px;
     color: var(--WG-Blue-900, #0A3B70);
     text-align: center;
-    font-family: "Proxima Nova Rg";
+    font-family: "Proxima Nova";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -828,7 +833,7 @@ input[type=number] {
 .fileformat span {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -852,7 +857,7 @@ width: 100%;
 }
 .fileformatlist span{
     color: var(--WG-Blue-900, #0A3B70);
-font-family: "Proxima Nova";
+font-family: "Proxima Nova Rg";
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
@@ -865,7 +870,7 @@ float: left;
     width: 100%;
 }
 .MapCenterAccecss  .margin-bottom-12{
-    margin-bottom: 12px;
+    margin-bottom: 35px;
 }
 
 .SupportedFormats h3 {
@@ -937,6 +942,7 @@ float: left;
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+    margin-bottom: 24px;
 }
 
 .MapCenterAccecss .Personal-Information-container {
@@ -986,10 +992,16 @@ float: left;
     height: 100%;
 
 }
+/* .inputBackground .MuiFormLabel-root{
+    background: #fff;
+    padding: 0px 5px;
+    font-family: "Proxima Nova Rg" !important;
+} */
 
-.inputBackground .css-1ll44ll-MuiOutlinedInput-notchedOutline {
+
+/* .inputBackground .css-1ll44ll-MuiOutlinedInput-notchedOutline {
     border-width: 0px;
-}
+} */
  .inputtags  input ,.inputtags select , .inputtags textarea {
     color: var(--WG-Blue-950, #71717A);
 font-feature-settings: 'liga' off, 'clig' off;
@@ -1000,6 +1012,7 @@ font-weight: 400;
 line-height: 24px; /* 150% */
 letter-spacing: 0.15px;
 box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+
 }
 
 .Personal-Information .Cancelbutton {
@@ -1054,7 +1067,7 @@ display: none;
 .forgotpassword h2 {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -1222,7 +1235,7 @@ padding: 0px 12px;
         transform: rotate(45deg);
     }
 
-    .passwordselectli {
+    .passwordselect .passwordselectli {
         padding-left: 25px;
         font-size: 14px;
         margin-bottom: 0px;
@@ -1288,6 +1301,14 @@ padding: 0px 12px;
     .list-type li {
         font-size: 14px;
         padding: 15px 5px;
+    }
+    /* .inputtags .PasswordInput .MuiFormControl .MuiInputBase-root{
+          padding: 0px; 
+          padding-right: 15px;
+    } */
+    .inputtags .MuiFormControl-root .PasswordInput  .MuiFormControl-root .MuiInputBase-root{
+        padding: 0px; 
+          padding-right: 15px;
     }
 }
 
@@ -1477,8 +1498,15 @@ padding: 0px 12px;
         margin: auto;
         flex-basis: 100%;
     }
+    .MapCenterAccecss .MapCenterAccecssheading h1{
+        height: 50px;
+        font-size: 20px;
+    }
     .loginbuttonfixed{
         position: relative;
+    }
+    .MapCenterAccecss .margin-bottom-12 {
+        margin-bottom: 24px;
     }
 
     .loginbuttonfixed .loginbuttonfixedbutton {
@@ -1491,7 +1519,8 @@ padding: 0px 12px;
     .Personal-Informationsheading h2{
         border-radius: 4px;
 background: var(--WG-Blue-100, #DFEDFF);
-padding: 8px 16px;
+padding:  16px;
+margin-bottom: 10px;
     }
 
 
