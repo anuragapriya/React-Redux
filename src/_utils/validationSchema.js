@@ -17,7 +17,7 @@ export const registerValidationSchema = Yup.object().shape({
         .test('lowercase', value => /[a-z]/.test(value))
         .test('number', value => /[0-9]/.test(value))
         .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
-        .test('FullName', function(value) {
+        .test('FullName', function (value) {
             const { FullName } = this.parent;
             return value && !value.toLowerCase().includes(FullName.toLowerCase());
         }),
@@ -28,60 +28,76 @@ export const registerValidationSchema = Yup.object().shape({
 
 export const passwordValidationSchema = Yup.object().shape({
     Password: Yup.string()
-    .required('Password is required')
-    .test('minLength', value => value && value.length >= 16)
-    .test('uppercase', value => /[A-Z]/.test(value))
-    .test('lowercase', value => /[a-z]/.test(value))
-    .test('number', value => /[0-9]/.test(value))
-    .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
-    .test('FullName', function(value) {
-        const { FullName } = this.parent;
-        return value && !value?.toLowerCase().includes(FullName?.toLowerCase());
-    }),
+        .required('Password is required')
+        .test('minLength', value => value && value.length >= 16)
+        .test('uppercase', value => /[A-Z]/.test(value))
+        .test('lowercase', value => /[a-z]/.test(value))
+        .test('number', value => /[0-9]/.test(value))
+        .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
+        .test('FullName', function (value) {
+            const { FullName } = this.parent;
+            return value && !value?.toLowerCase().includes(FullName?.toLowerCase());
+        }),
 });
 
 export const additionalDetailsValidationSchema = Yup.object().shape({
     FullName: Yup.string()
         .required('Full Name is required'),
     HomeStreetAddress1: Yup.string()
+        .nullable()
         .required('address is required'),
     HomeCity: Yup.string()
+        .nullable()
         .required('City is required'),
     HomeState: Yup.string()
+        .nullable()
         .required('State is required'),
     HomeZipCode: Yup.string()
+        .nullable()
         .required('Zip code is required'),
     DLNumber: Yup.string()
+        .nullable()
         .required('Driving License is required'),
     DLState: Yup.string()
+        .nullable()
         .required('License state is required'),
 });
 
 export const companyValidationSchema = Yup.object().shape({
     CompanyName: Yup.string()
+        .nullable()
         .required('Company Name is required'),
     TaxIdentificationNumber: Yup.string()
+        .nullable()
         .required('Tax Identification Number is required'),
     CompanyStreetAddress1: Yup.string()
+        .nullable()
         .required('Address is required'),
     CompanyCity: Yup.string()
+        .nullable()
         .required('City is required'),
     CompanyState: Yup.string()
+        .nullable()
         .required('State is required'),
     CompanyZipCode: Yup.string()
+        .nullable()
         .required('Zip Code is required'),
 });
 
 export const companyPOCValidationSchema = Yup.object().shape({
     CompanyContactName: Yup.string()
+        .nullable()
         .required('Full Name is required'),
     CompanyContactTelephone: Yup.string()
+        .nullable()
         .required('Phone Number is required')
         .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
     CompanyContactEmailAddress: Yup.string()
+        .nullable()
         .required('Email Address is required')
         .email('Email Address is invalid'),
     AuthorizedWGLContact: Yup.string()
+        .nullable()
         .required('Authorized WG Contact is required')
 });
 
@@ -132,8 +148,10 @@ export const uploadValidationSchema = Yup.object().shape({
 });
 export const SupplierDetailsSchema = Yup.object().shape({
     companyName: Yup.string()
+        .nullable()
         .required('Company Name is Required'),
     companyWebsite: Yup.string()
+        .nullable()
         .required('Company Website is Required'),
     businessCatagory: Yup.string()
         .nullable()
@@ -142,20 +160,27 @@ export const SupplierDetailsSchema = Yup.object().shape({
         .nullable()
         .required('Classification is Required'),
     services: Yup.string()
+        .nullable()
         .required('Services are Required'),
     expirydate: Yup.string()
+        .nullable()
         .required('Expiry Date is Required'),
     contactperson: Yup.string()
+        .nullable()
         .required('Contact Person is Required'),
     title: Yup.string()
+        .nullable()
         .required('Title is Required'),
     email: Yup.string()
+        .nullable()
         .required('Email is required')
         .email('Please provide a valid email address'),
     mobileNumber: Yup.string()
+        .nullable()
         .required('Phone Number is required')
         .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
     address: Yup.string()
+        .nullable()
         .required('address is required'),
     state: Yup.string()
         .nullable()
@@ -164,5 +189,6 @@ export const SupplierDetailsSchema = Yup.object().shape({
         .nullable()
         .required('City is Required'),
     zipcode: Yup.string()
+        .nullable()
         .required('Zip code is required'),
 })

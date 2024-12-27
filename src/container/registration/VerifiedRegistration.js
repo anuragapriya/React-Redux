@@ -18,25 +18,23 @@ const VerifiedRegistration = () => {
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
     const token = new URLSearchParams(location.search).get('verifyId');
-    const id = data?.Id;
+    const id = data?.UserId;
 
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const response = dispatch(registrationActions.getVerifiedUserData(token));
-                console.log('Email verified successfully!', response.data);
+                await dispatch(registrationActions.getVerifiedUserData(token));
+            } catch (error) {
+                dispatch(alertActions.error({ message: error.message, header: "Verification Failed" }));
             }
-            catch (error) {
-                dispatch(alertActions.error({ message: error, header: "Verification Failed" }));
-            }
-        }
-
+        };
+    
         if (token) {
             verifyEmail();
         } else {
             dispatch(alertActions.error({ message: "Email verification Id not found!", header: "Verification Failed" }));
         }
-    }, [dispatch, location.search]);
+    }, [dispatch, token]);
 
     const handleClick = () => {
         if (id) {
@@ -65,15 +63,17 @@ const VerifiedRegistration = () => {
     if (!token) return null;
 
     return (
+     
         <>
-            {!(userVerify?.loading || userVerify?.error) && <div>
+            { (userVerify && !(userVerify?.loading || userVerify?.error)) && <div>
+                
                 {(isVerified && isRequiredCompleteRegistration) && <ModalPopup
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
                     btnPrimaryText={verifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
-                    handlePrimaryClick={handleClick}
+                    handlePrimaryClick={()=>handleClick()}
                 />
                 }
                 {(isVerified && !isRequiredCompleteRegistration) && <TimerModal
@@ -82,7 +82,7 @@ const VerifiedRegistration = () => {
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2NonRegistration}
                     btnSecondaryText={genericlabels.lblClose}
-                    handleBtnSecondaryClick={handleClick}
+                    handleBtnSecondaryClick={()=>handleClick()}
                 />
                 }
                 {!isVerified && <ModalPopup
@@ -91,7 +91,7 @@ const VerifiedRegistration = () => {
                     message2={notVerifiedRegistrationLabels.message2}
                     btnPrimaryText={notVerifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={notVerifiedRegistrationLabels.btnSecondaryText}
-                    handlePrimaryClick={handleSubmit}
+                    handlePrimaryClick={()=>handleSubmit()}
                 />
                 }
             </div>

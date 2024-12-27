@@ -43,7 +43,7 @@ const fakeBackend = () => {
                         return getPortalData();
                     case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'POST':
                         return getVerifiedUserData();
-                    case url.match(/\/mapcenter\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                    case url.match(/\/mapcenter\/GetRegisterMapCentreAsync\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
                     case url.match('/mapcenter/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();

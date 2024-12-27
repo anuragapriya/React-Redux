@@ -163,9 +163,11 @@ const ManageProfileMC = () => {
 
     const handleDownload = async (base64String, fileName) => {
         try {
-            const file = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
-            //  base64ToFile(base64String, fileName);
-            return;
+            const result = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
+            if (!result?.error) {
+                base64ToFile(result.File, result.FileName);
+            }
+
         }
         catch (error) {
             dispatch(alertActions.error({
