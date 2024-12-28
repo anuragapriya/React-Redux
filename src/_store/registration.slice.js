@@ -33,7 +33,8 @@ function createExtraActions() {
     return {
         register: register(),
         getPortalData: getPortalData(),
-        getVerifiedUserData: getVerifiedUserData()
+        getVerifiedUserData: getVerifiedUserData(),
+        resendVerificationLink:resendVerificationLink()
     };
 
     function register() {
@@ -59,7 +60,20 @@ function createExtraActions() {
             `${name}/getVerifiedUserData`,
             async (verifyId) => {
                 // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/VerifiedEmailByUser`,{userId:verifyId}));
+                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/VerifiedEmailByUser`,{UserId:verifyId}));
+                return response; // Return the response data
+            }
+        );
+    }
+
+    function resendVerificationLink() { 
+        return createAsyncThunk(
+            `${name}/resendVerificationLink`,
+            async (id) => {
+                const url = new URL(`${baseUrl}/ResendEmailVerification`);
+                 url.searchParams.append('userId', id);
+                // Fetch the data from the constructed URL
+                const response = await trackPromise(fetchWrapper.post(url.toString()));
                 return response; // Return the response data
             }
         );
