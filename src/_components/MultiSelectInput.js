@@ -6,9 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import ErrorIcon from '@mui/icons-material/Error';
-const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur }) => {
+const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur, name }) => {
   const [selectedOptions, setSelectedOptions] = React.useState([]);
-
   const handleChange = (event, value, reason) => {
     if (reason === 'clear') {
       setSelectedOptions([]);
@@ -81,11 +80,12 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
             {...params} 
             label={label} 
             placeholder="Search options" 
-            error={error}
+            error={!!error}
             helperText={helperText}
             onBlur={handleBlur}
             InputProps={{
               ...params.InputProps,
+              name:name,
               endAdornment: (
                   <>
                       {params.InputProps.endAdornment}
@@ -108,8 +108,7 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         }
         value={selectedOptions}
         onChange={handleChange}
-                
-
+        name={name}
       />
     </Box>
   );

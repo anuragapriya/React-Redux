@@ -154,9 +154,9 @@ export const SupplierDetailsSchema = Yup.object().shape({
     BusinessCatagory: Yup.string()
         .nullable()
         .required('Business Category is Required'),
-    Classification: Yup.string()
-        .nullable()
-        .required('Classification is Required'),
+    Classification: Yup.array()
+    .min(1, 'At least one classification is required') // Ensure at least one option is selected
+    .required('This field is required'),  // Ensure the field is not empty,
     ServicesProductsProvided: Yup.string()
         .required('Services are Required'),
     expirydate: Yup.string()
