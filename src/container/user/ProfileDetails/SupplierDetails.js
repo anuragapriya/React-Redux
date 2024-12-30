@@ -1,26 +1,15 @@
 import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete,CustomFormControl,MultiSelectInput } from '_components'
-import { supplierClassificationData , supplierBusinessData} from '_utils/constant';
+import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete, CustomFormControl, MultiSelectInput } from '_components'
+import { supplierClassificationData, supplierBusinessData } from '_utils/constant';
 import { Typography, Button } from '@mui/material';
-const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
+const SupplierDetails = ({ register, errors, stateData, control, handleBlur, trigger }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
-
-    const handleBlur = async (e) => {
-        const fieldName = e.target.name;
-        await trigger(fieldName); 
-        // const fieldError = errors[fieldName];
-
-        // setInputColors(prevColors => ({
-        //     ...prevColors,
-        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        // }));
-    };
     const handleSelectionChange = (newValue) => {
         console.log(newValue);
         setSelectedOptions(newValue);
-      };
+    };
 
     const supplierClassificationDropdownData = supplierClassificationData.map(x => ({
         label: x.DocumentDescription,
@@ -56,35 +45,36 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-            <Typography  component="div" className="passwordcheck border-none">
-                <AutocompleteInput
-                    id="BusinessCatagory"
-                    name="BusinessCatagory"
-                    label="Business Category"
-                    control={control}
-                    options={supplierBusinessDropdownData}
-                    error={!!errors.businessCatagory}
-                    helperText={errors.businessCatagory?.message}
-                    handleBlur={handleBlur}
-                    // onFocus={handleOtherFocus}
-                    inputColor={inputColors['selectPortal']}
-                />
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="BusinessCatagory"
+                        name="BusinessCatagory"
+                        label="Business Category"
+                        control={control}
+                        options={supplierBusinessDropdownData}
+                        error={!!errors.BusinessCatagory}
+                        helperText={errors.BusinessCatagory?.message}
+                        handleBlur={handleBlur}
+                        // onFocus={handleOtherFocus}
+                        inputColor={inputColors['selectPortal']}
+                    />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-            <Typography  component="div" className="passwordcheck mar-top-16">
-                <MultiSelectInput
-                    id="Classification"
-                    name="Classification"
-                    label="Classification"
-                    control={control}
-                    options={supplierClassificationDropdownData}
-                    onChange={handleSelectionChange}
-                    error={!!errors.classification}
-                    helperText={errors.classification?.message}
-                    handleBlur={handleBlur}
-                    inputColor={inputColors['selectPortal']}
-                />
+                <Typography component="div" className="passwordcheck mar-top-16">
+                    <MultiSelectInput
+                        id="Classification"
+                        name="Classification"
+                        label="Classification"
+                        control={control}
+                        options={supplierClassificationDropdownData}
+                        onChange={handleSelectionChange}
+                        error={!!errors.Classification}
+                        helperText={errors.Classification?.message}
+                        handleBlur={handleBlur}
+                        trigger={trigger}
+                        inputColor={inputColors['selectPortal']}
+                    />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
@@ -176,16 +166,7 @@ const SupplierDetails = ({ register, errors, stateData,control, trigger }) => {
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
-                {/* <CustomFormControl
-                    id="state"
-                    label="State"
-                    type="text"
-                    register={register}
-                    errors={errors}
-                    handleBlur={handleBlur}
-                    inputColors={inputColors}
-                /> */}
-                 <AutocompleteInput
+                <AutocompleteInput
                     control={control}
                     name="State"
                     label="State"

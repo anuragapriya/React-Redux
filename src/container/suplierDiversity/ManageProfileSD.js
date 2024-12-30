@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UnderConstruction, UploadFiles } from '_components';
 import { alertActions, supplyDiversityAction, userActions } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
-import { supplierDocumentTypeData, supplierSupportedFormat } from '_utils/constant';
+import { supplierSupportedFormat } from '_utils/constant';
 import images from 'images';
 import { diversityRegistrationLabels } from '_utils/labels';
 
@@ -40,7 +40,6 @@ console.log("classification",classificationDropDownData)
         value: x.ClassificationName,
         label: x.ClassificationName
     }));
-    console.log("classfication prop data",classificationData)
     const businessCategoryData = businessDropDownData.map(x => ({
         label: x.CategoryName,
         value: x.CategoryID
@@ -138,6 +137,7 @@ console.log("classification",classificationDropDownData)
     // };
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
+        console.log(fieldName);
         await trigger(fieldName); // Trigger validation for the field
 
         // const fieldError = errors[fieldName];
@@ -150,7 +150,7 @@ console.log("classification",classificationDropDownData)
 
 
     const handleOnChange = (event, newvalue) => {
-        setSelectedDocumentType(newvalue.value);
+        setSelectedDocumentType(newvalue?.value);
     };
     const handleFileChange = (newFiles) => {
         setFiles(newFiles);
@@ -173,7 +173,7 @@ console.log("classification",classificationDropDownData)
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} trigger={trigger} />
+                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} handleBlur={handleBlur} trigger={trigger} />
                                             </Typography>
                                         </Grid>
 
@@ -202,7 +202,7 @@ console.log("classification",classificationDropDownData)
                                                     portalKey={portalkey}
                                                     selectedDocumentType={selectedDocumentType}
                                                     supportedFormats={supplierSupportedFormat}
-                                                    documentTypes={supplierDocumentTypeData}
+                                                    documentTypes={documentTypeData}
                                                     control={control}
                                                     errors={errors}
                                                     onFileChange={handleFileChange}
