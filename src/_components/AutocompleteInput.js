@@ -4,8 +4,8 @@ import { FormControl, TextField, InputAdornment,Autocomplete } from '@mui/materi
 import { Controller } from 'react-hook-form';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const AutocompleteInput = ({ control, name,value, label, options, error, helperText, handleBlur, onFocus, inputColor,onChange }) => (
-    <FormControl fullWidth margin="normal"  className={inputColor}>
+const AutocompleteInput = ({ control, name,value, label, options, error, helperText, handleBlur, onFocus,onChange }) => (
+    <FormControl fullWidth margin="normal"  >
         <Controller
             name={name}
             control={control}

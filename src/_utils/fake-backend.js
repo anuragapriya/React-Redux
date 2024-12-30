@@ -21,33 +21,33 @@ const fakeBackend = () => {
 
             function handleRoute() {
                 switch (true) {
-                    case url.endsWith('/users/Authenticate') && opts.method === 'POST':
+                    case url.endsWith('//api/Account/Authenticate') && opts.method === 'POST':
                         return authenticate();
-                    case url.endsWith('/users/refreshToken') && opts.method === 'POST':
+                    case url.endsWith('/api/Account/refreshToken') && opts.method === 'POST':
                         return refreshToken();
                     case url.endsWith('/registration/Register') && opts.method === 'POST':
                         return register();
-                    case url.endsWith('/users') && opts.method === 'GET':
+                    case url.endsWith('/api/Account') && opts.method === 'GET':
                         return getUsers();
-                    case url.match(/\/users\/\d+$/) && opts.method === 'GET':
+                    case url.match(/\/api\/Account\/\d+$/) && opts.method === 'GET':
                         return getUserById();
-                    case url.match(/\/users\/\d+$/) && opts.method === 'PUT':
+                    case url.match(/\/api\/Account\/\d+$/) && opts.method === 'PUT':
                         return updateUser();
-                    case url.match(/\/users\/\d+$/) && opts.method === 'DELETE':
+                    case url.match(/\/api\/Account\/\d+$/) && opts.method === 'DELETE':
                         return deleteUser();
-                    case url.match(/\/users\/\d+$/) && opts.method === 'POST':
+                    case url.match(/\/api\/Account\/\d+$/) && opts.method === 'POST':
                         return upload();
-                    case url.endsWith('/users/GetUserPortalRoleMapping') && opts.method === 'GET':
+                    case url.endsWith('/api/UserPortalRoleMapping/GetUserPortalRoleMapping') && opts.method === 'GET':
                         return getAccessData();
-                    case url.endsWith('/users/postAccessData') && opts.method === 'POST':
+                    case url.endsWith('/api/UserPortalRoleMapping/postAccessData') && opts.method === 'POST':
                         return postAccessData();
-                    case url.endsWith('/master/GetPortalDetails') && opts.method === 'GET':
+                    case url.endsWith('/api/Master/GetPortalDetails') && opts.method === 'GET':
                         return getPortalData();
-                    case url.match(/\/registration\/VerifiedEmailByUser\?userId=([a-zA-Z0-9_-]+)$/) && opts.method === 'POST':
+                    case url.match(/\/api\/Account\/VerifiedEmailByUser\/\d+$/) && opts.method === 'GET':
                         return getVerifiedUserData();
-                    case url.match(/\/mapcenter\/GetRegisterMapCentreAsync\/\d+$/) && opts.method === 'GET':
+                    case url.match(/\/api\/Account\/GetRegisterMapCentreAsync\/\d+$/) && opts.method === 'GET':
                         return getMapCenterUser(url);
-                    case url.match('/mapcenter/Register-MC') && opts.method === 'POST':
+                    case url.match('api/Account/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
                     case url.match(/\/diversity\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getSupplierDiversityUser(url);

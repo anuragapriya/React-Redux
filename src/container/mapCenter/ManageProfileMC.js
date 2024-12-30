@@ -12,7 +12,7 @@ import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
 import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
 import { mapCenterRegistrationLabels } from '_utils/labels';
-import { raphaelinfo ,materialsymbolsdownload } from '../../images';
+import { raphaelinfo, materialsymbolsdownload } from '../../images';
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,6 +21,8 @@ const ManageProfileMC = () => {
     const user = useSelector(x => x.mapcenter?.userData);
     const [inputColors, setInputColors] = useState({});
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
+    const [selectedHomeState, setSelectedHomeState] = useState(null);
+    const [selectedCompanyState, setSelectedCompanyState] = useState(null);
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
     const states = user?.State || [];
@@ -31,7 +33,7 @@ const ManageProfileMC = () => {
 
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateID
+        value: x.StateId
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -49,8 +51,10 @@ const ManageProfileMC = () => {
                 const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                //console.log(data);
-                // applyInitialColors(data);
+                if(data){
+                setSelectedCompanyState(data?.CompanyState)
+                setSelectedHomeState(data?.HomeState);
+                }
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -58,7 +62,7 @@ const ManageProfileMC = () => {
                         FileName: file.FileName,
                         Format: file.Format,
                         Size: file.Size,
-                        Portalkey: file.Portalkey,
+                        PortalKey: file.PortalKey,
                         File: file.File
                     })));
                 }
@@ -109,14 +113,14 @@ const ManageProfileMC = () => {
                 HomeStreetAddress1: data.HomeStreetAddress1,
                 HomeStreetAddress2: data.HomeStreetAddress2 || '',
                 HomeCity: data.HomeCity,
-                HomeState: data.HomeState,
+                HomeState: selectedHomeState.toString(),
                 HomeZipCode: data.HomeZipCode,
                 CompanyName: data.CompanyName,
                 TaxIdentificationNumber: data.TaxIdentificationNumber,
                 CompanyStreetAddress1: data.CompanyStreetAddress1,
                 CompanyStreetAddress2: data.CompanyStreetAddress2 || '',
                 CompanyCity: data.CompanyCity,
-                CompanyState: data.CompanyState,
+                CompanyState: selectedCompanyState.toString(),
                 CompanyZipCode: data.CompanyZipCode,
                 CompanyContactName: data.CompanyContactName,
                 CompanyContactTelephone: data.CompanyContactTelephone,
@@ -132,7 +136,7 @@ const ManageProfileMC = () => {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
                 return;
             }
-            navigate('/');
+            // navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
@@ -151,6 +155,14 @@ const ManageProfileMC = () => {
         //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
         // }));
     };
+
+    const handleHomeStateChange = (e,newvalue) => {
+        setSelectedHomeState(newvalue?.value);
+    }
+
+    const handleCompanyStateChange = (e,newvalue) => {
+        setSelectedCompanyState(newvalue?.value);
+    }
 
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue?.value);
@@ -195,7 +207,14 @@ const ManageProfileMC = () => {
                                                         <Typography component="div" className="Personal-Informationsheading">
                                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                                         </Typography>
-                                                        <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
+                                                        <AdditionalDetails
+                                                            homeState={selectedHomeState}
+                                                            handleChange={(e,newvalue)=>handleHomeStateChange(e,newvalue)}
+                                                            handleBlur={handleBlur}
+                                                            register={register}
+                                                            control={control}
+                                                            stateData={stateData}
+                                                            errors={errors} />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6} md={6} className="Personal-Information">
@@ -203,7 +222,7 @@ const ManageProfileMC = () => {
                                                         <Typography component="div" className="Personal-Informationsheading">
                                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                                         </Typography>
-                                                        <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
+                                                        <CompanyDetails companyState={selectedCompanyState} handleChange={(e,newvalue)=>handleCompanyStateChange(e,newvalue)} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={12}>

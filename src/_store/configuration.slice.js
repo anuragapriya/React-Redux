@@ -26,8 +26,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-   const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
+  // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
         getAccess: getAccess(),

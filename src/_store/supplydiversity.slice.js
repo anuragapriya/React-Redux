@@ -26,8 +26,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/diversity`;
-    //const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/diversity`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     return {
         get: get(),
         update: update()

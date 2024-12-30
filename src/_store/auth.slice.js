@@ -36,8 +36,8 @@ function createReducers() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         login: login(),

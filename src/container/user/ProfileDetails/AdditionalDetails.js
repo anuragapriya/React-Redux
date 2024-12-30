@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
-const AdditionalDetails = ({ register, errors, control, stateData, inputColors, handleBlur }) => {
+const AdditionalDetails = ({ register, errors, control, stateData,homeState, handleBlur,handleChange }) => {
     return <>
         <CustomFormControl
             id="FullName"
@@ -10,7 +10,6 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <CustomFormControl
             id="HomeStreetAddress1"
@@ -19,7 +18,6 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <CustomFormControl
             id="HomeCity"
@@ -28,11 +26,11 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
                 <AutocompleteInput
+                    value={homeState}
                     control={control}
                     name="HomeState"
                     label="State"
@@ -40,7 +38,7 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
                     error={!!errors.HomeState}
                     helperText={errors.HomeState?.message}
                     handleBlur={handleBlur}
-                    inputColor={inputColors['HomeState']}
+                    onChange={(e,newvalue)=>handleChange(e,newvalue)}
                 />
                 <CustomFormControl
                     id="HomeZipCode"
@@ -49,7 +47,6 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
@@ -60,7 +57,6 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
                 <CustomFormControl
                     id="DLState"
@@ -69,7 +65,6 @@ const AdditionalDetails = ({ register, errors, control, stateData, inputColors, 
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
         </Grid>

@@ -105,7 +105,7 @@ const UploadFiles = ({
                 FileName: file.name,
                 Format: file.extension,
                 Size: file.size,
-                Portalkey: portalKey, // Replace with actual portal key if needed
+                PortalKey: portalKey, // Replace with actual portal key if needed
                 File: base64,
                 Url: null
             };
