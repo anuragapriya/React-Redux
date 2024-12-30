@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { UserProfileAI, UserProfileMB, UserFilter } from "container/admin";
 import CustomFilterPanelPosition from '../dummy';
+import { getAIUserProfileData } from '_utils/constant';
 
 const Users = () => {
     const [portalKey, setPortalKey] = useState('AI');
-    const [data, setData] = useState([
-        { id: 1, FullName: 'Item 1', RoleID: 1, StatusID: 2, AgencyID: 1, JurisdictionID: 2 },
-        { id: 2, FullName: 'Item 2', RoleID: 2, StatusID: 1, AgencyID: 2, JurisdictionID: 1 },
-    ]);
+    const userProfiles= getAIUserProfileData.Data;
+    const [data, setData] = useState(userProfiles.UserData);
 
     const [errors, setErrors] = useState({});
     const [editedRowId, setEditedRowId] = useState(null);
@@ -57,6 +56,7 @@ const Users = () => {
             {portalKey === 'AI' && (
                 <UserProfileAI
                     data={data}
+                    userProfiles={userProfiles}
                     setData={setData}
                     errors={errors}
                     setErrors={setErrors}
@@ -68,6 +68,7 @@ const Users = () => {
             {portalKey === 'MB' && (
                 <UserProfileMB
                     data={data}
+                    userProfiles={userProfiles}
                     setData={setData}
                     errors={errors}
                     setErrors={setErrors}

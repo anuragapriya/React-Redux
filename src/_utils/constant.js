@@ -1023,10 +1023,19 @@ export const  getSupplierDiversityData={
   }
 }
 
-export const getAIUserProfileData=[
-  { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
-  { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
-]
+export const getAIUserProfileData={
+  Data:{
+   PortalKey :"AI",
+   UserData: [
+        { id: 1, FullName: 'Anu',EmailAddress:"anu@test.com", RoleID: 1, StatusID: 2, AgencyID: 1, JurisdictionID: 2 },
+        { id: 2, FullName: 'Ravi',EmailAddress:"Ravisonu@test.com", RoleID: 2, StatusID: 1, AgencyID: 2, JurisdictionID: 1 },
+    ],
+   Roles:[{ RoleID: '1', RoleName: 'Admin' }, { RoleID: '2', RoleName: 'Contributor' }],
+   Statuses: [{ StatusID: '1', StatusName: 'Submitted' }, { StatusID: '2', StatusName: 'Approved' }],
+   Agencies:[{ AgencyID: '1', AgencyName: 'Agency1' }, { AgencyID: '2', AgencyName: 'Agency2' }],
+   Jurisdictions : [{JurisdictionID:'1',JurisdictionName:'Jurisdiction1'},{JurisdictionID:'2',JurisdictionName:'Jurisdiction2'}]
+ }	
+};
 
 export const getMBUserProfileData=[
   { ID: 3, FullName: 'Item 3', RoleID: null, StatusID: null, JurisdictionID: null },
