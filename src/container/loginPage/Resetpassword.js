@@ -5,14 +5,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { alertActions } from '_store';
 import { Modal, Button, TextField, Typography } from '@mui/material';
-import images from '../../images';
 import { resetValidationSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
 import { emailSentLabels, labels } from "_utils/labels";
 import Link from "@material-ui/core/Link";
 import Box from '@mui/material/Box';
 import InputAdornment from '@mui/material/InputAdornment';
-
+import { logo ,icoutlineemail} from '../../images';
 const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const dispatch = useDispatch();
     const [inputColors, setInputColors] = useState({});
@@ -55,7 +54,7 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                 <Box className="row modalpopupinner">
                     <Grid item xs={12} className="forgotpassword p-0">
                         <Link href="#" variant="logo" className="wgllogo">
-                            <img src={images.logo} alt="logo"></img>
+                            <img src={logo} alt="logo"></img>
                             {labels.eServicePortal}
                         </Link>
                         <Typography component="h2" variant="body1">
@@ -76,7 +75,7 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
-                                            <img src={images.icoutlineemail} alt="Email icon" />
+                                            <img src={icoutlineemail} alt="Email icon" />
                                         </InputAdornment>
                                     ),
                                 }}

@@ -1,10 +1,246 @@
-.welcometext{
+.welcometext {
     color: var(--WG-Blue-900, #0A3B70);
-font-family: "ITC Avant Garde Gothic Std Md";
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin: 24px 0px;
+}
+
+/* .CardDetail .MuiCard-root{
+    background:#093784;
+    display: block;
+    margin: 10px;
+}
+
+
+.CardDetailContainer{
+padding: 5%;
+background-color: #fff;
+
+} */
+.CardDetail {
+    width: 245px;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    display: flex;
+    align-items: center;
+
+}
+
+.CardDetail .MuiPaper-root.MuiPaper-elevation {
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.CardDetail .css-1lt5qva-MuiCardContent-root .MuiTypography-gutterBottom {
+    color: var(--WG-Blue-700, #0059B3);
+    text-align: center;
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.CardDetail .css-1lt5qva-MuiCardContent-root:last-child {
+    padding-bottom: 0px;
+}
+
+
+.nav-bar-container .container,
+.container {
+    max-width: 1200px;
+    margin: auto !important;
+    padding: 0px;
+}
+
+.navbar-nav .headseticon {
+    float: right;
+    color: #1F5FAC;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.49px;
+    text-align: left;
+}
+
+.navbar-expand .navbar-nav {
+    display: contents;
+}
+
+.headseticon img {
+    margin-right: 15px;
+}
+
+.dashbordpage .SelectaPortal {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.92px;
+    text-align: left;
+    margin: 3% 0px;
+
+}
+
+.CardDetailContainer {
+    padding: 40px 39px 40px 40px;
+    border-radius: 8px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--WG-Blue-100, #DFEDFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
+
+.CardDetailContainer-right {
+    border-radius: 8px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--WG-Blue-100, #DFEDFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
+
+.CardDetailContainer-right h4 {
+    font-family: 'Proxima Nova';
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.92px;
+    text-align: left;
+
+}
+
+.Announcements {
+    padding: 5px 25px;
+    width: 100%;
+}
+
+.Announcements label span:nth-child(2) {
+    color: #18181B;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.49px;
+    text-align: left;
+}
+
+.Remembermychoice {
+    margin: 20px 0px;
+
+
+}
+
+.CardDetailContainer-right .Announcements-text {
+    text-align: center;
+
+    justify-content: center;
+    padding: 20px 16px 10px 16px;
+    gap: 10px;
+    color: var(--WG-Blue-900, #0A3B70);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+
+}
+
+.width-100 {
+    width: 100%;
+}
+
+
+.mar-10 {
+    margin-top: 15px;
+}
+.Announcementcontainer{
+    padding: 16px;
+}
+.Announcementcontainer .Announcementsnew{
+    border-radius: 4px;
+border: 1px solid var(--WG-Blue-100, #DFEDFF);
+background: var(--White, #FFF);
+padding: 8px;
+box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+display: flex;
+margin-bottom: 20px;
+}
+.Announcementsnew h2{
+    color: #103662;
+text-align: center;
+font-family: "ITC Avant Garde Gothic Std";
 font-size: 24px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
 text-transform: uppercase;
-margin: 24px 0px;
+}
+.Announcementsnew span{
+    color: #103662;
+text-align: center;
+font-family: "Proxima Nova";
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-transform: uppercase;
+}
+.Announcementsnew  .title{
+    color: var(--Gray-700, #4D4C52);
+font-family: "Proxima Nova Rg";
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin-bottom: 15px;
+}
+.Announcementsnew .content{
+    color: var(--Gray-500, #71717A);
+font-family: "Proxima Nova Rg";
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.container.inputtags .dashbordpage {
+    margin-bottom: 30px;
+}
+@media (min-width: 600px) {
+    .CardDetail {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+
+    .nav-bar-container .container,
+    .container {
+        max-width: 100%;
+        padding: 0px 20px;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .CardDetailContainer {
+        padding: 15px;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .CardDetail {
+        max-width: 100%;
+    }
+
+    .CardDetail .css-1lt5qva-MuiCardContent-root .MuiTypography-gutterBottom,
+    .navbar-nav .headseticon {
+        font-size: 12px;
+    }
+
+    .headseticon img {
+        margin-right: 4px;
+    }
 }

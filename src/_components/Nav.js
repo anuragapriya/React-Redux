@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { authActions } from '_store';
 import Link from "@material-ui/core/Link";
-import images from '../images.js';
+import { logo  , supporticonblue} from '../images';
 import { labels } from "_utils/labels";
 const Nav = ({isAuthenticated}) => {
     const dispatch = useDispatch();
@@ -23,12 +23,12 @@ const Nav = ({isAuthenticated}) => {
          
          <div className="navbar-nav">
                 <Link href="/home" variant="logo" className="wgllogo">
-                     <img src={images.logo} alt="logo"></img>
+                     <img src={logo} alt="logo"></img>
                      {labels.eServicePortal}
                  </Link>
                  <div className='nav-linksbuttons'>
                  <Link href="#" variant="logo" className="headseticon">
-                     <img src={images.supporticonblue} alt="Support"></img>
+                     <img src={supporticonblue} alt="Support"></img>
                      Support?
                  </Link>
                  <button onClick={logout} className="btn btn-link nav-item nav-link">Logout</button>
