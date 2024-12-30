@@ -3,7 +3,7 @@ import React from "react";
 import { Outlet } from 'react-router-dom';
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import images from '../../images';
+import { logo ,headseticonwhite ,bannerImg } from '../../images';
 import PortalZoom from "_components/PortalZoom";
 import { labels } from "_utils/labels";
 
@@ -16,7 +16,7 @@ const RegisterMainLayout = () => {
                 <div className="wglcontainerinn">
                    
                     <Link href="#" variant="logo" className="wgllogo">
-                        <img src={images.logo} alt="logo"></img>
+                        <img src={logo} alt="logo"></img>
                         {labels.eServicePortal}
                     </Link>
                     <Outlet />
@@ -27,9 +27,9 @@ const RegisterMainLayout = () => {
             <div className="">
                 <div className="ration ration-1x1">    
               
-                    <img src={images.bannerImg} alt="Banner images"></img> 
+                    <img src={bannerImg} alt="Banner images"></img> 
                          <Link href="#"  className="NeedSupport"  >
-                        <img src={images.headseticonwhite} alt="Do You Need Support" ></img>
+                        <img src={headseticonwhite} alt="Do You Need Support" ></img>
                        Support?
                 </Link>            
                 </div>

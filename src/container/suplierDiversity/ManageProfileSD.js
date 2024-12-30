@@ -10,9 +10,9 @@ import { AutocompleteInput, UnderConstruction, UploadFiles } from '_components';
 import { alertActions, supplyDiversityAction, userActions } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
 import { supplierSupportedFormat } from '_utils/constant';
-import images from 'images';
-import { diversityRegistrationLabels } from '_utils/labels';
 
+import { diversityRegistrationLabels } from '_utils/labels';
+import { raphaelinfo  } from '../../images';
 const ManageProfileSD = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -181,7 +181,7 @@ console.log("classification",classificationDropDownData)
                                             <Typography component="div" className="Personal-Informationsheading">
 
                                                 <Grid item xs={12} sm={6} md={12} >
-                                                    <Typography component="h2" variant="h5" >Documents uplaod <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
+                                                    <Typography component="h2" variant="h5" >Documents uplaod <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
 
                                                     <Typography component="div" className="passwordcheck">
                                                         <AutocompleteInput

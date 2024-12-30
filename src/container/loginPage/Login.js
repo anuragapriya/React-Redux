@@ -108,7 +108,7 @@ export default function Login() {
             </Typography>
             <ResetPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
             <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
-            {/* <NewPassword></NewPassword> */}
+            <NewPassword></NewPassword>
         </div>
     );
 }

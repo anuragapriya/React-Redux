@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { alertActions } from '_store';
 import Grid from "@material-ui/core/Grid";
-import images from 'images';
 import Box from '@mui/material/Box';
 import Link from "@material-ui/core/Link";
 import { Modal, Button, Typography } from '@mui/material';
@@ -13,7 +12,7 @@ import { resetSuccessLabels } from "_utils/labels";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { labels } from "_utils/labels";
-
+import { logo} from '../../images';
 const NewPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,7 +76,7 @@ const NewPassword = () => {
           <Grid container>
             <Grid item xs={12} className="forgotpassword p-0">
               <Link href="#" variant="logo" className="wgllogo">
-                <img src={images.logo} alt="logo"></img>
+                <img src={logo} alt="logo"></img>
                 {labels.eServicePortal}
               </Link>
               <Typography component="h2" variant="body1">

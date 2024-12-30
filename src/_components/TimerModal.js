@@ -5,10 +5,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import images from "images";
 import { labels } from "_utils/labels";
 import { Link, Typography} from '@mui/material';
- 
+import { logo  , error , Check} from 'images';
 const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnPrimaryText, btnSecondaryText, handleBtnPrimaryClick ,handleBtnSecondaryClick}) => {
   const [open, setOpen] = useState(true);
   const [countdown, setCountdown] = useState(timerCountdown); // Set initial countdown value
@@ -42,13 +41,13 @@ const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnP
       >
         <Typography component="div" className="Verifyemail width590">
         <Link href="#" variant="logo" className="wgllogo">
-                            <img src={images.logo} alt="logo"></img>
+                            <img src={logo} alt="logo"></img>
                             {labels.eServicePortal}
                         </Link> 
                         <DialogTitle id="alert-dialog-title"  className="headercontent mobile-none" >{header}</DialogTitle>
         <DialogContent className='p-0 alertpopup'>
         <Typography component="div"  className='alertTypeinner'>
-         { alertType && <img src={ alertType==='error' ? images.error : images.Check} alt="Check"></img>}                  
+         { alertType && <img src={ alertType==='error' ? error : Check} alt="Check"></img>}                  
          </Typography>
          <DialogTitle id="alert-dialog-title"  className="headercontent mobile-block" >{header}</DialogTitle>
           <DialogContentText id="alert-dialog-description" className="p-0">
