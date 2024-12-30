@@ -111,7 +111,7 @@ const Home = () => {
                 {data.map((card) =>
 
                   <Grid size={{ xs: 2, sm: 4, md: 4 }} key={card.id} className="CardDetail">
-                    <Item><CardDetail {...card} handleClick={() => handleClick(card.id, card.path)} /></Item>
+                    <Item><CardDetail {...card} handleClick={() => handleClick( card.path)} /></Item>
                   </Grid>
                 )}
               </Grid>

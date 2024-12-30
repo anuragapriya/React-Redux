@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { UserProfileAI, UserProfileMB, UserFilter } from "container/admin";
-import CustomFilterPanelPosition from '../dummy';
 import { getAIUserProfileData } from '_utils/constant';
 
 const Users = () => {
-    const [portalKey, setPortalKey] = useState('AI');
+    const [portalKey, setPortalKey] = useState('MB');
     const userProfiles= getAIUserProfileData.Data;
     const [data, setData] = useState(userProfiles.UserData);
 
