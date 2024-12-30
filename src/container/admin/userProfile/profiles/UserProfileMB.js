@@ -64,6 +64,7 @@ const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEdite
 
   return (
     <MaterialReactTable
+    className="passwordcheck"
       columns={columns}
       data={data}
       options={{
