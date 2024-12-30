@@ -6,11 +6,10 @@ import { Typography, Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SupplierDetailsSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
-import { UploadFiles } from '_components';
-import { AutocompleteInput } from '_components';
+import { AutocompleteInput, UnderConstruction, UploadFiles } from '_components';
 import { alertActions, supplyDiversityAction, userActions } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
-import { supplierDocumentTypeData, supplierSupportedFormat } from '_utils/constant';
+import { supplierSupportedFormat } from '_utils/constant';
 import images from 'images';
 import { diversityRegistrationLabels } from '_utils/labels';
 
@@ -19,21 +18,34 @@ const ManageProfileSD = () => {
     const navigate = useNavigate();
     const header = 'Supplier Diversity';
     const { portalkey, id } = useParams();
-    const user = useSelector(x => x.users?.item);
+    // const user = useSelector(x => x.users?.item);
+    const user = useSelector(x => x.supplydiversity?.userData);
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [inputColors, setInputColors] = useState({});
     const documentTypeData = user?.DocumentData || [];
     const [files, setFiles] = useState([]);
-    const documentData = supplierDocumentTypeData.map(x => ({
+    const states = user?.State1 || [];
+    const classificationDropDownData = user?.Classification || [];
+    const businessDropDownData = user?.BusinessCategory || [];
+console.log("classification",classificationDropDownData)
+    const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
     }));
-    const states = user?.State || [];
     const stateData = states.map(x => ({
         label: x.StateName,
         value: x.StateID
     }));
-    const { register, handleSubmit, control, reset, formState: { errors, isSubmitting,isValid }, watch, trigger } = useForm({
+    const classificationData = classificationDropDownData.map(x => ({
+        value: x.ClassificationName,
+        label: x.ClassificationName
+    }));
+    const businessCategoryData = businessDropDownData.map(x => ({
+        label: x.CategoryName,
+        value: x.CategoryID
+    }));
+
+    const { register, handleSubmit, control, reset, formState: { errors, isValid }, trigger } = useForm({
         resolver: yupResolver(SupplierDetailsSchema)
     });
 
@@ -44,7 +56,7 @@ const ManageProfileSD = () => {
                 const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                //console.log(data);
+                console.log(data);
                 // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
@@ -85,7 +97,7 @@ const ManageProfileSD = () => {
                 return;
             }
 
-            const transformedData = {  
+            const transformedData = {
                 AdditionalID: user?.AdditionalID || 0,
                 UserID: id,
                 CompanyName: data.CompanyName,
@@ -125,10 +137,11 @@ const ManageProfileSD = () => {
     // };
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
+        console.log(fieldName);
         await trigger(fieldName); // Trigger validation for the field
-    
+
         // const fieldError = errors[fieldName];
-    
+
         // setInputColors(prevColors => ({
         //     ...prevColors,
         //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
@@ -137,74 +150,80 @@ const ManageProfileSD = () => {
 
 
     const handleOnChange = (event, newvalue) => {
-        setSelectedDocumentType(newvalue.value);
+        setSelectedDocumentType(newvalue?.value);
     };
     const handleFileChange = (newFiles) => {
         setFiles(newFiles);
     };
-    return <>
-        <Typography component="div" className="MapCenterAccecss">
-            <Typography component="div" className="MapCenterAccecssheading">
-                <Typography component="h1" variant="h5">Supplier Diversity</Typography>
-            </Typography>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography className="Personal-Information-container" component="div">
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={12} md={12} >
+    return (
+
+        <>
+            {!(user?.loading || user?.error) && (
+                <Typography component="div" className="MapCenterAccecss">
+                    <Typography component="div" className="MapCenterAccecssheading">
+                        <Typography component="h1" variant="h5">Supplier Diversity</Typography>
+                    </Typography>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Typography className="Personal-Information-container" component="div">
                             <Grid container spacing={3}>
-                                <Grid item xs={12} sm={12} md={8} className="Personal-Information">
-                                    <Typography component="div" className="mapcontainer">
-                                    <Typography component="div" className="Personal-Informationsheading">
+                                <Grid item xs={12} sm={12} md={12} >
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={12} sm={12} md={8} className="Personal-Information">
+                                            <Typography component="div" className="mapcontainer">
+                                                <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                        <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} trigger={trigger} />
-                                    </Typography>
-                                </Grid>
-
-                                <Grid item xs={12} sm={12} md={4} >
-                                    <Typography component="div" className="Personal-Informationsheading">
-                                        
-                                    <Grid item xs={12} sm={6} md={12} >
-                                        <Typography component="h2" variant="h5" >Documents uplaod <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
-                                        
-                                        <Typography  component="div" className="passwordcheck">
-                                            <AutocompleteInput
-                                            control={control}
-                                            name="documentType"
-                                            label="Document Type"
-                                            options={documentData}
-                                            error={!!errors.documentType}
-                                            helperText={errors.documentType?.message}
-                                            handleBlur={handleBlur}
-                                            inputColor={inputColors['documentType']}
-                                            onChange={handleOnChange}
-                                        />
-                                        </Typography>
+                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} handleBlur={handleBlur} trigger={trigger} />
+                                            </Typography>
                                         </Grid>
-                                        <UploadFiles
-                                            initialFiles={files}
-                                            portalKey={portalkey}
-                                            selectedDocumentType={selectedDocumentType}
-                                            supportedFormats={supplierSupportedFormat}
-                                            documentTypes={supplierDocumentTypeData}
-                                            control={control}
-                                            errors={errors}
-                                            onFileChange={handleFileChange}
-                                        />
-                                    </Typography>
+
+                                        <Grid item xs={12} sm={12} md={4} >
+                                            <Typography component="div" className="Personal-Informationsheading">
+
+                                                <Grid item xs={12} sm={6} md={12} >
+                                                    <Typography component="h2" variant="h5" >Documents uplaod <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
+
+                                                    <Typography component="div" className="passwordcheck">
+                                                        <AutocompleteInput
+                                                            control={control}
+                                                            name="documentType"
+                                                            label="Document Type"
+                                                            options={documentData}
+                                                            error={!!errors.documentType}
+                                                            helperText={errors.documentType?.message}
+                                                            handleBlur={handleBlur}
+                                                            inputColor={inputColors['documentType']}
+                                                            onChange={handleOnChange}
+                                                        />
+                                                    </Typography>
+                                                </Grid>
+                                                <UploadFiles
+                                                    initialFiles={files}
+                                                    portalKey={portalkey}
+                                                    selectedDocumentType={selectedDocumentType}
+                                                    supportedFormats={supplierSupportedFormat}
+                                                    documentTypes={documentTypeData}
+                                                    control={control}
+                                                    errors={errors}
+                                                    onFileChange={handleFileChange}
+                                                />
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
+                        </Typography>
+                        <Grid item xs={12} sm={12} md={12} className="Personal-Information">
+                            <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={!isValid}>
+                                Complete Registration
+                            </Button>
                         </Grid>
-                    </Grid>
+                    </form>
                 </Typography>
-                <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                    <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={!isValid}>
-                        Complete Registration
-                    </Button>
-                </Grid>
-            </form>
-        </Typography>
-    </>;
+            )}
+            {user?.error && <UnderConstruction />}
+        </>
+    );
 };
 
 export default ManageProfileSD;

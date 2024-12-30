@@ -31,7 +31,7 @@ const AutocompleteInput = ({ control, name,value, label, options, error, helperT
                             helperText={helperText}
                             onBlur={(e) => {
                                 field.onBlur(e);
-                                handleBlur(e);
+                              if(handleBlur)  handleBlur(e);
                             }}
                             onFocus={onFocus}
                            

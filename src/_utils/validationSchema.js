@@ -147,48 +147,38 @@ export const uploadValidationSchema = Yup.object().shape({
         .nullable(),
 });
 export const SupplierDetailsSchema = Yup.object().shape({
-    companyName: Yup.string()
-        .nullable()
+    CompanyName: Yup.string()
         .required('Company Name is Required'),
-    companyWebsite: Yup.string()
-        .nullable()
+    CompanyWebsite: Yup.string()
         .required('Company Website is Required'),
-    businessCatagory: Yup.string()
+    BusinessCatagory: Yup.string()
         .nullable()
         .required('Business Category is Required'),
-    classification: Yup.string()
-        .nullable()
-        .required('Classification is Required'),
-    services: Yup.string()
-        .nullable()
+    Classification: Yup.array()
+    .min(1, 'At least one classification is required') // Ensure at least one option is selected
+    .required('This field is required'),  // Ensure the field is not empty,
+    ServicesProductsProvided: Yup.string()
         .required('Services are Required'),
     expirydate: Yup.string()
-        .nullable()
         .required('Expiry Date is Required'),
-    contactperson: Yup.string()
-        .nullable()
+    Contactperson: Yup.string()
         .required('Contact Person is Required'),
-    title: Yup.string()
-        .nullable()
+    Title: Yup.string()
         .required('Title is Required'),
-    email: Yup.string()
-        .nullable()
+    Email: Yup.string()
         .required('Email is required')
         .email('Please provide a valid email address'),
-    mobileNumber: Yup.string()
-        .nullable()
+    PhoneNumber: Yup.string()
         .required('Phone Number is required')
         .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
-    address: Yup.string()
-        .nullable()
+    Address: Yup.string()
         .required('address is required'),
-    state: Yup.string()
+    State: Yup.string()
         .nullable()
         .required('State is required'),
-    city: Yup.string()
+    City: Yup.string()
         .nullable()
         .required('City is Required'),
-    zipcode: Yup.string()
-        .nullable()
+    ZipCode: Yup.string()
         .required('Zip code is required'),
 })

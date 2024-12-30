@@ -48,8 +48,18 @@ const VerifiedRegistration = () => {
         return;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         try {
+            var result = await dispatch(registrationActions.resendVerificationLink(id));
+            if (result?.error) {
+                dispatch(alertActions.error({
+                    showAfterRedirect: true,
+                    message: "Resend email failed.",
+                    header: "Resend email failed."
+                }));
+                return;
+            }
+
             dispatch(alertActions.success({
                 showAfterRedirect: true,
                 message: emailSentLabels.message1,
@@ -82,7 +92,7 @@ const VerifiedRegistration = () => {
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2NonRegistration}
                     btnSecondaryText={genericlabels.lblClose}
-                    handleBtnSecondaryClick={()=>handleClick()}
+                    handleBtnSecondaryClick={() => handleClick()}
                 />
                 }
                 {!isVerified && <ModalPopup
@@ -91,7 +101,7 @@ const VerifiedRegistration = () => {
                     message2={notVerifiedRegistrationLabels.message2}
                     btnPrimaryText={notVerifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={notVerifiedRegistrationLabels.btnSecondaryText}
-                    handlePrimaryClick={()=>handleSubmit()}
+                    handlePrimaryClick={() => handleSubmit()}
                 />
                 }
             </div>
