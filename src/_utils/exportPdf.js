@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import images from 'images';
 import dayjs from 'dayjs';
-
+import { pdfIcon } from '../images';
 
 const exportPDF = (rows, columns, filename) => {
   const doc = new jsPDF();
@@ -17,7 +17,7 @@ const exportPDF = (rows, columns, filename) => {
     });
     return Object.values(formattedRow);
   });
-  doc.addImage(images.pdfIcon, 'PNG', 10, 10, 50, 20);
+  doc.addImage(pdfIcon, 'PNG', 10, 10, 50, 20);
   autoTable(doc, {
     startY: 50,
     pageBreak: 2,

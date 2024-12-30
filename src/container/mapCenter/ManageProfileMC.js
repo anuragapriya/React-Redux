@@ -11,9 +11,8 @@ import { supportedFormat } from '_utils/constant';
 import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
 import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
-import images from '../../images';
 import { mapCenterRegistrationLabels } from '_utils/labels';
-
+import { raphaelinfo ,materialsymbolsdownload } from '../../images';
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -217,7 +216,7 @@ const ManageProfileMC = () => {
                                         <Grid item xs={12} sm={6} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">
                                                 <Typography component="div" className="Personal-Informationsheading ">
-                                                    <Typography component="h2" variant="h5">Document Upload  <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
+                                                    <Typography component="h2" variant="h5">Document Upload  <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                 </Typography>
                                                 <Typography component="div" className="passwordcheck">
                                                     <AutocompleteInput
@@ -247,7 +246,7 @@ const ManageProfileMC = () => {
                                                     <div className="mar-top-16" >
                                                         <Typography component="div">Non-disclosure agreement
                                                             <IconButton onClick={handleDownload}>
-                                                                <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                                <img src={materialsymbolsdownload} alt="material-symbols_download"></img>
                                                             </IconButton>
                                                         </Typography>
                                                     </div>
