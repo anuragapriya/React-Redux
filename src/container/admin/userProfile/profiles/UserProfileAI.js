@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
+import React, { useMemo, useState } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
 import { Visibility, DeleteForever, Lock, LockOpen, Edit } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
@@ -13,55 +13,61 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
   const filename = 'Users';
 
   const columns = useMemo(() => [
-    { accessorKey: 'FullName', header: 'Name' },
+    { field: 'FullName', headerName: 'Name', width: 150, editable: true },
     {
-      accessorKey: 'RoleID',
-      header: 'Role',
-      Cell: ({ cell }) => (
+      field: 'RoleID',
+      headerName: 'Role',
+      width: 150,
+      editable: true,
+      renderCell: (params) => (
         <AutocompleteTable
-          value={cell.getValue()}
+          value={params.value || ''}
           onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'RoleID');
+            setEditedRowId(params.row.id);
+            handleChange(newValue, params.row, 'RoleID');
           }}
           options={roles}
-          getOptionLabel={(option) => option.RoleName}
-          error={errors[cell.row.original.id]?.role}
-          helperText={errors[cell.row.original.id]?.role ? 'Role is required' : ''}
+          getOptionLabel={(option) => option?.RoleName || ''}
+          error={errors[params.row.id]?.RoleID}
+          helperText={errors[params.row.id]?.RoleID ? 'Role is required' : ''}
         />
       )
     },
     {
-      accessorKey: 'StatusID',
-      header: 'Status',
-      Cell: ({ cell }) => (
+      field: 'StatusID',
+      headerName: 'Status',
+      width: 150,
+      editable: true,
+      renderCell: (params) => (
         <AutocompleteTable
-          value={cell.getValue()}
+          value={params.value || ''}
           onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'StatusID');
+            setEditedRowId(params.row.id);
+            handleChange(newValue, params.row, 'StatusID');
           }}
           options={statuses}
-          getOptionLabel={(option) => option.StatusName}
-          error={errors[cell.row.original.id]?.status}
-          helperText={errors[cell.row.original.id]?.status ? 'Status is required' : ''}
+          getOptionLabel={(option) => option?.StatusName || ''}
+          error={errors[params.row.id]?.StatusID}
+          helperText={errors[params.row.id]?.StatusID ? 'Status is required' : ''}
         />
       )
     },
     {
-      accessorKey: 'AgencyID',
-      header: 'Agency',
-      Cell: ({ cell }) => (
+      field: 'AgencyID',
+      headerName: 'Agency',
+      width: 150,
+      editable: true,
+      renderCell: (params) => (
         <AutocompleteTable
-          value={cell.getValue()}
+          value={params.value || ''}
           onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'AgencyID');
+            setEditedRowId(params.row.id);
+            handleChange(newValue, params.row, 'AgencyID');
           }}
           options={agencies}
-          getOptionLabel={(option) => option.AgencyName}
-          error={errors[cell.row.original.id]?.agency}
-          helperText={errors[cell.row.original.id]?.agency ? 'Agency is required' : ''}
+          getOptionLabel={(option) => option?.AgencyName || ''}
+          error={errors[params.row.id]?.AgencyID}
+          helperText={errors[params.row.id]?.AgencyID ? 'Agency is required' : ''}
         />
       )
     }
@@ -73,25 +79,8 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
 
   const handleLock = () => setLock((lock) => !lock);
 
-  const table = useMaterialReactTable({
-    columns,
-    data,
-    enableHiding: false,
-    enableGlobalFilter: true,
-    enableFullScreenToggle: false,
-    enableColumnActions: false,
-    paginationDisplayMode: 'pages',
-    enableRowActions: true,
-    initialState: {
-      columnOrder: [
-        'FullName',
-        'RoleID',
-        'AgencyID',
-        'StatusID',
-        'mrt-row-actions', // Ensure this is included at the end
-      ],
-    },
-    renderTopToolbarCustomActions: () => (
+  return (
+    <>
       <Box
         sx={{
           display: 'flex',
@@ -102,29 +91,41 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       >
         <Download rows={data} headers={columns} filename={filename} />
       </Box>
-    ),
-    renderRowActions: ({ row }) => (
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
-        <IconButton onClick={() => handleAddEdit(row)}>
-          <Edit variant="contained" color="primary" />
-        </IconButton>
-        <IconButton onClick={handleLock}>
-          {isLocked ? <Lock /> : <LockOpen />}
-        </IconButton>
-        <IconButton>
-          <DeleteForever variant="contained" color="secondary" />
-        </IconButton>
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          onCellEditCommit={(params) => handleChange(params.value, params.row, params.field)}
+          components={{
+            Toolbar: () => (
+              <Box
+                sx={{
+                  display: 'flex',
+                  gap: '16px',
+                  padding: '8px',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <Download rows={data} headers={columns} filename={filename} />
+              </Box>
+            ),
+            ActionsCell: (params) => (
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <IconButton onClick={() => handleAddEdit(params.row)}>
+                  <Edit variant="contained" color="primary" />
+                </IconButton>
+                <IconButton onClick={handleLock}>
+                  {isLocked ? <Lock /> : <LockOpen />}
+                </IconButton>
+                <IconButton>
+                  <DeleteForever variant="contained" color="secondary" />
+                </IconButton>
+              </div>
+            )
+          }}
+        />
       </div>
-    ),
-    renderDetailPanel: ({ row }) => (
-      <Box sx={{ padding: 2 }}>
-        <Typography variant="h6">Details for {row.original.FullName}</Typography>
-      </Box>
-    ),
-  });
-
-  return (
-    <MaterialReactTable table={table} />
+    </>
   );
 };
 
