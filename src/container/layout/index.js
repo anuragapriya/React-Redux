@@ -6,7 +6,8 @@ import AdminLayout from "./AdminLayout";
 import AccountInquiryLayout from "./AccountInquiryLayout";
 import EnergyAssistanceLayout from "./EnergyAssistanceLayout";
 import ForgotPasswordLayout from "./ForgotPasswordLayout";
+import SupportLayout from "./SupportLayout";
 
 export {LoginLayout,MainLayout,RegisterMainLayout,DashboardLayout,AdminLayout,AccountInquiryLayout,EnergyAssistanceLayout,
-    ForgotPasswordLayout
+    ForgotPasswordLayout,SupportLayout
 };
