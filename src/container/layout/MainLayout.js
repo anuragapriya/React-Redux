@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { logo ,headseticonwhite ,bannerImg } from '../../images';
 import PortalZoom from "_components/PortalZoom";
 import { labels } from "_utils/labels";
+import { Support } from "container/headers";
 
 // const location = useLocation();
 
@@ -39,10 +40,11 @@ const MainLayout = () => (
                 <div className="ration ration-1x1">    
               
                     <img src={bannerImg} alt="Banner images"></img> 
-                              <Link href="#"  className="NeedSupport"  >
+                              {/* <Link href="#"  className="NeedSupport"  >
                         <img src={headseticonwhite} alt="Do You Need Support" ></img>
                        Support?
-                </Link>         
+                </Link>          */}
+                <Support isMainLayout={true}></Support>
                 </div>
                
             </div>
