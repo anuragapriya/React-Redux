@@ -49,9 +49,9 @@ const fakeBackend = () => {
                         return getMapCenterUser(url);
                     case url.match('api/Account/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
-                    case url.match(/\/diversity\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                    case url.match(/\/api\/Account\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getSupplierDiversityUser(url);
-                    case url.match('/diversity/Register-MC') && opts.method === 'POST':
+                    case url.match('/api/Account/Register-MC') && opts.method === 'POST':
                         return updateSupplierDiversityUser();
                     default:
                         // pass through any requests not handled above
@@ -228,7 +228,7 @@ const fakeBackend = () => {
 
             function getMapCenterUser() {
                 try {
-                    let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
+                    let mapCenterUser =  getMapCenterData;;
                     return ok(mapCenterUser);
                 }
                 catch (error) {

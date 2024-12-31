@@ -33,7 +33,7 @@ const ManageProfileMC = () => {
 
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateId
+        value: x.StateId.toString()
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -51,10 +51,6 @@ const ManageProfileMC = () => {
                 const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                if(data){
-                setSelectedCompanyState(data?.CompanyState)
-                setSelectedHomeState(data?.HomeState);
-                }
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -76,16 +72,6 @@ const ManageProfileMC = () => {
         };
         fetchData();
     }, [id, dispatch, reset, portalkey]);
-
-    // const applyInitialColors = (user) => {
-    //     const colors = {};
-    //     for (const key in user) {
-    //         if (user[key]) {
-    //             colors[key] = 'inputBackground'; // Your desired class
-    //         }
-    //     }
-    //     setInputColors(colors);
-    // };
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
@@ -113,14 +99,14 @@ const ManageProfileMC = () => {
                 HomeStreetAddress1: data.HomeStreetAddress1,
                 HomeStreetAddress2: data.HomeStreetAddress2 || '',
                 HomeCity: data.HomeCity,
-                HomeState: selectedHomeState.toString(),
+                HomeState: data.HomeState,
                 HomeZipCode: data.HomeZipCode,
                 CompanyName: data.CompanyName,
                 TaxIdentificationNumber: data.TaxIdentificationNumber,
                 CompanyStreetAddress1: data.CompanyStreetAddress1,
                 CompanyStreetAddress2: data.CompanyStreetAddress2 || '',
                 CompanyCity: data.CompanyCity,
-                CompanyState: selectedCompanyState.toString(),
+                CompanyState: data.CompanyState,
                 CompanyZipCode: data.CompanyZipCode,
                 CompanyContactName: data.CompanyContactName,
                 CompanyContactTelephone: data.CompanyContactTelephone,
@@ -147,22 +133,15 @@ const ManageProfileMC = () => {
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
-
-        // const fieldError = errors[fieldName];
-
-        // setInputColors(prevColors => ({
-        //     ...prevColors,
-        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        // }));
     };
 
-    const handleHomeStateChange = (e,newvalue) => {
-        setSelectedHomeState(newvalue?.value);
-    }
+    // const handleHomeStateChange = (e, newValue) => {
+    //     setSelectedHomeState(newValue ? newValue.value : null);
+    // };
 
-    const handleCompanyStateChange = (e,newvalue) => {
-        setSelectedCompanyState(newvalue?.value);
-    }
+    // const handleCompanyStateChange = (e, newValue) => {
+    //     setSelectedCompanyState(newValue ? newValue.value : null);
+    // };
 
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue?.value);
@@ -208,13 +187,12 @@ const ManageProfileMC = () => {
                                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                                         </Typography>
                                                         <AdditionalDetails
-                                                            homeState={selectedHomeState}
-                                                            handleChange={(e,newvalue)=>handleHomeStateChange(e,newvalue)}
-                                                            handleBlur={handleBlur}
+                                                          handleBlur={handleBlur}
                                                             register={register}
                                                             control={control}
                                                             stateData={stateData}
-                                                            errors={errors} />
+                                                            errors={errors}
+                                                        />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6} md={6} className="Personal-Information">
@@ -222,13 +200,21 @@ const ManageProfileMC = () => {
                                                         <Typography component="div" className="Personal-Informationsheading">
                                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                                         </Typography>
-                                                        <CompanyDetails companyState={selectedCompanyState} handleChange={(e,newvalue)=>handleCompanyStateChange(e,newvalue)} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
+                                                        <CompanyDetails
+                                                           handleBlur={handleBlur}
+                                                            register={register}
+                                                            errors={errors}
+                                                            control={control}
+                                                            stateData={stateData}
+                                                        />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={12}>
-                                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
-
-
+                                                    <CompanyPOC 
+                                                    register={register} 
+                                                    errors={errors} 
+                                                    control={control} 
+                                                    handleBlur={handleBlur} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>

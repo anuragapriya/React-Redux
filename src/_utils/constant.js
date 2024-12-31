@@ -819,14 +819,14 @@ export const getMapCenterData =
       "HomeStreetAddress1": "TEST",
       "HomeStreetAddress2": "TES",
       "HomeCity": "TES",
-      "HomeState": "TES",
+      "HomeState": "5",
       "HomeZipCode": "125487",
       "CompanyName": "TESA",
       "TaxIdentificationNumber": "41254SAW",
       "CompanyStreetAddress1": "DADAS",
       "CompanyStreetAddress2": "DASD",
       "CompanyCity": "DASD",
-      "CompanyState": "DASD",
+      "CompanyState": "4",
       "CompanyZipCode": "DASD",
       "CompanyContactName": "DASD",
       "CompanyContactTelephone": "DASD",
@@ -836,19 +836,37 @@ export const getMapCenterData =
       "FileData": [],
       "DocumentData": [
         {
-          "DocumentTypeID": "1",
-          "DocumentType": "drivingLicenseFront",
-          "DocumentDescription": "Driving License(Front)"
+          "DocumentTypeID": 1,
+          "DocumentType": "Driving License Front",
+          "DocumentDescription": "Driving License Front"
         },
         {
-          "DocumentTypeID": "2",
-          "DocumentType": "drivingLicenseLast",
-          "DocumentDescription": "Driving License(Last)"
+          "DocumentTypeID": 2,
+          "DocumentType": "Drving License Back",
+          "DocumentDescription": "Driving License Back"
         },
         {
-          "DocumentTypeID": "3",
-          "DocumentType": "nondisclosureagreement",
-          "DocumentDescription": "Non disclosure agreement"
+          "DocumentTypeID": 3,
+          "DocumentType": "NDA",
+          "DocumentDescription": "NDA"
+        }
+      ],
+      "State": [
+        {
+          "StateId": 2,
+          "StateName": "AL"
+        },
+        {
+          "StateId": 3,
+          "StateName": "NY"
+        },
+        {
+          "StateId": 4,
+          "StateName": "WC"
+        },
+        {
+          "StateId": 5,
+          "StateName": "CL"
         }
       ]
     }
