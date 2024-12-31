@@ -14,9 +14,10 @@ const VerifiedRegistration = () => {
 
     const userVerify = useSelector((x) => x.registration?.verifiedUserData);
     const data = userVerify?.Data;
-    const isVerified =false; //data?.IsVerified;
+    const isVerified = data?.IsVerified;
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
+   
     const token = new URLSearchParams(location.search).get('verifyId');
     const id = data?.UserId;
     const emailAddress = data?.Email;

@@ -1,55 +1,57 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { alertActions } from '_store';
+import { alertActions, authActions, registrationActions } from '_store';
 import Grid from "@material-ui/core/Grid";
 import Box from '@mui/material/Box';
 import Link from "@material-ui/core/Link";
 import { Modal, Button, Typography } from '@mui/material';
 import { PasswordCheck, PasswordInput } from "_components";
 import { passwordValidationSchema } from "_utils/validationSchema";
-import { resetSuccessLabels } from "_utils/labels";
+import { resetFailedLabels, resetSuccessLabels } from "_utils/labels";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { labels } from "_utils/labels";
-import { logo} from '../../images';
+import { logo } from '../../images';
 const NewPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [open, setOpen] = useState(true);
-  const [inputColors, setInputColors] = useState({});
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
+  const id = new URLSearchParams(location.search).get('verifyId');
+  const FullName = "Anu";
+
   const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
-    resolver: yupResolver(passwordValidationSchema),
+    resolver: yupResolver(passwordValidationSchema(FullName)),
   });
   const password = watch('Password', '');
 
-   const handleBlur = async (e) => {
-        const fieldName = e.target.name;
-        await trigger(fieldName); 
-        // const fieldError = errors[fieldName];
+  const handleBlur = async (e) => {
+    const fieldName = e.target.name;
+    await trigger(fieldName);
+  };
 
-        // if (fieldName === 'Password') {
-        //     setInputColors(prevColors => ({
-        //         ...prevColors,
-        //         [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
-        //     }));
-        // } else {
-        //     setInputColors(prevColors => ({
-        //         ...prevColors,
-        //         [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        //     }));
-        // }       
-    };
-
-  const onSubmit = async ({ Password }) => {
+  const onSubmit = async ({ password }) => {
     try {
-      handleClose();
+      const result = await dispatch(authActions.resetPasswordRequest({ id, password }));
+        if (result?.error) {
+          dispatch(alertActions.error({
+            showAfterRedirect: true,
+            message: result?.error.message,
+            header: resetFailedLabels.header
+          }));
+          return;
+        }
+      
+      await handleClose();
       navigate('/');
       dispatch(alertActions.success({
         showAfterRedirect: true,
-        message: resetSuccessLabels.message1
+        message: resetSuccessLabels.message1,
+        header: resetSuccessLabels.header
       }));
     } catch (error) {
       dispatch(alertActions.error(error));
@@ -94,7 +96,6 @@ const NewPassword = () => {
                 rules={{ required: 'Password is required' }}
                 errors={errors}
                 handleBlur={handleBlur}
-                inputColors={inputColors}
                 isPasswordValid={isPasswordValid}
               />
               <PasswordCheck password={password} userName={''} onValidationChange={handlePasswordValidation} />

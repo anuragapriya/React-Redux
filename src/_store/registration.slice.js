@@ -72,7 +72,7 @@ function createExtraActions() {
             async ({emailAddress,id}) => {
                 console.log(emailAddress,id);
                 const url = new URL(`${baseUrl}/ResendEmailVerification`);
-                url.searchParams.append('Emailaddress', emailAddress);
+                url.searchParams.append('EmailAddress', emailAddress);
                  url.searchParams.append('UserId', id);
                 // Fetch the data from the constructed URL
                 const response = await trackPromise(fetchWrapper.get(url.toString()));
