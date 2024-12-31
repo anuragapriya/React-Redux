@@ -21,7 +21,7 @@ const fakeBackend = () => {
 
             function handleRoute() {
                 switch (true) {
-                    case url.endsWith('//api/Account/Authenticate') && opts.method === 'POST':
+                    case url.endsWith('/api/Account/Authenticate') && opts.method === 'POST':
                         return authenticate();
                     case url.endsWith('/api/Account/refreshToken') && opts.method === 'POST':
                         return refreshToken();
@@ -51,7 +51,7 @@ const fakeBackend = () => {
                         return updateMapCenterUser();
                     case url.match(/\/api\/Account\/\d+\?portal=\w+$/) && opts.method === 'GET':
                         return getSupplierDiversityUser(url);
-                    case url.match('/api/Account/Register-MC') && opts.method === 'POST':
+                    case url.match('/api/Account/Register-SD') && opts.method === 'POST':
                         return updateSupplierDiversityUser();
                     default:
                         // pass through any requests not handled above
