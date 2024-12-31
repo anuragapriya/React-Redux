@@ -3,9 +3,7 @@ import { CustomFormControl, MobileNumberInput } from '_components';
 import { Typography } from '@mui/material';
 import Grid from "@material-ui/core/Grid";
 
-const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur}) => {
-
-
+const CompanyPOC = ({ register, errors, control,handleBlur}) => {
     return <>
         <Typography component="div" className="Personal-Informationsheading">
             <Typography component="h2" variant="h5"  className='margin-bottom-12'>Company Point of Contact</Typography>
@@ -19,7 +17,6 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         </Grid>
        <Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
@@ -30,7 +27,6 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         </Grid>
         <Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
@@ -41,7 +37,6 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             rules={{ required: 'Phone Number is required' }}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         </Grid>
        < Grid item xs={12} sm={6} md={6} className="Personal-Information CompanyDetails">
@@ -52,7 +47,6 @@ const CompanyPOC = ({ register, errors, control, trigger ,inputColors,handleBlur
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         </Grid>
         </Grid>

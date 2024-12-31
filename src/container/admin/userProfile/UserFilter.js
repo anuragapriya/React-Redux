@@ -25,7 +25,7 @@ const UserFilter = ({ handleFilterSubmit }) => {
             const result = [];
             // const result = await dispatch(registrationActions.register(data)).unwrap();
             // if (!result.error) {
-            const portalKey = portalData?.find(option => option.value === data.PortalId);
+            const portalKey = portals?.find(option => option.PortalID === data.PortalId).PortalKey;
             handleFilterSubmit({ result }, portalKey);
             //  } 
         } catch (error) {
@@ -45,16 +45,14 @@ const UserFilter = ({ handleFilterSubmit }) => {
  <CustomTextFieldInput
                 control={control}
                 name="email"
-                label="Email Address"
-                
+                label="Email Address"                
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : ''}
             />
             <CustomTextFieldInput
                 control={control}
                 name="fullName"
-                label="Full Name"
-                
+                label="Full Name"                
                 error={!!errors.fullName}
                 helperText={errors.fullName ? errors.fullName.message : ''}
             />

@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { UserProfileAI, UserProfileMB,UserFilter } from "container/admin";
+import { UserProfileAI, UserProfileMB, UserFilter } from "container/admin";
+import { getAIUserProfileData } from '_utils/constant';
 
 const Users = () => {
-    const [portalKey, setPortalKey] = useState('AI');
-    const [data, setData] = useState([
-        { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
-        { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
-    ]);
+    const [portalKey, setPortalKey] = useState('MB');
+    const userProfiles= getAIUserProfileData.Data;
+    const [data, setData] = useState(userProfiles.UserData);
 
     const [errors, setErrors] = useState({});
     const [editedRowId, setEditedRowId] = useState(null);
 
     const handleChange = (newValue, rowData, field) => {
-        const newData = data.map(row => row.ID === rowData.ID ? { ...row, [field]: newValue } : row);
+        const newData = data.map(row => row.id === rowData.id ? { ...row, [field]: newValue } : row);
         setData(newData);
 
         // Clear error if a value is selected
         if (newValue) {
-            setErrors(prevErrors => ({ ...prevErrors, [rowData.ID]: { ...prevErrors[rowData.ID], [field]: false } }));
+            setErrors(prevErrors => ({ ...prevErrors, [rowData.id]: { ...prevErrors[rowData.id], [field]: false } }));
         }
     };
 
@@ -28,13 +27,13 @@ const Users = () => {
                 newErrors[field] = true;
             }
         });
-        setErrors(prevErrors => ({ ...prevErrors, [rowData.ID]: newErrors }));
+        setErrors(prevErrors => ({ ...prevErrors, [rowData.id]: newErrors }));
         return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = () => {
         if (editedRowId !== null) {
-            const editedRow = data.find(row => row.ID === editedRowId);
+            const editedRow = data.find(row => row.id === editedRowId);
             const requiredFields = ['RoleID', 'StatusID', 'AgencyID']; // List of required fields
             if (validate(editedRow, requiredFields)) {
                 // Submit data
@@ -46,16 +45,17 @@ const Users = () => {
     };
 
     const handleFilterSubmit = (newData, newPortalKey) => {
-        setData(newData);
         setPortalKey(newPortalKey);
     };
 
     return (
         <>
-            {/* <UserFilter handleFilterSubmit={handleFilterSubmit}></UserFilter> */}
+            {/* <CustomFilterPanelPosition />
+            <UserFilter handleFilterSubmit={handleFilterSubmit} /> */}
             {portalKey === 'AI' && (
                 <UserProfileAI
                     data={data}
+                    userProfiles={userProfiles}
                     setData={setData}
                     errors={errors}
                     setErrors={setErrors}
@@ -67,6 +67,7 @@ const Users = () => {
             {portalKey === 'MB' && (
                 <UserProfileMB
                     data={data}
+                    userProfiles={userProfiles}
                     setData={setData}
                     errors={errors}
                     setErrors={setErrors}

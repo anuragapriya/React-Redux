@@ -5,7 +5,7 @@ import { usePromiseTracker } from 'react-promise-tracker';
 import { store, authActions } from '_store';
 import PrivateRoute from './PrivateRoute';
 import {Nav,LoadingOverlay,Notification,SessionTimeout} from '_components';
-import {LoginLayout,AdminLayout,AccountInquiryLayout,EnergyAssistanceLayout} from 'container/layout';
+import {LoginLayout,AdminLayout,AccountInquiryLayout,EnergyAssistanceLayout, ForgotPasswordLayout} from 'container/layout';
 import {Home} from 'container/dashboard';
 import DocumentViewer from '_components/DocumentViewer';
 import RegistrationLayout from 'container/layout/RegistrationLayout';
@@ -66,6 +66,7 @@ const RouteList = () => {
                     <Route path="/*" element={<LoginLayout isAuthenticated={isAuthenticated} />} />
 
                     <Route path="registration/*" element={<RegistrationLayout/>}/>
+                    <Route path="forgotpassword/*" element={<ForgotPasswordLayout/>}/>
 
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>

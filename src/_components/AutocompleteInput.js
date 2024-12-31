@@ -1,40 +1,39 @@
-
 import React from 'react';
-import { FormControl, TextField, InputAdornment,Autocomplete } from '@mui/material';
+import { FormControl, TextField, InputAdornment, Autocomplete } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const AutocompleteInput = ({ control, name,value, label, options, error, helperText, handleBlur, onFocus, inputColor,onChange }) => (
-    <FormControl fullWidth margin="normal"  className={inputColor}>
+const AutocompleteInput = ({ control, name, value, label, options, error, helperText, handleBlur, onFocus, onChange }) => (
+   <FormControl fullWidth margin="normal">
         <Controller
             name={name}
             control={control}
             render={({ field }) => (
                 <Autocomplete
+                    name={name}
                     disablePortal
                     selectOnFocus
                     clearOnBlur
                     options={options}
                     getOptionLabel={(option) => option.label}
                     isOptionEqualToValue={(option, value) => option.value === value}
-                    value={ options?.find(option => option.value === field.value || value) || null}
+                    value={options?.find(option => option.value === field.value || value) || null}
                     onChange={(e, newValue) => {
                         field.onChange(newValue ? newValue.value : null);
-                       if(onChange) onChange(e, newValue);
+                        if (onChange) onChange(e, newValue);
                     }}
                     renderInput={(params) => (
                         <TextField
                             {...params}
-                            name={name} // Ensure the name attribute is set
+                            name={name}
                             label={label}
                             error={!!error}
                             helperText={helperText}
                             onBlur={(e) => {
                                 field.onBlur(e);
-                                handleBlur(e);
+                                if (handleBlur) handleBlur(e);
                             }}
                             onFocus={onFocus}
-                           
                             InputProps={{
                                 ...params.InputProps,
                                 endAdornment: (

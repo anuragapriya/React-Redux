@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
 
-const CompanyDetails = ({ register, errors, control, stateData, inputColors, handleBlur }) => {
+const CompanyDetails = ({ register, errors, control, stateData, handleBlur }) => {
     return <>
         <CustomFormControl
             id="CompanyName"
@@ -11,7 +11,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <CustomFormControl
             id="TaxIdentificationNumber"
@@ -20,7 +19,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <CustomFormControl
             id="CompanyStreetAddress1"
@@ -29,7 +27,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <CustomFormControl
             id="CompanyCity"
@@ -38,7 +35,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
             register={register}
             errors={errors}
             handleBlur={handleBlur}
-            inputColors={inputColors}
         />
         <Grid container spacing={3} >
             <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
@@ -50,7 +46,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
                     error={!!errors.CompanyState}
                     helperText={errors.CompanyState?.message}
                     handleBlur={handleBlur}
-                    inputColor={inputColors['CompanyState']}
                 />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
@@ -61,7 +56,6 @@ const CompanyDetails = ({ register, errors, control, stateData, inputColors, han
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>  
            

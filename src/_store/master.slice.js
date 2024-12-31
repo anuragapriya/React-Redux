@@ -24,8 +24,8 @@ function createInitialState() {
 }
 
 function createExtraActions() { 
-    const baseUrl = `${process.env.REACT_APP_API_URL}/master`;
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Master`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/master`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Master`;
 
     return {
         getPortalData: getPortalData(),

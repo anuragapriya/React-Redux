@@ -10,8 +10,7 @@ import { alertActions } from "_store";
 import { convertToBase64,base64ToFile ,fileExtension ,fileSizeReadable,fileTypeAcceptable} from '_utils';
 import { uploadLabels } from "_utils/labels";
 import ModalPopup from "./ModalPopup";
-import images from '../images';
-
+import { materialsymbolsupload  , materialsymbolsdownload ,midelete} from '../images';
 const UploadFiles = ({
     portalKey,
     selectedDocumentType,
@@ -106,7 +105,7 @@ const UploadFiles = ({
                 FileName: file.name,
                 Format: file.extension,
                 Size: file.size,
-                Portalkey: portalKey, // Replace with actual portal key if needed
+                PortalKey: portalKey, // Replace with actual portal key if needed
                 File: base64,
                 Url: null
             };
@@ -175,7 +174,7 @@ const UploadFiles = ({
                         variant="contained"
                         tabIndex={-1}
                         className="Uploadfiles"
-                        startIcon={<img src={images.materialsymbolsupload} alt="Upload" />}
+                        startIcon={<img src={materialsymbolsupload} alt="Upload" />}
                     >
                         <span> Upload your files here</span>
                         <span type="file" onChange={handleFileInputChange} className="Browsechoose"> Browse and choose the file(s) you want to upload </span>
@@ -205,10 +204,10 @@ const UploadFiles = ({
                                             <Typography component="div">
                                                 <CheckCircleRounded fontSize="small" style={{ color: green[500] }} /> {type.DocumentDescription}
                                                 <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
-                                                    <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                    <img src={materialsymbolsdownload} alt="material-symbols_download"></img>
                                                 </IconButton>
                                                 <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
-                                                    <img src={images.midelete} alt="material-midelete"></img>
+                                                    <img src={midelete} alt="material-midelete"></img>
                                                 </IconButton>
                                             </Typography>
                                         </div>

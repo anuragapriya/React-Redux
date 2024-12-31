@@ -11,9 +11,8 @@ import { supportedFormat } from '_utils/constant';
 import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
 import { CompanyDetails, AdditionalDetails, CompanyPOC } from "container/user";
-import images from '../../images';
 import { mapCenterRegistrationLabels } from '_utils/labels';
-
+import { raphaelinfo, materialsymbolsdownload } from '../../images';
 const ManageProfileMC = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,6 +21,8 @@ const ManageProfileMC = () => {
     const user = useSelector(x => x.mapcenter?.userData);
     const [inputColors, setInputColors] = useState({});
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
+    const [selectedHomeState, setSelectedHomeState] = useState(null);
+    const [selectedCompanyState, setSelectedCompanyState] = useState(null);
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
     const states = user?.State || [];
@@ -32,7 +33,7 @@ const ManageProfileMC = () => {
 
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateID
+        value: x.StateId.toString()
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -50,8 +51,6 @@ const ManageProfileMC = () => {
                 const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
                 const data = user?.Data;
                 reset(data);
-                //console.log(data);
-                // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -59,7 +58,7 @@ const ManageProfileMC = () => {
                         FileName: file.FileName,
                         Format: file.Format,
                         Size: file.Size,
-                        Portalkey: file.Portalkey,
+                        PortalKey: file.PortalKey,
                         File: file.File
                     })));
                 }
@@ -73,16 +72,6 @@ const ManageProfileMC = () => {
         };
         fetchData();
     }, [id, dispatch, reset, portalkey]);
-
-    // const applyInitialColors = (user) => {
-    //     const colors = {};
-    //     for (const key in user) {
-    //         if (user[key]) {
-    //             colors[key] = 'inputBackground'; // Your desired class
-    //         }
-    //     }
-    //     setInputColors(colors);
-    // };
 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
@@ -133,7 +122,7 @@ const ManageProfileMC = () => {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
                 return;
             }
-            navigate('/');
+            // navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
@@ -144,14 +133,15 @@ const ManageProfileMC = () => {
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
         await trigger(fieldName); // Trigger validation for the field
-
-        // const fieldError = errors[fieldName];
-
-        // setInputColors(prevColors => ({
-        //     ...prevColors,
-        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        // }));
     };
+
+    // const handleHomeStateChange = (e, newValue) => {
+    //     setSelectedHomeState(newValue ? newValue.value : null);
+    // };
+
+    // const handleCompanyStateChange = (e, newValue) => {
+    //     setSelectedCompanyState(newValue ? newValue.value : null);
+    // };
 
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue?.value);
@@ -196,7 +186,13 @@ const ManageProfileMC = () => {
                                                         <Typography component="div" className="Personal-Informationsheading">
                                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                                         </Typography>
-                                                        <AdditionalDetails inputColors={inputColors} handleBlur={handleBlur} register={register} control={control} stateData={stateData} errors={errors} />
+                                                        <AdditionalDetails
+                                                          handleBlur={handleBlur}
+                                                            register={register}
+                                                            control={control}
+                                                            stateData={stateData}
+                                                            errors={errors}
+                                                        />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={6} md={6} className="Personal-Information">
@@ -204,20 +200,28 @@ const ManageProfileMC = () => {
                                                         <Typography component="div" className="Personal-Informationsheading">
                                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                                         </Typography>
-                                                        <CompanyDetails inputColors={inputColors} handleBlur={handleBlur} register={register} errors={errors} control={control} stateData={stateData} />
+                                                        <CompanyDetails
+                                                           handleBlur={handleBlur}
+                                                            register={register}
+                                                            errors={errors}
+                                                            control={control}
+                                                            stateData={stateData}
+                                                        />
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={12}>
-                                                    <CompanyPOC register={register} errors={errors} control={control} trigger={trigger} inputColors={inputColors} handleBlur={handleBlur} />
-
-
+                                                    <CompanyPOC 
+                                                    register={register} 
+                                                    errors={errors} 
+                                                    control={control} 
+                                                    handleBlur={handleBlur} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} sm={6} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">
                                                 <Typography component="div" className="Personal-Informationsheading ">
-                                                    <Typography component="h2" variant="h5">Document Upload  <img src={images.raphaelinfo} alt='raphaelinfo'></img></Typography>
+                                                    <Typography component="h2" variant="h5">Document Upload  <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                 </Typography>
                                                 <Typography component="div" className="passwordcheck">
                                                     <AutocompleteInput
@@ -247,7 +251,7 @@ const ManageProfileMC = () => {
                                                     <div className="mar-top-16" >
                                                         <Typography component="div">Non-disclosure agreement
                                                             <IconButton onClick={handleDownload}>
-                                                                <img src={images.materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                                <img src={materialsymbolsdownload} alt="material-symbols_download"></img>
                                                             </IconButton>
                                                         </Typography>
                                                     </div>

@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const MobileNumberInput = ({ control, name, label, rules, errors, handleBlur, handleFocus, inputColors }) => (
+const MobileNumberInput = ({ control, name, label, rules, errors, handleBlur, handleFocus }) => (
     <Controller
         name={name}
         control={control}
@@ -33,7 +33,6 @@ const MobileNumberInput = ({ control, name, label, rules, errors, handleBlur, ha
                                 ) : null
                             }
                             label={label}
-                            className={inputColors[name]}
                         />
                         <FormHelperText>{errors[name]?.message}</FormHelperText>
                     </FormControl>

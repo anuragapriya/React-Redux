@@ -26,8 +26,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
-  //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     const ndaUrl= `${process.env.REACT_APP_API_URL}/api/NDAFile`;
     return {
         get: get(),
@@ -40,8 +40,8 @@ function createExtraActions() {
             `${name}/getUserData`,
             async ({ id, portal }, { rejectWithValue }) => {
                 try {
-                    const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync`);
-                    url.searchParams.append('userId', id);
+                    const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync/${id}`);
+                   // url.searchParams.append('UserId', id);
 
                     const response = await trackPromise(fetchWrapper.get(url.toString()));
                     return response;

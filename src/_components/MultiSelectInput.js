@@ -1,14 +1,13 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import {Autocomplete, InputAdornment} from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
-
-const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur }) => {
+import ErrorIcon from '@mui/icons-material/Error';
+const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur, name }) => {
   const [selectedOptions, setSelectedOptions] = React.useState([]);
-
   const handleChange = (event, value, reason) => {
     if (reason === 'clear') {
       setSelectedOptions([]);
@@ -81,9 +80,23 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
             {...params} 
             label={label} 
             placeholder="Search options" 
-            error={error}
+            error={!!error}
             helperText={helperText}
             onBlur={handleBlur}
+            InputProps={{
+              ...params.InputProps,
+              name:name,
+              endAdornment: (
+                  <>
+                      {params.InputProps.endAdornment}
+                      {error && (
+                          <InputAdornment position="end">
+                              <ErrorIcon style={{ color: 'red' }} />
+                          </InputAdornment>
+                      )}
+                  </>
+              ),
+          }}
           />
         )}
         renderTags={(value, getTagProps) => 
@@ -95,6 +108,7 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         }
         value={selectedOptions}
         onChange={handleChange}
+        name={name}
       />
     </Box>
   );
