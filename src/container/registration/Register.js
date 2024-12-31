@@ -7,7 +7,7 @@ import { alertActions, masterActions, registrationActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
 import Grid from "@material-ui/core/Grid";
-import { verifyEmailLabels } from '_utils/labels';
+import { aggrementEALabel, verifyEmailLabels } from '_utils/labels';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const Register = () => {
@@ -15,7 +15,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [isPasswordValid, setIsPasswordValid] = useState(false);
     const [isAgreed, setIsAgreed] = useState(false);
-    const portals = useSelector((x) => x.master?.portalData);    
+    const portals = useSelector((x) => x.master?.portalData);
     const portalData = (!portals?.loading && !portals?.error) ? portals?.map(x => ({
         label: x.PortalDescription,
         value: x.PortalID
@@ -34,6 +34,15 @@ const Register = () => {
     }, [dispatch]);
 
     const onSubmit = async (data) => {
+        const portalKey = portals?.find(p => p.PortalID === data.PortalId)?.PortalKey;
+        if (portalKey && portalKey.toLowerCase() === 'ea' && !isAgreed) {
+            dispatch(alertActions.error({
+                showAfterRedirect: true,
+                message: "Please confirm the agreement",
+                header: aggrementEALabel.header
+            }));
+            return;
+        }
         dispatch(alertActions.clear());
         try {
             await dispatch(registrationActions.register(data)).unwrap();

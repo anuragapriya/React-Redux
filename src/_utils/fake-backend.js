@@ -25,7 +25,7 @@ const fakeBackend = () => {
                         return authenticate();
                     case url.endsWith('/api/Account/refreshToken') && opts.method === 'POST':
                         return refreshToken();
-                    case url.endsWith('/registration/Register') && opts.method === 'POST':
+                    case url.endsWith('/api/Account/Register') && opts.method === 'POST':
                         return register();
                     case url.endsWith('/api/Account') && opts.method === 'GET':
                         return getUsers();
