@@ -18,7 +18,7 @@ import midelete from './assets/images/mi_delete.svg';
 import raphaelinfo from './assets/images/raphael_info.svg';
 
 
-const images = {
+export {
     logo,
     bannerImg,
     ResetpasswordLogo,
@@ -37,4 +37,4 @@ const images = {
     raphaelinfo
 };
 
-export default images;
+

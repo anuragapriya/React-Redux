@@ -62,7 +62,14 @@ export const diversityRegistrationLabels={
 }
 
 export const resetSuccessLabels={
+    header:"Reset Password Successful",
     message1:"You Successfully reset your Password!",
+    btnSecondaryText:"Close",
+}
+
+export const resetFailedLabels={
+    header:"Reset Password Failed",
+    message1:"There is a problem reset your password!",
     btnSecondaryText:"Close",
 }
 

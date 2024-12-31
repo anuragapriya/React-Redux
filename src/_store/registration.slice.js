@@ -27,8 +27,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/registration`;
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+   // const baseUrl = `${process.env.REACT_APP_API_URL}/registration`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         register: register(),
@@ -60,7 +60,7 @@ function createExtraActions() {
             `${name}/getVerifiedUserData`,
             async (verifyId) => {
                 // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/VerifiedEmailByUser`,{UserId:verifyId}));
+                const response = await trackPromise(fetchWrapper.get(`${baseUrl}/VerifiedEmailByUser/${verifyId}`));
                 return response; // Return the response data
             }
         );
@@ -69,11 +69,13 @@ function createExtraActions() {
     function resendVerificationLink() { 
         return createAsyncThunk(
             `${name}/resendVerificationLink`,
-            async (id) => {
+            async ({emailAddress,id}) => {
+                console.log(emailAddress,id);
                 const url = new URL(`${baseUrl}/ResendEmailVerification`);
-                 url.searchParams.append('userId', id);
+                url.searchParams.append('EmailAddress', emailAddress);
+                 url.searchParams.append('UserId', id);
                 // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.post(url.toString()));
+                const response = await trackPromise(fetchWrapper.get(url.toString()));
                 return response; // Return the response data
             }
         );

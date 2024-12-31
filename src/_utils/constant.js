@@ -819,14 +819,14 @@ export const getMapCenterData =
       "HomeStreetAddress1": "TEST",
       "HomeStreetAddress2": "TES",
       "HomeCity": "TES",
-      "HomeState": "TES",
+      "HomeState": "5",
       "HomeZipCode": "125487",
       "CompanyName": "TESA",
       "TaxIdentificationNumber": "41254SAW",
       "CompanyStreetAddress1": "DADAS",
       "CompanyStreetAddress2": "DASD",
       "CompanyCity": "DASD",
-      "CompanyState": "DASD",
+      "CompanyState": "4",
       "CompanyZipCode": "DASD",
       "CompanyContactName": "DASD",
       "CompanyContactTelephone": "DASD",
@@ -836,19 +836,37 @@ export const getMapCenterData =
       "FileData": [],
       "DocumentData": [
         {
-          "DocumentTypeID": "1",
-          "DocumentType": "drivingLicenseFront",
-          "DocumentDescription": "Driving License(Front)"
+          "DocumentTypeID": 1,
+          "DocumentType": "Driving License Front",
+          "DocumentDescription": "Driving License Front"
         },
         {
-          "DocumentTypeID": "2",
-          "DocumentType": "drivingLicenseLast",
-          "DocumentDescription": "Driving License(Last)"
+          "DocumentTypeID": 2,
+          "DocumentType": "Drving License Back",
+          "DocumentDescription": "Driving License Back"
         },
         {
-          "DocumentTypeID": "3",
-          "DocumentType": "nondisclosureagreement",
-          "DocumentDescription": "Non disclosure agreement"
+          "DocumentTypeID": 3,
+          "DocumentType": "NDA",
+          "DocumentDescription": "NDA"
+        }
+      ],
+      "State": [
+        {
+          "StateId": 2,
+          "StateName": "AL"
+        },
+        {
+          "StateId": 3,
+          "StateName": "NY"
+        },
+        {
+          "StateId": 4,
+          "StateName": "WC"
+        },
+        {
+          "StateId": 5,
+          "StateName": "CL"
         }
       ]
     }
@@ -1023,10 +1041,19 @@ export const  getSupplierDiversityData={
   }
 }
 
-export const getAIUserProfileData=[
-  { ID: 1, FullName: 'Item 1', RoleID: null, StatusID: null, AgencyID: null },
-  { ID: 2, FullName: 'Item 2', RoleID: null, StatusID: null, AgencyID: null },
-]
+export const getAIUserProfileData={
+  Data:{
+   PortalKey :"AI",
+   UserData: [
+        { id: 1, FullName: 'Anu',EmailAddress:"anu@test.com", RoleID: 1, StatusID: 2, AgencyID: 1, JurisdictionID: 2 },
+        { id: 2, FullName: 'Ravi',EmailAddress:"Ravisonu@test.com", RoleID: 2, StatusID: 1, AgencyID: 2, JurisdictionID: 1 },
+    ],
+   Roles:[{ RoleID: '1', RoleName: 'Admin' }, { RoleID: '2', RoleName: 'Contributor' }],
+   Statuses: [{ StatusID: '1', StatusName: 'Submitted' }, { StatusID: '2', StatusName: 'Approved' }],
+   Agencies:[{ AgencyID: '1', AgencyName: 'Agency1' }, { AgencyID: '2', AgencyName: 'Agency2' }],
+   Jurisdictions : [{JurisdictionID:'1',JurisdictionName:'Jurisdiction1'},{JurisdictionID:'2',JurisdictionName:'Jurisdiction2'}]
+ }	
+};
 
 export const getMBUserProfileData=[
   { ID: 3, FullName: 'Item 3', RoleID: null, StatusID: null, JurisdictionID: null },

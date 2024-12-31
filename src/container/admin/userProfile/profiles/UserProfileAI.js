@@ -5,10 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
 import { AutocompleteTable, Download } from '_components';
 
-const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEditedRowId, handleChange }) => {
-  const roles = [{ RoleId: '1', RoleName: 'Admin' }, { RoleId: '2', RoleName: 'Contributor' }];
-  const statuses = [{ StatusId: '1', StatusName: 'Submitted' }, { StatusId: '2', StatusName: 'Approved' }];
-  const agencies = [{ AgencyId: '1', AgencyName: 'Agency1' }, { AgencyId: '2', AgencyName: 'Agency2' }];
+const UserProfileAI = ({ data, userProfiles, setData, errors, setErrors, editedRowId, setEditedRowId, handleChange }) => {
+  const roles = userProfiles?.Roles?.map(role => ({ value: role.RoleID, label: role.RoleName })) || [];
+  const statuses = userProfiles?.Statuses?.map(status => ({ value: status.StatusID, label: status.StatusName })) || [];
+  const agencies = userProfiles?.Agencies?.map(agency => ({ value: agency.AgencyID, label: agency.AgencyName })) || [];
   const [isLocked, setLock] = useState(false);
   const filename = 'Users';
 
@@ -19,15 +19,15 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       headerName: 'Role',
       width: 150,
       editable: true,
+      filterable:true,
       renderCell: (params) => (
         <AutocompleteTable
-          value={params.value || ''}
+          value={params.value}
           onChange={(newValue) => {
             setEditedRowId(params.row.id);
-            handleChange(newValue, params.row, 'RoleID');
+            handleChange(newValue?.value || '', params.row, 'RoleID');
           }}
           options={roles}
-          getOptionLabel={(option) => option?.RoleName || ''}
           error={errors[params.row.id]?.RoleID}
           helperText={errors[params.row.id]?.RoleID ? 'Role is required' : ''}
         />
@@ -40,13 +40,12 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       editable: true,
       renderCell: (params) => (
         <AutocompleteTable
-          value={params.value || ''}
+          value={params.value}
           onChange={(newValue) => {
             setEditedRowId(params.row.id);
-            handleChange(newValue, params.row, 'StatusID');
+            handleChange(newValue?.value || '', params.row, 'StatusID');
           }}
           options={statuses}
-          getOptionLabel={(option) => option?.StatusName || ''}
           error={errors[params.row.id]?.StatusID}
           helperText={errors[params.row.id]?.StatusID ? 'Status is required' : ''}
         />
@@ -59,13 +58,12 @@ const UserProfileAI = ({ data, setData, errors, setErrors, editedRowId, setEdite
       editable: true,
       renderCell: (params) => (
         <AutocompleteTable
-          value={params.value || ''}
+          value={params.value}
           onChange={(newValue) => {
             setEditedRowId(params.row.id);
-            handleChange(newValue, params.row, 'AgencyID');
+            handleChange(newValue?.value || '', params.row, 'AgencyID');
           }}
           options={agencies}
-          getOptionLabel={(option) => option?.AgencyName || ''}
           error={errors[params.row.id]?.AgencyID}
           helperText={errors[params.row.id]?.AgencyID ? 'Agency is required' : ''}
         />

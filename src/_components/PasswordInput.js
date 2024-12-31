@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handleFocus, inputColors, isPasswordValid }) => {
+const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handleFocus, isPasswordValid }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [touched, setTouched] = useState(false);
 
@@ -24,7 +24,7 @@ const PasswordInput = ({ control, name, label, rules, errors, handleBlur, handle
             defaultValue=""
             rules={rules}
             render={({ field }) => (
-                <FormControl variant="outlined" fullWidth margin="normal" className={inputColors[name]} error={!!errors[name] || (!isPasswordValid && touched)}>
+                <FormControl variant="outlined" fullWidth margin="normal"  error={!!errors[name] || (!isPasswordValid && touched)}>
                     <InputLabel htmlFor={name}>{label}</InputLabel>
                     <OutlinedInput
                         {...field}

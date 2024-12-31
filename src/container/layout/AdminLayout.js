@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import { Home } from "container/admin";
+import { Home, Users } from "container/admin";
 import { ManageAccounts ,AppSettingsAlt,SupportAgent,QuestionAnswerOutlined,NotificationsNone} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
 import { Configuration } from "container/configurations";
@@ -42,7 +42,7 @@ const UsersLayout = () => {
     return (
         <Routes>
             <Route element={<DashboardLayout appMenuItems={appMenuItems} />}>                   
-                <Route path='userprofile' element={<Home />} />
+                <Route path='userprofile' element={<Users />} />
                 <Route path="configuration" element={<Configuration />} />
                 <Route path="announcement" element={<UnderConstruction/>}/>
                 <Route path="faq" element={<UnderConstruction/>}/>

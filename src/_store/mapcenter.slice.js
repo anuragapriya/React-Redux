@@ -26,8 +26,8 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
-  //  const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/mapcenter`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     const ndaUrl= `${process.env.REACT_APP_API_URL}/api/NDAFile`;
     return {
         get: get(),

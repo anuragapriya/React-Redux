@@ -26,7 +26,7 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Please select any Portal'),
 });
 
-export const passwordValidationSchema = Yup.object().shape({
+export const passwordValidationSchema =(fullName)=> Yup.object().shape({
     Password: Yup.string()
         .required('Password is required')
         .test('minLength', value => value && value.length >= 16)
@@ -35,8 +35,8 @@ export const passwordValidationSchema = Yup.object().shape({
         .test('number', value => /[0-9]/.test(value))
         .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
         .test('FullName', function (value) {
-            const { FullName } = this.parent;
-            return value && !value?.toLowerCase().includes(FullName?.toLowerCase());
+           // const { FullName } = this.parent;
+            return value && !value?.toLowerCase().includes(fullName?.toLowerCase());
         }),
 });
 

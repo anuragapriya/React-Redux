@@ -111,6 +111,10 @@ ul li.checked::before {
 
 .forgotpasswordcontainer .passwordselect {
     margin-bottom: 30px;
+    position: relative;
+}
+.modalpopupinner .forgotpasswordcontainer .MuiInputAdornment-root  button {
+    margin-top: 0px;
 }
 
 body {
@@ -289,10 +293,10 @@ font-family: "Proxima Nova Rg";
     border: 0px solid var(--WG-Blue-100, #DFEDFF)
 }
 
-.inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
+/* .inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input:hover {
     border: 2px solid var(--WG-Blue-100, #1976d2);
     border-radius: 4px;
-}
+} */
 
 .inputtags .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
     border: 2px solid var(--WG-Blue-100, #1976d2);
@@ -621,7 +625,7 @@ input[type=number] {
 .forgotpassword h3 {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova ";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -723,7 +727,7 @@ input[type=number] {
 .Verifyemail .headercontent {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
-    font-family: "Proxima Nova ";
+    font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -1209,8 +1213,7 @@ padding: 0px 12px;
         top: -5px;
     }
 
-    .MuiButton-containedPrimary.Loginbutton,
-    .MuiButton-containedPrimary.Loginbutton:hover {
+    .MuiButton-containedPrimary.Loginbutton {
         height: 40px;
         font-size: 14px;
         margin-top: 25%;
@@ -1336,6 +1339,12 @@ padding: 0px 12px;
    
     .inputtags .MuiOutlinedInput-root .MuiOutlinedInput-input, .inputtags .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root, .inputtags .css-1tlcqt-MuiAutocomplete-root .MuiOutlinedInput-root{
         padding: 12px;
+    }
+    .inputtags .PasswordInput .css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
+        padding: 0px;
+    }
+    .inputtags .PasswordInput .MuiInputAdornment-root.MuiInputAdornment-positionEnd{
+        margin-right: 15px;
     }
     .inputtags   .MuiOutlinedInput-root.Mui-error.css-jupps9-MuiInputBase-root-MuiOutlinedInput-root{
         padding: 0px;

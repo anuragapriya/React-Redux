@@ -10,9 +10,9 @@ const CardDetail = ({ title, description, handleClick }) => {
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           Description : {description}
-        </Typography>
+        </Typography> */}
       </CardContent>
 
     </Card>

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { alertActions } from '_store';
-import {history, fetchWrapper } from '_utils';
+import { history, fetchWrapper } from '_utils';
 
 // create slice
 
@@ -36,16 +36,18 @@ function createReducers() {
 }
 
 function createExtraActions() {
-    const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         login: login(),
         logout: logout(),
-        refreshToken: refreshToken()
+        refreshToken: refreshToken(),
+        forgotPasswordRequest: forgotPasswordRequest(),
+        resetPasswordRequest:resetPasswordRequest()
     };
 
-    function login() { 
+    function login() {
         return createAsyncThunk(
             `${name}/login`, async ({ Email, Password }, { dispatch }) => {
                 dispatch(alertActions.clear());
@@ -89,7 +91,35 @@ function createExtraActions() {
             } catch (error) {
                 dispatch(alertActions.error({ message: error, header: "Login Issue" }));
             }
-     
+
         });
+    }
+
+    function forgotPasswordRequest() {
+        return createAsyncThunk(
+            `${name}/forgotPasswordRequest`,
+            async ({ email }, { rejectWithValue }) => {
+                try {
+                    const url = new URL(`${baseUrl}/forgot-password`);
+                    url.searchParams.append('EmailAddress', email);
+                    return await trackPromise(fetchWrapper.post(url.toString()));
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function resetPasswordRequest() {
+        return createAsyncThunk(
+            `${name}/resetPasswordRequest`,
+            async ({ id, password }, { rejectWithValue }) => {
+                try {
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/reset-password`, { UserId: id, Password: password }));
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
     }
 }

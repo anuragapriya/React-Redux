@@ -5,12 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
 import { AutocompleteTable, Download } from '_components';
 
-const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEditedRowId, handleChange }) => {
- const roles = [{ RoleId: '1', RoleName: 'Admin' }, { RoleId: '2', RoleName: 'Contributor' }];
-  const statuses = [{ StatusId: '1', StatusName: 'Submitted' }, { StatusId: '2', StatusName: 'Approved' }];
-  const agencies = [{ AgencyId: '1', AgencyName: 'Agency1' }, { AgencyId: '2', AgencyName: 'Agency2' }];
-  const jurisdictions = [{JurisdictionId:'1',JurisdictionName:'Jurisdiction1'},{JurisdictionId:'2',JurisdictionName:'Jurisdiction2'}];
- 
+const UserProfileMB = ({ data,userProfiles, setData, errors, setErrors, editedRowId, setEditedRowId, handleChange }) => {
+  const roles = userProfiles?.Roles?.map(role => ({ value: role.RoleID, label: role.RoleName })) || [];
+  const statuses = userProfiles?.Statuses?.map(status => ({ value: status.StatusID, label: status.StatusName })) || [];
+  const agencies = userProfiles?.Agencies?.map(agency => ({ value: agency.AgencyID, label: agency.AgencyName })) || [];
+  const jurisdictions=userProfiles?.Jurisdictions.map(jurisdiction => ({ value: jurisdiction.JurisdictionID, label: jurisdiction.JurisdictionName })) || [];
+
   const [isLocked, setLock] = useState(false);
   const filename = 'Users';
 
@@ -27,7 +27,6 @@ const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEdite
             handleChange(newValue, cell.row.original, 'RoleID');
           }}
           options={roles}
-          getOptionLabel={(option) => option.RoleName}
           error={errors[cell.row.original.id]?.RoleID}
           helperText={errors[cell.row.original.id]?.RoleID ? 'Role is required' : ''}
         />
@@ -38,16 +37,15 @@ const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEdite
       header: 'Status',
       Cell: ({ cell }) => (
         <AutocompleteTable
-          value={cell.getValue()}
-          onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'StatusID');
-          }}
-          options={statuses}
-          getOptionLabel={(option) => option.StatusName}
-          error={errors[cell.row.original.id]?.StatusID}
-          helperText={errors[cell.row.original.id]?.StatusID ? 'Status is required' : ''}
-        />
+        value={cell.getValue()}
+        onChange={(newValue) => {
+          setEditedRowId(cell.row.original.id);
+          handleChange(newValue, cell.row.original, 'StatusID');
+        }}
+        options={statuses}
+        error={errors[cell.row.original.id]?.StatusID}
+        helperText={errors[cell.row.original.id]?.StatusID ? 'Status is required' : ''}
+      />
       )
     },
     {
@@ -55,16 +53,15 @@ const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEdite
       header: 'Agency',
       Cell: ({ cell }) => (
         <AutocompleteTable
-          value={cell.getValue()}
-          onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'AgencyID');
-          }}
-          options={agencies}
-          getOptionLabel={(option) => option.AgencyName}
-          error={errors[cell.row.original.id]?.AgencyID}
-          helperText={errors[cell.row.original.id]?.AgencyID ? 'Agency is required' : ''}
-        />
+        value={cell.getValue()}
+        onChange={(newValue) => {
+          setEditedRowId(cell.row.original.id);
+          handleChange(newValue, cell.row.original, 'AgencyID');
+        }}
+        options={agencies}
+        error={errors[cell.row.original.id]?.AgencyID}
+        helperText={errors[cell.row.original.id]?.AgencyID ? 'Agency is required' : ''}
+      />
       )
     },
     {
@@ -72,16 +69,15 @@ const UserProfileMB = ({ data, setData, errors, setErrors, editedRowId, setEdite
       header: 'Jurisdiction',
       Cell: ({ cell }) => (
         <AutocompleteTable
-          value={cell.getValue()}
-          onChange={(newValue) => {
-            setEditedRowId(cell.row.original.id);
-            handleChange(newValue, cell.row.original, 'JurisdictionID');
-          }}
-          options={agencies}
-          getOptionLabel={(option) => option.JurisdictionName}
-          error={errors[cell.row.original.id]?.JurisdictionID}
-          helperText={errors[cell.row.original.id]?.JurisdictionID ? 'Jurisdiction is required' : ''}
-        />
+        value={cell.getValue()}
+        onChange={(newValue) => {
+          setEditedRowId(cell.row.original.id);
+          handleChange(newValue, cell.row.original, 'JurisdictionID');
+        }}
+        options={agencies}
+        error={errors[cell.row.original.id]?.JurisdictionID}
+        helperText={errors[cell.row.original.id]?.JurisdictionID ? 'Jurisdiction is required' : ''}
+      />
       )
     }
   ], [errors, handleChange, roles, statuses, agencies, setEditedRowId]);
