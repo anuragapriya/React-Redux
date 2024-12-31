@@ -14,11 +14,12 @@ const VerifiedRegistration = () => {
 
     const userVerify = useSelector((x) => x.registration?.verifiedUserData);
     const data = userVerify?.Data;
-    const isVerified = data?.IsVerified;
+    const isVerified =false; //data?.IsVerified;
     const portalKey = data?.PortalKey || '';
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
     const token = new URLSearchParams(location.search).get('verifyId');
     const id = data?.UserId;
+    const emailAddress = data?.Email;
 
     useEffect(() => {
         const verifyEmail = async () => {
@@ -28,7 +29,7 @@ const VerifiedRegistration = () => {
                 dispatch(alertActions.error({ message: error.message, header: "Verification Failed" }));
             }
         };
-    
+
         if (token) {
             verifyEmail();
         } else {
@@ -50,7 +51,7 @@ const VerifiedRegistration = () => {
 
     const handleSubmit = async () => {
         try {
-            var result = await dispatch(registrationActions.resendVerificationLink(id));
+            var result = await dispatch(registrationActions.resendVerificationLink({emailAddress, id}));
             if (result?.error) {
                 dispatch(alertActions.error({
                     showAfterRedirect: true,
@@ -73,17 +74,17 @@ const VerifiedRegistration = () => {
     if (!token) return null;
 
     return (
-     
+
         <>
-            { (userVerify && !(userVerify?.loading || userVerify?.error)) && <div>
-                
+            {(userVerify && !(userVerify?.loading || userVerify?.error)) && <div>
+
                 {(isVerified && isRequiredCompleteRegistration) && <ModalPopup
                     header={verifiedRegistrationLabels.header}
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2}
                     btnPrimaryText={verifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
-                    handlePrimaryClick={()=>handleClick()}
+                    handlePrimaryClick={() => handleClick()}
                 />
                 }
                 {(isVerified && !isRequiredCompleteRegistration) && <TimerModal

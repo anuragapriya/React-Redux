@@ -69,7 +69,8 @@ function createExtraActions() {
     function resendVerificationLink() { 
         return createAsyncThunk(
             `${name}/resendVerificationLink`,
-            async (emailAddress,id) => {
+            async ({emailAddress,id}) => {
+                console.log(emailAddress,id);
                 const url = new URL(`${baseUrl}/ResendEmailVerification`);
                 url.searchParams.append('Emailaddress', emailAddress);
                  url.searchParams.append('UserId', id);
