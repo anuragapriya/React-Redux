@@ -35,7 +35,7 @@ export const passwordValidationSchema =(fullName)=> Yup.object().shape({
         .test('number', value => /[0-9]/.test(value))
         .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
         .test('FullName', function (value) {
-           // const { FullName } = this.parent;
+            // const { FullName } = this.parent;
             return value && !value?.toLowerCase().includes(fullName?.toLowerCase());
         }),
 });
@@ -151,12 +151,14 @@ export const SupplierDetailsSchema = Yup.object().shape({
         .required('Company Name is Required'),
     CompanyWebsite: Yup.string()
         .required('Company Website is Required'),
-    BusinessCatagory: Yup.string()
+    CategoryID: Yup.string()
         .nullable()
         .required('Business Category is Required'),
-    Classification: Yup.array()
-    .min(1, 'At least one classification is required') // Ensure at least one option is selected
-    .required('This field is required'),  // Ensure the field is not empty,
+    ClassificationID: Yup.array()
+        .nullable()
+        .default([])
+        .min(1, 'At least one classification is required') // Ensure at least one option is selected
+        .required('Classification is required'),  // Ensure the field is not empty,
     ServicesProductsProvided: Yup.string()
         .required('Services are Required'),
     expirydate: Yup.string()

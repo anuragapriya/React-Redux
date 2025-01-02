@@ -1,20 +1,25 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import {Autocomplete, InputAdornment} from '@mui/material';
+import { Autocomplete, InputAdornment } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import ErrorIcon from '@mui/icons-material/Error';
-const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur, name }) => {
+const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur, name, value, onFocus }) => {
   const [selectedOptions, setSelectedOptions] = React.useState([]);
+  // console.log(value);
+  useEffect(() => {
+    // Sync state with the `value` prop when it changes
+    setSelectedOptions(value || []);
+  }, [value]);
   const handleChange = (event, value, reason) => {
     if (reason === 'clear') {
       setSelectedOptions([]);
       onChange([]);
       return;
     }
-  
+
     if (reason === 'removeOption') {
       const removedValue = value.map(option => option.value);
       const filteredValue = selectedOptions.filter(option => removedValue.includes(option.value));
@@ -22,10 +27,10 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
       onChange(filteredValue);
       return;
     }
-  
+
     const checkedValue = event.target.value;
     const isChecked = event.target.checked;
-  
+
     if (checkedValue === 'Select All') {
       if (selectedOptions.length === options.length) {
         setSelectedOptions([]);
@@ -43,7 +48,7 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         // Remove the unchecked item from the selected options
         filteredValue = selectedOptions.filter(option => option.value !== checkedValue);
       }
-  
+
       filteredValue = filteredValue.filter(option => option.value !== 'Select All');
       setSelectedOptions(filteredValue);
       onChange(filteredValue);
@@ -61,6 +66,7 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
         options={[{ label: 'Select All', value: 'Select All' }, ...options]}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
+      
         filterOptions={createFilterOptions({ matchFrom: 'start' })}
         renderOption={(props, option) => {
           const isSelected = option.value === 'Select All' ? selectedOptions.length === options.length : isOptionSelected(option);
@@ -76,35 +82,36 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
           );
         }}
         renderInput={(params) => (
-          <TextField 
-            {...params} 
-            label={label} 
-            placeholder="Search options" 
+          <TextField
+            {...params}
+            label={label}
+            placeholder="Search options"
             error={!!error}
             helperText={helperText}
             onBlur={handleBlur}
+            onFocus={onFocus}
             InputProps={{
               ...params.InputProps,
-              name:name,
+              name: name,
               endAdornment: (
-                  <>
-                      {params.InputProps.endAdornment}
-                      {error && (
-                          <InputAdornment position="end">
-                              <ErrorIcon style={{ color: 'red' }} />
-                          </InputAdornment>
-                      )}
-                  </>
+                <>
+                  {params.InputProps.endAdornment}
+                  {error && (
+                    <InputAdornment position="end">
+                      <ErrorIcon style={{ color: 'red' }} />
+                    </InputAdornment>
+                  )}
+                </>
               ),
-          }}
+            }}
           />
         )}
-        renderTags={(value, getTagProps) => 
-          value.length > 2 
+        renderTags={(value, getTagProps) =>
+          value.length > 2
             ? <Chip label={`${value.length} options selected`} />
             : value.map((option, index) => (
-                <Chip label={option.label} {...getTagProps({ index })} />
-              ))
+              <Chip label={option.label} {...getTagProps({ index })} />
+            ))
         }
         value={selectedOptions}
         onChange={handleChange}
