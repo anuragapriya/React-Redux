@@ -908,15 +908,15 @@ export const  getSupplierDiversityData={
     "Title": "Mr",
     "Address": "WashingtonStreet",
     "City": "WashingtonCity",
-    "State": "NY",
+    "State": "2",
     "CompanyWebsite": "www.microsoft.com",
     "Email": "satya.nandela@mircosoft.com",
     "ZipCode": "123456",
     "PhoneNumber": "9987654321",
     "Fax": "9987654321",
     "CellPhone": "9987654321",
-    "CategoryID": 3,
-    "ClassificationID": 1,
+    "CategoryID": "3",
+    "ClassificationID": "2,3",
     "ServicesProductsProvided": "Website Development",
     "FileData": [
       {
