@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,29 +7,42 @@ import { alertActions, masterActions, registrationActions } from '_store';
 import { registerValidationSchema } from '_utils/validationSchema';
 import { PersonalDetails } from 'container/user';
 import Grid from "@material-ui/core/Grid";
-import { verifyEmailLabels } from '_utils/labels';
+import { aggrementEALabel, verifyEmailLabels } from '_utils/labels';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const portals = useSelector((x) => x.master?.portalData);
     const [isPasswordValid, setIsPasswordValid] = useState(false);
+    const [isAgreed, setIsAgreed] = useState(false);
+    const portals = useSelector((x) => x.master?.portalData);
     const portalData = (!portals?.loading && !portals?.error) ? portals?.map(x => ({
         label: x.PortalDescription,
         value: x.PortalID
     })) : [];
 
-    const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
+    const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger, resetField } = useForm({
         resolver: yupResolver(registerValidationSchema),
-        mode: 'onChange'
-    });    
-        useEffect(() => {
-            dispatch(masterActions.getPortalData());
-    
-        }, [dispatch]);
+        mode: 'onChange',
+        defaultValues: {
+            PortalId: null,
+        },
+    });
+
+    useEffect(() => {
+        dispatch(masterActions.getPortalData());
+    }, [dispatch]);
 
     const onSubmit = async (data) => {
+        const portalKey = portals?.find(p => p.PortalID === data.PortalId)?.PortalKey;
+        if (portalKey && portalKey.toLowerCase() === 'ea' && !isAgreed) {
+            dispatch(alertActions.error({
+                showAfterRedirect: true,
+                message: "Please confirm the agreement",
+                header: aggrementEALabel.header
+            }));
+            return;
+        }
         dispatch(alertActions.clear());
         try {
             await dispatch(registrationActions.register(data)).unwrap();
@@ -55,9 +68,12 @@ const Register = () => {
                     errors={errors}
                     watch={watch}
                     control={control}
+                    resetField={resetField}
                     trigger={trigger}
                     setIsPasswordValid={setIsPasswordValid}
                     portalData={portalData}
+                    portalList={portals}
+                    setIsAgreed={setIsAgreed}
                 />
                 <Typography component="div" className="loginbuttonfixed">
                     <Button

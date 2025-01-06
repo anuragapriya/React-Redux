@@ -12,10 +12,12 @@ const AppMenu = ({ appMenuItems }) => {
   if (!isAuthenticated) return null;
 
   return (
+    <div className="menulist">
     <div className={classes.appMenu}>
       {appMenuItems.map((item, index) => (
         <AppMenuItem {...item} key={index} />
       ))}
+    </div>
     </div>
   );
 };

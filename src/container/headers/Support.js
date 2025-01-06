@@ -29,7 +29,7 @@ const Support = ({ isMainLayout }) => {
 
     return (
         <React.Fragment>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+            <Box className="Supporticon" sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <Tooltip title="Support">
                     <IconButton
                         onClick={handleClick}
@@ -47,6 +47,7 @@ const Support = ({ isMainLayout }) => {
                 </Tooltip>
             </Box>
             <Menu
+            className='support-list'
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
