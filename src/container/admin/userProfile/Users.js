@@ -62,6 +62,7 @@ const Users = () => {
                     editedRowId={editedRowId}
                     setEditedRowId={setEditedRowId}
                     handleChange={handleChange}
+                    
                 />
            
             <button onClick={handleSubmit}>Submit</button>
