@@ -12,7 +12,7 @@ import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
 import { supplierSupportedFormat } from '_utils/constant';
 
 import { diversityRegistrationLabels } from '_utils/labels';
-import { raphaelinfo  } from '../../images';
+import { raphaelinfo } from '../../images';
 const ManageProfileSD = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,22 +27,23 @@ const ManageProfileSD = () => {
     const states = user?.State1 || [];
     const classificationDropDownData = user?.Classification || [];
     const businessDropDownData = user?.BusinessCategory || [];
-console.log("classification",classificationDropDownData)
+    const getCatagoryID = user?.ClassificationID ||[];
+
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
     }));
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateID
+        value: x.StateId.toString()
     }));
     const classificationData = classificationDropDownData.map(x => ({
-        value: x.ClassificationName,
-        label: x.ClassificationName
+        label: x.ClassificationName,
+        value: x.ClassificationID.toString()
     }));
     const businessCategoryData = businessDropDownData.map(x => ({
         label: x.CategoryName,
-        value: x.CategoryID
+        value: x.CategoryID.toString()
     }));
 
     const { register, handleSubmit, control, reset, formState: { errors, isValid }, trigger } = useForm({
@@ -173,7 +174,7 @@ console.log("classification",classificationDropDownData)
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} handleBlur={handleBlur} trigger={trigger} />
+                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} handleBlur={handleBlur} getCatagoryID={getCatagoryID} trigger={trigger} />
                                             </Typography>
                                         </Grid>
 
