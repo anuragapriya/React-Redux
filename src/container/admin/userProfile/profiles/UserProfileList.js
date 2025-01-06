@@ -4,8 +4,9 @@ import { Visibility, DeleteForever, Lock, LockOpen, Edit } from '@mui/icons-mate
 import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
 import { AutocompleteTable, Download } from '_components';
+import {  UserFilter } from "container/admin";
 
-const UserProfileMB = ({ data,userProfiles, setData, errors, setErrors, editedRowId, setEditedRowId, handleChange }) => {
+const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit, setEditedRowId, handleChange }) => {
   const roles = userProfiles?.Roles?.map(role => ({ value: role.RoleID, label: role.RoleName })) || [];
   const statuses = userProfiles?.Statuses?.map(status => ({ value: status.StatusID, label: status.StatusName })) || [];
   const agencies = userProfiles?.Agencies?.map(agency => ({ value: agency.AgencyID, label: agency.AgencyName })) || [];
@@ -119,6 +120,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, setErrors, editedRo
         }}
       >
         <Download rows={data} headers={columns} filename={filename} />
+         <UserFilter handleFilterSubmit={handleFilterSubmit} />
       </Box>
     ),
     renderRowActions: ({ row }) => (

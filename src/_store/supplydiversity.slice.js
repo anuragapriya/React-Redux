@@ -38,7 +38,7 @@ function createExtraActions() {
             `${name}/getUserData`,
             async ({ id, portal }, { rejectWithValue }) => {
                 try {
-                    const url = `${baseUrl}/${id}?portal=${portal}`;
+                    const url = `${baseUrl}/GetRegisterSupplierDiversityAsync/${id}`;
                     const response = await trackPromise(fetchWrapper.get(url));
                     return response;
                 } catch (error) {

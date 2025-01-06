@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProfileAI, UserProfileMB, UserFilter, UserProfileList } from "container/admin";
+import { UserFilter, UserProfileList } from "container/admin";
 import { getAIUserProfileData } from '_utils/constant';
 
 const Users = () => {
@@ -50,8 +50,8 @@ const Users = () => {
 
     return (
         <>
-            {/* <CustomFilterPanelPosition />
-            <UserFilter handleFilterSubmit={handleFilterSubmit} /> */}
+            {/* <CustomFilterPanelPosition /> */}
+           
           
                 <UserProfileList
                     data={data}
@@ -62,7 +62,7 @@ const Users = () => {
                     editedRowId={editedRowId}
                     setEditedRowId={setEditedRowId}
                     handleChange={handleChange}
-                    
+                    handleFilterSubmit={()=>handleFilterSubmit}
                 />
            
             <button onClick={handleSubmit}>Submit</button>
