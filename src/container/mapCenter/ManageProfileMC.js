@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography, Button } from '@mui/material';
 import { Grid, IconButton } from "@material-ui/core";
-import { alertActions, mapCenterAction } from '_store';
+import { alertActions, mapCenterAction, masterActions } from '_store';
 import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema } from "_utils/validationSchema";
 import { supportedFormat } from '_utils/constant';
 import { base64ToFile } from '_utils';
@@ -19,10 +19,7 @@ const ManageProfileMC = () => {
     const { portalkey, id } = useParams();
     const header = 'Map Center';
     const user = useSelector(x => x.mapcenter?.userData);
-    const [inputColors, setInputColors] = useState({});
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
-    const [selectedHomeState, setSelectedHomeState] = useState(null);
-    const [selectedCompanyState, setSelectedCompanyState] = useState(null);
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
     const states = user?.State || [];
@@ -122,7 +119,7 @@ const ManageProfileMC = () => {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
                 return;
             }
-            // navigate('/');
+            navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
@@ -135,14 +132,6 @@ const ManageProfileMC = () => {
         await trigger(fieldName); // Trigger validation for the field
     };
 
-    // const handleHomeStateChange = (e, newValue) => {
-    //     setSelectedHomeState(newValue ? newValue.value : null);
-    // };
-
-    // const handleCompanyStateChange = (e, newValue) => {
-    //     setSelectedCompanyState(newValue ? newValue.value : null);
-    // };
-
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue?.value);
     };
@@ -151,9 +140,9 @@ const ManageProfileMC = () => {
         setFiles(newFiles);
     };
 
-    const handleDownload = async (base64String, fileName) => {
+    const handleDownload = async () => {
         try {
-            const result = await dispatch(mapCenterAction.getNondisclosureDocument()).unwrap();
+            const result = await dispatch(masterActions.getNondisclosureDocument()).unwrap();
             if (!result?.error) {
                 base64ToFile(result.File, result.FileName);
             }
@@ -232,7 +221,6 @@ const ManageProfileMC = () => {
                                                         error={!!errors.documentType}
                                                         helperText={errors.documentType?.message}
                                                         handleBlur={handleBlur}
-                                                        inputColor={inputColors['documentType']}
                                                         onChange={handleOnChange}
                                                     />
                                                 </Typography>
