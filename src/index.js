@@ -9,8 +9,8 @@ import App from './App';
 import './index.css';
 
 // setup fake backend
-// import fakeBackend from './_utils/fake-backend';
-// fakeBackend();
+import fakeBackend from './_utils/fake-backend';
+fakeBackend();
 
 const container = document.getElementById('root');
 const root = createRoot(container);
