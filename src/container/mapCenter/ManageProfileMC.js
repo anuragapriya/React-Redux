@@ -207,7 +207,7 @@ const ManageProfileMC = () => {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} sm={6} md={4}>
+                                        <Grid item xs={12} sm={12} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">
                                                 <Typography component="div" className="Personal-Informationsheading ">
                                                     <Typography component="h2" variant="h5">Document Upload  <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>

@@ -40,7 +40,7 @@ export const AppMenuItem = (props) => {
     <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick} >
         {/* Display an icon if any */}
         {!!Icon && (
-          <span className={classes.menuItemIcon}>
+          <span className="menuItemIcon">
             <Icon />
           </span>
         )}
@@ -91,18 +91,14 @@ export const AppMenuItem = (props) => {
 const useStyles = makeStyles(theme =>
   createStyles({
     menuItem: {
-      marginLeft: theme.spacing(4),
-      border: '1px solid #0dcaf0', 
+  
       '&.active': {
-        background: '#abdbe3',
-        border: '1px solid #0dcaf0'
+        background: '#DFEDFF',
+    
       },
       
     },
-    menuItemIcon: {
-      marginRight: theme.spacing(1),
-      color: '#4577c6',
-    },
+
   }),
 );
 

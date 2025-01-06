@@ -11,9 +11,10 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { authActions } from '_store';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
-const MyProfile = () => {
+
+const Notifications = () => {
     const dispatch = useDispatch(); 
     const logout = () => dispatch(authActions.logout());
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,12 +43,12 @@ const MyProfile = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <AccountCircleIcon  className='fontsizeicon'/>
+                        <NotificationsNoneOutlinedIcon className='fontsizeicon'/>
                         {/* <Avatar sx={{ width: 32, height: 32 }}>P</Avatar> */}
                     </IconButton>
                 </Tooltip>
             </Box>
-            <Menu className="support-list"
+            <Menu className="Notifications"
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
@@ -85,13 +86,62 @@ const MyProfile = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                <AccountCircleIcon fontSize="small"/> Profile
-                </MenuItem>
-                <MenuItem onClick={handleLogOut}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                        Logout
-                    </ListItemIcon>
+              
+              <Typography variant="div" component="div" className="CardDetailContainer-right">
+                <Typography variant="h3" component="h3" className="Announcements-text">Announcements</Typography>
+                <Typography className='Announcementcontainer' component="div" >
+                  <Typography className='Announcementsnew' component="div" >
+                  
+                  <Typography component="div" className="dateMonth">
+                    <Typography component="h2">
+                      29
+                    </Typography>
+                    <Typography component="span">
+                      Nov
+                    </Typography>
+                    </Typography>
+                    <Typography  component="div">
+                        <Typography component="h3" className='title'>Management</Typography>
+                        <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
+                    </Typography>
+                    
+                    </Typography>
+                    <Typography className='Announcementsnew' component="div" >
+                  
+                  <Typography component="div" className="dateMonth">
+                    <Typography component="h2">
+                      29
+                    </Typography>
+                    <Typography component="span">
+                      Nov
+                    </Typography>
+                    </Typography>
+                    <Typography  component="div">
+                        <Typography component="h3" className='title'>Management</Typography>
+                        <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
+                    </Typography>
+                    
+                    </Typography>
+                    <Typography className='Announcementsnew' component="div" >
+                  
+                  <Typography component="div" className="dateMonth">
+                    <Typography component="h2">
+                      29
+                    </Typography>
+                    <Typography component="span">
+                      Nov
+                    </Typography>
+                    </Typography>
+                    <Typography  component="div">
+                        <Typography component="h3" className='title'>Management</Typography>
+                        <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
+                    </Typography>
+                    
+                    </Typography>
+              
+                </Typography>
+              </Typography>
+     
                   
                 </MenuItem>
             </Menu>
@@ -100,4 +150,4 @@ const MyProfile = () => {
    
 }
 
-export default MyProfile;
+export default Notifications;

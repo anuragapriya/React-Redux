@@ -29,7 +29,7 @@ export const AppMenuItem = (props) => {
   }
 
   const MenuItemRoot = (
-    <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick}>
+    <AppMenuItemComponent className="Menuitem" link={link} onClick={handleClick}>
       {/* Display an icon if any */}
       {!!Icon && (
         <ListItemIcon className={classes.menuItemIcon}>

@@ -118,7 +118,7 @@ ul li.checked::before {
 }
 
 body {
-    background: var(--WG-Blue-25, #F7FBFF);
+    background: var(--WG-Blue-25, #F7FBFF)!important;
     overflow: auto;
 
 }
@@ -566,9 +566,8 @@ input[type=number] {
 }
 
 .login-container .NeedSupport {
-
+  margin-top: 30px;
     display: flex;
-    height: 64px;
     padding: 0px 24px;
     justify-content: flex-end;
     align-items: center;
@@ -579,7 +578,41 @@ input[type=number] {
     font-weight: 700;
     line-height: normal;
     color: #FFF;
+    font-family: "Proxima Nova Rg";
 
+}
+.support-list ul li::before{
+    right: auto;
+    left: 12px;
+
+    
+}
+.support-list ul li{
+    font-family: "Proxima Nova Rg";
+    color: var(--Gray-500, #71717A);
+    font-size: 16px;
+}
+.support-list ul li:hover  ,.support-list ul li .MuiListItemIcon-root:hover{
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    background-color:transparent;
+    color: #0A3B70;
+
+}
+.ration .Supporticon{
+    position: absolute;
+    top: 0px;
+    height: auto;
+    width: auto;
+    display: block;
+    right: 0px;
+    font-family: "Proxima Nova Rg";
+}
+.ration .Supporticon button{
+    float: right;
+}
+.login-container .NeedSupport:hover{
+    background-color: transparent;
 }
 
 .NeedSupport img {
@@ -904,11 +937,29 @@ float: left;
 .nav-linksbuttons .headseticon img {
     padding-right: 8px;
 }
-
-.nav-linksbuttons button {
-    padding: 0px;
+.nav-linksbuttons .iconcolor {
     padding-left: 15px;
+}
+.nav-linksbuttons button , .nav-linksbuttons .iconcolor svg {
+    padding: 0px;
     color: #3f51b5;
+    cursor: pointer;
+}
+.support-list .MuiList-root li svg{
+    margin-right: 10px;
+
+}
+.support-list .MuiList-root{
+    padding: 0px;
+}
+.fontsizeicon{
+    font-size: 25px;
+}
+.Notifications .MuiList-root{
+    width: 400px!important;
+}
+.Notifications .CardDetailContainer-right{
+    width: 100%;
 }
 
 .nav-bar-container .container{

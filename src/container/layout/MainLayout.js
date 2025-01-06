@@ -44,7 +44,7 @@ const MainLayout = () => (
                         <img src={headseticonwhite} alt="Do You Need Support" ></img>
                        Support?
                 </Link>          */}
-                <Support isMainLayout={true}></Support>
+                <Support className="Supporticon" isMainLayout={true}></Support>
                 </div>
                
             </div>
