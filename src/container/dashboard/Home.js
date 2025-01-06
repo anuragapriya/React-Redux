@@ -19,28 +19,35 @@ const Home = () => {
           name: "accountinquiry",
           title: item.PortalName,
           description: item.PortalName,
-          path: item.IsMandateDone ? "accountInquiry/dashboard" : "accountInquiry/manageProfile"
+          path:  "accountInquiry/dashboard" 
         }];
       case 'ea':
         return [{
           name: "energyAssistance",
           title: item.PortalName,
           description: item.PortalName,
-          path: item.IsMandateDone ? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
+          path:  "energyAssistance/dashboard" 
         }];
       case 'mb':
         return [{
           name: "marketer",
           title: item.PortalName,
           description: item.PortalName,
-          path: item.IsMandateDone ? "energyAssistance/dashboard" : "energyAssistance/manageProfile"
+          path:  "energyAssistance/dashboard" 
         }];
       case 'mc':
         return [{
           name: "mapcenter",
           title: item.PortalName,
           description: item.PortalName,
-          path: item.IsMandateDone ? "mapcenter/dashboard" : "mapcenter/manageProfile"
+          path:  "mapcenter/dashboard" 
+        }];
+        case 'sd':
+        return [{
+          name: "diversity",
+          title: item.PortalName,
+          description: item.PortalName,
+          path:  "diversity/dashboard" 
         }];
       default:
         return [];
