@@ -106,11 +106,11 @@ const Home = () => {
           <Grid container direction="row" spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 12, md: 12 }}>
             <Grid size={{ xs: 12, sm: 12, md: 8 }} className='CardDetailContainer' >
 
-              <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 8, sm: 8, md: 12 }}>
 
                 {data.map((card) =>
 
-                  <Grid size={{ xs: 2, sm: 4, md: 4 }} key={card.id} className="CardDetail">
+                  <Grid size={{ xs: 4, sm: 4, md: 4 }} key={card.id} className="CardDetail">
                     <Item><CardDetail {...card} handleClick={() => handleClick( card.path)} /></Item>
                   </Grid>
                 )}
@@ -122,7 +122,7 @@ const Home = () => {
                 <Typography className='Announcementcontainer' component="div" >
                   <Typography className='Announcementsnew' component="div" >
                   
-                  <Typography component="div">
+                  <Typography component="div" className="dateMonth">
                     <Typography component="h2">
                       29
                     </Typography>
@@ -138,7 +138,7 @@ const Home = () => {
                     </Typography>
                     <Typography className='Announcementsnew' component="div" >
                   
-                  <Typography component="div">
+                  <Typography component="div" className="dateMonth">
                     <Typography component="h2">
                       29
                     </Typography>
@@ -154,7 +154,7 @@ const Home = () => {
                     </Typography>
                     <Typography className='Announcementsnew' component="div" >
                   
-                  <Typography component="div">
+                  <Typography component="div" className="dateMonth">
                     <Typography component="h2">
                       29
                     </Typography>

@@ -79,3 +79,10 @@ export const uploadLabels={
     btnSecondaryText:"No",
     btnPrimaryText:"Yes"
 }
+
+export const aggrementEALabel={
+    header:"Energy Assistance",
+    message1:"All the Information provided through the Washington Gas Energy Assistance portal is the confidential information of Washington Light Company and is not to be distributed to any other party without the express written permission of Washington Gas Light Company.",
+    btnSecondaryText:"Close",
+    btnPrimaryText:"Confirm"
+}

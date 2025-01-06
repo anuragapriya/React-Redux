@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { portalList } from '_utils/tempData';
-import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
+import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput, ModalPopup } from '_components';
 import { Typography } from '@mui/material';
+import { aggrementEALabel } from '_utils/labels';
 
-const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid,portalData }) => {
-    const [inputColors, setInputColors] = useState({});
+const PersonalDetails = ({ isPasswordValid, register, errors, watch, resetField, control, trigger, setIsPasswordValid, portalData, portalList, setIsAgreed }) => {
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
+    const [openAgreeModal, setOpenAgreeModal] = useState(false);
     const Password = watch('Password', '');
     const FullName = watch('FullName', '');
 
@@ -25,23 +25,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
 
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        await trigger(fieldName); 
-        // const fieldError = errors[fieldName];
-
-        // if (fieldName === 'Password') {
-        //     setInputColors(prevColors => ({
-        //         ...prevColors,
-        //         [fieldName]: isPasswordValid && !fieldError && e.target.value ? 'inputBackground' : ''
-        //     }));
-        //     if (isPasswordValid && !fieldError) {
-        //         setShowPasswordCheck(false);
-        //     }
-        // } else {
-        //     setInputColors(prevColors => ({
-        //         ...prevColors,
-        //         [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        //     }));
-        // }       
+        await trigger(fieldName);
     };
 
     const handlePasswordValidation = (isValid) => {
@@ -49,6 +33,24 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
         if (isValid) {
             setShowPasswordCheck(false);
         }
+    };
+
+    const handlePortalChange = (e, newValue) => {
+        const portalKey = portalList?.find(p => p.PortalID === newValue?.value)?.PortalKey;
+        if (portalKey && portalKey.toLowerCase() === 'ea') {
+            setOpenAgreeModal(true);
+        }
+    };
+
+    const handleConfirmClick = async () => {       
+        await setOpenAgreeModal(false);
+        await setIsAgreed(true); 
+    };
+
+    const handleClose = () => {
+        setOpenAgreeModal(false);
+        setIsAgreed(false);
+        resetField('PortalId');
     };
 
     return (
@@ -60,7 +62,6 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                inputColors={inputColors}
             />
             <CustomFormControl
                 id="CompanyName"
@@ -69,7 +70,6 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                inputColors={inputColors}
             />
             <CustomFormControl
                 id="EmailAddress"
@@ -78,7 +78,6 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 register={register}
                 errors={errors}
                 handleBlur={handleBlur}
-                inputColors={inputColors}
             />
             <MobileNumberInput
                 control={control}
@@ -87,7 +86,6 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                 rules={{ required: 'Phone Number is required' }}
                 errors={errors}
                 handleBlur={handleBlur}
-                inputColors={inputColors}
             />
             <Typography component="div" className='passwordcheck'>
                 <PasswordInput
@@ -98,7 +96,6 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                     errors={errors}
                     handleBlur={handleBlur}
                     handleFocus={handlePasswordFocus}
-                    inputColors={inputColors}
                     isPasswordValid={isPasswordValid}
                 />
                 {showPasswordCheck && (
@@ -114,9 +111,17 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
                     error={!!errors.PortalId}
                     helperText={errors.PortalId?.message}
                     handleBlur={handleBlur}
-                    inputColor={inputColors['PortalId']}
+                    onChange={handlePortalChange}
                 />
             </Typography>
+            {openAgreeModal && <ModalPopup
+                header={aggrementEALabel.header}
+                message1={aggrementEALabel.message1}
+                btnPrimaryText={aggrementEALabel.btnPrimaryText}
+                btnSecondaryText={aggrementEALabel.btnSecondaryText}
+                handlePrimaryClick={handleConfirmClick}
+                handleSecondaryClick={handleClose}
+            />}
         </>
     );
 };

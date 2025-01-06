@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete, CustomFormControl, MultiSelectInput } from '_components'
 import { supplierClassificationData, supplierBusinessData } from '_utils/constant';
 import { Typography, Button } from '@mui/material';
-const SupplierDetails = ({ register, errors, stateData, control, handleBlur, trigger }) => {
+const SupplierDetails = ({ register, errors, stateData, control, handleBlur,classificationData, businessCategoryData, getCatagoryID }) => {
     const [inputColors, setInputColors] = useState({});
     const [selectedOptions, setSelectedOptions] = useState([]);
-    const handleSelectionChange = (newValue) => {
-        console.log(newValue);
-        setSelectedOptions(newValue);
-    };
+    useEffect(()=>{
 
-    const supplierClassificationDropdownData = supplierClassificationData.map(x => ({
-        label: x.DocumentDescription,
-        value: x.DocumentTypeID
-    }));
-    const supplierBusinessDropdownData = supplierBusinessData.map(x => ({
-        label: x.DocumentDescription,
-        value: x.DocumentTypeID
-    }));
+        if (getCatagoryID?.length) {
+            const initialDefaultValues = classificationData.filter(option =>
+                getCatagoryID.includes(option.value)
+            );
+            // console.log(initialDefaultValues);
+            // setSelectedOptions(defaultValues);
+            setSelectedOptions(initialDefaultValues);
+        }
+    },[getCatagoryID])
+
+    const handleSelectionChange = (newValue) => {
+        // console.log(newValue);
+        setSelectedOptions(newValue);
+        // console.log(selectedOptions);
+    };
     return <>
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
@@ -47,33 +51,33 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur, tri
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <Typography component="div" className="passwordcheck border-none">
                     <AutocompleteInput
-                        id="BusinessCatagory"
-                        name="BusinessCatagory"
+                        id="CategoryID"
+                        name="CategoryID"
                         label="Business Category"
                         control={control}
-                        options={supplierBusinessDropdownData}
-                        error={!!errors.BusinessCatagory}
-                        helperText={errors.BusinessCatagory?.message}
+                        options={businessCategoryData}
+                        error={!!errors.CategoryID}
+                        helperText={errors.CategoryID?.message}
                         handleBlur={handleBlur}
                         // onFocus={handleOtherFocus}
-                        inputColor={inputColors['selectPortal']}
+                        inputColors={inputColors}
                     />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <Typography component="div" className="passwordcheck mar-top-16">
+                <Typography component="div" className="passwordcheck mar-top-16 border-none">
                     <MultiSelectInput
-                        id="Classification"
-                        name="Classification"
+                        id="ClassificationID"
+                        name="ClassificationID"
                         label="Classification"
                         control={control}
-                        options={supplierClassificationDropdownData}
+                        value={selectedOptions} 
+                        options={classificationData}
                         onChange={handleSelectionChange}
-                        error={!!errors.Classification}
-                        helperText={errors.Classification?.message}
+                        error={!!errors.ClassificationID}
+                        helperText={errors.ClassificationID?.message}
                         handleBlur={handleBlur}
-                        trigger={trigger}
-                        inputColor={inputColors['selectPortal']}
+                        inputColors={inputColors}
                     />
                 </Typography>
             </Grid>

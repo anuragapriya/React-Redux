@@ -20,6 +20,7 @@ export const masterReducer = slice.reducer;
 function createInitialState() {
     return {
         portalData: [],
+        document: null
     }
 }
 
@@ -29,6 +30,7 @@ function createExtraActions() {
 
     return {
         getPortalData: getPortalData(),
+        getNondisclosureDocument:getNondisclosureDocument()
     };
 
     function getPortalData() {
@@ -38,11 +40,27 @@ function createExtraActions() {
         );
     }
 
+    function getNondisclosureDocument() {
+        return createAsyncThunk(
+            `${name}/getNondisclosureDocument`,
+            async (_, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/download`));
+                    return response;
+                } catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
 }
 
 function createExtraReducers() {
     return (builder) => {
         getPortalData();
+        getNondisclosureDocument();
 
         function getPortalData() {
             var { pending, fulfilled, rejected } = extraActions.getPortalData;
@@ -56,6 +74,20 @@ function createExtraReducers() {
                 })
                 .addCase(rejected, (state, action) => {
                     state.portalData = { error: action.error };
+                });
+        };
+
+        function getNondisclosureDocument() {
+            var { pending, fulfilled, rejected } = extraActions.getNondisclosureDocument;
+            builder
+                .addCase(pending, (state) => {
+                    state.document = { loading: true };
+                })
+                .addCase(fulfilled, (state, action) => {
+                    state.document = action.payload;
+                })
+                .addCase(rejected, (state, action) => {
+                    state.document = { error: action.error };
                 });
         };
     };

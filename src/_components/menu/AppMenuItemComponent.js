@@ -24,7 +24,7 @@ const AppMenuItemComponent = (props) => {
   // Return a Button with a link component
   return (
     <Button
-      style={{ border: '1px solid #0dcaf0',margin:10 }}
+      
       className={className}
       component={React.forwardRef((props, ref) => <NavLink exact {...props} innerRef={ref} />)}
       to={link}
