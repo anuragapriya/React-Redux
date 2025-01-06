@@ -64,10 +64,8 @@ const RouteList = () => {
                     </Route>
                     {/* public */}
                     <Route path="/*" element={<LoginLayout isAuthenticated={isAuthenticated} />} />
-
                     <Route path="registration/*" element={<RegistrationLayout/>}/>
                     <Route path="forgotpassword/*" element={<ForgotPasswordLayout/>}/>
-
                     <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
                 <SessionTimeout onLogout={logout} isAuthenticated={isAuthenticated} />

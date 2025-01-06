@@ -2,9 +2,7 @@ import * as React from 'react';
 import Link from "@material-ui/core/Link";
 import { logo } from '../images';
 import { labels } from "_utils/labels";
-import { useSelector, useDispatch } from 'react-redux';
-import { authActions } from '_store';
-import { MyProfile, Support ,Notifications } from 'container/headers';
+import { MyProfile, Support, Notifications } from 'container/headers';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
@@ -17,62 +15,17 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-//const Nav = ({ isAuthenticated }) => {
-   // if (!isAuthenticated) return null;
 
-//     return (
-//         <>
-//             {/* <nav className="navbar navbar-expand  nav-bar-container">
-//                 <div className='container'>
-//                     <div className="navbar-nav">
-//                         <Link href="/home" variant="logo" className="wgllogo">
-//                             <img src={logo} alt="logo"></img>
-//                             {labels.eServicePortal}
-//                         </Link>
-//                         <div className='nav-linksbuttons'>
-//                             <Support></Support>
-//                             <Box className="iconcolor">
-//                             <Tooltip title="Settings">
-//                             <SettingsOutlinedIcon/>
-//                             </Tooltip>
-//                             </Box>
-//                             <Box className="iconcolor" >
-//                             <Tooltip title="BarChar">
-//                             <BarChartOutlinedIcon/>
-//                             </Tooltip>
-//                             </Box>
-//                             <Box className="iconcolor">
-//                             <Tooltip title="List">
-//                             <ListAltOutlinedIcon/>
-//                             </Tooltip>
-//                             </Box>
-//                             <Notifications></Notifications>
-//                             <MyProfile></MyProfile>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </nav> */}
-            
-//             {/* <Outlet /> */}
-//         </>
-//     );
-// }
 const drawerWidth = 240;
 
-
-function Nav(props , isAuthenticated) {
-  const { window } = props;
+const Nav = ({ isAuthenticated, window }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const dispatch = useDispatch();
-  const logout = () => dispatch(authActions.logout());
+
   if (!isAuthenticated) return null;
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -80,35 +33,33 @@ function Nav(props , isAuthenticated) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-      <Link href="/home" variant="logo" className="wgllogo">
-                     <img src={logo} alt="logo"></img>
-                      {labels.eServicePortal}
-                  </Link>
+        <Link href="/home" variant="logo" className="wgllogo">
+          <img src={logo} alt="logo" />
+          {labels.eServicePortal}
+        </Link>
       </Typography>
       <Divider />
       <List>
-       
-      <div className='nav-linksbuttons'>
-                            <Support></Support>
-                            <Box className="iconcolor">
-                            <Tooltip title="Settings">
-                            <SettingsOutlinedIcon/>
-                            </Tooltip>
-                            </Box>
-                            <Box className="iconcolor" >
-                                                             <Tooltip title="BarChar">
-                             <BarChartOutlinedIcon/>
-                            </Tooltip>
-                             </Box>
-                             <Box className="iconcolor">
-                            <Tooltip title="List">
-                            <ListAltOutlinedIcon/>
-                             </Tooltip>
-                            </Box>
-                             <Notifications></Notifications>
-                            <MyProfile></MyProfile>
-                         </div>
-                 
+        <div className='nav-linksbuttons'>
+          <Support />
+          <Box className="iconcolor">
+            <Tooltip title="Settings">
+              <SettingsOutlinedIcon />
+            </Tooltip>
+          </Box>
+          <Box className="iconcolor">
+            <Tooltip title="BarChart">
+              <BarChartOutlinedIcon />
+            </Tooltip>
+          </Box>
+          <Box className="iconcolor">
+            <Tooltip title="List">
+              <ListAltOutlinedIcon />
+            </Tooltip>
+          </Box>
+          <Notifications />
+          <MyProfile />
+        </div>
       </List>
     </Box>
   );
@@ -134,37 +85,36 @@ function Nav(props , isAuthenticated) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-          <Link href="/home" variant="logo" className="wgllogo">
-                    <img src={logo} alt="logo"></img>
-                     {labels.eServicePortal}
-                  </Link>
+            <Link href="/home" variant="logo" className="wgllogo">
+              <img src={logo} alt="logo" />
+              {labels.eServicePortal}
+            </Link>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-           
-          <div className='nav-linksbuttons'>
-                            <Support></Support>
-                           <Box className="iconcolor">
-                            <Tooltip title="Settings">
-                            <SettingsOutlinedIcon/>
-                            </Tooltip>
-                            </Box>
-                            <Box className="iconcolor" >
-                            <Tooltip title="BarChar">
-                            <BarChartOutlinedIcon/>
-                            </Tooltip>
-                            </Box>
-                            <Box className="iconcolor">
-                            <Tooltip title="List">
-                            <ListAltOutlinedIcon/>
-                            </Tooltip>
-                            </Box>
-                            <Notifications></Notifications>
-                             <MyProfile></MyProfile>
-                         </div>
+            <div className='nav-linksbuttons'>
+              <Support />
+              <Box className="iconcolor">
+                <Tooltip title="Settings">
+                  <SettingsOutlinedIcon />
+                </Tooltip>
+              </Box>
+              <Box className="iconcolor">
+                <Tooltip title="BarChart">
+                  <BarChartOutlinedIcon />
+                </Tooltip>
+              </Box>
+              <Box className="iconcolor">
+                <Tooltip title="List">
+                  <ListAltOutlinedIcon />
+                </Tooltip>
+              </Box>
+              <Notifications />
+              <MyProfile />
+            </div>
           </Box>
         </Toolbar>
       </AppBar>
-      <nav >
+      <nav>
         <Drawer
           container={container}
           variant="temporary"
@@ -181,13 +131,11 @@ function Nav(props , isAuthenticated) {
           {drawer}
         </Drawer>
       </nav>
-     
     </Box>
   );
-}
+};
 
 Nav.propTypes = {
-
   window: PropTypes.func,
 };
 
