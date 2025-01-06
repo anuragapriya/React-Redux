@@ -49,7 +49,7 @@ const fakeBackend = () => {
                         return getMapCenterUser(url);
                     case url.match('api/Account/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
-                    case url.match(/\/api\/Account\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                    case url.match(/\/api\/Account\/GetRegisterSupplierDiversityAsync\/\d+$/) && opts.method === 'GET':
                         return getSupplierDiversityUser(url);
                     case url.match('/api/Account/Register-SD') && opts.method === 'POST':
                         return updateSupplierDiversityUser();
