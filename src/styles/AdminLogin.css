@@ -8,19 +8,6 @@
     text-transform: uppercase;
     margin: 24px 0px;
 }
-
-/* .CardDetail .MuiCard-root{
-    background:#093784;
-    display: block;
-    margin: 10px;
-}
-
-
-.CardDetailContainer{
-padding: 5%;
-background-color: #fff;
-
-} */
 .CardDetail {
     width: 245px;
     height: 180px;
@@ -31,6 +18,7 @@ background-color: #fff;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
     display: flex;
     align-items: center;
+    cursor: pointer;
 
 }
 
@@ -274,6 +262,63 @@ margin-right: 20px;
   .admincontentContainer{
     padding: 0px;
   }
+  .admincontent table thead tr{
+    border-radius: 8px 8px 0px 0px;
+background: var(--WG-Blue-100, #DFEDFF);
+  }
+  .admincontent table tbody tr:hover td::after{
+    background-color: #fff;
+  }
+  .admincontent table thead tr .Mui-TableHeadCell-Content-Wrapper{
+    color: var(--WG-Blue-900, #0A3B70);
+font-family: "Proxima Nova Rg";
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+font-variant: all-small-caps;
+text-transform: uppercase;
+  }
+  .admincontent table tbody tr td{
+    border-bottom: 0px;
+    font-family: "Proxima Nova Rg";
+    color: var(--Gray-700, #4D4C52);
+  }
+  .admincontent table{
+    border-radius: 8px;
+border: 1px solid var(--WG-Blue-100, #DFEDFF);
+background: var(--White, #FFF);
+box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+font-family: "Proxima Nova Rg";
+  }
+  .admincontentContainer .MuiPaper-root.MuiPaper-elevation ,.admincontentContainer .MuiBox-root.css-10gei56{
+    background: transparent;
+    box-shadow: none;
+  }
+  .inputtags .admincontent .admincontentContainer table tbody tr td input{
+    border: 0px;
+    box-shadow: none;
+    font-family: "Proxima Nova Rg";
+  }
+  .inputtags  .admincontent .admincontentContainer .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input{
+    border: 0px;
+  }
+  .tableicons button:nth-child(1) svg path {
+    fill: #0A3B70;
+}
+.tableicons button:nth-child(2) svg path ,.DocumentTypeID button:nth-child(1) svg path{
+    fill: #4fa4ef;
+}
+.tableicons button:nth-child(3) svg path , .DocumentTypeID button:nth-child(2) svg path {
+    fill: #e36b6b;
+}
+
+.MuiTablePagination-root{
+    font-family: "Proxima Nova Rg";
+    color: var(--Gray-700, #4D4C52);
+    font-size: 16px;
+}
+
 @media (min-width: 0px) {
     .navcontainer .css-1q89n6x-MuiTypography-root {
         display: block;

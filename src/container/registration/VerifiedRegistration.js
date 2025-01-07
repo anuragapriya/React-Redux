@@ -86,6 +86,7 @@ const VerifiedRegistration = () => {
                     btnPrimaryText={verifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
                     handlePrimaryClick={() => handleClick()}
+                    className="verifiedRegistrationpopup"
                 />
                 }
                 {(isVerified && !isRequiredCompleteRegistration) && <TimerModal
@@ -104,6 +105,7 @@ const VerifiedRegistration = () => {
                     btnPrimaryText={notVerifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={notVerifiedRegistrationLabels.btnSecondaryText}
                     handlePrimaryClick={() => handleSubmit()}
+                     className="verifiedRegistrationpopup"
                 />
                 }
             </div>

@@ -131,7 +131,7 @@ const PortalConfiguration = (props) => {
     return (
         <div>
             <MaterialReactTable table={table} />
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button className='submitbutton' variant="contained" color="primary" onClick={handleSubmit}>
                 Submit
             </Button>
         </div>

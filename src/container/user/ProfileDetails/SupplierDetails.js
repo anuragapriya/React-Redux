@@ -52,7 +52,7 @@ const SupplierDetails = ({ register,
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <Typography component="div" className="passwordcheck mar-top-16 border-none">
+                <Typography component="div" className="passwordcheck  border-none">
                     <MultiSelectInput
                         id="ClassificationID"
                         control={control}
@@ -149,6 +149,7 @@ const SupplierDetails = ({ register,
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Typography component="div" className="passwordcheck border-none">
                 <AutocompleteInput
                     control={control}
                     name="State"
@@ -158,6 +159,7 @@ const SupplierDetails = ({ register,
                     helperText={errors.state?.message}
                     handleBlur={handleBlur}
                 />
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
                 <CustomFormControl

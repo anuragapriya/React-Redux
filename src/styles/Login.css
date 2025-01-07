@@ -239,9 +239,16 @@ body {
     display: ruby;
     margin-top: 15px;
 }
-
-.MuiButton-containedPrimary.Loginbutton,
-.MuiButton-containedPrimary.Loginbutton:hover {
+.admincontent .admincontentContainer  .submitbutton{
+    float: right;
+    width: auto;
+    padding: 0px 50px;
+    margin: 20px 0px;
+}
+.admincontent .submitbutton:hover ,.MuiButton-containedPrimary.Loginbutton:hover{
+    background: var(--WG-Blue-900, #0A3B70);
+}
+.MuiButton-containedPrimary.Loginbutton ,.admincontent .submitbutton{
     display: flex;
     height: 48px;
     padding: 16px;
@@ -1110,6 +1117,7 @@ box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
 .passwordcheck.mar-top-16 .MuiAutocomplete-root .MuiAutocomplete-endAdornment button svg{
 display: none;
 }
+.inputtags .admincontent .admincontentContainer table tbody tr td .MuiAutocomplete-endAdornment button:nth-child(2) .MuiSvgIcon-root ,
 .MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator ,
 .passwordcheck.mar-top-16 .MuiAutocomplete-root .MuiAutocomplete-endAdornment button.MuiAutocomplete-popupIndicator{
     background: url('../assets/images/Vector.svg');
@@ -1118,7 +1126,9 @@ display: none;
     background-repeat: no-repeat;
     background-position: center;
 }
-
+.inputtags .admincontent .admincontentContainer table tbody tr td .MuiAutocomplete-endAdornment button:nth-child(2) .MuiSvgIcon-root path{
+    display:none;
+}
 .forgotpassword h2 {
     color: var(--Gray-700, #4D4C52);
     font-feature-settings: 'liga' off, 'clig' off;
@@ -1167,7 +1177,21 @@ display: none;
  .Personal-Information-container .CompanyDetails-container .CompanyDetails {
 padding: 0px 12px;
 }
+/* .MuiBackdrop-root.MuiModal-backdrop{
+    background: url("../assets/images/WGLImage.jpg") no-repeat;
+    height: 100vh;
+} */
+ .DocumentTypeID{
+    float: right;
+ }
+ .DocumentTypeID button{
+    padding: 0px;
+    padding-left: 10px;
 
+ }
+ .DocumentTypeID button svg{
+    font-size: 18px;
+ }
 @media only screen and (min-width: 1600px) {
 
     .ration::before {
@@ -1263,7 +1287,9 @@ padding: 0px 12px;
         font-size: 14px;
         top: -5px;
     }
-
+.modalpopupinner .closebutton{
+    height: 40px;
+}
     .MuiButton-containedPrimary.Loginbutton {
         height: 40px;
         font-size: 14px;
