@@ -62,7 +62,7 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                             Forgot your password?
                         </Typography>
                         <Typography component="p" variant="body1">
-                            Enter your email or phone number and we will send you a link/code to reset your password.
+                            Enter your email and we will send you a link/code to reset your password.
                         </Typography>
                     </Grid>
                     <form className="form forgotpasswordcontainer p-0" onSubmit={handleSubmit(onSubmit)}>

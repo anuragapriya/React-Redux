@@ -778,7 +778,7 @@ export const supplierBusinessData = [
 
 export const supportedFormat = ['.jpg', '.png', '.doc', '.docx', '.pdf']
 
-export const supplierSupportedFormat = ['.pdf', '.doc', '.docs', '.csv', '.xslx', '.xls', 'txt', '.bmp', '.jpg', '.gif']
+export const supplierSupportedFormat = ['.pdf', '.doc', '.docx', '.csv', '.xslx', '.xls', '.txt', '.bmp', '.jpg', '.gif']
 
 export const registerMapCenter =
 {
@@ -829,8 +829,8 @@ export const getMapCenterData =
       "CompanyState": "4",
       "CompanyZipCode": "DASD",
       "CompanyContactName": "DASD",
-      "CompanyContactTelephone": "DASD",
-      "CompanyContactEmailAddress": "DAS",
+      "CompanyContactTelephone": "1234567890",
+      "CompanyContactEmailAddress": "DAS@test.com",
       "AuthorizedWGLContact": "REWR",
       "AdditionalID": null,
       "FileData": [],
@@ -882,13 +882,13 @@ export const registerSupplyDiversityData=
     "Title": "Raj",
     "Address": "Test",
     "City": "Test",
-    "State": "Test",
+    "State": "1",
     "CompanyWebsite": "Test",
     "Email": "test@gmail.com",
     "ZipCode": "132456",
     "PhoneNumber": "1234567899",
     "Fax": "string",
-    "CellPhone": "2341567",
+    "CellPhone": "1234567899",
     "CategoryID": 0,
     "ClassificationID": 0,
     "ServicesProductsProvided": "Test Service",
@@ -901,56 +901,37 @@ export const  getSupplierDiversityData={
   "Message": "Successfull",
   "Errors": null,
   "Data": {
-    "AdditionalID": 1,
-    "UserID": 1041,
-    "CompanyName": "Microsoft",
-    "ContactPerson": "Satya",
+    "AdditionalID": 12,
+    "UserID": 1068,
+    "CompanyName": "SGS",
+    "ContactPerson": "Anil",
     "Title": "Mr",
-    "Address": "WashingtonStreet",
-    "City": "WashingtonCity",
-    "State": "2",
-    "CompanyWebsite": "www.microsoft.com",
-    "Email": "satya.nandela@mircosoft.com",
+    "Address": "Anil Street",
+    "City": "NY",
+    "State": 3,
+    "CompanyWebsite": "www.sgs.com",
+    "Email": "anil@sgs.com",
     "ZipCode": "123456",
-    "PhoneNumber": "9987654321",
-    "Fax": "9987654321",
-    "CellPhone": "9987654321",
-    "CategoryID": "3",
-    "ClassificationID": "2,3",
-    "ServicesProductsProvided": "Website Development",
+    "PhoneNumber": "9987123456",
+    "Fax": "9987123456",
+    "CellPhone": "9987123456",
+    "CategoryID": 1,
+    "ClassificationID": "1,2",
+    "ServicesProductsProvided": "product and services",
+    "ExpiryDate": "2027-01-07T08:44:00.38",
+    "AgencyID": 1,
+    "AgencyStateID": 4,
     "FileData": [
       {
-        "ID": 20,
-        "AdditionalID": 1,
-        "DocumentTypeID": 4,
-        "FileName": "Certification12",
-        "Format": "PDF",
-        "Size": 3000,
-        "PortalKey": "SD",
-        "File": "",
-        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
-      },
-      {
-        "ID": 21,
-        "AdditionalID": 1,
+        "ID": 73,
+        "AdditionalID": 12,
         "DocumentTypeID": 5,
-        "FileName": "Capability",
+        "FileName": "Certification.pdf",
         "Format": "PDF",
-        "Size": 3000,
+        "Size": 300,
         "PortalKey": "SD",
         "File": "",
-        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
-      },
-      {
-        "ID": 22,
-        "AdditionalID": 1,
-        "DocumentTypeID": 6,
-        "FileName": "Additional1",
-        "Format": "PDF",
-        "Size": 3000,
-        "PortalKey": "SD",
-        "File": "",
-        "Url": "https://wgltest.blob.core.windows.net/wglcontainer/DLF"
+		    "Url": "Certification.pdf_1068"
       }
     ],
     "DocumentData": [
@@ -1036,6 +1017,16 @@ export const  getSupplierDiversityData={
       {
         "ClassificationID": 4,
         "ClassificationName": "Veteran Owned Business"
+      }
+    ],
+    "Agency": [
+      {
+        "AgencyID": 1,
+        "AgencyName": "Test1 Agency"
+      },
+      {
+        "AgencyID": 2,
+        "AgencyName": "Test2 Agency"
       }
     ]
   }
