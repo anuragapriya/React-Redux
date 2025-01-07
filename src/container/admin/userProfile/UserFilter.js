@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 
-const UserFilter = ({ handleFilterSubmit }) => {
+const UserFilter = ({ handleFilterSubmit,handleportalID }) => {
     const [open, setOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -34,6 +34,8 @@ const UserFilter = ({ handleFilterSubmit }) => {
     const { handleSubmit, control, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
+        console.log('async', data);
+        handleportalID(data);
         try {
             const result = [];
             // const result = await dispatch(registrationActions.register(data)).unwrap();
@@ -59,15 +61,11 @@ const UserFilter = ({ handleFilterSubmit }) => {
                                 name="PortalId"
                                 label="Select Portal"
                                 options={portalData}
-                                error={!!errors.PortalId}
-                                helperText={errors.PortalId?.message}
                             />
                             <CustomTextFieldInput
                                 control={control}
                                 name="email"
                                 label="Email Address"
-                                error={!!errors.email}
-                                helperText={errors.email ? errors.email.message : ''}
                             />
                             <CustomTextFieldInput
                                 control={control}

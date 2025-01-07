@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { Visibility, DeleteForever, Lock, LockOpen, Edit } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
@@ -14,11 +14,19 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
   const jurisdictions=userProfiles?.Jurisdictions.map(jurisdiction => ({ value: jurisdiction.JurisdictionID, label: jurisdiction.JurisdictionName })) || [];
 
   const [isLocked, setLock] = useState(false);
+  const [PortalId, setPortalId] = useState({});
+  const handleportalID = (data) => {
+    setPortalId(data.PortalId); // Update state with data from child
+    console.log('portalId',PortalId);
+  };
+  useEffect(() => {
+    console.log('PortalId',PortalId);
+  },[PortalId])
   const filename = 'Users';
   console.log('data',data);
 
-  const columns = useMemo(() => [
-    { accessorKey: 'FullName', header: 'Name' },
+  const columns = useMemo(() => {
+    const baseColumns = [{ accessorKey: 'FullName', header: 'Name' },
     {
       accessorKey: 'RoleID',
       header: 'Role',
@@ -50,24 +58,9 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
         helperText={errors[cell.row.original.id]?.StatusID ? 'Status is required' : ''}
       />
       )
-    },
-    {
-      accessorKey: 'AgencyID',
-      header: 'Agency',
-      Cell: ({ cell }) => (
-        <AutocompleteTable
-        value={cell.getValue()}
-        onChange={(newValue) => {
-          setEditedRowId(cell.row.original.id);
-          handleChange(newValue, cell.row.original, 'AgencyID');
-        }}
-        options={agencies}
-        error={errors[cell.row.original.id]?.AgencyID}
-        helperText={errors[cell.row.original.id]?.AgencyID ? 'Agency is required' : ''}
-      />
-      )
-    },
-    {
+    }];
+    if (PortalId === 1) {
+      baseColumns.push({
       accessorKey: 'JurisdictionID',
       header: 'Jurisdiction',
       Cell: ({ cell }) => (
@@ -82,8 +75,42 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
         helperText={errors[cell.row.original.id]?.JurisdictionID ? 'Jurisdiction is required' : ''}
       />
       )
-    }
-  ], [errors, handleChange, roles, statuses, agencies, setEditedRowId]);
+    },{
+      accessorKey: 'AgencyID',
+      header: 'Agency',
+      Cell: ({ cell }) => (
+        <AutocompleteTable
+        value={cell.getValue()}
+        onChange={(newValue) => {
+          setEditedRowId(cell.row.original.id);
+          handleChange(newValue, cell.row.original, 'AgencyID');
+        }}
+        options={agencies}
+        error={errors[cell.row.original.id]?.AgencyID}
+        helperText={errors[cell.row.original.id]?.AgencyID ? 'Agency is required' : ''}
+      />
+      )
+    })
+  } if (PortalId === 2) {
+    baseColumns.push({
+    accessorKey: 'AgencyID',
+    header: 'Agency',
+    Cell: ({ cell }) => (
+      <AutocompleteTable
+      value={cell.getValue()}
+      onChange={(newValue) => {
+        setEditedRowId(cell.row.original.id);
+        handleChange(newValue, cell.row.original, 'AgencyID');
+      }}
+      options={agencies}
+      error={errors[cell.row.original.id]?.AgencyID}
+      helperText={errors[cell.row.original.id]?.AgencyID ? 'Agency is required' : ''}
+    />
+    )
+  })
+}
+  return baseColumns;
+}, [errors, handleChange, roles, statuses, agencies, setEditedRowId]);
 
   const handleAddEdit = (row) => {
     row.toggleExpanded();
@@ -101,6 +128,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
     paginationDisplayMode: 'pages',
     enableRowActions: true,
     positionExpandColumn: 'first',
+    positionActionsColumn:"last",
     initialState: {
       columnOrder: [
         'mrt-row-expand',
@@ -109,7 +137,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
         'AgencyID',
         'JurisdictionID',
         'StatusID',
-        'mrt-row-actions', // Ensure this is included at the end
+        'mrt-row-actions' // Ensure this is included at the end
       ],
     },
     renderTopToolbarCustomActions: () => (
@@ -122,7 +150,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
         }}
       >
         <Download rows={data} headers={columns} filename={filename} />
-         <UserFilter  handleFilterSubmit={handleFilterSubmit} />
+         <UserFilter  handleFilterSubmit={handleFilterSubmit} handleportalID={handleportalID}/>
       </Box>
     ),
     renderRowActions: ({ row }) => (
