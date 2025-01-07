@@ -30,7 +30,7 @@ const ManageProfileMC = () => {
 
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateId.toString()
+        value: x.StateId
     }));
 
     const combinedSchema = additionalDetailsValidationSchema
@@ -112,8 +112,12 @@ const ManageProfileMC = () => {
                 AdditionalID: user?.AdditionalID || 0,
                 FileData: files
             };
-
-            const result = await dispatch(mapCenterAction.update({ id, transformedData }));
+            let result;
+            if (user?.AdditionalID !== 0) {
+                result = await dispatch(mapCenterAction.update({ id, transformedData }));
+            } else {
+                result = await dispatch(mapCenterAction.insert({ id, transformedData }));
+            }
             console.log(result);
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));
@@ -176,7 +180,7 @@ const ManageProfileMC = () => {
                                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                                         </Typography>
                                                         <AdditionalDetails
-                                                          handleBlur={handleBlur}
+                                                            handleBlur={handleBlur}
                                                             register={register}
                                                             control={control}
                                                             stateData={stateData}
@@ -190,7 +194,7 @@ const ManageProfileMC = () => {
                                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                                         </Typography>
                                                         <CompanyDetails
-                                                           handleBlur={handleBlur}
+                                                            handleBlur={handleBlur}
                                                             register={register}
                                                             errors={errors}
                                                             control={control}
@@ -199,11 +203,11 @@ const ManageProfileMC = () => {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={12}>
-                                                    <CompanyPOC 
-                                                    register={register} 
-                                                    errors={errors} 
-                                                    control={control} 
-                                                    handleBlur={handleBlur} />
+                                                    <CompanyPOC
+                                                        register={register}
+                                                        errors={errors}
+                                                        control={control}
+                                                        handleBlur={handleBlur} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>

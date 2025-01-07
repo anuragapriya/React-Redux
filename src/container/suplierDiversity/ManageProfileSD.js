@@ -132,13 +132,18 @@ const ManageProfileSD = () => {
                 CategoryID: data.CategoryID,
                 ClassificationID: classification,
                 ServicesProductsProvided: data.ServicesProductsProvided,
-                ExpiryDate:data.ExpiryDate,
-                AgencyID:data.AgencyID,
-                AgencyStateID:data.AgencyStateID,
+                ExpiryDate: data.ExpiryDate,
+                AgencyID: data.AgencyID,
+                AgencyStateID: data.AgencyStateID,
                 FileData: files,
             };
 
-            const result = await dispatch(supplyDiversityAction.update({ id, transformedData }));
+            let result;
+            if (user?.AdditionalID !== 0) {
+                result = await dispatch(supplyDiversityAction.update({ id, transformedData }));
+            } else {
+                result = await dispatch(supplyDiversityAction.insert({ id, transformedData }));
+            }
             console.log(result);
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.error.message, header: header }));

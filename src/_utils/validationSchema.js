@@ -49,7 +49,7 @@ export const additionalDetailsValidationSchema = Yup.object().shape({
     HomeCity: Yup.string()
         .nullable()
         .required('City is required'),
-    HomeState: Yup.string()
+    HomeState: Yup.number()
         .nullable()
         .required('State is required'),
     HomeZipCode: Yup.string()
@@ -58,7 +58,7 @@ export const additionalDetailsValidationSchema = Yup.object().shape({
     DLNumber: Yup.string()
         .nullable()
         .required('Driving License is required'),
-    DLState: Yup.string()
+    DLState: Yup.number()
         .nullable()
         .required('License state is required'),
 });
@@ -76,7 +76,7 @@ export const companyValidationSchema = Yup.object().shape({
     CompanyCity: Yup.string()
         .nullable()
         .required('City is required'),
-    CompanyState: Yup.string()
+    CompanyState: Yup.number()
         .nullable()
         .required('State is required'),
     CompanyZipCode: Yup.string()

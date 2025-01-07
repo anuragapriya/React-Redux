@@ -814,19 +814,19 @@ export const getMapCenterData =
   "Data": {
       "UserID": 70,
       "FullName": "Ravi",
-      "DLState": "CA",
+      "DLState": 2,
       "DLNumber": "CA45154",
       "HomeStreetAddress1": "TEST",
       "HomeStreetAddress2": "TES",
       "HomeCity": "TES",
-      "HomeState": "5",
+      "HomeState": 5,
       "HomeZipCode": "125487",
       "CompanyName": "TESA",
       "TaxIdentificationNumber": "41254SAW",
       "CompanyStreetAddress1": "DADAS",
       "CompanyStreetAddress2": "DASD",
       "CompanyCity": "DASD",
-      "CompanyState": "4",
+      "CompanyState": 4,
       "CompanyZipCode": "DASD",
       "CompanyContactName": "DASD",
       "CompanyContactTelephone": "1234567890",
@@ -870,30 +870,6 @@ export const getMapCenterData =
         }
       ]
     }
-}
-
-export const registerSupplyDiversityData=
-{
-  "Data": {
-    "AdditionalID": 0,
-    "UserID": 70,
-    "CompanyName": "TESA",
-    "ContactPerson": "Ravi",
-    "Title": "Raj",
-    "Address": "Test",
-    "City": "Test",
-    "State": "1",
-    "CompanyWebsite": "Test",
-    "Email": "test@gmail.com",
-    "ZipCode": "132456",
-    "PhoneNumber": "1234567899",
-    "Fax": "string",
-    "CellPhone": "1234567899",
-    "CategoryID": 0,
-    "ClassificationID": 0,
-    "ServicesProductsProvided": "Test Service",
-    "FileData": []
-  }
 }
 
 export const  getSupplierDiversityData={

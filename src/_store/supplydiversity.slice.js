@@ -30,19 +30,33 @@ function createExtraActions() {
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     return {
         get: get(),
+        insert:insert(),
         update: update()
     };
 
     function get() {
         return createAsyncThunk(
             `${name}/getUserData`,
-            async ({ id, portal }, { rejectWithValue }) => {
+            async ({ id }, { rejectWithValue }) => {
                 try {
                     const url = `${baseUrl}/GetRegisterSupplierDiversityAsync/${id}`;
                     const response = await trackPromise(fetchWrapper.get(url));
                     return response;
                 } catch (error) {
                     console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function insert() {
+        return createAsyncThunk(
+            `${name}/insert`,
+            async ({ id, transformedData }, { rejectWithValue }) => {
+                try {
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-SD`, { Data: transformedData }));
+                } catch (error) {
                     return rejectWithValue(error);
                 }
             }
@@ -61,7 +75,6 @@ function createExtraActions() {
             }
         );
     }
-
 }
 
 function createReducers() {

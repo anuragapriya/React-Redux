@@ -30,6 +30,7 @@ function createExtraActions() {
 
     return {
         get: get(),
+        insert:insert(),
         update: update()
     };
 
@@ -45,6 +46,19 @@ function createExtraActions() {
                     return response;
                 } catch (error) {
                     console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function insert() {
+        return createAsyncThunk(
+            `${name}/insert`,
+            async ({ id, transformedData }, { rejectWithValue }) => {
+                try {
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                } catch (error) {
                     return rejectWithValue(error);
                 }
             }
