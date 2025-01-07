@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
 import { AutocompleteTable, Download } from '_components';
 import {  UserFilter } from "container/admin";
-
+import Delete from '@mui/icons-material/Delete';
 const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit, setEditedRowId, handleChange }) => {
   const roles = userProfiles?.Roles?.map(role => ({ value: role.RoleID, label: role.RoleName })) || [];
   const statuses = userProfiles?.Statuses?.map(status => ({ value: status.StatusID, label: status.StatusName })) || [];
@@ -120,11 +120,11 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
         }}
       >
         <Download rows={data} headers={columns} filename={filename} />
-         <UserFilter handleFilterSubmit={handleFilterSubmit} />
+         <UserFilter  handleFilterSubmit={handleFilterSubmit} />
       </Box>
     ),
     renderRowActions: ({ row }) => (
-      <div style={{ display: 'flex', gap: '0.5rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem' }} className='tableicons'>
         <IconButton onClick={() => handleAddEdit(row)}>
           <Edit variant="contained" color="primary" />
         </IconButton>
@@ -132,7 +132,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
           {isLocked ? <Lock /> : <LockOpen />}
         </IconButton>
         <IconButton>
-          <DeleteForever variant="contained" color="secondary" />
+        <Delete variant="contained" color="secondary" />
         </IconButton>
       </div>
     ),

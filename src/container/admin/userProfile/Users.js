@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UserFilter, UserProfileList } from "container/admin";
 import { getAIUserProfileData } from '_utils/constant';
-
+import { Button } from '@material-ui/core';
 const Users = () => {
     const [portalKey, setPortalKey] = useState('MB');
     const userProfiles= getAIUserProfileData.Data;
@@ -65,7 +65,10 @@ const Users = () => {
                     handleFilterSubmit={()=>handleFilterSubmit}
                 />
            
-            <button onClick={handleSubmit}>Submit</button>
+           <Button type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary" className='submitbutton' onClick={handleSubmit}>Submit</Button>
         </>
     );
 };
