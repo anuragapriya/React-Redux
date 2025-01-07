@@ -29,14 +29,13 @@ export const registerValidationSchema = Yup.object().shape({
 export const passwordValidationSchema = (fullName) => Yup.object().shape({
     Password: Yup.string()
         .required('Password is required')
-        .test('minLength', value => value && value.length >= 16)
-        .test('uppercase', value => /[A-Z]/.test(value))
-        .test('lowercase', value => /[a-z]/.test(value))
-        .test('number', value => /[0-9]/.test(value))
-        .test('special', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
-        .test('FullName', function (value) {
-            // const { FullName } = this.parent;
-            return value && !value?.toLowerCase().includes(fullName?.toLowerCase());
+        .test('minLength', 'Password must be at least 16 characters', value => value && value.length >= 16)
+        .test('uppercase', 'Password must contain at least one uppercase letter', value => /[A-Z]/.test(value))
+        .test('lowercase', 'Password must contain at least one lowercase letter', value => /[a-z]/.test(value))
+        .test('number', 'Password must contain at least one number', value => /[0-9]/.test(value))
+        .test('special', 'Password must contain at least one special character', value => /[!@#$%^&*(),.?":{}|<>']/.test(value))
+        .test('FullName', 'Password must not contain your full name', function (value) {
+            return value && !value.toLowerCase().includes(fullName.toLowerCase());
         }),
 });
 

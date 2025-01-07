@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { otpValidationSchema } from "_utils/validationSchema";
 
-const OTPVerification = ({ open, handleClose }) => {
+const OTPVerification = ({ open, handleOTPSubmit }) => {
     const dispatch = useDispatch();
 
     // form validation rules 
@@ -21,19 +21,13 @@ const OTPVerification = ({ open, handleClose }) => {
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
 
     async function onSubmit(data) {
-        dispatch(alertActions.clear());
-        try {
-            handleClose();
-            dispatch(alertActions.success({ header: 'Reset Password', message: 'OTP Verified', showAfterRedirect: true }));
-        } catch (error) {
-            dispatch(alertActions.error(error));
-        }
+        const otp = Object.values(data).join('');
+        handleOTPSubmit(otp);
     }
 
     return (
         <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
         >
@@ -45,7 +39,7 @@ const OTPVerification = ({ open, handleClose }) => {
                 </Box>
                 <form className="form p-0" onSubmit={handleSubmit(onSubmit)}>
                     <div className="row m-0">
-                        {['number1', 'number2', 'number3', 'number4', 'number5'].map((name, index) => (
+                        {['number1', 'number2', 'number3', 'number4', 'number5','number6'].map((name, index) => (
                             <Grid item xs={2} className="ResetLogo p-0" key={index}>
                                 <TextField
                                     {...register(name)}

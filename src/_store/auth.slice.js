@@ -44,7 +44,9 @@ function createExtraActions() {
         logout: logout(),
         refreshToken: refreshToken(),
         forgotPasswordRequest: forgotPasswordRequest(),
-        resetPasswordRequest:resetPasswordRequest()
+        resetPasswordRequest:resetPasswordRequest(),
+        generateOtp:generateOtp(),
+        validateOtp:validateOtp()
     };
 
     function login() {
@@ -100,7 +102,7 @@ function createExtraActions() {
             `${name}/forgotPasswordRequest`,
             async ({ email }, { rejectWithValue }) => {
                 try {
-                    const url = new URL(`${baseUrl}/forgot-password`);
+                    const url = new URL(`${baseUrl}/forgot-password/${email}`);
                     url.searchParams.append('EmailAddress', email);
                     return await trackPromise(fetchWrapper.post(url.toString()));
                 } catch (error) {
@@ -113,9 +115,37 @@ function createExtraActions() {
     function resetPasswordRequest() {
         return createAsyncThunk(
             `${name}/resetPasswordRequest`,
-            async ({ id, password }, { rejectWithValue }) => {
+            async ({ userId, newPassword }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/reset-password`, { UserId: id, Password: password }));
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/reset-password`, { UserId: userId, Password: newPassword }));
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function generateOtp() {
+        return createAsyncThunk( 
+            `${name}/generateOtp`,
+            async ({ email }, { rejectWithValue }) => {
+                try {
+                    // const url = new URL(`${baseUrl}/GenerateOtp/${email}`);
+                    // url.searchParams.append('EmailAddress', email);
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/GenerateOtp/${email}`));
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function validateOtp() {
+        return createAsyncThunk( 
+            `${name}/validateOtp`,
+            async ({ email, otp }, { rejectWithValue }) => {
+                try {
+                    return await trackPromise(fetchWrapper.post(`${baseUrl}/ValidateOtp`, { EmailAddress: email, OTP: otp }));
                 } catch (error) {
                     return rejectWithValue(error);
                 }
