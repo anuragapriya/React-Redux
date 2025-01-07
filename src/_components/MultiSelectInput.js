@@ -1,57 +1,60 @@
 import React, { useEffect } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Autocomplete, InputAdornment } from '@mui/material';
+import { FormControl, TextField, InputAdornment, Autocomplete } from '@mui/material';
+import { Controller } from 'react-hook-form';
 import Checkbox from '@mui/material/Checkbox';
 import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import ErrorIcon from '@mui/icons-material/Error';
-const MultiSelectInput = ({ options, onChange, label, error, helperText, handleBlur, name, value, onFocus }) => {
-  const [selectedOptions, setSelectedOptions] = React.useState([]);
-  // console.log(value);
+
+const MultiSelectInput = ({ control,setValue, options, onChange, label, error, helperText, handleBlur, name, value }) => {
+  
+  // Convert comma-separated value to array of selected options
+  const selectedOptions = value
+    ? value.split(',').map(val => options.find(option => option.value.toString() === val))
+    : [];
+
   useEffect(() => {
-    // Sync state with the `value` prop when it changes
-    setSelectedOptions(value || []);
-  }, [value]);
+    // Synchronize field value with the classification state
+    setValue(name, value);
+  }, [value, control, name]);
+
+  const handleSelectAll = () => {
+    if (selectedOptions.length === options.length) {
+      onChange('');
+    } else {
+      onChange(options.map(option => option.value).join(','));
+    }
+  };
+
+  const handleOptionChange = (checkedValue, isChecked) => {
+    let filteredValue;
+    if (isChecked) {
+      filteredValue = [...selectedOptions, options.find(option => option.value.toString() === checkedValue)];
+    } else {
+      filteredValue = selectedOptions.filter(option => option.value.toString() !== checkedValue);
+    }
+    filteredValue = filteredValue.filter(option => option.value.toString() !== 'Select All');
+    onChange(filteredValue.map(option => option.value).join(','));
+  };
+
   const handleChange = (event, value, reason) => {
     if (reason === 'clear') {
-      setSelectedOptions([]);
-      onChange([]);
-      return;
-    }
-
-    if (reason === 'removeOption') {
-      const removedValue = value.map(option => option.value);
+      onChange('');
+    } else if (reason === 'removeOption') {
+      // const removedValue = value.map(option => option.value.toString());
+      // const filteredValue = selectedOptions.filter(option => !removedValue.includes(option.value.toString()));
+      // onChange(filteredValue.map(option => option.value).join(','));
+      const removedValue = value.map(option => option.value.toString());
       const filteredValue = selectedOptions.filter(option => removedValue.includes(option.value));
-      setSelectedOptions(filteredValue);
-      onChange(filteredValue);
-      return;
-    }
-
-    const checkedValue = event.target.value;
-    const isChecked = event.target.checked;
-
-    if (checkedValue === 'Select All') {
-      if (selectedOptions.length === options.length) {
-        setSelectedOptions([]);
-        onChange([]);
-      } else {
-        setSelectedOptions(options);
-        onChange(options);
-      }
+      onChange(filteredValue.map(option => option.value).join(','));
     } else {
-      let filteredValue;
-      if (isChecked) {
-        // Add the checked item to the selected options
-        filteredValue = [...selectedOptions, options.find(option => option.value === checkedValue)];
+      const checkedValue = event.target.value;
+      const isChecked = event.target.checked;
+      if (checkedValue === 'Select All') {
+        handleSelectAll();
       } else {
-        // Remove the unchecked item from the selected options
-        filteredValue = selectedOptions.filter(option => option.value !== checkedValue);
+        handleOptionChange(checkedValue, isChecked);
       }
-
-      filteredValue = filteredValue.filter(option => option.value !== 'Select All');
-      setSelectedOptions(filteredValue);
-      onChange(filteredValue);
     }
   };
 
@@ -60,65 +63,76 @@ const MultiSelectInput = ({ options, onChange, label, error, helperText, handleB
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <Autocomplete
-        multiple
-        options={[{ label: 'Select All', value: 'Select All' }, ...options]}
-        disableCloseOnSelect
-        getOptionLabel={(option) => option.label}
-      
-        filterOptions={createFilterOptions({ matchFrom: 'start' })}
-        renderOption={(props, option) => {
-          const isSelected = option.value === 'Select All' ? selectedOptions.length === options.length : isOptionSelected(option);
-          return (
-            <li {...props}>
-              <Checkbox
-                style={{ marginRight: 8 }}
-                checked={isSelected}
-                value={option.value} // Set the value here
-              />
-              {option.label}
-            </li>
-          );
-        }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            placeholder="Search options"
-            error={!!error}
-            helperText={helperText}
-            onBlur={handleBlur}
-            onFocus={onFocus}
-            InputProps={{
-              ...params.InputProps,
-              name: name,
-              endAdornment: (
-                <>
-                  {params.InputProps.endAdornment}
-                  {error && (
-                    <InputAdornment position="end">
-                      <ErrorIcon style={{ color: 'red' }} />
-                    </InputAdornment>
-                  )}
-                </>
-              ),
+    <FormControl fullWidth margin="normal">
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <Autocomplete
+            name={name}
+            multiple
+            options={[{ label: 'Select All', value: 'Select All' }, ...options]}
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.label}
+            filterOptions={createFilterOptions({ matchFrom: 'start' })}
+            renderOption={(props, option) => {
+              const isSelected = option.value === 'Select All' ? selectedOptions.length === options.length : isOptionSelected(option);
+              return (
+                <li  {...props}>
+                  <Checkbox
+                    name={name}
+                    style={{ marginRight: 8 }}
+                    checked={isSelected}
+                    value={option.value}
+                    onChange={(e) => handleChange(e, null, null)}
+                  />
+                  {option.label}
+                </li>
+              );
             }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                name={name}
+                label={label}
+                placeholder="Search options"
+                error={!!error}
+                helperText={helperText}
+                onBlur={async (e) => {
+                  console.log('Blur event:', e);
+                  console.log('Field value:', field.value);
+                  field.onBlur(e);
+                  if (handleBlur) await handleBlur(e);
+                }}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <>
+                      {params.InputProps.endAdornment}
+                      {error && (
+                        <InputAdornment position="end">
+                          <ErrorIcon style={{ color: 'red' }} />
+                        </InputAdornment>
+                      )}
+                    </>
+                  ),
+                }}
+              />
+            )}
+            renderTags={(value, getTagProps) =>
+              value.length > 2
+                ? <Chip  label={`${value.length} options selected`} />
+                : value.map((option, index) => (
+                  <Chip  label={option.label} {...getTagProps({ index })} />
+                ))
+            }
+            value={selectedOptions}
+            onChange={handleChange}
           />
         )}
-        renderTags={(value, getTagProps) =>
-          value.length > 2
-            ? <Chip label={`${value.length} options selected`} />
-            : value.map((option, index) => (
-              <Chip label={option.label} {...getTagProps({ index })} />
-            ))
-        }
-        value={selectedOptions}
-        onChange={handleChange}
-        name={name}
       />
-    </Box>
+    </FormControl>
   );
-}
+};
 
 export default MultiSelectInput;

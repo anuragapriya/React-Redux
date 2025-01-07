@@ -1,29 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { AutocompleteInput, MobileNumberInput, MultiSelectAutocomplete, CustomFormControl, MultiSelectInput } from '_components'
-import { supplierClassificationData, supplierBusinessData } from '_utils/constant';
-import { Typography, Button } from '@mui/material';
-const SupplierDetails = ({ register, errors, stateData, control, handleBlur,classificationData, businessCategoryData, getCatagoryID }) => {
-    const [inputColors, setInputColors] = useState({});
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    useEffect(()=>{
+import { AutocompleteInput, MobileNumberInput, MultiSelectInput, CustomFormControl } from '_components';
+import { Typography } from '@mui/material';
 
-        if (getCatagoryID?.length) {
-            const initialDefaultValues = classificationData.filter(option =>
-                getCatagoryID.includes(option.value)
-            );
-            // console.log(initialDefaultValues);
-            // setSelectedOptions(defaultValues);
-            setSelectedOptions(initialDefaultValues);
-        }
-    },[getCatagoryID])
+const SupplierDetails = ({ register,
+    stateData,
+    agencyData,
+    classificationData,
+    businessCategoryData,
+    control,
+    errors,
+    setValue ,
+    handleBlur,
+    handleClassificationChange,
+    classification
+    }) => {
 
-    const handleSelectionChange = (newValue) => {
-        // console.log(newValue);
-        setSelectedOptions(newValue);
-        // console.log(selectedOptions);
-    };
-    return <>
+    return (
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
@@ -33,7 +26,6 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
@@ -44,7 +36,6 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
 
@@ -59,25 +50,23 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                         error={!!errors.CategoryID}
                         helperText={errors.CategoryID?.message}
                         handleBlur={handleBlur}
-                        // onFocus={handleOtherFocus}
-                        inputColors={inputColors}
                     />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <Typography component="div" className="passwordcheck mar-top-16 border-none">
+                <Typography component="div" className="passwordcheck  border-none">
                     <MultiSelectInput
                         id="ClassificationID"
+                        control={control}
                         name="ClassificationID"
                         label="Classification"
-                        control={control}
-                        value={selectedOptions} 
                         options={classificationData}
-                        onChange={handleSelectionChange}
+                        value={classification}
+                        onChange={handleClassificationChange}
                         error={!!errors.ClassificationID}
                         helperText={errors.ClassificationID?.message}
                         handleBlur={handleBlur}
-                        inputColors={inputColors}
+                        setValue={setValue}
                     />
                 </Typography>
             </Grid>
@@ -89,18 +78,54 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="expirydate"
+                    id="ExpiryDate"
                     label="Expiry Date of the Certificate"
                     type="text"
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
+                />
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="AgencyID"
+                        name="AgencyID"
+                        label="Name of Agency"
+                        control={control}
+                        options={agencyData}
+                        error={!!errors.AgencyID}
+                        helperText={errors.AgencyID?.message}
+                        handleBlur={handleBlur}
+                    />
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="AgencyStateID"
+                        name="AgencyStateID"
+                        label="Agency State"
+                        control={control}
+                        options={stateData}
+                        error={!!errors.AgencyStateID}
+                        helperText={errors.AgencyStateID?.message}
+                        handleBlur={handleBlur}
+                    />                    
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <CustomFormControl
+                    id="Title"
+                    label="Title"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
@@ -111,21 +136,9 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <CustomFormControl
-                    id="Title"
-                    label="Title"
-                    type="text"
-                    register={register}
-                    errors={errors}
-                    handleBlur={handleBlur}
-                    inputColors={inputColors}
-                />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            </Grid>            
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="Email"
                     label="Email"
@@ -133,10 +146,9 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <MobileNumberInput
                     control={control}
                     name="PhoneNumber"
@@ -144,7 +156,16 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     rules={{ required: 'Phone Number is required' }}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
+                />
+            </Grid>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
+                <CustomFormControl
+                    id="Fax"
+                    label="Fax"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
                 />
             </Grid>
             <Grid item xs={12} sm={12} md={12} className='supplierDetailes'>
@@ -155,10 +176,9 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="City"
                     label="City"
@@ -166,22 +186,23 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
+            <Typography component="div" className="passwordcheck border-none">
                 <AutocompleteInput
+                    id="State"
                     control={control}
                     name="State"
                     label="State"
                     options={stateData}
-                    error={!!errors.state}
-                    helperText={errors.state?.message}
+                    error={!!errors.State}
+                    helperText={errors.State?.message}
                     handleBlur={handleBlur}
-                    inputColor={inputColors['HomeState']}
                 />
+                </Typography>
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="ZipCode"
                     label="ZipCode"
@@ -189,11 +210,10 @@ const SupplierDetails = ({ register, errors, stateData, control, handleBlur,clas
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
-                    inputColors={inputColors}
                 />
-            </Grid>
+            </Grid>           
         </Grid>
-    </>
+    );
 };
 
 export default SupplierDetails;

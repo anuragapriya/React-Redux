@@ -26,7 +26,7 @@ export const registerValidationSchema = Yup.object().shape({
         .required('Please select any Portal'),
 });
 
-export const passwordValidationSchema =(fullName)=> Yup.object().shape({
+export const passwordValidationSchema = (fullName) => Yup.object().shape({
     Password: Yup.string()
         .required('Password is required')
         .test('minLength', value => value && value.length >= 16)
@@ -146,41 +146,22 @@ export const uploadValidationSchema = Yup.object().shape({
         .required('Document type is required')
         .nullable(),
 });
+
 export const SupplierDetailsSchema = Yup.object().shape({
-    CompanyName: Yup.string()
-        .required('Company Name is Required'),
-    CompanyWebsite: Yup.string()
-        .required('Company Website is Required'),
-    CategoryID: Yup.string()
-        .nullable()
-        .required('Business Category is Required'),
-    ClassificationID: Yup.array()
-        .nullable()
-        .default([])
-        .min(1, 'At least one classification is required') // Ensure at least one option is selected
-        .required('Classification is required'),  // Ensure the field is not empty,
-    ServicesProductsProvided: Yup.string()
-        .required('Services are Required'),
-    expirydate: Yup.string()
-        .required('Expiry Date is Required'),
-    Contactperson: Yup.string()
-        .required('Contact Person is Required'),
-    Title: Yup.string()
-        .required('Title is Required'),
-    Email: Yup.string()
-        .required('Email is required')
-        .email('Please provide a valid email address'),
-    PhoneNumber: Yup.string()
-        .required('Phone Number is required')
-        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
-    Address: Yup.string()
-        .required('address is required'),
-    State: Yup.string()
-        .nullable()
-        .required('State is required'),
-    City: Yup.string()
-        .nullable()
-        .required('City is Required'),
-    ZipCode: Yup.string()
-        .required('Zip code is required'),
-})
+    CompanyName: Yup.string().nullable().required('Company Name is Required'),
+    CompanyWebsite: Yup.string().nullable().required('Company Website is Required'),
+    CategoryID: Yup.number().nullable().required('Business Category is Required'),
+    ClassificationID: Yup.string().nullable().required('Classification is required'),
+    ServicesProductsProvided: Yup.string().nullable().required('Services are Required'),
+    ExpiryDate: Yup.string().nullable().required('Expiry Date is Required'),
+    ContactPerson: Yup.string().nullable().required('Contact Person is Required'),
+    Title: Yup.string().nullable().required('Title is Required'),
+    Email: Yup.string().nullable().required('Email is required').email('Please provide a valid email address'),
+    PhoneNumber: Yup.string().nullable().required('Phone Number is required').matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
+    Address: Yup.string().nullable().required('Address is required'),
+    State: Yup.number().nullable().required('State is required'),
+    City: Yup.string().nullable().required('City is Required'),
+    ZipCode: Yup.string().nullable().required('Zip code is required'),
+    AgencyID: Yup.number().nullable().required('Agency is Required'),
+    AgencyStateID: Yup.number().nullable().required('Agency State is Required'),    
+});

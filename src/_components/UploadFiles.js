@@ -11,6 +11,8 @@ import { convertToBase64,base64ToFile ,fileExtension ,fileSizeReadable,fileTypeA
 import { uploadLabels } from "_utils/labels";
 import ModalPopup from "./ModalPopup";
 import { materialsymbolsupload  , materialsymbolsdownload ,midelete} from '../images';
+import Delete from '@mui/icons-material/Delete';
+import DownloadIcon from '@mui/icons-material/Download';
 const UploadFiles = ({
     portalKey,
     selectedDocumentType,
@@ -201,14 +203,17 @@ const UploadFiles = ({
                                 if (uploadedDocument && uploadedDocument.length > 0) {
                                     return (
                                         <div className="mar-top-16" key={type.DocumentTypeID}>
-                                            <Typography component="div">
+                                            <Typography component="div" >
                                                 <CheckCircleRounded fontSize="small" style={{ color: green[500] }} /> {type.DocumentDescription}
+                                                <Typography component="div" className="DocumentTypeID">
                                                 <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
-                                                    <img src={materialsymbolsdownload} alt="material-symbols_download"></img>
+                                                   <DownloadIcon variant="contained" color="secondary"  />
+                                                    {/* <img src={materialsymbolsdownload} alt="material-symbols_download"></img> */}
                                                 </IconButton>
                                                 <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
-                                                    <img src={midelete} alt="material-midelete"></img>
+                                                <Delete variant="contained" color="secondary" />
                                                 </IconButton>
+                                                </Typography>
                                             </Typography>
                                         </div>
                                     );

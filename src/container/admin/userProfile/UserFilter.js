@@ -5,8 +5,21 @@ import { CustomFormControl, AutocompleteInput } from '_components';
 import { alertActions, masterActions } from '_store';
 import { Button } from '@mui/material';
 import CustomTextFieldInput from '_components/CustomTextFieldInput';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
 
 const UserFilter = ({ handleFilterSubmit }) => {
+    const [open, setOpen] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+        setOpen((previousOpen) => !previousOpen);
+    };
+
+    const canBeOpen = open && Boolean(anchorEl);
+    const id = canBeOpen ? 'spring-popper' : undefined;
     const dispatch = useDispatch();
     const portals = useSelector((x) => x.master?.portalData);
     const portalData = (!portals?.loading && !portals?.error) ? portals?.map(x => ({
@@ -18,7 +31,7 @@ const UserFilter = ({ handleFilterSubmit }) => {
         dispatch(masterActions.getPortalData());
     }, [dispatch]);
 
-    const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const { handleSubmit, control, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
@@ -33,38 +46,49 @@ const UserFilter = ({ handleFilterSubmit }) => {
         }
     };
     return <>
-        <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
-            <AutocompleteInput
-                control={control}
-                name="PortalId"
-                label="Select Portal"
-                options={portalData}
-                error={!!errors.PortalId}
-                helperText={errors.PortalId?.message}
-            />
- <CustomTextFieldInput
-                control={control}
-                name="email"
-                label="Email Address"                
-                error={!!errors.email}
-                helperText={errors.email ? errors.email.message : ''}
-            />
-            <CustomTextFieldInput
-                control={control}
-                name="fullName"
-                label="Full Name"                
-                error={!!errors.fullName}
-                helperText={errors.fullName ? errors.fullName.message : ''}
-            />
-            <Button
-                type="submit"
-                variant="contained"
-                className='Loginbutton'
-                color="primary"
-            >
-                Search
-            </Button>
-        </form>
+        <button aria-describedby={id} type="button" onClick={handleClick}>
+            Filter
+        </button>
+        <Popper id={id} open={open} anchorEl={anchorEl} transition>
+            {({ TransitionProps }) => (
+                <Fade {...TransitionProps}>
+                    <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+                        <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
+                            <AutocompleteInput
+                                control={control}
+                                name="PortalId"
+                                label="Select Portal"
+                                options={portalData}
+                                error={!!errors.PortalId}
+                                helperText={errors.PortalId?.message}
+                            />
+                            <CustomTextFieldInput
+                                control={control}
+                                name="email"
+                                label="Email Address"
+                                error={!!errors.email}
+                                helperText={errors.email ? errors.email.message : ''}
+                            />
+                            <CustomTextFieldInput
+                                control={control}
+                                name="fullName"
+                                label="Full Name"
+                                error={!!errors.fullName}
+                                helperText={errors.fullName ? errors.fullName.message : ''}
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                className='Loginbutton'
+                                color="primary"
+                            >
+                                Search
+                            </Button>
+                        </form>
+                    </Box>
+                </Fade>
+            )}
+        </Popper>
     </>;
 }
 

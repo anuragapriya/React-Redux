@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { alertActions, authActions, registrationActions } from '_store';
+import { alertActions, authActions } from '_store';
 import Grid from "@material-ui/core/Grid";
 import Box from '@mui/material/Box';
 import Link from "@material-ui/core/Link";
@@ -24,7 +24,7 @@ const NewPassword = () => {
   const id = new URLSearchParams(location.search).get('verifyId');
   const FullName = "Anu";
 
-  const { register, handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
+  const {  handleSubmit, control, formState: { errors, isValid }, watch, trigger } = useForm({
     resolver: yupResolver(passwordValidationSchema(FullName)),
   });
   const password = watch('Password', '');

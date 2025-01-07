@@ -49,7 +49,7 @@ const fakeBackend = () => {
                         return getMapCenterUser(url);
                     case url.match('api/Account/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
-                    case url.match(/\/api\/Account\/\d+\?portal=\w+$/) && opts.method === 'GET':
+                    case url.match(/\/api\/Account\/GetRegisterSupplierDiversityAsync\/\d+$/) && opts.method === 'GET':
                         return getSupplierDiversityUser(url);
                     case url.match('/api/Account/Register-SD') && opts.method === 'POST':
                         return updateSupplierDiversityUser();
@@ -278,7 +278,10 @@ const fakeBackend = () => {
                     let newData = JSON.parse(JSON.stringify(supplierDiversityData));
 
                     newData.Data.DocumentData = [...supplierDiversityUserData.Data.DocumentData];
-
+                    newData.Data.State1 = [...supplierDiversityUserData.Data.State1];
+                    newData.Data.BusinessCategory = [...supplierDiversityUserData.Data.BusinessCategory];
+                    newData.Data.Classification = [...supplierDiversityUserData.Data.Classification];
+                    newData.Data.Agency = [...supplierDiversityUserData.Data.Agency];
                     // Save the updated data back to localStorage
                     localStorage.setItem(supplierDiversityUserKey, JSON.stringify(newData));
 
