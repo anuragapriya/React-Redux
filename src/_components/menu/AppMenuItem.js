@@ -38,37 +38,39 @@ export const AppMenuItem = (props) => {
 
   const MenuItemRoot = (
     <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick} >
-        {/* Display an icon if any */}
-        {!!Icon && (
-          <span className="menuItemIcon">
-            <Icon />
-          </span>
-        )}
-        {name}
-        {/* Display the expand menu if the item has children */}
-        {isExpandable && (anchorEl ? <ExpandLess /> : <ExpandMore />)}
-      </AppMenuItemComponent>
+      {/* Display an icon if any */}
+      {!!Icon && (
+        <span className="menuItemIcon">
+          <Icon />
+        </span>
+      )}
+      {name}
+      {/* Display the expand menu if the item has children */}
+      {isExpandable && (anchorEl ? <ExpandLess /> : <ExpandMore />)}
+    </AppMenuItemComponent>
   );
 
-  const MenuItemChildren = 
-  isExpandable && (
-    <Menu
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-       transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-    >
-      {items.map((item, index) => (
-        <AppMenuItem {...item} key={index} />
-      ))}
-    </Menu>
-  )
-  
+  const MenuItemChildren =
+    isExpandable && (
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      >
+        {items.map((item, index) => (
+          <MenuItem key={index} onClick={handleClose}>
+            <AppMenuItem {...item} />
+          </MenuItem>
+        ))}
+      </Menu>
+    )
+
   return (
     <>
-       {MenuItemRoot}
-       {MenuItemChildren}
+      {MenuItemRoot}
+      {MenuItemChildren}
       {/* {isExpandable && (
         <Menu
           anchorEl={anchorEl}
@@ -91,12 +93,12 @@ export const AppMenuItem = (props) => {
 const useStyles = makeStyles(theme =>
   createStyles({
     menuItem: {
-  
+
       '&.active': {
         background: '#DFEDFF',
-    
+
       },
-      
+
     },
 
   }),

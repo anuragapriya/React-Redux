@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from 'react-router-dom';
-import { Home, Users } from "container/admin";
-import { ManageAccounts ,AppSettingsAlt,SupportAgent,QuestionAnswerOutlined,NotificationsNone} from "@mui/icons-material";
+import {  Users } from "container/admin";
+import { ManageAccounts ,AppSettingsAlt,SupportAgent,QuestionAnswerOutlined,NotificationsNone,SupportAgentOutlined} from "@mui/icons-material";
 import DashboardLayout from "./DashboardLayout";
 import { Configuration } from "container/configurations";
 import UnderConstruction from "_components/UnderConstruction";
@@ -28,15 +28,11 @@ const UsersLayout = () => {
             Icon: NotificationsNone,
         },
         {
-            name: 'FAQ',
-            link: 'faq',
-            Icon: QuestionAnswerOutlined,
-        },
-        ,
-        {
             name: 'Help Desk',
-            link: 'helpdesk',
             Icon: SupportAgent,
+               items:[ {Icon: SupportAgentOutlined, name: 'Support', link: 'support' },
+            {Icon: QuestionAnswerOutlined, name: 'FAQ', link: 'faq' },
+           ]
         },
     ];
     return (
@@ -46,7 +42,7 @@ const UsersLayout = () => {
                 <Route path="configuration" element={<Configuration />} />
                 <Route path="announcement" element={<UnderConstruction/>}/>
                 <Route path="faq" element={<UnderConstruction/>}/>
-                <Route path="helpdesk" element={<UnderConstruction/>}/>
+                <Route path="support" element={<UnderConstruction/>}/>
             </Route>
         </Routes>
     );
