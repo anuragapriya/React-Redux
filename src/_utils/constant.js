@@ -916,8 +916,9 @@ export const  getSupplierDiversityData={
     "Fax": "9987654321",
     "CellPhone": "9987654321",
     "CategoryID": "3",
-    "ClassificationID": "2,3",
+    "ClassificationID": "3,4",
     "ServicesProductsProvided": "Website Development",
+    "expirydate": "12-3-2024",
     "FileData": [
       {
         "ID": 20,

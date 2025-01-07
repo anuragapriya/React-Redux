@@ -8,26 +8,25 @@ import { SupplierDetailsSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UnderConstruction, UploadFiles } from '_components';
 import { alertActions, supplyDiversityAction, userActions } from '_store';
-import SupplierDetails from '../user/ProfileDetails/SupplierDetails'
+import SupplierDetails from '../user/ProfileDetails/SupplierDetails';
 import { supplierSupportedFormat } from '_utils/constant';
-
 import { diversityRegistrationLabels } from '_utils/labels';
 import { raphaelinfo } from '../../images';
+
 const ManageProfileSD = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const header = 'Supplier Diversity';
     const { portalkey, id } = useParams();
-    // const user = useSelector(x => x.users?.item);
     const user = useSelector(x => x.supplydiversity?.userData);
     const [selectedDocumentType, setSelectedDocumentType] = useState(null);
     const [inputColors, setInputColors] = useState({});
     const documentTypeData = user?.DocumentData || [];
     const [files, setFiles] = useState([]);
+    const [classification, setClassification] = useState('');
     const states = user?.State1 || [];
     const classificationDropDownData = user?.Classification || [];
     const businessDropDownData = user?.BusinessCategory || [];
-    const getCatagoryID = user?.ClassificationID ||[];
 
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
@@ -46,19 +45,28 @@ const ManageProfileSD = () => {
         value: x.CategoryID.toString()
     }));
 
-    const { register, handleSubmit, control, reset, formState: { errors, isValid }, trigger } = useForm({
-        resolver: yupResolver(SupplierDetailsSchema)
+    const formatPhoneNumber = (number) => {
+        const cleaned = ('' + number).replace(/\D/g, '');
+        const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            return `${match[1]}-${match[2]}-${match[3]}`;
+        }
+        return number;
+    };
+
+    const { register, handleSubmit, setValue, control, reset, formState: { errors, isValid }, trigger } = useForm({
+        resolver: yupResolver(SupplierDetailsSchema),
     });
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 dispatch(supplyDiversityAction.clear());
                 const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
-                const data = user?.Data;
+                const userData = user?.Data;
+                const data = { ...userData, PhoneNumber: formatPhoneNumber(userData.PhoneNumber) };
                 reset(data);
-                console.log(data);
-                // applyInitialColors(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
@@ -70,6 +78,8 @@ const ManageProfileSD = () => {
                         File: file.File
                     })));
                 }
+
+                setClassification(data?.ClassificationID || '');
             } catch (error) {
                 dispatch(alertActions.error({
                     message: error?.message || error,
@@ -84,12 +94,13 @@ const ManageProfileSD = () => {
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
-            // Validate that all required document types have files
-            const missingDocumentTypes = documentTypeData.filter(docType =>
+            const requiredDocumentTypes = documentTypeData.filter(docType => !docType.DocumentDescription.includes('Additional'));
+
+            const missingDocumentTypes = requiredDocumentTypes.filter(docType =>
                 !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
             );
 
-            if (!documentData || missingDocumentTypes.length > 0) {
+            if (missingDocumentTypes.length > 0) {
                 const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
                 dispatch(alertActions.error({
                     message: `Missing files for document types: ${missingDescriptions}`,
@@ -114,7 +125,7 @@ const ManageProfileSD = () => {
                 Fax: data.Fax,
                 CellPhone: data.CellPhone,
                 CategoryID: data.CategoryID,
-                ClassificationID: data.ClassificationID,
+                ClassificationID: classification,
                 ServicesProductsProvided: data.ServicesProductsProvided,
                 FileData: files,
             };
@@ -133,22 +144,12 @@ const ManageProfileSD = () => {
         }
     };
 
-    // const handleOnChange = (event,newvalue) => {
-    //     setSelectedDocumentType(newvalue.value);
-    // };
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        console.log(fieldName);
-        await trigger(fieldName); // Trigger validation for the field
-
-        // const fieldError = errors[fieldName];
-
-        // setInputColors(prevColors => ({
-        //     ...prevColors,
-        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        // }));
+        console.log(`Triggering validation for: ${fieldName}`);
+        const result = await trigger(fieldName);
+        console.log(`Validation result for ${fieldName}:`, result);
     };
-
 
     const handleOnChange = (event, newvalue) => {
         setSelectedDocumentType(newvalue?.value);
@@ -156,8 +157,11 @@ const ManageProfileSD = () => {
     const handleFileChange = (newFiles) => {
         setFiles(newFiles);
     };
-    return (
+    const handleClassificationChange = (newValue) => {
+        setClassification(newValue);
+    };
 
+    return (
         <>
             {!(user?.loading || user?.error) && (
                 <Typography component="div" className="MapCenterAccecss">
@@ -174,16 +178,22 @@ const ManageProfileSD = () => {
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                                <SupplierDetails register={register} errors={errors} control={control} stateData={stateData} businessCategoryData={businessCategoryData} classificationData={classificationData} handleBlur={handleBlur} getCatagoryID={getCatagoryID} trigger={trigger} />
+                                                <SupplierDetails register={register} errors={errors} control={control}
+                                                    stateData={stateData}
+                                                    businessCategoryData={businessCategoryData}
+                                                    handleClassificationChange={handleClassificationChange}
+                                                    handleBlur={handleBlur}
+                                                    classification={classification}
+                                                    classificationData={classificationData}
+                                                    trigger={trigger}
+                                                    setValue={setValue} />
                                             </Typography>
                                         </Grid>
 
                                         <Grid item xs={12} sm={12} md={4} >
                                             <Typography component="div" className="Personal-Informationsheading">
-
                                                 <Grid item xs={12} sm={6} md={12} >
-                                                    <Typography component="h2" variant="h5" >Documents uplaod <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
-
+                                                    <Typography component="h2" variant="h5" >Documents upload <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                     <Typography component="div" className="passwordcheck">
                                                         <AutocompleteInput
                                                             control={control}
