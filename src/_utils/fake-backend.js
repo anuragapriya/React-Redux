@@ -278,6 +278,9 @@ const fakeBackend = () => {
                     let newData = JSON.parse(JSON.stringify(supplierDiversityData));
 
                     newData.Data.DocumentData = [...supplierDiversityUserData.Data.DocumentData];
+                    newData.Data.State1 = [...supplierDiversityUserData.Data.State1];
+                    newData.Data.BusinessCategory = [...supplierDiversityUserData.Data.BusinessCategory];
+                    newData.Data.Classification = [...supplierDiversityUserData.Data.Classification];
 
                     // Save the updated data back to localStorage
                     localStorage.setItem(supplierDiversityUserKey, JSON.stringify(newData));
