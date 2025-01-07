@@ -778,7 +778,7 @@ export const supplierBusinessData = [
 
 export const supportedFormat = ['.jpg', '.png', '.doc', '.docx', '.pdf']
 
-export const supplierSupportedFormat = ['.pdf', '.doc', '.docs', '.csv', '.xslx', '.xls', 'txt', '.bmp', '.jpg', '.gif']
+export const supplierSupportedFormat = ['.pdf', '.doc', '.docx', '.csv', '.xslx', '.xls', '.txt', '.bmp', '.jpg', '.gif']
 
 export const registerMapCenter =
 {
