@@ -4,15 +4,17 @@ import { AutocompleteInput, MobileNumberInput, MultiSelectInput, CustomFormContr
 import { Typography } from '@mui/material';
 
 const SupplierDetails = ({ register,
-    errors,
     stateData,
-    control,
-    handleBlur,
-    handleClassificationChange,
-    classification,
+    agencyData,
     classificationData,
     businessCategoryData,
-    setValue }) => {
+    control,
+    errors,
+    setValue ,
+    handleBlur,
+    handleClassificationChange,
+    classification
+    }) => {
 
     return (
         <Grid container spacing={3}>
@@ -80,8 +82,46 @@ const SupplierDetails = ({ register,
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <CustomFormControl
-                    id="expirydate"
+                    id="ExpiryDate"
                     label="Expiry Date of the Certificate"
+                    type="text"
+                    register={register}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                />
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="AgencyID"
+                        name="AgencyID"
+                        label="Name of Agency"
+                        control={control}
+                        options={agencyData}
+                        error={!!errors.AgencyID}
+                        helperText={errors.AgencyID?.message}
+                        handleBlur={handleBlur}
+                    />
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="AgencyStateID"
+                        name="AgencyStateID"
+                        label="Agency State"
+                        control={control}
+                        options={stateData}
+                        error={!!errors.AgencyStateID}
+                        helperText={errors.AgencyStateID?.message}
+                        handleBlur={handleBlur}
+                    />                    
+                </Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+                <CustomFormControl
+                    id="Title"
+                    label="Title"
                     type="text"
                     register={register}
                     errors={errors}
@@ -97,18 +137,8 @@ const SupplierDetails = ({ register,
                     errors={errors}
                     handleBlur={handleBlur}
                 />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <CustomFormControl
-                    id="Title"
-                    label="Title"
-                    type="text"
-                    register={register}
-                    errors={errors}
-                    handleBlur={handleBlur}
-                />
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            </Grid>            
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="Email"
                     label="Email"
@@ -118,12 +148,22 @@ const SupplierDetails = ({ register,
                     handleBlur={handleBlur}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <MobileNumberInput
                     control={control}
                     name="PhoneNumber"
                     label="Phone Number"
                     rules={{ required: 'Phone Number is required' }}
+                    errors={errors}
+                    handleBlur={handleBlur}
+                />
+            </Grid>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
+                <CustomFormControl
+                    id="Fax"
+                    label="Fax"
+                    type="text"
+                    register={register}
                     errors={errors}
                     handleBlur={handleBlur}
                 />
@@ -138,7 +178,7 @@ const SupplierDetails = ({ register,
                     handleBlur={handleBlur}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="City"
                     label="City"
@@ -148,20 +188,21 @@ const SupplierDetails = ({ register,
                     handleBlur={handleBlur}
                 />
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
             <Typography component="div" className="passwordcheck border-none">
                 <AutocompleteInput
+                    id="State"
                     control={control}
                     name="State"
                     label="State"
                     options={stateData}
-                    error={!!errors.state}
-                    helperText={errors.state?.message}
+                    error={!!errors.State}
+                    helperText={errors.State?.message}
                     handleBlur={handleBlur}
                 />
                 </Typography>
             </Grid>
-            <Grid item xs={12} sm={6} md={4} className='supplierDetailes'>
+            <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="ZipCode"
                     label="ZipCode"
@@ -170,7 +211,7 @@ const SupplierDetails = ({ register,
                     errors={errors}
                     handleBlur={handleBlur}
                 />
-            </Grid>
+            </Grid>           
         </Grid>
     );
 };

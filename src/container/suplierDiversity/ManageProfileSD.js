@@ -27,6 +27,7 @@ const ManageProfileSD = () => {
     const states = user?.State1 || [];
     const classificationDropDownData = user?.Classification || [];
     const businessDropDownData = user?.BusinessCategory || [];
+    const agencyDropDownData = user?.Agency || [];
 
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
@@ -34,7 +35,7 @@ const ManageProfileSD = () => {
     }));
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateId.toString()
+        value: x.StateId
     }));
     const classificationData = classificationDropDownData.map(x => ({
         label: x.ClassificationName,
@@ -42,7 +43,12 @@ const ManageProfileSD = () => {
     }));
     const businessCategoryData = businessDropDownData.map(x => ({
         label: x.CategoryName,
-        value: x.CategoryID.toString()
+        value: x.CategoryID
+    }));
+
+    const agencyData = agencyDropDownData.map(x => ({
+        label: x.AgencyName,
+        value: x.AgencyID
     }));
 
     const formatPhoneNumber = (number) => {
@@ -57,7 +63,6 @@ const ManageProfileSD = () => {
     const { register, handleSubmit, setValue, control, reset, formState: { errors, isValid }, trigger } = useForm({
         resolver: yupResolver(SupplierDetailsSchema),
     });
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -127,6 +132,9 @@ const ManageProfileSD = () => {
                 CategoryID: data.CategoryID,
                 ClassificationID: classification,
                 ServicesProductsProvided: data.ServicesProductsProvided,
+                ExpiryDate:data.ExpiryDate,
+                AgencyID:data.AgencyID,
+                AgencyStateID:data.AgencyStateID,
                 FileData: files,
             };
 
@@ -178,13 +186,17 @@ const ManageProfileSD = () => {
                                                 <Typography component="div" className="Personal-Informationsheading">
                                                     <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                                                 </Typography>
-                                                <SupplierDetails register={register} errors={errors} control={control}
+                                                <SupplierDetails
+                                                    register={register}
+                                                    errors={errors}
+                                                    control={control}
+                                                    classification={classification}
                                                     stateData={stateData}
                                                     businessCategoryData={businessCategoryData}
+                                                    classificationData={classificationData}
+                                                    agencyData={agencyData}
                                                     handleClassificationChange={handleClassificationChange}
                                                     handleBlur={handleBlur}
-                                                    classification={classification}
-                                                    classificationData={classificationData}
                                                     trigger={trigger}
                                                     setValue={setValue} />
                                             </Typography>
