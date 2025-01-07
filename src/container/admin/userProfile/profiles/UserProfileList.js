@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import { Box, Typography } from '@mui/material';
 import { AutocompleteTable, Download } from '_components';
 import {  UserFilter } from "container/admin";
+import UserProfileDetails from './UserProfileDetails';
 import Delete from '@mui/icons-material/Delete';
 const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit, setEditedRowId, handleChange }) => {
   const roles = userProfiles?.Roles?.map(role => ({ value: role.RoleID, label: role.RoleName })) || [];
@@ -14,6 +15,7 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
 
   const [isLocked, setLock] = useState(false);
   const filename = 'Users';
+  console.log('data',data);
 
   const columns = useMemo(() => [
     { accessorKey: 'FullName', header: 'Name' },
@@ -138,7 +140,8 @@ const UserProfileMB = ({ data,userProfiles, setData, errors, handleFilterSubmit,
     ),
     renderDetailPanel: ({ row }) => (
       <Box sx={{ padding: 2 }}>
-        <Typography variant="h6">Details for {row.original.FullName}</Typography>
+        {/* <Typography variant="h6">Details for {row.original.FullName}</Typography> */}
+        <UserProfileDetails userData={row.original}/>
       </Box>
     ),
     muiExpandButtonProps: {
