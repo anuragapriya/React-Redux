@@ -152,7 +152,7 @@ export const SupplierDetailsSchema = Yup.object().shape({
     CategoryID: Yup.number().nullable().required('Business Category is Required'),
     ClassificationID: Yup.string().nullable().required('Classification is required'),
     ServicesProductsProvided: Yup.string().nullable().required('Services are Required'),
-    ExpiryDate: Yup.string().nullable().required('Expiry Date is Required'),
+    ExpiryDate: Yup.string().required('Date is required'),
     ContactPerson: Yup.string().nullable().required('Contact Person is Required'),
     Title: Yup.string().nullable().required('Title is Required'),
     Email: Yup.string().nullable().required('Email is required').email('Please provide a valid email address'),

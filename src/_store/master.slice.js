@@ -24,19 +24,28 @@ function createInitialState() {
     }
 }
 
-function createExtraActions() { 
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/master`;
+function createExtraActions() {
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/master`;
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/Master`;
 
     return {
         getPortalData: getPortalData(),
-        getNondisclosureDocument:getNondisclosureDocument()
+        getNondisclosureDocument: getNondisclosureDocument()
     };
 
     function getPortalData() {
         return createAsyncThunk(
             `${name}/getPortalData`,
-            async () => await trackPromise(fetchWrapper.get(`${baseUrl}/GetPortalDetails`))
+            async (_, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/GetPortalDetails`));
+                    return response;
+                }
+                catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
         );
     }
 
@@ -69,7 +78,7 @@ function createExtraReducers() {
                     state.portalData = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
-                    const result= action.payload;
+                    const result = action.payload;
                     state.portalData = result?.Data;
                 })
                 .addCase(rejected, (state, action) => {

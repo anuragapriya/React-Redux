@@ -53,7 +53,7 @@ const Download = (props) => {
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <Button onClick={handleOpenUserMenu} variant="contained" endIcon={<DownloadIcon />}>
+                            <Button className='Download' onClick={handleOpenUserMenu} variant="contained" endIcon={<DownloadIcon />}>
                                 Download
                             </Button>
                         </Tooltip>

@@ -42,21 +42,21 @@ const Nav = ({ isAuthenticated, window }) => {
       <List>
         <div className='nav-linksbuttons'>
           <Support />
-          <Box className="iconcolor">
+          {/* <Box className="iconcolor">
             <Tooltip title="Settings">
               <SettingsOutlinedIcon />
             </Tooltip>
-          </Box>
+          </Box> */}
           <Box className="iconcolor">
             <Tooltip title="BarChart">
               <BarChartOutlinedIcon />
             </Tooltip>
           </Box>
-          <Box className="iconcolor">
+          {/* <Box className="iconcolor">
             <Tooltip title="List">
               <ListAltOutlinedIcon />
             </Tooltip>
-          </Box>
+          </Box> */}
           <Notifications />
           <MyProfile />
         </div>
@@ -78,7 +78,7 @@ const Nav = ({ isAuthenticated, window }) => {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon />
+            <MenuIcon  className='none-moblie' />
           </IconButton>
           <Typography
             variant="h6"
@@ -87,27 +87,27 @@ const Nav = ({ isAuthenticated, window }) => {
           >
             <Link href="/home" variant="logo" className="wgllogo">
               <img src={logo} alt="logo" />
-              {labels.eServicePortal}
+              <span className='none-moblie'>{labels.eServicePortal}</span>
             </Link>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <div className='nav-linksbuttons'>
               <Support />
-              <Box className="iconcolor">
+              {/* <Box className="iconcolor">
                 <Tooltip title="Settings">
                   <SettingsOutlinedIcon />
                 </Tooltip>
-              </Box>
+              </Box> */}
               <Box className="iconcolor">
                 <Tooltip title="BarChart">
                   <BarChartOutlinedIcon />
                 </Tooltip>
               </Box>
-              <Box className="iconcolor">
+              {/* <Box className="iconcolor">
                 <Tooltip title="List">
                   <ListAltOutlinedIcon />
                 </Tooltip>
-              </Box>
+              </Box> */}
               <Notifications />
               <MyProfile />
             </div>

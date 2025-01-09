@@ -51,12 +51,14 @@ const ManageProfileMC = () => {
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
+                        AdditionalID:file.AdditionalID,
                         DocumentTypeID: file.DocumentTypeID,
                         FileName: file.FileName,
                         Format: file.Format,
                         Size: file.Size,
                         PortalKey: file.PortalKey,
-                        File: file.File
+                        File: file.File,
+                        Url:file.Url
                     })));
                 }
             } catch (error) {

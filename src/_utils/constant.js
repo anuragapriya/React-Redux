@@ -1012,13 +1012,150 @@ export const getAIUserProfileData={
   Data:{
    PortalKey :"AI",
    UserData: [
-        { id: 1, FullName: 'Anu',EmailAddress:"anu@test.com", RoleID: 1, StatusID: 2, AgencyID: 1, JurisdictionID: 2 },
-        { id: 2, FullName: 'Ravi',EmailAddress:"Ravisonu@test.com", RoleID: 2, StatusID: 1, AgencyID: 2, JurisdictionID: 1 },
+    {
+      "UserId": 1000,
+      "FirstName": "Majid Husain",
+      "LastName": "Choudhary",
+      "EmailID": "MajidHusain.Choudhary@sutherlandglobal.com",
+      "IsVerified": true,
+      "IsMandateDone": true,
+      "Status": "Approved",
+      "AgencyID": 1,
+      "RoleID": 2,
+      "MarketerID":1
+    },
+    {
+      "UserId": 1001,
+      "FirstName": "Ravi",
+      "LastName": "Soni",
+      "EmailID": "Ravi.Soni10@sutherlandglobal.com",
+      "IsVerified": false,
+      "IsMandateDone": true,
+      "Status": "Email Verified",
+      "AgencyID": 2,
+      "RoleID": 3,
+      "MarketerID":2
+    },
+    {
+      "UserId": 1034,
+      "FirstName": "string",
+      "LastName": "string",
+      "EmailID": "me@me.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 1,
+      "RoleID": 1,
+      "MarketerID":1
+    },
+    {
+      "UserId": 1035,
+      "FirstName": "string",
+      "LastName": "string",
+      "EmailID": "ms@ms.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 1,
+      "RoleID": 4,
+      "MarketerID":1
+    },
+    {
+      "UserId": 1036,
+      "FirstName": "Anu Muthir",
+      "LastName": "",
+      "EmailID": "anu.muthiri@test.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 2,
+      "RoleID": 6,
+      "MarketerID":2
+    },
+    {
+      "UserId": 1038,
+      "FirstName": "Brian",
+      "LastName": "Lara",
+      "EmailID": "brian@gmail.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 1,
+      "RoleID": 3,
+      "MarketerID":1
+    },
+    {
+      "UserId": 1039,
+      "FirstName": "Anil",
+      "LastName": "Kumble",
+      "EmailID": "anil@sgs.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 2,
+      "RoleID": 8,
+      "MarketerID":2
+    },
+    {
+      "UserId": 1063,
+      "FirstName": "Bret",
+      "LastName": "Lee",
+      "EmailID": "Bret.Lee@SGS.com",
+      "IsVerified": false,
+      "IsMandateDone": false,
+      "Status": "Submitted",
+      "AgencyID": 2,
+      "RoleID": 7,
+      "MarketerID":1
+    }
+  ],
+    "Roles": [
+      {
+        "RoleID": 1,
+        "RoleName": "SuperAdmin"
+      },
+      {
+        "RoleID": 2,
+        "RoleName": "Admin"
+      },
+      {
+        "RoleID": 3,
+        "RoleName": "Contributor"
+      },
+      {
+        "RoleID": 4,
+        "RoleName": "Owner"
+      },
+      {
+        "RoleID": 5,
+        "RoleName": "Reviewer"
+      },
+      {
+        "RoleID": 6,
+        "RoleName": "Approver"
+      },
+      {
+        "RoleID": 7,
+        "RoleName": "MapReadOnly"
+      },
+      {
+        "RoleID": 8,
+        "RoleName": "MarketerAdminReadOnly"
+      }
     ],
-   Roles:[{ RoleID: '1', RoleName: 'Admin' }, { RoleID: '2', RoleName: 'Contributor' }],
    Statuses: [{ StatusID: '1', StatusName: 'Submitted' }, { StatusID: '2', StatusName: 'Approved' }],
-   Agencies:[{ AgencyID: '1', AgencyName: 'Agency1' }, { AgencyID: '2', AgencyName: 'Agency2' }],
-   Jurisdictions : [{JurisdictionID:'1',JurisdictionName:'Jurisdiction1'},{JurisdictionID:'2',JurisdictionName:'Jurisdiction2'}]
+   Agency: [
+    {
+      "AgencyId": 1,
+      "AgencyName": "Test1 Agency"
+    },
+    {
+      "AgencyId": 2,
+      "AgencyName": "Test2 Agency"
+    }
+  ],
+   Jurisdictions : [{JurisdictionID:'1',JurisdictionName:'Jurisdiction1'},{JurisdictionID:'2',JurisdictionName:'Jurisdiction2'}],
+   Marketers : [{MarketerID:1,MarketerName:'Marketer1'},{MarketerID:2,MarketerName:'Marketer2'}]
  }	
 };
 

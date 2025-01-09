@@ -26,11 +26,11 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/diversity`;
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/diversity`;
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
     return {
         get: get(),
-        insert:insert(),
+        insert: insert(),
         update: update()
     };
 
@@ -55,7 +55,8 @@ function createExtraActions() {
             `${name}/insert`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-SD`, { Data: transformedData }));
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register-SD`, { Data: transformedData }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }
@@ -68,7 +69,8 @@ function createExtraActions() {
             `${name}/update`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-SD`, { Data: transformedData }));
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}/UpdateRegister-SD`, { Data: transformedData }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }

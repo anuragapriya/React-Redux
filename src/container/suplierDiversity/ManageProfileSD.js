@@ -12,246 +12,261 @@ import SupplierDetails from '../user/ProfileDetails/SupplierDetails';
 import { supplierSupportedFormat } from '_utils/constant';
 import { diversityRegistrationLabels } from '_utils/labels';
 import { raphaelinfo } from '../../images';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 const ManageProfileSD = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const header = 'Supplier Diversity';
-    const { portalkey, id } = useParams();
-    const user = useSelector(x => x.supplydiversity?.userData);
-    const [selectedDocumentType, setSelectedDocumentType] = useState(null);
-    const [inputColors, setInputColors] = useState({});
-    const documentTypeData = user?.DocumentData || [];
-    const [files, setFiles] = useState([]);
-    const [classification, setClassification] = useState('');
-    const states = user?.State1 || [];
-    const classificationDropDownData = user?.Classification || [];
-    const businessDropDownData = user?.BusinessCategory || [];
-    const agencyDropDownData = user?.Agency || [];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const header = 'Supplier Diversity';
+  const { portalkey, id } = useParams();
+  const user = useSelector(x => x.supplydiversity?.userData);
+  const [selectedDocumentType, setSelectedDocumentType] = useState(null);
+  const documentTypeData = user?.DocumentData || [];
+  const [files, setFiles] = useState([]);
+  const [classification, setClassification] = useState('');
+  const states = user?.State1 || [];
+  const classificationDropDownData = user?.Classification || [];
+  const businessDropDownData = user?.BusinessCategory || [];
+  const agencyDropDownData = user?.Agency || [];
+  const exsistingFiles = user?.FileData || [];
 
-    const documentData = documentTypeData.map(x => ({
-        label: x.DocumentDescription,
-        value: x.DocumentTypeID
-    }));
-    const stateData = states.map(x => ({
-        label: x.StateName,
-        value: x.StateId
-    }));
-    const classificationData = classificationDropDownData.map(x => ({
-        label: x.ClassificationName,
-        value: x.ClassificationID.toString()
-    }));
-    const businessCategoryData = businessDropDownData.map(x => ({
-        label: x.CategoryName,
-        value: x.CategoryID
-    }));
+  const documentData = documentTypeData.map(x => ({
+    label: x.DocumentDescription,
+    value: x.DocumentTypeID
+  }));
+  const stateData = states.map(x => ({
+    label: x.StateName,
+    value: x.StateId
+  }));
+  const classificationData = classificationDropDownData.map(x => ({
+    label: x.ClassificationName,
+    value: x.ClassificationID.toString()
+  }));
+  const businessCategoryData = businessDropDownData.map(x => ({
+    label: x.CategoryName,
+    value: x.CategoryID
+  }));
 
-    const agencyData = agencyDropDownData.map(x => ({
-        label: x.AgencyName,
-        value: x.AgencyID
-    }));
+  const agencyData = agencyDropDownData.map(x => ({
+    label: x.AgencyName,
+    value: x.AgencyID
+  }));
 
-    const formatPhoneNumber = (number) => {
-        const cleaned = ('' + number).replace(/\D/g, '');
-        const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-        if (match) {
-            return `${match[1]}-${match[2]}-${match[3]}`;
+  dayjs.extend(utc);
+  dayjs.extend(customParseFormat);
+
+  const formatPhoneNumber = (number) => {
+    const cleaned = ('' + number).replace(/\D/g, '');
+    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+    if (match) {
+      return `${match[1]}-${match[2]}-${match[3]}`;
+    }
+    return number;
+  };
+
+  const { register, handleSubmit, setValue, control, reset, formState: { errors, isValid }, trigger } = useForm({
+    resolver: yupResolver(SupplierDetailsSchema),
+    mode: 'onBlur'
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(supplyDiversityAction.clear());
+        const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
+        const userData = user?.Data;
+        const expirtDate = dayjs(userData.ExpiryDate).isValid() ? dayjs(userData.ExpiryDate) : dayjs();
+        const data = { ...userData, PhoneNumber: formatPhoneNumber(userData.PhoneNumber), ExpiryDate: expirtDate };
+        reset(data);
+        if (data?.FileData) {
+          setFiles(data?.FileData.map(file => ({
+            ID: file.ID,
+            AdditionalID: file.AdditionalID,
+            DocumentTypeID: file.DocumentTypeID,
+            FileName: file.FileName,
+            Format: file.Format,
+            Size: file.Size,
+            PortalKey: file.PortalKey,
+            File: file.File,
+            Url: file.Url
+          })));
         }
-        return number;
+
+        setClassification(data?.ClassificationID || '');
+      } catch (error) {
+        dispatch(alertActions.error({
+          message: error?.message || error,
+          header: header
+        }));
+        reset(user);
+      }
     };
+    fetchData();
+  }, [id, dispatch, reset, portalkey]);
 
-    const { register, handleSubmit, setValue, control, reset, formState: { errors, isValid }, trigger } = useForm({
-        resolver: yupResolver(SupplierDetailsSchema),
-    });
+  const onSubmit = async (data) => {
+    dispatch(alertActions.clear());
+    try {
+      const requiredDocumentTypes = documentTypeData.filter(docType => !docType.DocumentDescription.includes('Additional'));
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                dispatch(supplyDiversityAction.clear());
-                const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
-                const userData = user?.Data;
-                const data = { ...userData, PhoneNumber: formatPhoneNumber(userData.PhoneNumber) };
-                reset(data);
-                if (data?.FileData) {
-                    setFiles(data?.FileData.map(file => ({
-                        ID: file.ID,
-                        DocumentTypeID: file.DocumentTypeID,
-                        FileName: file.FileName,
-                        Format: file.Format,
-                        Size: file.Size,
-                        Portalkey: file.Portalkey,
-                        File: file.File
-                    })));
-                }
+      const missingDocumentTypes = requiredDocumentTypes.filter(docType =>
+        !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
+      );
 
-                setClassification(data?.ClassificationID || '');
-            } catch (error) {
-                dispatch(alertActions.error({
-                    message: error?.message || error,
-                    header: header
-                }));
-                reset(user);
-            }
-        };
-        fetchData();
-    }, [id, dispatch, reset, portalkey]);
+      if (missingDocumentTypes.length > 0) {
+        const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
+        dispatch(alertActions.error({
+          message: `Missing files for document types: ${missingDescriptions}`,
+          header: header
+        }));
+        return;
+      }
 
-    const onSubmit = async (data) => {
-        dispatch(alertActions.clear());
-        try {
-            const requiredDocumentTypes = documentTypeData.filter(docType => !docType.DocumentDescription.includes('Additional'));
+      const parsedDate = dayjs(data.ExpiryDate, 'ddd, DD MMM YYYY HH:mm:ss [GMT]').utc();
+      const formattedDate = parsedDate.format('YYYY-MM-DDTHH:mm:ss:SS');
 
-            const missingDocumentTypes = requiredDocumentTypes.filter(docType =>
-                !files.some(file => file.DocumentTypeID === docType.DocumentTypeID)
-            );
+      console.log(formattedDate);
 
-            if (missingDocumentTypes.length > 0) {
-                const missingDescriptions = missingDocumentTypes.map(docType => docType.DocumentDescription).join(', ');
-                dispatch(alertActions.error({
-                    message: `Missing files for document types: ${missingDescriptions}`,
-                    header: header
-                }));
-                return;
-            }
+      const transformedData = {
+        AdditionalID: user?.AdditionalID || 0,
+        UserID: id,
+        CompanyName: data.CompanyName,
+        ContactPerson: data.ContactPerson,
+        Title: data.Title,
+        Address: data.Address,
+        City: data.City,
+        State: data.State,
+        CompanyWebsite: data.CompanyWebsite,
+        Email: data.Email,
+        ZipCode: data.ZipCode,
+        PhoneNumber: data.PhoneNumber,
+        Fax: data.Fax,
+        CellPhone: data.CellPhone,
+        CategoryID: data.CategoryID,
+        ClassificationID: classification,
+        ServicesProductsProvided: data.ServicesProductsProvided,
+        ExpiryDate: formattedDate,
+        AgencyID: data.AgencyID,
+        AgencyStateID: data.AgencyStateID,
+        FileData: files,
+      };
 
-            const transformedData = {
-                AdditionalID: user?.AdditionalID || 0,
-                UserID: id,
-                CompanyName: data.CompanyName,
-                ContactPerson: data.ContactPerson,
-                Title: data.Title,
-                Address: data.Address,
-                City: data.City,
-                State: data.State,
-                CompanyWebsite: data.CompanyWebsite,
-                Email: data.Email,
-                ZipCode: data.ZipCode,
-                PhoneNumber: data.PhoneNumber,
-                Fax: data.Fax,
-                CellPhone: data.CellPhone,
-                CategoryID: data.CategoryID,
-                ClassificationID: classification,
-                ServicesProductsProvided: data.ServicesProductsProvided,
-                ExpiryDate: data.ExpiryDate,
-                AgencyID: data.AgencyID,
-                AgencyStateID: data.AgencyStateID,
-                FileData: files,
-            };
+      let result;
+      if (user?.AdditionalID !== 0) {
+        result = await dispatch(supplyDiversityAction.update({ id, transformedData }));
+      } else {
+        result = await dispatch(supplyDiversityAction.insert({ id, transformedData }));
+      }
+      console.log(result);
+      if (result?.error) {
+        dispatch(alertActions.error({ message: result?.error.message, header: header }));
+        return;
+      }
+      navigate('/');
+      dispatch(alertActions.success({ message: diversityRegistrationLabels.message1, header: diversityRegistrationLabels.header, showAfterRedirect: true }));
 
-            let result;
-            if (user?.AdditionalID !== 0) {
-                result = await dispatch(supplyDiversityAction.update({ id, transformedData }));
-            } else {
-                result = await dispatch(supplyDiversityAction.insert({ id, transformedData }));
-            }
-            console.log(result);
-            if (result?.error) {
-                dispatch(alertActions.error({ message: result?.error.message, header: header }));
-                return;
-            }
-            navigate('/');
-            dispatch(alertActions.success({ message: diversityRegistrationLabels.message1, header: diversityRegistrationLabels.header, showAfterRedirect: true }));
+    } catch (error) {
+      dispatch(alertActions.error({ message: error.message, header: header }));
+    }
+  };
 
-        } catch (error) {
-            dispatch(alertActions.error({ message: error.message, header: header }));
-        }
-    };
+  const handleBlur = async (e) => {
+    const fieldName = e.target.name;
+    console.log(`Triggering validation for: ${fieldName}`);
+    const result = await trigger(fieldName);
+    console.log(`Validation result for ${fieldName}:`, result);
+  };
 
-    const handleBlur = async (e) => {
-        const fieldName = e.target.name;
-        console.log(`Triggering validation for: ${fieldName}`);
-        const result = await trigger(fieldName);
-        console.log(`Validation result for ${fieldName}:`, result);
-    };
+  const handleOnChange = (event, newvalue) => {
+    setSelectedDocumentType(newvalue?.value);
+  };
+  const handleFileChange = (newFiles) => {
+    setFiles(newFiles);
+  };
+  const handleClassificationChange = (newValue) => {
+    setClassification(newValue);
+  };
 
-    const handleOnChange = (event, newvalue) => {
-        setSelectedDocumentType(newvalue?.value);
-    };
-    const handleFileChange = (newFiles) => {
-        setFiles(newFiles);
-    };
-    const handleClassificationChange = (newValue) => {
-        setClassification(newValue);
-    };
-
-    return (
-        <>
-            {!(user?.loading || user?.error) && (
-                <Typography component="div" className="MapCenterAccecss">
-                    <Typography component="div" className="MapCenterAccecssheading">
-                        <Typography component="h1" variant="h5">Supplier Diversity</Typography>
-                    </Typography>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Typography className="Personal-Information-container" component="div">
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} sm={12} md={12} >
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} sm={12} md={8} className="Personal-Information">
-                                            <Typography component="div" className="mapcontainer">
-                                                <Typography component="div" className="Personal-Informationsheading">
-                                                    <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
-                                                </Typography>
-                                                <SupplierDetails
-                                                    register={register}
-                                                    errors={errors}
-                                                    control={control}
-                                                    classification={classification}
-                                                    stateData={stateData}
-                                                    businessCategoryData={businessCategoryData}
-                                                    classificationData={classificationData}
-                                                    agencyData={agencyData}
-                                                    handleClassificationChange={handleClassificationChange}
-                                                    handleBlur={handleBlur}
-                                                    trigger={trigger}
-                                                    setValue={setValue} />
-                                            </Typography>
-                                        </Grid>
-
-                                        <Grid item xs={12} sm={12} md={4} >
-                                            <Typography component="div" className="Personal-Informationsheading">
-                                                <Grid item xs={12} sm={6} md={12} >
-                                                    <Typography component="h2" variant="h5" >Documents upload <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
-                                                    <Typography component="div" className="passwordcheck">
-                                                        <AutocompleteInput
-                                                            control={control}
-                                                            name="documentType"
-                                                            label="Document Type"
-                                                            options={documentData}
-                                                            error={!!errors.documentType}
-                                                            helperText={errors.documentType?.message}
-                                                            handleBlur={handleBlur}
-                                                            inputColor={inputColors['documentType']}
-                                                            onChange={handleOnChange}
-                                                        />
-                                                    </Typography>
-                                                </Grid>
-                                                <UploadFiles
-                                                    initialFiles={files}
-                                                    portalKey={portalkey}
-                                                    selectedDocumentType={selectedDocumentType}
-                                                    supportedFormats={supplierSupportedFormat}
-                                                    documentTypes={documentTypeData}
-                                                    control={control}
-                                                    errors={errors}
-                                                    onFileChange={handleFileChange}
-                                                />
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+  return (
+    <>
+      {!(user?.loading || user?.error) && (
+        <Typography component="div" className="MapCenterAccecss">
+          <Typography component="div" className="MapCenterAccecssheading">
+            <Typography component="h1" variant="h5">Supplier Diversity</Typography>
+          </Typography>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Typography className="Personal-Information-container" component="div">
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={12} md={12} >
+                  <Grid container spacing={3}>
+                    <Grid item xs={12} sm={12} md={8} className="Personal-Information">
+                      <Typography component="div" className="mapcontainer">
+                        <Typography component="div" className="Personal-Informationsheading">
+                          <Typography component="h2" variant="h5" className='margin-bottom-12'>Personal Information</Typography>
                         </Typography>
-                        <Grid item xs={12} sm={12} md={12} className="Personal-Information">
-                            <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={!isValid}>
-                                Complete Registration
-                            </Button>
+                        <SupplierDetails
+                          register={register}
+                          errors={errors}
+                          control={control}
+                          classification={classification}
+                          stateData={stateData}
+                          businessCategoryData={businessCategoryData}
+                          classificationData={classificationData}
+                          agencyData={agencyData}
+                          handleClassificationChange={handleClassificationChange}
+                          handleBlur={handleBlur}
+                          trigger={trigger}
+                          setValue={setValue} />
+                      </Typography>
+                    </Grid>
+
+                    <Grid item xs={12} sm={12} md={4} >
+                      <Typography component="div" className="Personal-Informationsheading">
+                        <Grid item xs={12} sm={6} md={12} >
+                          <Typography component="h2" variant="h5" >Documents upload <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
+                          <Typography component="div" className="passwordcheck">
+                            <AutocompleteInput
+                              control={control}
+                              name="documentType"
+                              label="Document Type"
+                              options={documentData}
+                              error={!!errors.documentType}
+                              helperText={errors.documentType?.message}
+                              handleBlur={handleBlur}
+                              onChange={handleOnChange}
+                            />
+                          </Typography>
                         </Grid>
-                    </form>
-                </Typography>
-            )}
-            {user?.error && <UnderConstruction />}
-        </>
-    );
+                        <UploadFiles
+                          initialFiles={files}
+                          portalKey={portalkey}
+                          selectedDocumentType={selectedDocumentType}
+                          supportedFormats={supplierSupportedFormat}
+                          documentTypes={documentTypeData}
+                          control={control}
+                          errors={errors}
+                          onFileChange={handleFileChange}
+                          exsistingFiles={exsistingFiles}
+                        />
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Typography>
+            <Grid item xs={12} sm={12} md={12} className="Personal-Information">
+              <Button type="submit" variant="contained" className='CompleteRegistration' color="primary" disabled={!isValid}>
+                Complete Registration
+              </Button>
+            </Grid>
+          </form>
+        </Typography>
+      )}
+      {user?.error && <UnderConstruction />}
+    </>
+  );
 };
 
 export default ManageProfileSD;

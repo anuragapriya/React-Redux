@@ -30,18 +30,16 @@ function createExtraActions() {
 
     return {
         get: get(),
-        insert:insert(),
+        insert: insert(),
         update: update()
     };
 
-    function get() { 
+    function get() {
         return createAsyncThunk(
             `${name}/getUserData`,
             async ({ id, portal }, { rejectWithValue }) => {
                 try {
                     const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync/${id}`);
-                   // url.searchParams.append('UserId', id);
-
                     const response = await trackPromise(fetchWrapper.get(url.toString()));
                     return response;
                 } catch (error) {
@@ -57,7 +55,8 @@ function createExtraActions() {
             `${name}/insert`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }
@@ -70,15 +69,14 @@ function createExtraActions() {
             `${name}/update`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}/putMapCenter-MC`, { Data: transformedData }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }
             }
         );
     }
-
-    
 }
 
 function createReducers() {
@@ -109,6 +107,6 @@ function createExtraReducers() {
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };
                 });
-        }       
+        }
     };
 }

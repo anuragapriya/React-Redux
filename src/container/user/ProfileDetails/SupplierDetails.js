@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from "@material-ui/core/Grid";
-import { AutocompleteInput, MobileNumberInput, MultiSelectInput, CustomFormControl } from '_components';
+import { AutocompleteInput, MobileNumberInput, MultiSelectInput, CustomFormControl,CustomDatePicker } from '_components';
 import { Typography } from '@mui/material';
 
 const SupplierDetails = ({ register,
@@ -10,11 +10,11 @@ const SupplierDetails = ({ register,
     businessCategoryData,
     control,
     errors,
-    setValue ,
+    setValue,
     handleBlur,
     handleClassificationChange,
     classification
-    }) => {
+}) => {
 
     return (
         <Grid container spacing={3}>
@@ -81,14 +81,17 @@ const SupplierDetails = ({ register,
                 />
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
-                <CustomFormControl
+            <Typography component="div" className="passwordcheck border-none">
+                <CustomDatePicker
                     id="ExpiryDate"
+                    control={control}
+                    name="ExpiryDate"
                     label="Expiry Date of the Certificate"
-                    type="text"
-                    register={register}
-                    errors={errors}
+                    error={!!errors.ExpiryDate}
+                    helperText={errors.ExpiryDate?.message}
                     handleBlur={handleBlur}
                 />
+                </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
                 <Typography component="div" className="passwordcheck border-none">
@@ -115,7 +118,7 @@ const SupplierDetails = ({ register,
                         error={!!errors.AgencyStateID}
                         helperText={errors.AgencyStateID?.message}
                         handleBlur={handleBlur}
-                    />                    
+                    />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={6} className='supplierDetailes'>
@@ -137,7 +140,7 @@ const SupplierDetails = ({ register,
                     errors={errors}
                     handleBlur={handleBlur}
                 />
-            </Grid>            
+            </Grid>
             <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
                 <CustomFormControl
                     id="Email"
@@ -189,17 +192,17 @@ const SupplierDetails = ({ register,
                 />
             </Grid>
             <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
-            <Typography component="div" className="passwordcheck border-none">
-                <AutocompleteInput
-                    id="State"
-                    control={control}
-                    name="State"
-                    label="State"
-                    options={stateData}
-                    error={!!errors.State}
-                    helperText={errors.State?.message}
-                    handleBlur={handleBlur}
-                />
+                <Typography component="div" className="passwordcheck border-none">
+                    <AutocompleteInput
+                        id="State"
+                        control={control}
+                        name="State"
+                        label="State"
+                        options={stateData}
+                        error={!!errors.State}
+                        helperText={errors.State?.message}
+                        handleBlur={handleBlur}
+                    />
                 </Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={4} className='supplierDetailes'>
@@ -211,7 +214,7 @@ const SupplierDetails = ({ register,
                     errors={errors}
                     handleBlur={handleBlur}
                 />
-            </Grid>           
+            </Grid>
         </Grid>
     );
 };

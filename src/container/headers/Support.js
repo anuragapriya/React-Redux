@@ -42,7 +42,7 @@ const Support = ({ isMainLayout }) => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <img src={isMainLayout ? headseticonwhite : supporticonblue} alt="Support"></img>
-                        Support?
+                        <span className='none-moblie'>Support?</span>
                     </IconButton>
                 </Tooltip>
             </Box>

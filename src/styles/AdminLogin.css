@@ -8,6 +8,7 @@
     text-transform: uppercase;
     margin: 24px 0px;
 }
+
 .CardDetail {
     width: 245px;
     height: 180px;
@@ -172,7 +173,7 @@
 .Announcementsnew h2 {
     color: #103662;
     text-align: center;
-    font-family: "ITC Avant Garde Gothic Std";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
@@ -183,7 +184,7 @@
 .Announcementsnew span {
     color: #103662;
     text-align: center;
-    font-family: "Proxima Nova";
+    font-family: "Proxima Nova Rg";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
@@ -218,128 +219,274 @@
 .Announcementsnew .dateMonth {
     padding: 15px;
 }
-.navcontainer .navbarbackground{
+
+.navcontainer .navbarbackground {
     background-color: transparent;
     position: relative;
     box-shadow: none;
+    padding-right: 0px !important;
 }
-.MuiIconButton-edgeStart svg path{
+
+.MuiIconButton-edgeStart svg path {
     fill: var(--WG-Blue-700, #0059B3);
 }
+
 .menulist .Menuitemlist {
     margin: 10px;
 }
-.menulist div{
-margin: 0px;
-padding: 0px;
+
+.menulist div {
+    margin: 0px;
+    padding: 0px;
 }
-.menulist div a{
+
+.menulist div a,
+.menulist div button {
     border-radius: 4px;
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
-color: var(--WG-Blue-700, #0059B3);
-font-family: "ITC Avant Garde Gothic Std Md";
-font-size: 16px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-text-transform: uppercase;
-padding: 12px;
-margin-right: 20px;
+    color: var(--WG-Blue-700, #0059B3);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    padding: 12px;
+    margin-right: 20px;
 }
-.menulist{
+
+.menulist {
     margin-top: 20px;
 }
-.menuItemIcon{
+
+.menuItemIcon {
     color: #0059B3;
     margin-right: 8px;
 }
+
 .admincontent {
     flex-Grow: 1;
     overflow: auto;
     margin-top: 60px;
-  }
-  .admincontentContainer{
+}
+
+.admincontentContainer {
     padding: 0px;
-  }
-  .admincontent table thead tr{
+}
+
+.admincontent table thead tr {
     border-radius: 8px 8px 0px 0px;
-background: var(--WG-Blue-100, #DFEDFF);
-  }
-  .admincontent table tbody tr:hover td::after{
+    background: var(--WG-Blue-100, #DFEDFF);
+}
+
+.admincontent table tbody tr:hover td::after {
     background-color: #fff;
-  }
-  .admincontent table thead tr .Mui-TableHeadCell-Content-Wrapper{
+}
+
+.admincontent table thead tr .Mui-TableHeadCell-Content-Wrapper {
     color: var(--WG-Blue-900, #0A3B70);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    font-variant: all-small-caps;
+    text-transform: uppercase;
+}
+
+.admincontent table tbody tr td {
+    border-bottom: 0px;
+    font-family: "Proxima Nova Rg";
+    color: var(--Gray-700, #4D4C52);
+}
+
+.admincontent table {
+    border-radius: 8px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    font-family: "Proxima Nova Rg";
+}
+
+.admincontentContainer .MuiPaper-root.MuiPaper-elevation,
+.admincontentContainer .MuiBox-root.css-10gei56 {
+    background: transparent;
+    box-shadow: none;
+}
+
+.inputtags .admincontent .admincontentContainer table tbody tr td input {
+    border: 0px;
+    box-shadow: none;
+    font-family: "Proxima Nova Rg";
+}
+
+.inputtags .admincontent .admincontentContainer .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input {
+    border: 0px;
+}
+
+.tableicons button:nth-child(1) svg path {
+    fill: #0A3B70;
+}
+
+.tableicons button:nth-child(2) svg path,
+.DocumentTypeID button:nth-child(1) svg path {
+    fill: #4fa4ef;
+}
+
+.tableicons button:nth-child(3) svg path,
+.DocumentTypeID button:nth-child(2) svg path {
+    fill: #e36b6b;
+}
+
+.MuiTablePagination-root {
+    font-family: "Proxima Nova Rg";
+    color: var(--Gray-700, #4D4C52);
+    font-size: 16px;
+}
+
+.Supporticon .none-moblie {
+    color: #1F5FAC;
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-right: 10px;
+}
+
+.MuiCollapse-wrapper.MuiCollapse-vertical {
+    background: var(--WG-Blue-50, #F0F7FF);
+}
+
+.userInformation {
+    color: var(--WG-Blue-700, #0059B3);
+    font-family: "ITC Avant Garde Gothic Std";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+.userInformationcontainer{
+    border-radius: 4px;
+border: 1px solid var(--WG-Blue-100, #DFEDFF);
+background: var(--White, #FFF);
+padding: 15px;
+box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+}
+.admincontentContainer .Download ,.admincontentContainer .Download:hover{
+    border-radius: 60px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--WG-Blue-100, #DFEDFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    overflow: hidden;
+    color: var(--WG-Blue-900, #0A3B70);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: "Proxima Nova";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.Filter{
+    border-radius: 60px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    width: 183px;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+    color: var(--WG-Blue-900, #0A3B70);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: "Proxima Nova";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.userInformationcontainer h2{
+    color: var(--WG-Blue-700, #0059B3);
+font-family: "ITC Avant Garde Gothic Std Md";
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+text-transform: uppercase;
+margin-bottom: 16px;
+}
+.userInformationcontainer span{
+    overflow: hidden;
+color: var(--Gray-700, #4D4C52);
+text-overflow: ellipsis;
+white-space: nowrap;
 font-family: "Proxima Nova Rg";
 font-size: 16px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
 font-variant: all-small-caps;
+}
+.textright{
+    text-align: right;
+    width: 100%;
+    display: block;
+}
+.userInformationcontainer  .UserName {
+    margin-bottom: 10px;
+}
+.Announcementcontainer  .Announcementcontent{
+    color: var(--WG-Blue-900, #0A3B70);
+font-family: "ITC Avant Garde Gothic Std Md";
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
 text-transform: uppercase;
-  }
-  .admincontent table tbody tr td{
-    border-bottom: 0px;
-    font-family: "Proxima Nova Rg";
-    color: var(--Gray-700, #4D4C52);
-  }
-  .admincontent table{
+}
+.Announcementcontainer .CardDetailContainer{
     border-radius: 8px;
 border: 1px solid var(--WG-Blue-100, #DFEDFF);
-background: var(--White, #FFF);
+background: #FFF;
+padding: 16px;
 box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
-font-family: "Proxima Nova Rg";
-  }
-  .admincontentContainer .MuiPaper-root.MuiPaper-elevation ,.admincontentContainer .MuiBox-root.css-10gei56{
-    background: transparent;
-    box-shadow: none;
-  }
-  .inputtags .admincontent .admincontentContainer table tbody tr td input{
-    border: 0px;
-    box-shadow: none;
-    font-family: "Proxima Nova Rg";
-  }
-  .inputtags  .admincontent .admincontentContainer .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input{
-    border: 0px;
-  }
-  .tableicons button:nth-child(1) svg path {
-    fill: #0A3B70;
 }
-.tableicons button:nth-child(2) svg path ,.DocumentTypeID button:nth-child(1) svg path{
-    fill: #4fa4ef;
-}
-.tableicons button:nth-child(3) svg path , .DocumentTypeID button:nth-child(2) svg path {
-    fill: #e36b6b;
-}
-
-.MuiTablePagination-root{
-    font-family: "Proxima Nova Rg";
-    color: var(--Gray-700, #4D4C52);
-    font-size: 16px;
-}
-
 @media (min-width: 0px) {
-    .navcontainer .css-1q89n6x-MuiTypography-root {
+
+    .navcontainer .css-1q89n6x-MuiTypography-root,
+    .navcontainer .css-130f8nx {
         display: block;
     }
+
 }
+
 @media only screen and (min-width: 1200px) {
     .container {
         max-width: 100%;
         padding: 0px 20px;
     }
 }
+
 @media (min-width: 600px) {
     .CardDetail {
         width: 50%;
     }
-    .MuiContainer-root.admincontentContainer{
+
+    .MuiContainer-root.admincontentContainer {
         padding: 0px;
         padding-left: 0px;
         padding-right: 0px;
-      }
-   
+    }
+
 }
 
 
@@ -357,24 +504,29 @@ font-family: "Proxima Nova Rg";
     .CardDetailContainer {
         padding: 15px;
     }
-    .welcometext{
+
+    .welcometext {
         font-size: 20px;
     }
+
     .menulist div {
         margin: 0px;
-       background: #DFEDFF;
+        background: #DFEDFF;
         padding: 15px;
     }
+
     .menulist div a.active {
         background: #fff;
     }
-    .menulist div a{
+
+    .menulist div a {
         background: #DFEDFF;
         font-size: 12px;
         margin-right: 0px;
         padding: 10px;
     }
-    .menuItemIcon{
+
+    .menuItemIcon {
         margin-right: 0px;
     }
 
@@ -385,7 +537,7 @@ font-family: "Proxima Nova Rg";
         max-width: 100%;
         height: 120px;
     }
-    
+
 
     .CardDetail .css-1lt5qva-MuiCardContent-root .MuiTypography-gutterBottom,
     .navbar-nav .headseticon {
@@ -395,46 +547,64 @@ font-family: "Proxima Nova Rg";
     .headseticon img {
         margin-right: 4px;
     }
-    .menulist div a{
-        
+
+    .menulist div a {
+
         font-size: 10px;
-        
+
     }
-    .menuItemIcon svg{
+
+    .menuItemIcon svg {
         width: 18px;
     }
 }
+
 @media (max-width: 600px) {
-  
-    .nav-linksbuttons div{
+
+    .nav-linksbuttons div {
         width: 100%;
         float: left;
+        padding-left: 5px;
     }
-    .nav-linksbuttons{
-        display: block;
+
+    .nav-linksbuttons button {
+        margin-left: 5px;
     }
-    .menulist div a{
-        
+
+    .nav-linksbuttons {
+        display: flex;
+    }
+
+    .menulist div a {
+
         font-size: 14px;
         width: 100%;
-        
+
     }
+
     .menulist div {
         margin: 0px;
-       background: transparent;
+        background: transparent;
         padding: 0px;
         display: block;
     }
+
     .menulist div a.active {
         background: #fff;
     }
-    .menulist div a{
+
+    .menulist div a {
         background: #DFEDFF;
         font-size: 12px;
         padding: 10px;
         margin-bottom: 10px;
     }
-    .menuItemIcon svg{
+
+    .menuItemIcon svg {
         width: 24px;
+    }
+
+    .navcontainer .none-moblie {
+        display: none;
     }
 }

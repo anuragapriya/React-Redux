@@ -23,7 +23,8 @@ const UploadFiles = ({
     maxFileSize = Infinity,
     minFileSize = 0,
     onFileChange,
-    initialFiles = []
+    initialFiles = [],
+    exsistingFiles=[]
 }) => {
     const [files, setFiles] = useState(initialFiles);
     const [open, setOpen] = useState(false);
@@ -116,7 +117,7 @@ const UploadFiles = ({
         }
 
         setFiles(prevFiles => {
-            const updatedFiles = prevFiles.map(prevFile => {
+            const updatedFiles = exsistingFiles.map(prevFile => {
                 const newFile = fileResults.find(newFile => newFile.DocumentTypeID === prevFile.DocumentTypeID);
                 return newFile ? {
                     ...newFile, ID: prevFile.ID,
@@ -126,7 +127,7 @@ const UploadFiles = ({
             });
 
             const newUniqueFiles = fileResults.filter(newFile =>
-                !prevFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
+                !exsistingFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
             );
 
             const newFiles = [...updatedFiles, ...newUniqueFiles];
@@ -204,11 +205,12 @@ const UploadFiles = ({
                                     return (
                                         <div className="mar-top-16" key={type.DocumentTypeID}>
                                             <Typography component="div" >
-                                                <CheckCircleRounded fontSize="small" style={{ color: green[500] }} /> {type.DocumentDescription}
+                                                <CheckCircleRounded fontSize="small" style={{ color: green[500] }} />
+                                                <Typography component="span" className="DocumentDescription">{type.DocumentDescription}</Typography> 
                                                 <Typography component="div" className="DocumentTypeID">
                                                 <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
                                                    <DownloadIcon variant="contained" color="secondary"  />
-                                                    {/* <img src={materialsymbolsdownload} alt="material-symbols_download"></img> */}
+                                                   
                                                 </IconButton>
                                                 <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
                                                 <Delete variant="contained" color="secondary" />
@@ -220,7 +222,7 @@ const UploadFiles = ({
                                 } else {
                                     return (
                                         <div className="mar-top-16" key={type.DocumentTypeID}>
-                                            <Typography component="div"><CheckCircleRounded fontSize="small" color="disabled" /> {type.DocumentDescription}</Typography>
+                                            <Typography component="div"><CheckCircleRounded fontSize="small" color="disabled" /><Typography component="span" className="DocumentDescription"> {type.DocumentDescription}</Typography></Typography>
                                         </div>
                                     );
                                 }

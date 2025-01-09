@@ -26,7 +26,7 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-  // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
@@ -38,19 +38,30 @@ function createExtraActions() {
     function getAccess() {
         return createAsyncThunk(
             `${name}/getAccessData`,
-            async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}/GetUserPortalRoleMapping`))            
+            async (_, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/GetUserPortalRoleMapping`));
+                    return response;
+                }
+                catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
         );
     }
 
     function postAccess() {
         return createAsyncThunk(
             `${name}/postAccessData`,
-            async (data) => {
+            async (data, { rejectWithValue }) => {
                 try {
-                    await trackPromise(fetchWrapper.put(`${baseUrl}`, data));
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}`, data));
+                    return response;
                 }
                 catch (error) {
-                    console.log(error);
+                    console.log(error.message);
+                    return rejectWithValue(error);
                 }
             }
         );
@@ -84,6 +95,6 @@ function createExtraReducers() {
                 .addCase(rejected, (state, action) => {
                     state.portalAccessGetData = { error: action.error };
                 });
-        }       
+        }
     };
 }

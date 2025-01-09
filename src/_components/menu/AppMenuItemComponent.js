@@ -13,7 +13,6 @@ const AppMenuItemComponent = (props) => {
     return (
       <Button
         className={className}
-        style={{ border: '1px solid #0dcaf0' }}
         onClick={onClick}
       >
         {children}

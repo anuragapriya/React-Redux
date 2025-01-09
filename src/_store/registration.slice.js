@@ -19,7 +19,6 @@ export const registrationReducer = slice.reducer;
 
 function createInitialState() {
     return {
-        portalData: [],
         registerData: null,
         verifiedUserData: null,
         status: null
@@ -27,56 +26,63 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-   // const baseUrl = `${process.env.REACT_APP_API_URL}/registration`;
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/registration`;
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         register: register(),
-        getPortalData: getPortalData(),
         getVerifiedUserData: getVerifiedUserData(),
-        resendVerificationLink:resendVerificationLink()
+        resendVerificationLink: resendVerificationLink()
     };
 
     function register() {
         return createAsyncThunk(
             `${name}/register`,
-            async (user) => {
-                user={...user, LastName:'',FirstName:user.FullName};
-                const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user));
-                return response;
+            async (user, { rejectWithValue }) => {
+                try {
+                    user = { ...user, LastName: '', FirstName: user.FullName };
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user));
+                    return response;
+                } catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
             }
         );
     }
 
-    function getPortalData() {
-        return createAsyncThunk(
-            `${name}/getPortalData`,
-            async () => await trackPromise(fetchWrapper.get(`${baseUrl}`))
-        );
-    }
-
-    function getVerifiedUserData() { 
+    function getVerifiedUserData() {
         return createAsyncThunk(
             `${name}/getVerifiedUserData`,
-            async (verifyId) => {
-                // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.get(`${baseUrl}/VerifiedEmailByUser/${verifyId}`));
-                return response; // Return the response data
+            async (verifyId, { rejectWithValue }) => {
+                try {
+                    // Fetch the data from the constructed URL
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/VerifiedEmailByUser/${verifyId}`));
+                    return response; // Return the response data
+                } catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
             }
         );
     }
 
-    function resendVerificationLink() { 
+    function resendVerificationLink() {
         return createAsyncThunk(
             `${name}/resendVerificationLink`,
-            async ({emailAddress,id}) => {
-                console.log(emailAddress,id);
-                const url = new URL(`${baseUrl}/ResendEmailVerification`);
-                url.searchParams.append('EmailAddress', emailAddress);
-                 url.searchParams.append('UserId', id);
-                // Fetch the data from the constructed URL
-                const response = await trackPromise(fetchWrapper.get(url.toString()));
-                return response; // Return the response data
+            async ({ emailAddress, id }, { rejectWithValue }) => {
+                try {
+                    console.log(emailAddress, id);
+                    const url = new URL(`${baseUrl}/ResendEmailVerification`);
+                    url.searchParams.append('EmailAddress', emailAddress);
+                    url.searchParams.append('UserId', id);
+                    // Fetch the data from the constructed URL
+                    const response = await trackPromise(fetchWrapper.get(url.toString()));
+                    return response; // Return the response data
+                } catch (error) {
+                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
             }
         );
     }
@@ -84,24 +90,8 @@ function createExtraActions() {
 
 function createExtraReducers() {
     return (builder) => {
-        getPortalData();
         getVerifiedUserData();
         register();
-
-        function getPortalData() {
-            var { pending, fulfilled, rejected } = extraActions.getPortalData;
-            builder
-                .addCase(pending, (state) => {
-                    state.portalData = { loading: true };
-                })
-                .addCase(fulfilled, (state, action) => {
-                    console.log(action.payload);
-                    state.portalData = action.payload;
-                })
-                .addCase(rejected, (state, action) => {
-                    state.portalData = { error: action.error };
-                });
-        }
 
         function getVerifiedUserData() {
             var { pending, fulfilled, rejected } = extraActions.getVerifiedUserData;
