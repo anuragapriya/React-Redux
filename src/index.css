@@ -170,3 +170,10 @@ body {
 .zoom{
   display: none;
 }
+.error-text {
+  color: red;
+}
+
+.editlabel label{
+  transform: translate(14px, -9px) scale(1);
+  }

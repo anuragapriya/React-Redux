@@ -10,9 +10,7 @@ import { alertActions } from "_store";
 import { convertToBase64,base64ToFile ,fileExtension ,fileSizeReadable,fileTypeAcceptable} from '_utils';
 import { uploadLabels } from "_utils/labels";
 import ModalPopup from "./ModalPopup";
-import { materialsymbolsupload  , materialsymbolsdownload ,midelete} from '../images';
-import Delete from '@mui/icons-material/Delete';
-import DownloadIcon from '@mui/icons-material/Download';
+import { materialsymbolsupload  , materialsymbolsdownload ,Delete} from '../images';
 const UploadFiles = ({
     portalKey,
     selectedDocumentType,
@@ -100,24 +98,26 @@ const UploadFiles = ({
                 break;
             }
 
+            const oldFileData= exsistingFiles?.find(f=>f.DocumentTypeID===file.DocumentTypeID);
             const base64 = await convertToBase64(file);
             const fileData = {
-                ID: null, // This will be updated if replacing an existing file
-                AdditionalID: 0,
+                ID: oldFileData?.ID || null, // This will be updated if replacing an existing file
+                AdditionalID: oldFileData?.AdditionalID || 0,
                 DocumentTypeID: file.DocumentTypeID,
                 FileName: file.name,
                 Format: file.extension,
                 Size: file.size,
                 PortalKey: portalKey, // Replace with actual portal key if needed
                 File: base64,
-                Url: null
+                Url: oldFileData?.Url || null
             };
 
             fileResults.push(fileData);
         }
 
+       
         setFiles(prevFiles => {
-            const updatedFiles = exsistingFiles.map(prevFile => {
+            const updatedFiles = prevFiles.map(prevFile => {
                 const newFile = fileResults.find(newFile => newFile.DocumentTypeID === prevFile.DocumentTypeID);
                 return newFile ? {
                     ...newFile, ID: prevFile.ID,
@@ -127,7 +127,7 @@ const UploadFiles = ({
             });
 
             const newUniqueFiles = fileResults.filter(newFile =>
-                !exsistingFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
+                !prevFiles.some(prevFile => prevFile.DocumentTypeID === newFile.DocumentTypeID)
             );
 
             const newFiles = [...updatedFiles, ...newUniqueFiles];
@@ -209,11 +209,12 @@ const UploadFiles = ({
                                                 <Typography component="span" className="DocumentDescription">{type.DocumentDescription}</Typography> 
                                                 <Typography component="div" className="DocumentTypeID">
                                                 <IconButton onClick={() => handleDownload(uploadedDocument[0].File, uploadedDocument[0].FileName)}>
-                                                   <DownloadIcon variant="contained" color="secondary"  />
-                                                   
+                                                  
+                                                   <img src={materialsymbolsdownload} alt='download'></img>                                              
                                                 </IconButton>
                                                 <IconButton onClick={() => handleDialogOpen(type.DocumentTypeID)}>
-                                                <Delete variant="contained" color="secondary" />
+                                                {/* <Delete variant="contained" color="secondary" /> */}
+                                                 <img src={Delete} alt="Delete" ></img>
                                                 </IconButton>
                                                 </Typography>
                                             </Typography>

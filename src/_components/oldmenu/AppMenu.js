@@ -6,8 +6,9 @@ import AppMenuItem from './AppMenuItem';
 
 const AppMenu = ({appMenuItems}) => {
     const classes = useStyles()
-    const auth = useSelector(x => x.auth.value);
-    const isAuthenticated= auth?.Succeeded;
+    // const auth = useSelector(x => x.auth.value);
+    // const isAuthenticated= auth?.Succeeded;
+    const isAuthenticated = useSelector(x => x.auth.isAuthenticated);
     // only show nav when logged in
     if (!isAuthenticated) return null;
         

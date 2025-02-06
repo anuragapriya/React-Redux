@@ -13,8 +13,8 @@ const slice = createSlice({ name, initialState, reducers, extraReducers });
 
 // exports
 
-export const portalAccessActions = { ...slice.actions, ...extraActions };
-export const portalAccessReducer = slice.reducer;
+export const configAction = { ...slice.actions, ...extraActions };
+export const configReducer = slice.reducer;
 
 // implementation
 
@@ -31,7 +31,7 @@ function createExtraActions() {
 
     return {
         getAccess: getAccess(),
-        postAccess: postAccess(),
+        postAccess: postAccess()
     };
 
 
@@ -44,7 +44,6 @@ function createExtraActions() {
                     return response;
                 }
                 catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -60,7 +59,6 @@ function createExtraActions() {
                     return response;
                 }
                 catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -89,7 +87,6 @@ function createExtraReducers() {
                     state.portalAccessGetData = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
-                    console.log(action.payload);
                     state.portalAccessGetData = action.payload;
                 })
                 .addCase(rejected, (state, action) => {

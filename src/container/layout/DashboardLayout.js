@@ -13,11 +13,11 @@ const DashboardLayout = ({ appMenuItems }) => {
     <div className={clsx('App', classes.root)}>
       <CssBaseline />
       <AppMenu appMenuItems={appMenuItems} />
-      <main className="admincontent">
+      {/* <main className="admincontent">
         <Container maxWidth="lg" className="admincontentContainer">
           <Outlet />
         </Container>
-      </main>
+      </main> */}
     </div>
   );
 };
@@ -27,8 +27,6 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column', // Ensure the layout is columnar
   },
-  
- 
 }));
 
 export default DashboardLayout;

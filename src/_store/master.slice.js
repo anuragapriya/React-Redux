@@ -20,7 +20,8 @@ export const masterReducer = slice.reducer;
 function createInitialState() {
     return {
         portalData: [],
-        document: null
+        document: null,
+        supportDetails: null
     }
 }
 
@@ -30,7 +31,8 @@ function createExtraActions() {
 
     return {
         getPortalData: getPortalData(),
-        getNondisclosureDocument: getNondisclosureDocument()
+        getNondisclosureDocument: getNondisclosureDocument(),
+        saveRole:saveRole()
     };
 
     function getPortalData() {
@@ -42,7 +44,6 @@ function createExtraActions() {
                     return response;
                 }
                 catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -57,13 +58,26 @@ function createExtraActions() {
                     const response = await trackPromise(fetchWrapper.get(`${baseUrl}/download`));
                     return response;
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
         );
     }
 
+     function saveRole() { 
+            return createAsyncThunk(
+                `${name}/saveRole`,
+                async ({data}, { rejectWithValue }) => {
+                    try {
+                        const response = await trackPromise(fetchWrapper.post(`${baseUrl}/CreateRole`,{Data: data}));
+                        return response;
+                    }
+                    catch (error) {
+                        return rejectWithValue(error);
+                    }
+                }
+            );
+        }
 }
 
 function createExtraReducers() {
@@ -99,5 +113,6 @@ function createExtraReducers() {
                     state.document = { error: action.error };
                 });
         };
+
     };
 }

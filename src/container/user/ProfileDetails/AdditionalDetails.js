@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
-const AdditionalDetails = ({ register, errors, control, stateData, handleBlur }) => {
+const AdditionalDetails = ({ register, errors, control,trigger, stateData, handleBlur }) => {
     return <>
         <CustomFormControl
             id="FullName"
@@ -38,6 +38,7 @@ const AdditionalDetails = ({ register, errors, control, stateData, handleBlur })
                     error={!!errors.HomeState}
                     helperText={errors.HomeState?.message}
                     handleBlur={handleBlur}
+                    trigger={trigger}
                 />
                 <CustomFormControl
                     id="DLNumber"
@@ -68,6 +69,7 @@ const AdditionalDetails = ({ register, errors, control, stateData, handleBlur })
                     error={!!errors.DLState}
                     helperText={errors.DLState?.message}
                     handleBlur={handleBlur}
+                    trigger={trigger}
                 />
             </Grid>
         </Grid>

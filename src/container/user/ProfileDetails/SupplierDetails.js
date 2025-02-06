@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, MobileNumberInput, MultiSelectInput, CustomFormControl,CustomDatePicker } from '_components';
 import { Typography } from '@mui/material';
+import dayjs from 'dayjs';
 
 const SupplierDetails = ({ register,
     stateData,
@@ -10,6 +11,7 @@ const SupplierDetails = ({ register,
     businessCategoryData,
     control,
     errors,
+    trigger,
     setValue,
     handleBlur,
     handleClassificationChange,
@@ -50,6 +52,7 @@ const SupplierDetails = ({ register,
                         error={!!errors.CategoryID}
                         helperText={errors.CategoryID?.message}
                         handleBlur={handleBlur}
+                        trigger={trigger}
                     />
                 </Typography>
             </Grid>
@@ -67,6 +70,7 @@ const SupplierDetails = ({ register,
                         helperText={errors.ClassificationID?.message}
                         handleBlur={handleBlur}
                         setValue={setValue}
+                        trigger={trigger}
                     />
                 </Typography>
             </Grid>
@@ -90,6 +94,8 @@ const SupplierDetails = ({ register,
                     error={!!errors.ExpiryDate}
                     helperText={errors.ExpiryDate?.message}
                     handleBlur={handleBlur}
+                    trigger={trigger}
+                    minimumDate={dayjs()}
                 />
                 </Typography>
             </Grid>
@@ -104,6 +110,7 @@ const SupplierDetails = ({ register,
                         error={!!errors.AgencyID}
                         helperText={errors.AgencyID?.message}
                         handleBlur={handleBlur}
+                        trigger={trigger}
                     />
                 </Typography>
             </Grid>
@@ -118,6 +125,7 @@ const SupplierDetails = ({ register,
                         error={!!errors.AgencyStateID}
                         helperText={errors.AgencyStateID?.message}
                         handleBlur={handleBlur}
+                        trigger={trigger}
                     />
                 </Typography>
             </Grid>
@@ -173,7 +181,7 @@ const SupplierDetails = ({ register,
             </Grid>
             <Grid item xs={12} sm={12} md={12} className='supplierDetailes'>
                 <CustomFormControl
-                    id="Address"
+                    id="Street"
                     label="Address"
                     type="text"
                     register={register}
@@ -202,6 +210,7 @@ const SupplierDetails = ({ register,
                         error={!!errors.State}
                         helperText={errors.State?.message}
                         handleBlur={handleBlur}
+                        trigger={trigger}
                     />
                 </Typography>
             </Grid>

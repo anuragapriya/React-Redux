@@ -36,7 +36,11 @@ function authHeader(url) {
 }
 
 function authToken() {
-    return store.getState().auth.value?.token;
+    if (store.getState().auth.value) {
+        const { Data: { UserDetails: { jwToken } } } = store.getState().auth.value;
+        return jwToken;
+    }
+    return store.getState().auth.value;
 }
 
 async function handleResponse(response) {

@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import DownloadIcon from '@mui/icons-material/Download';
+import {materialsymbolsdownload} from './../images';
 import exportPDF from '_utils/exportPdf';
 import exportCSV from '_utils/exportCsv';
 import exportExcel from '_utils/exportExcel';
@@ -48,13 +48,13 @@ const Download = (props) => {
     }
 
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
+ 
+           
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <Button className='Download' onClick={handleOpenUserMenu} variant="contained" endIcon={<DownloadIcon />}>
-                                Download
+                            <Button className='Download' onClick={handleOpenUserMenu} variant="contained" >
+                            <img src={materialsymbolsdownload} alt='download'></img> Download
                             </Button>
                         </Tooltip>
                         <Menu
@@ -81,8 +81,7 @@ const Download = (props) => {
                         </Menu>
                     </Box>
                 </Toolbar>
-            </Container>
-        </AppBar>
+        
     );
 }
 

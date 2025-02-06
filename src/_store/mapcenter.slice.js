@@ -37,13 +37,12 @@ function createExtraActions() {
     function get() {
         return createAsyncThunk(
             `${name}/getUserData`,
-            async ({ id, portal }, { rejectWithValue }) => {
+            async ({ id }, { rejectWithValue }) => {
                 try {
                     const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync/${id}`);
                     const response = await trackPromise(fetchWrapper.get(url.toString()));
                     return response;
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -102,7 +101,6 @@ function createExtraReducers() {
                 .addCase(fulfilled, (state, action) => {
                     const data = action.payload;
                     state.userData = data.Data;
-                    console.log(data.Data);
                 })
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };

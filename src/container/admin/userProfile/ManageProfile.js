@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Box, Typography, Button } from '@mui/material';
 import { userActions, alertActions } from '_store';
 import {registerValidationSchema, profileValidationSchema } from '_utils/validationSchema';
-import { PersonalDetails ,AssignToDetails,SecurityQuestions} from 'container/user';
+import { PersonalDetails ,SecurityQuestions} from 'container/user';
 
 const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
     const id = selectedrowId;
@@ -56,9 +56,6 @@ const ManageProfile = ({ title, open, handleClose, selectedrowId }) => {
                             <PersonalDetails  register={register} errors={errors} watch={watch} control={control} trigger={trigger}></PersonalDetails>
                             <SecurityQuestions id={id}  register={register} errors={errors}  control={control} trigger={trigger}/>
                            
-                            {id && <>
-                                <AssignToDetails errors={errors} watch={watch} control={control} trigger={trigger}></AssignToDetails>
-                            </>}
                             <Button type="submit" fullWidth variant="contained" color="primary" disabled={isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit'}
                             </Button>

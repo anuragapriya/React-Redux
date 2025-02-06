@@ -44,7 +44,6 @@ function createExtraActions() {
                     const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register`, user));
                     return response;
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -60,7 +59,6 @@ function createExtraActions() {
                     const response = await trackPromise(fetchWrapper.get(`${baseUrl}/VerifiedEmailByUser/${verifyId}`));
                     return response; // Return the response data
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -72,7 +70,6 @@ function createExtraActions() {
             `${name}/resendVerificationLink`,
             async ({ emailAddress, id }, { rejectWithValue }) => {
                 try {
-                    console.log(emailAddress, id);
                     const url = new URL(`${baseUrl}/ResendEmailVerification`);
                     url.searchParams.append('EmailAddress', emailAddress);
                     url.searchParams.append('UserId', id);
@@ -80,7 +77,6 @@ function createExtraActions() {
                     const response = await trackPromise(fetchWrapper.get(url.toString()));
                     return response; // Return the response data
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }

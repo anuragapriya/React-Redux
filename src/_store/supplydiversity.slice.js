@@ -43,7 +43,6 @@ function createExtraActions() {
                     const response = await trackPromise(fetchWrapper.get(url));
                     return response;
                 } catch (error) {
-                    console.log(error.message);
                     return rejectWithValue(error);
                 }
             }
@@ -102,7 +101,6 @@ function createExtraReducers() {
                 .addCase(fulfilled, (state, action) => {
                     const data = action.payload;
                     state.userData = data.Data;
-                    console.log(data.Data);
                 })
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };

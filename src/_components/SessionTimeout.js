@@ -4,6 +4,7 @@ import SessionTimeoutDialog from "./SessionTimeoutDialog";
 let countdownInterval;
 let timeout;
 const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
+  const sessionTimeoutTime= process.env.REACT_APP_SESSION_TIMEOUT_MINUTES || 20;
   const [timeoutModalOpen, setTimeoutModalOpen] = useState(false);
   const [timeoutCountdown, setTimeoutCountdown] = useState(0);
   const idleTimer = useRef(null);
@@ -50,7 +51,7 @@ const SessionTimeout =  ({ isAuthenticated, onLogout }) => {
 
   useIdleTimer({
     ref: idleTimer,
-    timeout: 1000 * 60 * 10, // 10 minutes
+    timeout: 1000 * 60 * sessionTimeoutTime, // 10 minutes
     onIdle: onIdle,
     debounce: 500, // 500 milliseconds
     onActive:onActive

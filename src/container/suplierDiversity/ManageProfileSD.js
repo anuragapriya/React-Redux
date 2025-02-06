@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { SupplierDetailsSchema } from "_utils/validationSchema";
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, UnderConstruction, UploadFiles } from '_components';
-import { alertActions, supplyDiversityAction, userActions } from '_store';
+import { alertActions, supplyDiversityAction } from '_store';
 import SupplierDetails from '../user/ProfileDetails/SupplierDetails';
 import { supplierSupportedFormat } from '_utils/constant';
 import { diversityRegistrationLabels } from '_utils/labels';
@@ -75,7 +75,7 @@ const ManageProfileSD = () => {
     const fetchData = async () => {
       try {
         dispatch(supplyDiversityAction.clear());
-        const user = await dispatch(supplyDiversityAction.get({ id, portal: portalkey })).unwrap();
+        const user = await dispatch(supplyDiversityAction.get({ id })).unwrap();
         const userData = user?.Data;
         const expirtDate = dayjs(userData.ExpiryDate).isValid() ? dayjs(userData.ExpiryDate) : dayjs();
         const data = { ...userData, PhoneNumber: formatPhoneNumber(userData.PhoneNumber), ExpiryDate: expirtDate };
@@ -124,10 +124,8 @@ const ManageProfileSD = () => {
         return;
       }
 
-      const parsedDate = dayjs(data.ExpiryDate, 'ddd, DD MMM YYYY HH:mm:ss [GMT]').utc();
-      const formattedDate = parsedDate.format('YYYY-MM-DDTHH:mm:ss:SS');
-
-      console.log(formattedDate);
+      const parsedDate =  dayjs(data.ExpiryDate);
+      const formattedDate = parsedDate.utc().format('YYYY-MM-DDTHH:mm:ss');
 
       const transformedData = {
         AdditionalID: user?.AdditionalID || 0,
@@ -135,7 +133,7 @@ const ManageProfileSD = () => {
         CompanyName: data.CompanyName,
         ContactPerson: data.ContactPerson,
         Title: data.Title,
-        Address: data.Address,
+        Street: data.Street,
         City: data.City,
         State: data.State,
         CompanyWebsite: data.CompanyWebsite,
@@ -159,16 +157,16 @@ const ManageProfileSD = () => {
       } else {
         result = await dispatch(supplyDiversityAction.insert({ id, transformedData }));
       }
-      console.log(result);
+      
       if (result?.error) {
-        dispatch(alertActions.error({ message: result?.error.message, header: header }));
+        dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
         return;
       }
       navigate('/');
       dispatch(alertActions.success({ message: diversityRegistrationLabels.message1, header: diversityRegistrationLabels.header, showAfterRedirect: true }));
 
     } catch (error) {
-      dispatch(alertActions.error({ message: error.message, header: header }));
+      dispatch(alertActions.error({ message: error?.message || error, header: header }));
     }
   };
 
@@ -180,7 +178,7 @@ const ManageProfileSD = () => {
   };
 
   const handleOnChange = (event, newvalue) => {
-    setSelectedDocumentType(newvalue?.value);
+    setSelectedDocumentType(newvalue);
   };
   const handleFileChange = (newFiles) => {
     setFiles(newFiles);

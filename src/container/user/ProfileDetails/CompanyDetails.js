@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
 
-const CompanyDetails = ({ register, errors, control, stateData, handleBlur }) => {
+const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBlur }) => {
     return <>
         <CustomFormControl
             id="CompanyName"
@@ -46,6 +46,7 @@ const CompanyDetails = ({ register, errors, control, stateData, handleBlur }) =>
                     error={!!errors.CompanyState}
                     helperText={errors.CompanyState?.message}
                     handleBlur={handleBlur}
+                    trigger={trigger}
                 />
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">

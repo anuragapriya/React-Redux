@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Grid } from '@mui/material';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
@@ -8,6 +8,7 @@ const AppMenu = ({ appMenuItems }) => {
   const classes = useStyles();
   const auth = useSelector(x => x.auth.value);
   const isAuthenticated = auth?.Succeeded;
+  const [activeItem, setActiveItem] = useState(null);
   // only show nav when logged in
   if (!isAuthenticated) return null;
 
@@ -15,7 +16,10 @@ const AppMenu = ({ appMenuItems }) => {
     <div className="menulist">
     <div className={classes.appMenu}>
       {appMenuItems.map((item, index) => (
-        <AppMenuItem {...item} key={index} />
+        <AppMenuItem 
+        {...item}
+        activeItem={activeItem}
+        setActiveItem={setActiveItem} />
       ))}
     </div>
     </div>
