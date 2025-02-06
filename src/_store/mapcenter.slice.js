@@ -30,21 +30,33 @@ function createExtraActions() {
 
     return {
         get: get(),
+        insert: insert(),
         update: update()
     };
 
-    function get() { 
+    function get() {
         return createAsyncThunk(
             `${name}/getUserData`,
-            async ({ id, portal }, { rejectWithValue }) => {
+            async ({ id }, { rejectWithValue }) => {
                 try {
                     const url = new URL(`${baseUrl}/GetRegisterMapCentreAsync/${id}`);
-                   // url.searchParams.append('UserId', id);
-
                     const response = await trackPromise(fetchWrapper.get(url.toString()));
                     return response;
                 } catch (error) {
-                    console.log(error.message);
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function insert() {
+        return createAsyncThunk(
+            `${name}/insert`,
+            async ({ id, transformedData }, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    return response;
+                } catch (error) {
                     return rejectWithValue(error);
                 }
             }
@@ -56,15 +68,14 @@ function createExtraActions() {
             `${name}/update`,
             async ({ id, transformedData }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/Register-MC`, { Data: transformedData }));
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}/putMapCenter-MC`, { Data: transformedData }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }
             }
         );
     }
-
-    
 }
 
 function createReducers() {
@@ -90,11 +101,10 @@ function createExtraReducers() {
                 .addCase(fulfilled, (state, action) => {
                     const data = action.payload;
                     state.userData = data.Data;
-                    console.log(data.Data);
                 })
                 .addCase(rejected, (state, action) => {
                     state.userData = { error: action.error };
                 });
-        }       
+        }
     };
 }

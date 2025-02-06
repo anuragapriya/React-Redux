@@ -13,8 +13,8 @@ const slice = createSlice({ name, initialState, reducers, extraReducers });
 
 // exports
 
-export const portalAccessActions = { ...slice.actions, ...extraActions };
-export const portalAccessReducer = slice.reducer;
+export const configAction = { ...slice.actions, ...extraActions };
+export const configReducer = slice.reducer;
 
 // implementation
 
@@ -26,31 +26,40 @@ function createInitialState() {
 }
 
 function createExtraActions() {
-  // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    // const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
     const baseUrl = `${process.env.REACT_APP_API_URL}/api/UserPortalRoleMapping`;
 
     return {
         getAccess: getAccess(),
-        postAccess: postAccess(),
+        postAccess: postAccess()
     };
 
 
     function getAccess() {
         return createAsyncThunk(
             `${name}/getAccessData`,
-            async () =>  await trackPromise(fetchWrapper.get(`${baseUrl}/GetUserPortalRoleMapping`))            
+            async (_, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.get(`${baseUrl}/GetUserPortalRoleMapping`));
+                    return response;
+                }
+                catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
         );
     }
 
     function postAccess() {
         return createAsyncThunk(
             `${name}/postAccessData`,
-            async (data) => {
+            async (data, { rejectWithValue }) => {
                 try {
-                    await trackPromise(fetchWrapper.put(`${baseUrl}`, data));
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}`, data));
+                    return response;
                 }
                 catch (error) {
-                    console.log(error);
+                    return rejectWithValue(error);
                 }
             }
         );
@@ -78,12 +87,11 @@ function createExtraReducers() {
                     state.portalAccessGetData = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
-                    console.log(action.payload);
                     state.portalAccessGetData = action.payload;
                 })
                 .addCase(rejected, (state, action) => {
                     state.portalAccessGetData = { error: action.error };
                 });
-        }       
+        }
     };
 }

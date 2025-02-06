@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
-const AdditionalDetails = ({ register, errors, control, stateData, handleBlur }) => {
+const AdditionalDetails = ({ register, errors, control,trigger, stateData, handleBlur }) => {
     return <>
         <CustomFormControl
             id="FullName"
@@ -29,7 +29,8 @@ const AdditionalDetails = ({ register, errors, control, stateData, handleBlur })
         />
         <Grid container spacing={3}>
             <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
-            <AutocompleteInput
+                <AutocompleteInput
+                    id="HomeState"
                     control={control}
                     name="HomeState"
                     label="State"
@@ -37,17 +38,8 @@ const AdditionalDetails = ({ register, errors, control, stateData, handleBlur })
                     error={!!errors.HomeState}
                     helperText={errors.HomeState?.message}
                     handleBlur={handleBlur}
+                    trigger={trigger}
                 />
-                <CustomFormControl
-                    id="HomeZipCode"
-                    label="Zip Code"
-                    type="text"
-                    register={register}
-                    errors={errors}
-                    handleBlur={handleBlur}
-                />
-            </Grid>
-            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
                 <CustomFormControl
                     id="DLNumber"
                     label="Driving License"
@@ -56,13 +48,28 @@ const AdditionalDetails = ({ register, errors, control, stateData, handleBlur })
                     errors={errors}
                     handleBlur={handleBlur}
                 />
+
+
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
                 <CustomFormControl
-                    id="DLState"
-                    label="License State"
+                    id="HomeZipCode"
+                    label="Zip Code"
                     type="text"
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
+                />
+                <AutocompleteInput
+                    id="DLState"
+                    control={control}
+                    name="DLState"
+                    label="License State"
+                    options={stateData}
+                    error={!!errors.DLState}
+                    helperText={errors.DLState?.message}
+                    handleBlur={handleBlur}
+                    trigger={trigger}
                 />
             </Grid>
         </Grid>

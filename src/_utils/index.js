@@ -11,7 +11,8 @@ import base64ToFile from "./files/base64ToFile";
 import fileExtension from "./files/fileExtension";
 import fileSizeReadable from "./files/fileSizeReadable";
 import fileTypeAcceptable from "./files/fileTypeAcceptable";
+import getAppMenus from "./getAppMenus";
 //import { profileValidationSchema,otpValidationSchema,loginValidationSchema,resetValidationSchema } from "./validationSchema";
 
 export {fakeBackend,fetchWrapper,history,exportCSV,exportExcel,exportPDF,Files,convertToBase64,
-    fileDataConvertion,base64ToFile,fileExtension,fileSizeReadable,fileTypeAcceptable};
+    fileDataConvertion,base64ToFile,fileExtension,fileSizeReadable,fileTypeAcceptable,getAppMenus};

@@ -2,13 +2,16 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
-import { Switch, Button } from '@mui/material';
-import { portalAccessActions, alertActions } from '_store';
+import { Switch, Button, Box, Typography } from '@mui/material';
+import { alertActions, configAction } from '_store';
+import { AutocompleteInput } from '_components';
+import Grid from "@material-ui/core/Grid";
 import _ from 'lodash';
 
 const PortalConfiguration = (props) => {
     const dispatch = useDispatch();
     const initialData = props.data;
+    const options= props.options;
     const [data, setData] = useState(_.cloneDeep(initialData));
     const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 5 });
 
@@ -77,12 +80,12 @@ const PortalConfiguration = (props) => {
 
         try {
             let message;
-            await dispatch(portalAccessActions.postAccess(changedData)).unwrap();
+            await dispatch(configAction.postAccess(changedData)).unwrap();
             message = 'Config updated';
-            props.handleSubmitted();
+            props.handleFetch();
             dispatch(alertActions.success({ message, showAfterRedirect: true }));
         } catch (error) {
-            dispatch(alertActions.error(error));
+            dispatch(alertActions.error({ message: error?.message || error, header: "Role Management" }));                               
         }
     };
 
@@ -126,10 +129,37 @@ const PortalConfiguration = (props) => {
         initialState: {
             pagination: { pageSize: 5, pageIndex: 0 }, // Set initial rows per page
         },
+        renderTopToolbarCustomActions: () => (
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '16px',
+                    padding: '8px',
+                    flexWrap: 'wrap',
+                }}
+            >
+                <Grid container spacing={3} className='passwordcheck'>                    
+                        <AutocompleteInput
+                            control={props.control}
+                            name="selectedPortal"
+                            label="Select Portal"
+                            value={options?.find(option => option.value === props.selectedPortal || null)}
+                            options={options}
+                            error={!!props.errors.selectedPortal}
+                            helperText={props.errors.selectedPortal?.message}
+                            handleBlur={() => { }}
+                            onChange={props.handlePortalChange}
+                        />
+                    
+                </Grid>
+                <Typography variant="h2" className='portalconfiguration'>{props.portalName}</Typography>
+            </Box>
+        ),
     });
 
     return (
         <div>
+
             <MaterialReactTable table={table} />
             <Button className='submitbutton' variant="contained" color="primary" onClick={handleSubmit}>
                 Submit

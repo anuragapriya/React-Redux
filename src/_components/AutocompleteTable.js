@@ -5,11 +5,11 @@ const AutocompleteTable = ({ value, onChange, options, error, helperText }) => {
 
   return (
     <Autocomplete
-      value={options.find(option => option.value === value.toString()) || null}
+      value={options.find(option => option?.value === value) || null}
       onChange={(event, newValue) => onChange(newValue)}
       options={options}
       getOptionLabel={(option) => option.label}
-      isOptionEqualToValue={(option, value) => option.value === value}
+      isOptionEqualToValue={(option, value) => option?.value === value}
       renderInput={(params) => (
         <TextField
           {...params}

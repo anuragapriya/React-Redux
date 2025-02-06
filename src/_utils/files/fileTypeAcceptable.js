@@ -13,8 +13,8 @@ const fileTypeAcceptable = (accepts, file) => {
          const [typeLeft, typeRight] = file.type.split('/')
          const [acceptLeft, acceptRight] = accept.split('/')
 
-         console.log('File type:', file.type);
-         console.log('Accept type:', accept);
+         // console.log('File type:', file.type);
+         // console.log('Accept type:', accept);
 
          if (acceptLeft && acceptRight) {
             if (acceptLeft === '*' && acceptRight === '*') {
@@ -31,8 +31,8 @@ const fileTypeAcceptable = (accepts, file) => {
          }
       } else if (file.extension && accept.match(extRegexp)) {
          const ext = accept.substr(1)
-         console.log('File extension:', file.extension);
-         console.log('Accept extension:', ext);
+         // console.log('File extension:', file.extension);
+         // console.log('Accept extension:', ext);
 
          return file.extension.toLowerCase() === ext.toLowerCase()
       }

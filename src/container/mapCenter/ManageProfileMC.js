@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Typography, Button } from '@mui/material';
 import { Grid, IconButton } from "@material-ui/core";
 import { alertActions, mapCenterAction, masterActions } from '_store';
-import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema } from "_utils/validationSchema";
+import { additionalDetailsValidationSchema, companyPOCValidationSchema, companyValidationSchema, mapCenterValidationSchema } from "_utils/validationSchema";
 import { supportedFormat } from '_utils/constant';
 import { base64ToFile } from '_utils';
 import { AutocompleteInput, UploadFiles, UnderConstruction } from '_components';
@@ -23,6 +23,8 @@ const ManageProfileMC = () => {
     const [files, setFiles] = useState([]);
     const documentTypeData = user?.DocumentData || [];
     const states = user?.State || [];
+    const exsistingFiles = user?.FileData || [];
+    
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
@@ -30,33 +32,35 @@ const ManageProfileMC = () => {
 
     const stateData = states.map(x => ({
         label: x.StateName,
-        value: x.StateId.toString()
+        value: x.StateId
     }));
 
-    const combinedSchema = additionalDetailsValidationSchema
-        .concat(companyValidationSchema)
-        .concat(companyPOCValidationSchema);
+    // const combinedSchema = additionalDetailsValidationSchema
+    //     .concat(companyValidationSchema)
+    //     .concat(companyPOCValidationSchema);
 
     const { register, handleSubmit, control, reset, formState: { errors, isValid }, trigger } = useForm({
-        resolver: yupResolver(combinedSchema)
+        resolver: yupResolver(mapCenterValidationSchema)
     });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 dispatch(mapCenterAction.clear());
-                const user = await dispatch(mapCenterAction.get({ id, portal: portalkey })).unwrap();
+                const user = await dispatch(mapCenterAction.get({id})).unwrap();
                 const data = user?.Data;
                 reset(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
+                        AdditionalID:file.AdditionalID,
                         DocumentTypeID: file.DocumentTypeID,
                         FileName: file.FileName,
                         Format: file.Format,
                         Size: file.Size,
                         PortalKey: file.PortalKey,
-                        File: file.File
+                        File: file.File,
+                        Url:file.Url
                     })));
                 }
             } catch (error) {
@@ -112,18 +116,22 @@ const ManageProfileMC = () => {
                 AdditionalID: user?.AdditionalID || 0,
                 FileData: files
             };
-
-            const result = await dispatch(mapCenterAction.update({ id, transformedData }));
-            console.log(result);
+            let result;
+            if (user?.AdditionalID !== 0) {
+                result = await dispatch(mapCenterAction.update({ id, transformedData }));
+            } else {
+                result = await dispatch(mapCenterAction.insert({ id, transformedData }));
+            }
+           
             if (result?.error) {
-                dispatch(alertActions.error({ message: result?.error.message, header: header }));
+                dispatch(alertActions.error({  message: result?.payload || result?.error.message, header: header }));
                 return;
             }
             navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
         } catch (error) {
-            dispatch(alertActions.error({ message: error.message, header: header }));
+            dispatch(alertActions.error({ message: error?.message || error, header: header }));
         }
     };
 
@@ -133,7 +141,7 @@ const ManageProfileMC = () => {
     };
 
     const handleOnChange = (event, newvalue) => {
-        setSelectedDocumentType(newvalue?.value);
+        setSelectedDocumentType(newvalue);
     };
 
     const handleFileChange = (newFiles) => {
@@ -161,7 +169,7 @@ const ManageProfileMC = () => {
             {!(user?.loading || user?.error) && (
                 <Typography component="div" className="MapCenterAccecss">
                     <Typography component="div" className="MapCenterAccecssheading">
-                        <Typography component="h1" variant="h5">Map Center Access</Typography>
+                        <Typography component="h1"  variant="h5">Map Center Access</Typography>
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography className="Personal-Information-container" component="div">
@@ -176,7 +184,7 @@ const ManageProfileMC = () => {
                                                             <Typography component="h2" variant="h5">Personal Information</Typography>
                                                         </Typography>
                                                         <AdditionalDetails
-                                                          handleBlur={handleBlur}
+                                                            handleBlur={handleBlur}
                                                             register={register}
                                                             control={control}
                                                             stateData={stateData}
@@ -190,7 +198,7 @@ const ManageProfileMC = () => {
                                                             <Typography component="h2" variant="h5">Company Information</Typography>
                                                         </Typography>
                                                         <CompanyDetails
-                                                           handleBlur={handleBlur}
+                                                            handleBlur={handleBlur}
                                                             register={register}
                                                             errors={errors}
                                                             control={control}
@@ -199,11 +207,11 @@ const ManageProfileMC = () => {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xs={12} sm={12} md={12}>
-                                                    <CompanyPOC 
-                                                    register={register} 
-                                                    errors={errors} 
-                                                    control={control} 
-                                                    handleBlur={handleBlur} />
+                                                    <CompanyPOC
+                                                        register={register}
+                                                        errors={errors}
+                                                        control={control}
+                                                        handleBlur={handleBlur} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -233,6 +241,7 @@ const ManageProfileMC = () => {
                                                     control={control}
                                                     errors={errors}
                                                     onFileChange={handleFileChange}
+                                                    exsistingFiles={exsistingFiles}
                                                 />
                                                 <Typography component="div" className="SupportedFormats">
                                                     <Typography component="h3" >Download Template</Typography>

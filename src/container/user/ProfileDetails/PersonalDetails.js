@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput, ModalPopup } from '_components';
+import { PasswordCheck, CustomFormControl, MobileNumberInput, PasswordInput, AutocompleteInput } from '_components';
 import { Typography } from '@mui/material';
-import { aggrementEALabel } from '_utils/labels';
 
-const PersonalDetails = ({ isPasswordValid, register, errors, watch, resetField, control, trigger, setIsPasswordValid, portalData, portalList, setIsAgreed }) => {
+const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, trigger, setIsPasswordValid, portalData, portalList }) => {
     const [showPasswordCheck, setShowPasswordCheck] = useState(false);
-    const [openAgreeModal, setOpenAgreeModal] = useState(false);
+
     const Password = watch('Password', '');
     const FullName = watch('FullName', '');
 
@@ -35,26 +34,21 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, resetField,
         }
     };
 
-    const handlePortalChange = (e, newValue) => {
-        const portalKey = portalList?.find(p => p.PortalID === newValue?.value)?.PortalKey;
-        if (portalKey && portalKey.toLowerCase() === 'ea') {
-            setOpenAgreeModal(true);
-        }
-    };
-
-    const handleConfirmClick = async () => {       
-        await setOpenAgreeModal(false);
-        await setIsAgreed(true); 
-    };
-
-    const handleClose = () => {
-        setOpenAgreeModal(false);
-        setIsAgreed(false);
-        resetField('PortalId');
-    };
-
     return (
         <>
+            <Typography component="div" className='passwordcheck mobile-padding'>
+                <AutocompleteInput
+                    control={control}
+                    name="PortalId"
+                    label="Select Portal"
+                    options={portalData}
+                    error={!!errors.PortalId}
+                    helperText={errors.PortalId?.message}
+                    handleBlur={handleBlur}
+                    trigger={trigger}
+                 //   onChange={handlePortalChange}
+                />
+            </Typography>
             <CustomFormControl
                 id="FullName"
                 label="Full Name"
@@ -102,26 +96,8 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, resetField,
                     <PasswordCheck password={Password} userName={FullName} onValidationChange={handlePasswordValidation} />
                 )}
             </Typography>
-            <Typography component="div" className='passwordcheck mobile-padding'>
-                <AutocompleteInput
-                    control={control}
-                    name="PortalId"
-                    label="Select Portal"
-                    options={portalData}
-                    error={!!errors.PortalId}
-                    helperText={errors.PortalId?.message}
-                    handleBlur={handleBlur}
-                    onChange={handlePortalChange}
-                />
-            </Typography>
-            {openAgreeModal && <ModalPopup
-                header={aggrementEALabel.header}
-                message1={aggrementEALabel.message1}
-                btnPrimaryText={aggrementEALabel.btnPrimaryText}
-                btnSecondaryText={aggrementEALabel.btnSecondaryText}
-                handlePrimaryClick={handleConfirmClick}
-                handleSecondaryClick={handleClose}
-            />}
+
+            
         </>
     );
 };

@@ -2,7 +2,6 @@ import { createAsyncThunk, createReducer, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { authActions } from '_store';
 import { fetchWrapper } from '_utils/fetch-wrapper';
-//import { userDetails } from '_utils/constant';
 
 // create slice
 
@@ -24,20 +23,24 @@ function createInitialState() {
     return {
         list: [],
         item: null,
-        file: null
+        userDetails: null,
+        supportDetails:null
     }
 }
 
 function createExtraActions() {
-   //const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
-      const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
+    //const baseUrl = `${process.env.REACT_APP_API_URL}/users`;
+    const baseUrl = `${process.env.REACT_APP_API_URL}/api/Account`;
 
     return {
         getAll: getAll(),
         getById: getById(),
         update: update(),
         delete: _delete(),
-        upload: upload()
+        getUserDetailsById: getUserDetailsById(),
+        getSupportDetails:getSupportDetails(),
+        updateUserProfileDetails: updateUserProfileDetails(),
+        deleteUserById: deleteUserById()
     };
 
     function getAll() {
@@ -59,33 +62,6 @@ function createExtraActions() {
             `${name}/update`,
             async function ({ id, data, portalName }, { getState, dispatch }) {
                 await trackPromise(fetchWrapper.put(`${baseUrl}/${id}`, { data, portalName }));
-
-                // // update stored user if the logged in user updated their own record
-                // const auth = getState().auth.value;
-                // if (id === auth?.id.toString()) {
-                //     // update local storage
-                //     const user = { ...auth, ...data };
-                //     localStorage.setItem('auth', JSON.stringify(user));
-
-                //     // update auth user in redux state
-                //     dispatch(authActions.setAuth(user));
-                // }
-            }
-        );
-    }
-
-    // prefixed with underscore because delete is a reserved word in javascript
-    function upload() {
-        return createAsyncThunk(
-            `${name}/upload`,
-            async function (file, { getState, dispatch }) {
-                console.log(file);
-                const uploadedFile = await trackPromise(fetchWrapper.upload(`${baseUrl}/${file}`));
-                console.log(uploadedFile);
-                // auto logout if the logged in user deleted their own record
-
-                localStorage.setItem("uploadedFile", uploadedFile);
-
             }
         );
     }
@@ -97,8 +73,68 @@ function createExtraActions() {
                 await trackPromise(fetchWrapper.delete(`${baseUrl}/${id}`));
 
                 // auto logout if the logged in user deleted their own record
-                if (id === getState().auth.value?.id) {
+                if (id === getState().auth.userId) {
                     dispatch(authActions.logout());
+                }
+            }
+        );
+    }
+
+    function getUserDetailsById() {
+        return createAsyncThunk(
+            `${name}/getUserDetailsById`,
+            async (id, { rejectWithValue }) => {
+                try {
+                    const url = new URL(`${baseUrl}/GetBasicUserDetailsByID/${id}`);
+                    const response = await trackPromise(fetchWrapper.get(url.toString()));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+       function getSupportDetails() { 
+            return createAsyncThunk(
+                `${name}/getSupportDetails`,
+                async (id, { rejectWithValue }) => {
+                    try {
+                        const url = new URL(`${baseUrl}/GetSupportByID/${id}`);
+                        const response = await trackPromise(fetchWrapper.get(url.toString()));
+                        return response;
+                    } catch (error) {
+                        return rejectWithValue(error);
+                    }
+                }
+            );
+        }
+
+    function updateUserProfileDetails() {
+        return createAsyncThunk(
+            `${name}/updateUserProfileDetails`,
+            async ({ data }, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}/SaveUserProfile`, { Data: data }));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function deleteUserById() {
+        return createAsyncThunk(
+            `${name}/deleteUserById`,
+            async (id, { rejectWithValue }) => {
+                try {
+                    const url = new URL(`${baseUrl}/DeleteUserByID`);
+                    url.searchParams.append('UserId', id);
+                    const response = await trackPromise(fetchWrapper.delete(url.toString()));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
                 }
             }
         );
@@ -120,7 +156,8 @@ function createExtraReducers() {
         getAll();
         getById();
         _delete();
-        upload();
+        getUserDetailsById();
+        getSupportDetails();
 
         function getAll() {
             var { pending, fulfilled, rejected } = extraActions.getAll;
@@ -166,17 +203,33 @@ function createExtraReducers() {
                 });
         }
 
-        function upload() {
-            var { pending, fulfilled, rejected } = extraActions.upload;
+        function getUserDetailsById() {
+            var { pending, fulfilled, rejected } = extraActions.getUserDetailsById;
             builder
                 .addCase(pending, (state) => {
-                    state.file = { loading: true };
+                    state.userDetails = { loading: true };
                 })
                 .addCase(fulfilled, (state, action) => {
-                    state.file = { value: action.payload };
+                    const data = action.payload;
+                    state.userDetails = data.Data;
                 })
                 .addCase(rejected, (state, action) => {
-                    state.file = { error: action.error };
+                    state.userDetails = { error: action.error };
+                });
+        }
+
+        function getSupportDetails() {
+            var { pending, fulfilled, rejected } = extraActions.getSupportDetails;
+            builder
+                .addCase(pending, (state) => {
+                    state.supportDetails = { loading: true };
+                })
+                .addCase(fulfilled, (state, action) => {
+                    const data = action.payload;
+                    state.supportDetails = data.Data;
+                })
+                .addCase(rejected, (state, action) => {
+                    state.supportDetails = { error: action.error };
                 });
         }
     };

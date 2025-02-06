@@ -1,81 +1,88 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import Link from "@material-ui/core/Link";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import { useDispatch } from 'react-redux';
-import { alertActions } from '_store';
+import { MuiOtpInput } from "mui-one-time-password-input";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { otpValidationSchema } from "_utils/validationSchema";
-
-const OTPVerification = ({ open, handleClose }) => {
-    const dispatch = useDispatch();
-
-    // form validation rules 
-    const formOptions = { resolver: yupResolver(otpValidationSchema) };
-
-    // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm(formOptions);
+import { FormHelperText } from "@mui/material";
+import Grid from '@mui/material/Grid2';
+import { logo } from '../images';
+import { labels } from "_utils/labels";
+const OTPVerification = ({ fullName, open, handleOTPSubmit, handleOtpClose }) => {
+    const { handleSubmit, control, formState: { errors, isValid }, trigger } = useForm({
+        resolver: yupResolver(otpValidationSchema)
+    });
 
     async function onSubmit(data) {
-        dispatch(alertActions.clear());
-        try {
-            handleClose();
-            dispatch(alertActions.success({ header: 'Reset Password', message: 'OTP Verified', showAfterRedirect: true }));
-        } catch (error) {
-            dispatch(alertActions.error(error));
-        }
+        const otp = data?.otp;
+        handleOTPSubmit(otp);
     }
 
     return (
         <Modal
             open={open}
-            onClose={handleClose}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
         >
             <Box className="modalpopup modalpopupVerification">
-                <Box>
-                    <Typography component="h2" variant="h5">Hello, Maria!</Typography>
-                    <Typography component="p">We have sent a Verification code to (202)-547-3291.
-                        Please enter the code below to verify your identity and proceed with the password reset.</Typography>
-                </Box>
-                <form className="form p-0" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="row m-0">
-                        {['number1', 'number2', 'number3', 'number4', 'number5'].map((name, index) => (
-                            <Grid item xs={2} className="ResetLogo p-0" key={index}>
-                                <TextField
-                                    {...register(name)}
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id={name}
-                                    name={name}
-                                    autoFocus={index === 0}
-                                    error={!!errors[name]}
-                                    helperText={errors[name]?.message}
-                                    aria-label={`OTP digit ${index + 1}`}
+                <Box className=" row modalpopupinner">
+                    <Grid item xs={12} className="p-0">
+                        <Link href="#" variant="logo" className="wgllogo">
+                            <img src={logo} alt="logo"></img>
+                            {labels.eServicePortal}
+                        </Link>
+                        <Typography component="h2" variant="h5" className="headercontent"> <b>{`Hello, ${fullName || ""}!`}</b></Typography>
+                        <Typography component="p" className="modalpopupcontent">We have sent a Verification code to your registered Email Address.
+                            Please enter the code below to verify your identity and proceed with the password reset.</Typography>
+
+                        <form  onSubmit={handleSubmit(onSubmit)} className='newpassword-list form forgotpasswordcontainer p-0'>
+                            <div className="App">
+                                <Controller
+                                    name="otp"
+                                    control={control}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <MuiOtpInput
+                                            length={6}
+                                            autoFocus
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            errors={!!errors.otp}
+                                        />
+                                    )}
                                 />
-                            </Grid>
-                        ))}
-                    </div>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className="Loginbutton"
-                        disabled={isSubmitting}
-                    >
-                        VERIFY
-                    </Button>
-                </form>
-            </Box>
-        </Modal>
+                                {errors.otp && <FormHelperText className="error-text">{errors.otp.message}</FormHelperText>}
+                            </div>
+                            <Box>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className="Loginbutton"
+                                disabled={!isValid}
+                            >
+                                VERIFY
+                            </Button>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className="buttonCancel"
+                                onClick={handleOtpClose}
+                            >
+                                Cancel
+                            </Button>
+                            </Box>
+                        </form>
+                    </Grid>
+                </Box>
+            </Box >
+        </Modal >
     );
 }
 

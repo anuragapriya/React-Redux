@@ -4,7 +4,7 @@ import { Fragment } from 'react';
    import RouteList from './routes/RouteList';
    import { history } from '_utils';
 
-   const Apps = () => {
+   const App = () => {
      history.navigate = useNavigate();
      history.location = useLocation();
 
@@ -19,4 +19,4 @@ import { Fragment } from 'react';
      );
    };
 
-   export default Apps;
+   export default App;

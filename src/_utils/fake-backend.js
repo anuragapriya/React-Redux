@@ -1,4 +1,4 @@
-import { getMapCenterData, user } from '_utils/constant';
+import { getMapCenterData, getMyProfileData, getSupportData, getAIUserProfileData, user, IndividualUserData, announcementData, faqData, marketerGetData, marketerGroupGetData } from '_utils/constant';
 import { portalAccessData } from '_utils/constant';
 import { portalData, userRegistrationVerified } from '_utils/constant';
 import { getSupplierDiversityData } from '_utils/constant';
@@ -7,10 +7,15 @@ import { getSupplierDiversityData } from '_utils/constant';
 const usersKey = 'react-18-redux-registration-login-example-users';
 const portalAccessKey = 'portal-access-data';
 const mapCenterUserKey = 'map-center-user-datas';
-const supplierDiversityUserKey="supply-diversity-user-datas";
+const supplierDiversityUserKey = "supply-diversity-user-datas";
+const userProfileKey = "user-profile-details-data";
+const supportDetailsKey = "support-details-data";
+const adminUserProfileKey = "admin-user-profile-data";
+const IndividualUserKey = JSON.parse(localStorage.getItem('userId')) || '';
 let users = JSON.parse(localStorage.getItem(usersKey)) || [];
 let registerPortalData = portalData;
 let userVerifyData = userRegistrationVerified;
+
 
 const fakeBackend = () => {
     let realFetch = window.fetch;
@@ -39,20 +44,44 @@ const fakeBackend = () => {
                         return upload();
                     case url.endsWith('/api/UserPortalRoleMapping/GetUserPortalRoleMapping') && opts.method === 'GET':
                         return getAccessData();
-                    case url.endsWith('/api/UserPortalRoleMapping/postAccessData') && opts.method === 'POST':
+                    case url.endsWith('/api/UserPortalRoleMapping') && opts.method === 'PUT':
                         return postAccessData();
                     case url.endsWith('/api/Master/GetPortalDetails') && opts.method === 'GET':
                         return getPortalData();
                     case url.match(/\/api\/Account\/VerifiedEmailByUser\/\d+$/) && opts.method === 'GET':
                         return getVerifiedUserData();
                     case url.match(/\/api\/Account\/GetRegisterMapCentreAsync\/\d+$/) && opts.method === 'GET':
-                        return getMapCenterUser(url);
+                        return getMapCenterUser();
                     case url.match('api/Account/Register-MC') && opts.method === 'POST':
                         return updateMapCenterUser();
                     case url.match(/\/api\/Account\/GetRegisterSupplierDiversityAsync\/\d+$/) && opts.method === 'GET':
-                        return getSupplierDiversityUser(url);
+                        return getSupplierDiversityUser();
                     case url.match('/api/Account/Register-SD') && opts.method === 'POST':
                         return updateSupplierDiversityUser();
+                    case url.match(/\/api\/Account\/getUserProfileDetails\/\d+$/) && opts.method === 'GET':
+                        return getUserProfileDetails();
+                    case url.match(/\/api\/Account\/getIndividualUserDetails\/\d+$/) && opts.method === 'GET':
+                        return getById();
+                    case url.match(/\/api\/Account\/GetUserProfileByPortalID\/\d+$/) && opts.method === 'GET':
+                        return getUserProfile();
+                    case url.match('api/Account/SaveUserProfile') && opts.method === 'PUT':
+                        return updateUserProfileDetails();
+                    case url.match(/\/api\/Account\/GetSupportByID\/\d+$/) && opts.method === 'GET':
+                        return getSupportDetails();
+                    case url.match(/api\/Master\/SaveSupportDetails/) && opts.method === 'PUT':
+                        return updateSupportDetails();
+                    case url.match(/\/api\/Announcement\/GetAnnouncementByID\?userID=\d+$/) && opts.method === 'GET':
+                        return getAnnouncements();
+                    case url.match(/\/api\/Announcement\/GetAnnouncementByAllRole\?userID=\d+$/) && opts.method === 'GET':
+                        return getAnnouncements();
+                    case url.match(/\/api\/FAQ\/GetAllFAQ\?userID=\d+$/) && opts.method === 'GET':
+                        return getFAQs();
+                    case url.match(/\/api\/FAQ\/GetFAQByAdminRole\?userID=\d+$/) && opts.method === 'GET':
+                        return getFAQs();
+                    case url.match('/api/Master/GetAllMarketers') && opts.method === 'GET':
+                        return getMarketers();
+                    case url.match(/\/api\/MarketerGroup\/GetMarketersGroupByMarketerID\/\d+$/) && opts.method === 'GET':
+                        return getMarketerGroups();
                     default:
                         // pass through any requests not handled above
                         return realFetch(url, opts)
@@ -70,8 +99,8 @@ const fakeBackend = () => {
                 if (!user) return error('You have entered an incorrect password for the profile associated with this email address.');
 
                 let currentDateTime = new Date();
-                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5)
-                user.jwtToken = 'fake-jwt-token';
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 5);
+                user.jwToken = 'fake-jwt-token';
                 user.tokenExpiry = expiryTime;
                 return ok({
                     ...basicDetails(user)
@@ -86,7 +115,7 @@ const fakeBackend = () => {
                 //const user = users.find(x => x.id === auth?.id);               
 
                 let currentDateTime = new Date();
-                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 7)
+                let expiryTime = currentDateTime.setMinutes(currentDateTime.getMinutes() + 7);
 
                 return ok({
                     token: 'fake-jwt-refreshtoken',
@@ -127,7 +156,6 @@ const fakeBackend = () => {
 
                 const { data, portalName } = body();
                 let params = data;
-                console.log(data);
                 let user = users.find(x => x.id === idFromUrl());
 
                 // only update password if entered
@@ -150,7 +178,6 @@ const fakeBackend = () => {
                             : portal
                     )
                 };
-                console.log(userAccess);
 
                 Object.assign(user, userAccess);
 
@@ -183,7 +210,6 @@ const fakeBackend = () => {
                 // Retrieve the access data from the body function
                 const accessData = body();
                 let portalAccess = JSON.parse(localStorage.getItem(portalAccessKey)) || portalAccessData;
-                console.log(accessData);
                 let newAccesData = { ...portalAccess };
 
                 // Create a new array for the updated portal access data
@@ -228,7 +254,7 @@ const fakeBackend = () => {
 
             function getMapCenterUser() {
                 try {
-                    let mapCenterUser =  getMapCenterData;;
+                    let mapCenterUser = JSON.parse(localStorage.getItem(mapCenterUserKey)) || getMapCenterData;;
                     return ok(mapCenterUser);
                 }
                 catch (error) {
@@ -243,6 +269,85 @@ const fakeBackend = () => {
                 }
                 catch (error) {
                     return error('Failed to get Supplier Diversity User');
+                }
+            }
+
+            function getUserProfileDetails() {
+                try {
+                    let userProfileDetails = JSON.parse(localStorage.getItem(userProfileKey)) || getMyProfileData;
+                    return ok(userProfileDetails);
+                }
+                catch (error) {
+                    return error('Failed to get  user');
+                }
+            }
+
+            function getById() {
+                try {
+                    let userProfileDetails = JSON.parse(localStorage.getItem(IndividualUserKey)) || IndividualUserData;
+                    return ok(userProfileDetails);
+                }
+                catch (error) {
+                    return error('Failed to get  user');
+                }
+
+            }
+            function getUserProfile() {
+                try {
+                    let userProfile = JSON.parse(localStorage.getItem(adminUserProfileKey)) || getAIUserProfileData;
+                    return ok(userProfile);
+                }
+                catch (error) {
+                    return error('Failed to get  user Details');
+                }
+            }
+            function getSupportDetails() {
+                try {
+                    let supportDetail = getSupportData;
+                    return ok(supportDetail);
+                }
+                catch (error) {
+                    return error('Failed to get details');
+                }
+            }
+
+            function getAnnouncements() {
+                try {
+                    let announcement = announcementData;
+                    return ok(announcement);
+                }
+                catch (error) {
+                    return error('Failed to get details');
+                }
+            }
+
+            function getFAQs() {
+                try {
+                    let faq = faqData;
+                    return ok(faq);
+                }
+                catch (error) {
+                    return error('Failed to get details');
+                }
+            }
+
+            function getMarketers() {
+                try {
+                    let marketerts = marketerGetData;
+                    return ok(marketerts);
+                }
+                catch (error) {
+                    return error('Failed to get details');
+                }
+            }
+
+            function getMarketerGroups() {
+                try {
+                    let marketertGroups = marketerGroupGetData;
+                    return ok(marketertGroups);
+                }
+                catch (error) {
+                    return error('Failed to get details');
                 }
             }
 
@@ -263,7 +368,7 @@ const fakeBackend = () => {
                     // Return a successful response
                     return ok();
                 } catch (err) {
-                    console.error('Error updating map center user:', err);
+
                     return error('Failed to update map center user');
                 }
             }
@@ -288,11 +393,48 @@ const fakeBackend = () => {
                     // Return a successful response
                     return ok();
                 } catch (err) {
-                    console.error('Error updating Supplier Diversity user:', err);
+
                     return error('Failed to update Supplier Diversity user');
                 }
             }
 
+            function updateUserProfileDetails() {
+                try {
+                    const userProfileData = body();
+
+                    let userProfileJsonData = JSON.parse(localStorage.getItem(userProfileKey)) || getMyProfileData;
+
+                    // Create a deep copy of the object to avoid modifying read-only properties
+                    let newData = JSON.parse(JSON.stringify(userProfileData));
+
+                    newData.Data.State = [...userProfileJsonData.Data.State];
+                    // Save the updated data back to localStorage
+                    localStorage.setItem(userProfileKey, JSON.stringify(newData));
+
+                    // Return a successful response
+                    return ok();
+                } catch (err) {
+
+                    return error('Failed to update user');
+                }
+            }
+
+            function updateSupportDetails() {
+                try {
+                    const supportData = body();
+                    // Create a deep copy of the object to avoid modifying read-only properties
+                    let newData = JSON.parse(JSON.stringify(supportData));
+
+                    // Save the updated data back to localStorage
+                    localStorage.setItem(supportDetailsKey, JSON.stringify(newData));
+
+                    // Return a successful response
+                    return ok();
+                } catch (err) {
+
+                    return error('Failed to update details');
+                }
+            }
             // helper functions
 
             function ok(body) {
