@@ -1,5 +1,5 @@
-import Home  from "./Home";
+import HomeEA  from "./HomeEA";
 import  Jurisdiction from "./Jurisdiction"
 import ManageProfileEA from "./ManageProfileEA"
 
-export{Home,Jurisdiction,ManageProfileEA};
+export{HomeEA,Jurisdiction,ManageProfileEA};

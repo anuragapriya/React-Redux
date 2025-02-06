@@ -1,19 +1,14 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
 import { authActions } from '_store';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
-
+import { Typography, Button } from '@mui/material';
 const Notifications = () => {
     const dispatch = useDispatch(); 
     const logout = () => dispatch(authActions.logout());
@@ -34,7 +29,7 @@ const Notifications = () => {
     return (
         <React.Fragment>
             <Box  sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
+                <Tooltip title="Notifications">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -136,11 +131,52 @@ const Notifications = () => {
                         <Typography component="h3" className='title'>Management</Typography>
                         <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
                     </Typography>
+                 
+                    
+                    </Typography>
+                    <Typography className='Announcementsnew' component="div" >
+                  
+                  <Typography component="div" className="dateMonth">
+                    <Typography component="h2">
+                      29
+                    </Typography>
+                    <Typography component="span">
+                      Nov
+                    </Typography>
+                    </Typography>
+                    <Typography  component="div">
+                        <Typography component="h3" className='title'>Management</Typography>
+                        <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
+                    </Typography>
+                 
+                    
+                    </Typography>
+                    <Typography className='Announcementsnew' component="div" >
+                  
+                  <Typography component="div" className="dateMonth">
+                    <Typography component="h2">
+                      29
+                    </Typography>
+                    <Typography component="span">
+                      Nov
+                    </Typography>
+                    </Typography>
+                    <Typography  component="div">
+                        <Typography component="h3" className='title'>Management</Typography>
+                        <Typography component="p" className='content'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Typography>
+                    </Typography>
+                 
                     
                     </Typography>
               
+                   
+              
                 </Typography>
+                
               </Typography>
+              <Button type="submit" variant="contained" className='submitbutton' color="primary">
+                                          View More
+                                    </Button>
      
                   
                 </MenuItem>

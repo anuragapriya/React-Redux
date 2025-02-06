@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
-const CustomFormControl = ({ id, label, type, register, errors, handleBlur, handleFocus }) => (
-    <FormControl variant="outlined" fullWidth margin="normal"  error={!!errors[id]}>
+const CustomFormControl = ({ id,disable, label, type, register, errors, handleBlur, handleFocus }) => (
+    <FormControl  id={id} variant="outlined" fullWidth margin="normal"  error={!!errors[id]}>
         <InputLabel htmlFor={id}>{label}</InputLabel>
         <OutlinedInput
             id={id}
@@ -9,6 +9,7 @@ const CustomFormControl = ({ id, label, type, register, errors, handleBlur, hand
             {...register(id, { required: `${label} is required` })}
             onBlur={handleBlur}
             onFocus={handleFocus}
+            disabled={disable || false}
             endAdornment={
                 errors[id] ? (
                     <InputAdornment position="end">

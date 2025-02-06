@@ -4,8 +4,7 @@ export const fetchWrapper = {
     get: request('GET'),
     post: request('POST'),
     put: request('PUT'),
-    delete: request('DELETE'),
-    upload:requestUpload('UPLOAD')
+    delete: request('DELETE')
 };
 
 function request(method) {
@@ -22,19 +21,6 @@ function request(method) {
     }
 }
 
-function requestUpload(method) {    
-    return (url, body) => {   
-        const requestOptions = {
-            method,
-            headers: authHeader(url)
-        };
-        if (body) {          
-           requestOptions.headers['Content-Type']= 'multipart/form-data';
-           requestOptions.body = body;
-        }
-        return fetch(url, requestOptions).then(handleResponse);
-    }
-}
 // helper functions
 
 function authHeader(url) {
@@ -50,7 +36,11 @@ function authHeader(url) {
 }
 
 function authToken() {
-    return store.getState().auth.value?.token;
+    if (store.getState().auth.value) {
+        const { Data: { UserDetails: { jwToken } } } = store.getState().auth.value;
+        return jwToken;
+    }
+    return store.getState().auth.value;
 }
 
 async function handleResponse(response) {
@@ -66,7 +56,7 @@ async function handleResponse(response) {
         }
 
         // get error message from body or default to response status
-        const error = (data && data.message) || response.status;
+        const error = (data && data.Message) || response.status;
         return Promise.reject(error);
     }
 

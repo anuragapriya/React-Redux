@@ -1,23 +1,33 @@
-import * as React from 'react';
-import { useDispatch } from 'react-redux';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import Logout from '@mui/icons-material/Logout';
+import React ,{useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Menu, MenuItem, ListItemIcon, IconButton, Tooltip, Typography } from '@mui/material';
+import { Logout, AccountCircle } from '@mui/icons-material';
 import { authActions } from '_store';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionSummary, AccordionDetails, } from "@mui/material";
+import { NewPassword, ResetProfilePassword } from 'container/loginPage';
+import { MyProfileDetails } from 'container/user';
+import { profileuser } from '../../images';
 
 const MyProfile = () => {
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const logout = () => dispatch(authActions.logout());
+    const auth = useSelector(x => x.auth.value);
+    const id = useSelector(x => x.auth?.userId);
+    const data = auth?.Data;
+    const user = data?.UserDetails;
+    const userAccess = data?.UserAccess;
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [isResetPassword, setIsResetPassword] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const open = Boolean(anchorEl);
+
+    const portalID = localStorage.getItem('portalID') || 99;
+
+    const portalKey = userAccess.find(x => x.PortalId.toString() === portalID);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -30,10 +40,27 @@ const MyProfile = () => {
         logout();
     };
 
+    const handleProfileClick = async () => {
+        await handleClose();
+        navigate('profile');
+    };
+
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setIsResetPassword(false);
+    }
+
+    const handleResetPasword = () => {
+        handleClose();
+        setIsResetPassword(true);
+        setIsModalOpen(true)
+    }
+
     return (
         <React.Fragment>
-            <Box  sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <Tooltip title="Account settings">
+            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                <Tooltip title="Account">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -42,7 +69,8 @@ const MyProfile = () => {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                     >
-                        <AccountCircleIcon  className='fontsizeicon'/>
+                    <img src={profileuser} alt='profileuser'/>
+                        {/* <AccountCircle className='fontsizeicon' /> */}
                         {/* <Avatar sx={{ width: 32, height: 32 }}>P</Avatar> */}
                     </IconButton>
                 </Tooltip>
@@ -52,7 +80,7 @@ const MyProfile = () => {
                 id="account-menu"
                 open={open}
                 onClose={handleClose}
-                onClick={handleClose}
+                //onClick={handleClose}
                 slotProps={{
                     paper: {
                         elevation: 0,
@@ -84,20 +112,43 @@ const MyProfile = () => {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
-                <AccountCircleIcon fontSize="small"/> Profile
+                <MenuItem>
+                    <Accordion key={11} className="AccordionSummaryheadingcontent">
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel11-content"
+                            id="panel11-header"
+                        >
+                            <Typography className="AccordionSummaryheading" >{`Hi, ${user?.FirstName} ${user?.LastName}`}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails className="p-0">
+                            <Typography className="AccordionDetailslistcontent">
+                               {/* { portalID===99 &&   */}
+                                <MyProfileDetails></MyProfileDetails>
+                                {/* }  */}
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
                 </MenuItem>
-                <MenuItem onClick={handleLogOut}>
+                <MenuItem onClick={()=>handleProfileClick()}>
+                    <AccountCircle fontSize="small" /> Profile
+                </MenuItem>
+                <MenuItem onClick={()=>handleResetPasword()}>
+                    <AccountCircle fontSize="small" /> Reset Password
+                </MenuItem>
+                <MenuItem onClick={()=>handleLogOut()}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                         Logout
                     </ListItemIcon>
-                  
                 </MenuItem>
             </Menu>
+            {isResetPassword && <NewPassword usersID={id} isModalOpen={isModalOpen}
+                handleCloseModal={()=>handleCloseModal}></NewPassword>}
+                 {/* {isResetPassword && <ResetProfilePassword usersID={id} isModalOpen={isModalOpen}
+                handleCloseModal={()=>handleCloseModal}></ResetProfilePassword>}  */}
         </React.Fragment>
     );
-   
 }
 
 export default MyProfile;

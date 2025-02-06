@@ -28,6 +28,7 @@ const SecurityQuestions = ({ id, register, errors, control, trigger }) =>
             helperText={errors.firstSecurityQuestion?.message}
             handleBlur={handleBlur}
             inputColor={inputColors['firstSecurityQuestion']}
+            trigger={trigger}
         />
         <CustomFormControl
             id="firstSecurityAnswer"
@@ -47,6 +48,7 @@ const SecurityQuestions = ({ id, register, errors, control, trigger }) =>
             helperText={errors.secondSecurityQuestion?.message}
             handleBlur={handleBlur}
             inputColor={inputColors['secondSecurityQuestion']}
+            trigger={trigger}
         />
         <CustomFormControl
             id="secondSecurityAnswer"
@@ -66,6 +68,7 @@ const SecurityQuestions = ({ id, register, errors, control, trigger }) =>
             helperText={errors.thirdSecurityQuestion?.message}
             handleBlur={handleBlur}
             inputColor={inputColors['thirdSecurityQuestion']}
+            trigger={trigger}
         />
         <CustomFormControl
             id="thirdSecurityAnswer"

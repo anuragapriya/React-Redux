@@ -3,35 +3,53 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PortalConfiguration from "./PortalConfiguration";
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
-import { portalAccessActions,alertActions } from '_store';
+import { configAction,alertActions } from '_store';
 import { useForm } from 'react-hook-form';
 import { AutocompleteInput } from '_components';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { Button } from '@mui/material';
+import AddRole from './AddRole';
 
 const Configuration = () => {
+    const header = "Role Management";
     const dispatch = useDispatch();
     const portalAccessData = useSelector((x) => x.configs?.portalAccessGetData);
-    const accessData =  portalAccessData?.Data || [];
+    const accessData = portalAccessData?.Data || [];
     const [selectedPortal, setSelectedPortal] = useState(null);
     const [data, setData] = useState(null);
-    const options=(accessData?.map(portal => ({
+   
+    const options = (accessData?.map(portal => ({
         value: portal.PortalID,
         label: portal.PortalName
     })));
 
-    const { control, setValue, formState: { errors } } = useForm();
+    const portalName = options.find(option=>option.value===selectedPortal)?.label;
+    
+    const { control, formState: { errors } } = useForm();
 
     useEffect(() => {
-        try {
-            dispatch(portalAccessActions.getAccess());
-            if (portalAccessData && !portalAccessData.Submitted && portalAccessData.Errors) {
-                dispatch(alertActions.error(portalAccessData.Message));
-            }
+        fetchData();
+    }, [dispatch]);
 
+    const fetchData = async() => 
+    {
+        try {
+            dispatch(alertActions.clear());
+            const result = await dispatch(configAction.getAccess());
+            if (result?.error) {
+                dispatch(alertActions.error({
+                    showAfterRedirect: true,
+                    message: result?.payload || result?.error.message,
+                    header: `${header} Failed`
+                }));
+                return;
+            }
         }
         catch (error) {
-            dispatch(alertActions.error(error));
+            dispatch(alertActions.error({ message: error?.message || error, header: "Role Management" }));             
         }
-    }, [dispatch]);
+    }
 
     useEffect(() => {
         if (accessData && accessData.length > 0) {
@@ -53,26 +71,34 @@ const Configuration = () => {
         setSelectedPortal(event.target.value);
     };
 
-    const handleSubmitted = () => {
-        dispatch(portalAccessActions.getAccess());
+    const handleFetch=()=>{
+        fetchData();
     }
 
     return (
         <form>
-        <AutocompleteInput
-            control={control}
-            name="selectedPortal"
-            label="Select Portal"
-            value={options?.find(option => option.value === selectedPortal || null)}
-            options={options}
-            error={!!errors.selectedPortal}
-            helperText={errors.selectedPortal?.message}
-            handleBlur={() => {}}
-            onChange={handlePortalChange}
-            inputColor="inputColorClass" // Add your custom class if needed
-        />
-       {data && <PortalConfiguration data={data} handleSubmitted={handleSubmitted} />}
-    </form>
+            <Grid container spacing={3} className="Configurationbuttonmar-20">
+                <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                    <Grid container spacing={3}>
+                        <Grid size={{ xs: 8, sm: 8, md: 6 }}>
+                        <Typography variant="h2" className='userprofilelistcontent'>Role Management </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid size={{ xs: 6, sm: 6, md: 6 }}  className="Configurationbutton">
+                <AddRole handleFetch={()=>handleFetch}></AddRole> 
+                </Grid>
+            </Grid>
+            {data && <PortalConfiguration 
+                control={control}
+                errors={errors}
+                data={data}
+                options={options} 
+                selectedPortal={selectedPortal}
+                handlePortalChange={handlePortalChange}
+                portalName={portalName} 
+                handleFetch={handleFetch} />}
+        </form>
     );
 }
 

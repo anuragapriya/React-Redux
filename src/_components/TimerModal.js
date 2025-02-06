@@ -35,7 +35,6 @@ const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnP
     <div>
       <Dialog
         open={open}
-        onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"        
       >

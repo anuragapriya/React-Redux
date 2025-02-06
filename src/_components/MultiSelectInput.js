@@ -6,8 +6,8 @@ import { createFilterOptions } from '@mui/material/Autocomplete';
 import Chip from '@mui/material/Chip';
 import ErrorIcon from '@mui/icons-material/Error';
 
-const MultiSelectInput = ({ control,setValue, options, onChange, label, error, helperText, handleBlur, name, value }) => {
-  
+const MultiSelectInput = ({ control,trigger, setValue, options, onChange, label, error, helperText, handleBlur, name, value }) => {
+
   // Convert comma-separated value to array of selected options
   const selectedOptions = value
     ? value.split(',').map(val => options.find(option => option.value.toString() === val))
@@ -56,6 +56,7 @@ const MultiSelectInput = ({ control,setValue, options, onChange, label, error, h
         handleOptionChange(checkedValue, isChecked);
       }
     }
+   if(trigger) trigger(name);
   };
 
   const isOptionSelected = (option) => {
@@ -73,7 +74,7 @@ const MultiSelectInput = ({ control,setValue, options, onChange, label, error, h
             multiple
             options={[{ label: 'Select All', value: 'Select All' }, ...options]}
             disableCloseOnSelect
-            getOptionLabel={(option) => option.label}
+            getOptionLabel={(option) => option?.label}
             filterOptions={createFilterOptions({ matchFrom: 'start' })}
             renderOption={(props, option) => {
               const isSelected = option.value === 'Select All' ? selectedOptions.length === options.length : isOptionSelected(option);
@@ -86,7 +87,7 @@ const MultiSelectInput = ({ control,setValue, options, onChange, label, error, h
                     value={option.value}
                     onChange={(e) => handleChange(e, null, null)}
                   />
-                  {option.label}
+                  {option?.label}
                 </li>
               );
             }}
@@ -99,31 +100,31 @@ const MultiSelectInput = ({ control,setValue, options, onChange, label, error, h
                 error={!!error}
                 helperText={helperText}
                 onBlur={async (e) => {
-                  console.log('Blur event:', e);
-                  console.log('Field value:', field.value);
                   field.onBlur(e);
                   if (handleBlur) await handleBlur(e);
                 }}
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {params.InputProps.endAdornment}
-                      {error && (
-                        <InputAdornment position="end">
-                          <ErrorIcon style={{ color: 'red' }} />
-                        </InputAdornment>
-                      )}
-                    </>
-                  ),
+                slotProps={{
+                  input: {
+                    ...params.InputProps,
+                    endAdornment: (
+                      <>
+                        {params.InputProps.endAdornment}
+                        {error && (
+                          <InputAdornment position="end">
+                            <ErrorIcon style={{ color: 'red' }} />
+                          </InputAdornment>
+                        )}
+                      </>
+                    ),
+                  },
                 }}
               />
             )}
             renderTags={(value, getTagProps) =>
               value.length > 2
-                ? <Chip  label={`${value.length} options selected`} />
+                ? <Chip label={`${value.length} options selected`} />
                 : value.map((option, index) => (
-                  <Chip  label={option.label} {...getTagProps({ index })} />
+                  <Chip label={option?.label} {...getTagProps({ index })} />
                 ))
             }
             value={selectedOptions}

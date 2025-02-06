@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { trackPromise } from 'react-promise-tracker';
 import { alertActions } from '_store';
 import { history, fetchWrapper } from '_utils';
+import msalInstance from 'authConfig';
 
 // create slice
 
@@ -21,7 +22,9 @@ export const authReducer = slice.reducer;
 function createInitialState() {
     return {
         // initialize state from local storage to enable user to stay logged in
-        value: JSON.parse(localStorage.getItem('auth'))
+        value: JSON.parse(localStorage.getItem('auth')),
+        userId: localStorage.getItem('userId'),
+        isAuthenticated: localStorage.getItem('isAuthenticated')
     }
 }
 
@@ -32,6 +35,15 @@ function createReducers() {
 
     function setAuth(state, action) {
         state.value = action.payload;
+        if (action.payload !== null) {
+            const { Data: { UserDetails: { id } } } = action.payload;
+            state.userId = id;
+            const { Succeeded } = action.payload;
+            state.isAuthenticated = Succeeded;
+            return;
+        }
+        state.userId = action.payload;
+        state.isAuthenticated = action.payload;
     }
 }
 
@@ -44,7 +56,9 @@ function createExtraActions() {
         logout: logout(),
         refreshToken: refreshToken(),
         forgotPasswordRequest: forgotPasswordRequest(),
-        resetPasswordRequest:resetPasswordRequest()
+        resetPasswordRequest: resetPasswordRequest(),
+        generateOtp: generateOtp(),
+        validateOtp: validateOtp()
     };
 
     function login() {
@@ -57,6 +71,14 @@ function createExtraActions() {
                     dispatch(authActions.setAuth(user));
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('auth', JSON.stringify(user));
+                    if (user) {
+                        const { Data: { UserDetails: { id } } } = user;
+                        const { Succeeded } = user;
+
+                        localStorage.setItem('isAuthenticated', Succeeded);
+                        localStorage.setItem('userId', id);
+                    }
+
                 } catch (error) {
                     dispatch(alertActions.error({ message: error, header: "Login Failed" }));
                 }
@@ -66,10 +88,27 @@ function createExtraActions() {
 
     function logout() {
         return createAsyncThunk(
-            `${name}/logout`, (arg, { dispatch }) => {
-                dispatch(authActions.setAuth(null));
-                localStorage.removeItem('auth');
-                history.navigate('/');
+            `${name}/logout`, async (arg, { dispatch }) => {
+                try {
+                    console.log(`${window.location.origin}/`);
+                    const isInternalUser = JSON.parse(localStorage.getItem('isInternalUser'));
+                    if (isInternalUser) {
+                        await msalInstance.initialize();
+                        await msalInstance.logoutPopup({
+                            postLogoutRedirectUri: `${window.location.origin}/`,
+                        });
+                    }
+                    dispatch(authActions.setAuth(null));
+                    localStorage.removeItem('auth');
+                    localStorage.removeItem('isAuthenticated');
+                    localStorage.removeItem('userId');
+                    localStorage.removeItem('appMenuItems');
+                    localStorage.removeItem('portalID');
+                    localStorage.removeItem('isInternalUser');
+                    history.navigate('/');
+                } catch (error) {
+                    dispatch(alertActions.error({ message: error, header: "Logout Failed" }));
+                }
             }
         );
     }
@@ -77,17 +116,28 @@ function createExtraActions() {
     function refreshToken() {
         return createAsyncThunk(`${name}/refreshToken`, async (_, { getState, dispatch }) => {
             try {
-                const accessToken = getState().auth.value?.token;
-                const response = await fetchWrapper.post(`${baseUrl}/refreshToken`, { accessToken });
+                const { Data: { UserDetails: { jwToken } } } = getState().auth.value;
+                const response = await fetchWrapper.post(`${baseUrl}/refreshToken`, { jwToken });
                 // set auth user in redux state
-                const res = {
+
+                const updatedAuthValue = {
                     ...getState().auth.value,
-                    token: response.token,
-                    tokenExpiry: response.tokenExpiry
+                    Data: {
+                        ...getState().auth.value.Data,
+                        UserDetails: {
+                            ...getState().auth?.value?.Data?.UserDetails,
+                            jwToken: response.token,
+                            tokenExpiry: response.tokenExpiry
+                        }
+                    }
+                    // ,
+                    // token: response.token,
+                    // tokenExpiry: response.tokenExpiry
                 };
-                dispatch(authActions.setAuth(res));
+
+                dispatch(authActions.setAuth(updatedAuthValue));
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('auth', JSON.stringify(res));
+                localStorage.setItem('auth', JSON.stringify(updatedAuthValue));
             } catch (error) {
                 dispatch(alertActions.error({ message: error, header: "Login Issue" }));
             }
@@ -102,7 +152,8 @@ function createExtraActions() {
                 try {
                     const url = new URL(`${baseUrl}/forgot-password`);
                     url.searchParams.append('EmailAddress', email);
-                    return await trackPromise(fetchWrapper.post(url.toString()));
+                    const response = await trackPromise(fetchWrapper.post(url.toString()));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }
@@ -113,9 +164,40 @@ function createExtraActions() {
     function resetPasswordRequest() {
         return createAsyncThunk(
             `${name}/resetPasswordRequest`,
-            async ({ id, password }, { rejectWithValue }) => {
+            async ({ userId, newPassword }, { rejectWithValue }) => {
                 try {
-                    return await trackPromise(fetchWrapper.post(`${baseUrl}/reset-password`, { UserId: id, Password: password }));
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/reset-password`, { UserId: userId, Password: newPassword }));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function generateOtp() {
+        return createAsyncThunk(
+            `${name}/generateOtp`,
+            async ({ email }, { rejectWithValue }) => {
+                try {
+                    // const url = new URL(`${baseUrl}/GenerateOtp/${email}`);
+                    // url.searchParams.append('EmailAddress', email);
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/GenerateOtp/${email}`));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function validateOtp() {
+        return createAsyncThunk(
+            `${name}/validateOtp`,
+            async ({ email, otp }, { rejectWithValue }) => {
+                try {
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/ValidateOtp`, { EmailAddress: email, OTP: otp }));
+                    return response;
                 } catch (error) {
                     return rejectWithValue(error);
                 }

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, createStyles } from '@material-ui/core/styles'
-import Divider from '@material-ui/core/Divider';
-import Collapse from '@material-ui/core/Collapse';
-import List from '@material-ui/core/List';
-import { Button, Menu, MenuItem, Grid } from '@mui/material';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Menu, MenuItem } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import AppMenuItemComponent from './AppMenuItemComponent';
 
@@ -14,11 +11,13 @@ export const AppMenuItemPropTypes = {
   link: PropTypes.string,
   Icon: PropTypes.elementType,
   items: PropTypes.array,
+  activeItem: PropTypes.string,
+  setActiveItem: PropTypes.func,
 };
 
 // Improve child items declaration
 export const AppMenuItem = (props) => {
-  const { name, Icon, items = [], link } = props;
+  const { name, Icon, items = [], link, activeItem, setActiveItem } = props;
   const classes = useStyles();
   const isExpandable = items && items.length > 0;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,7 +26,6 @@ export const AppMenuItem = (props) => {
     if (isExpandable) {
       setAnchorEl(event.currentTarget);
     } else if (link) {
-      // Handle navigation if link is provided
       window.location.href = link;
     }
   };
@@ -36,70 +34,71 @@ export const AppMenuItem = (props) => {
     setAnchorEl(null);
   };
 
+  const handleSubMenuClick = (item) => {
+    setActiveItem(item.name);
+    handleClose();
+  };
+
+  const isActive = () => {
+    if (activeItem === name) {
+      return true;
+    }
+    if (items.some(item => item.name === activeItem)) {
+      return true;
+    }
+    return false;
+  };
+
   const MenuItemRoot = (
-    <AppMenuItemComponent className={classes.menuItem} link={link} onClick={handleClick} >
-        {/* Display an icon if any */}
-        {!!Icon && (
-          <span className="menuItemIcon">
-            <Icon />
-          </span>
-        )}
-        {name}
-        {/* Display the expand menu if the item has children */}
-        {isExpandable && (anchorEl ? <ExpandLess /> : <ExpandMore />)}
-      </AppMenuItemComponent>
+    <AppMenuItemComponent
+      className={`${classes.menuItem} ${isActive() ? 'active' : ''}`}
+      name={name}
+      link={link}
+      onClick={handleClick}
+      setActiveItem={setActiveItem}
+    >
+      {!!Icon && (
+        <span className="menuItemIcon">
+          <Icon />
+        </span>
+      )}
+      {name}
+      {isExpandable && (anchorEl ? <ExpandLess /> : <ExpandMore />)}
+    </AppMenuItemComponent>
   );
 
-  const MenuItemChildren = 
-  isExpandable && (
+  const MenuItemChildren = isExpandable && (
     <Menu
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={handleClose}
-       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-       transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
     >
       {items.map((item, index) => (
-        <AppMenuItem {...item} key={index} />
+        <MenuItem key={index} onClick={() => handleSubMenuClick(item)}>
+          <AppMenuItem {...item} activeItem={activeItem} setActiveItem={setActiveItem} />
+        </MenuItem>
       ))}
     </Menu>
-  )
-  
+  );
+
   return (
     <>
-       {MenuItemRoot}
-       {MenuItemChildren}
-      {/* {isExpandable && (
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-         // onClose={handleClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-        >
-          {items.map((subItem, index) => (
-            <MenuItem key={index} onClick={() => window.location.href = subItem.link}>
-              {subItem.name}
-            </MenuItem>
-          ))}
-        </Menu>
-      )} */}
+      {MenuItemRoot}
+      {MenuItemChildren}
     </>
   );
 };
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     menuItem: {
-  
       '&.active': {
         background: '#DFEDFF',
-    
       },
-      
     },
-
-  }),
+  })
 );
 
 export default AppMenuItem;

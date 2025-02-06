@@ -3,33 +3,81 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { authActions, alertActions } from '_store';
-import OTPVerification from "_components/OTPVerification";
 import { labels } from '_utils/labels';
-import { Button, TextField, Link, Typography, Box, Modal, FormControl, InputLabel, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
+import { Button, Link, Typography } from '@mui/material';
 import { loginValidationSchema } from "_utils/validationSchema";
-import {  ForgotPassword } from "container/loginPage";
+import { ForgotPassword } from "container/loginPage";
 import Grid from "@material-ui/core/Grid";
 import { CustomFormControl, PasswordInput } from "_components";
+import msalInstance from "authConfig";
 
-export default function Login() {
+const Login = () => {
     const [modalState, setModalState] = useState({ open: false, otpOpen: false, manageUseropen: false, error: null });
-    const [error, setError] = useState(null);
-    const [inputColors, setInputColors] = useState({});
+    const [account, setAccount] = useState(null);
     const dispatch = useDispatch();
 
     // form validation rules 
-    const { register, handleSubmit,control, formState: { errors, isSubmitting, isValid }, watch ,trigger} = useForm({
+    const { register, handleSubmit, control, formState: { errors, isValid }, trigger } = useForm({
         resolver: yupResolver(loginValidationSchema),
-        mode: 'onChange'
+        mode: 'onBlur'
     });
 
     const onSubmit = async ({ Email, Password }) => {
         try {
             dispatch(authActions.login({ Email, Password }));
         } catch (error) {
-            dispatch(alertActions.error({ message: error, header: "Login Failed" }));
+            dispatch(alertActions.error({ message: error?.message || error, header: "Login Failed" }));
         }
     };
+
+    const handleSSOLogin = async () => {
+        try {
+            await msalInstance.initialize();
+            const loginResponse = await msalInstance.loginPopup({
+                scopes: ["User.Read"],
+            });
+            setAccount(loginResponse.account);
+            if (loginResponse.account) {
+                // Assuming you have a way to determine if the user is internal
+                const isInternalUser = determineIfInternalUser(loginResponse.account);
+                localStorage.setItem('isInternalUser', JSON.stringify(isInternalUser));
+                //dispatch(authActions.login({ Email, Password }));
+               // callApi(loginResponse.account);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const determineIfInternalUser = (account) => {
+        // Implement your logic to determine if the user is internal
+        // For example, you might check the domain of the user's email
+        return account.username.endsWith(process.env.REACT_APP_INTERNAL_USER_EMAIL_DOMAIN);
+    };
+
+    // const callApi = async (account) => {
+    //     try {
+    //         const tokenResponse = await msalInstance.acquireTokenSilent({
+    //             scopes: ["api://YOUR_API_SCOPE/.default"],
+    //             account: account,
+    //         });
+    //         const response = await fetch("https://yourapi.example.com/api/authenticate", {
+    //             method: "POST",
+    //             headers: {
+    //                 Authorization: `Bearer ${tokenResponse.accessToken}`,
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 username: "user@example.com",
+    //                 password: "userpassword",
+    //             }),
+    //         });
+    //         const data = await response.json();
+    //         console.log(data);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     const handleOpen = () => setModalState({ ...modalState, open: true });
     const handleClose = () => setModalState({ ...modalState, open: false });
@@ -38,17 +86,11 @@ export default function Login() {
 
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        await trigger(fieldName); 
-        // const fieldError = errors[fieldName];
-
-        // setInputColors(prevColors => ({
-        //     ...prevColors,
-        //     [fieldName]: !fieldError && e.target.value ? 'inputBackground' : ''
-        // }));
+        await trigger(fieldName);
     };
 
     return (
-        <div >
+        <div>
             <Typography component="div" className="mobilebanner">
                 <Typography component="div" className="loginheader">
                     <Typography component="h1" variant="h5" className="Logincontent">
@@ -64,50 +106,59 @@ export default function Login() {
                             register={register}
                             errors={errors}
                             handleBlur={handleBlur}
-                            inputColors={inputColors}
                         />
                         <Typography component="div" className="PasswordInput">
-                        <PasswordInput
-                            control={control}
-                            name="Password"
-                            label="Password"
-                            rules={{ required: 'Password is required' }}
-                            errors={errors}
-                            handleBlur={handleBlur}
-                            inputColors={inputColors}   
-                            isPasswordValid={true}
-                        />
+                            <PasswordInput
+                                control={control}
+                                name="Password"
+                                label="Password"
+                                rules={{ required: 'Password is required' }}
+                                errors={errors}
+                                handleBlur={handleBlur}
+                                isPasswordValid={true}
+                            />
                         </Typography>
                         <Link href="#" onClick={handleOpen} variant="body2" className="ResetPassword">
                             {labels.resetPwdButtonLabel}
-                        </Link>                        
+                        </Link>
                         <Typography component="div" className="loginbuttonfixed">
-                        <Typography component="div" className="loginbuttonfixedbutton">
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className="Loginbutton Loginbuttonheight"
-                            disabled={!isValid}
-                        >
-                            {labels.loginButtonLabel}
-                        </Button>
-                        <Grid container>
-                            <Grid item className="accountSignup">
-                                <div>Don’t have an account? Register </div>
-                                <Link href="./register" variant="body2">
-                                    {labels.signUpLabel}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                        </Typography>
+                            <Typography component="div" className="loginbuttonfixedbutton">
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className="Loginbutton Loginbuttonheight"
+                                    disabled={!isValid}
+                                >
+                                    {labels.loginButtonLabel}
+                                </Button>
+                                <Typography className="Orcontent">or</Typography>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className="cancelButton"
+                                    onClick={handleSSOLogin}
+                                >
+                                    Login with SSO
+                                </Button>
+                                <Grid container>
+                                    <Grid item className="accountSignup">
+                                        <div>Don’t have an account? Register </div>
+                                        <Link href="./register" variant="body2">
+                                            {labels.signUpLabel}
+                                        </Link>
+                                    </Grid>
+                                </Grid>
+                            </Typography>
                         </Typography>
                     </form>
                 </div>
             </Typography>
             <ForgotPassword open={modalState.open} handleClose={handleClose} onSubmitToOTP={handleOtpOpen} />
-            <OTPVerification open={modalState.otpOpen} handleClose={handleOtpClose} />
         </div>
     );
 }
+
+export default Login;

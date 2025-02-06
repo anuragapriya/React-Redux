@@ -36,7 +36,7 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
                 header: emailSentLabels.header
             }));
         } catch (error) {
-            dispatch(alertActions.error(error));
+            dispatch(alertActions.error({ message: error?.message || error, header: "Forgot Password" }));                                              
         }
     };
 

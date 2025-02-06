@@ -1,27 +1,23 @@
 import * as React from 'react';
 import Link from "@material-ui/core/Link";
-import { logo } from '../images';
+import {logo,ListAltOutlinedIcon,SettingsOutlinedIcon,BarChartOutlinedIcon, Notificationsicon,
+} from '../images';
 import { labels } from "_utils/labels";
-import { MyProfile, Support, Notifications } from 'container/headers';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
-import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
-import Tooltip from '@mui/material/Tooltip';
-import { Box } from "@mui/material";
+import { MyProfile, Notifications } from 'container/headers';
+// import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
+// import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+// import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import { Box, AppBar, CssBaseline, Divider, Drawer, IconButton, List, Toolbar, Typography, Tooltip } from "@mui/material";
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
+import { supporticonblue, headseticonwhite } from 'images';
+// import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
 const drawerWidth = 240;
 
-const Nav = ({ isAuthenticated, window }) => {
+const Nav = ({ isAuthenticated, window, portalID }) => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   if (!isAuthenticated) return null;
@@ -30,37 +26,86 @@ const Nav = ({ isAuthenticated, window }) => {
     setMobileOpen((prevState) => !prevState);
   };
 
+  const handleHomeClick = () => {
+    localStorage.removeItem('appMenuItems');
+    navigate('/home');
+  }
+
+  const handleSupportClick = () => {
+    navigate('faqView');
+  }
+
+  const handleNotificationClick = () => {
+    navigate('notification');
+  }
+
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        <Link href="/home" variant="logo" className="wgllogo">
-          <img src={logo} alt="logo" />
-          {labels.eServicePortal}
-        </Link>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }} className="navbarlistcontainer">
+      <Typography variant="div" >
+        {/* <Link variant="logo" className="wgllogo">
+          <Typography component="div" className="wgllogocontainer" onClick={handleHomeClick}>
+            <img src={logo} alt="logo" />
+            {labels.eServicePortal}
+          </Typography>
+        </Link> */}
+        <Typography component="div" className='navbaremailcontainer'>
+          <Typography className='navbarusername'>
+            john Adams
+          </Typography>
+          <Typography className='navbaremail'>
+            john.adams@remex.com
+          </Typography>
+          <Typography className='navbarnumber'>
+            202-547-5134
+          </Typography>
+        </Typography>
       </Typography>
       <Divider />
       <List>
-        <div className='nav-linksbuttons'>
-          <Support />
-          <Box className="iconcolor">
+        <Box className='nav-linksbuttons navmobilelist'>
+
+          {/* <Box className="iconcolor">
             <Tooltip title="Settings">
-              <SettingsOutlinedIcon />
+   
+              <img src={SettingsOutlinedIcon} alt='SettingsOutlinedIcon'/>Admin Portal
             </Tooltip>
           </Box>
           <Box className="iconcolor">
             <Tooltip title="BarChart">
-              <BarChartOutlinedIcon />
+               
+              <img src={BarChartOutlinedIcon} alt='BarChartOutlinedIcon'/>Reports
             </Tooltip>
           </Box>
           <Box className="iconcolor">
             <Tooltip title="List">
-              <ListAltOutlinedIcon />
+          <img src={ListAltOutlinedIcon} alt='ListAltOutlinedIcon'/>Activity Log
             </Tooltip>
+          </Box> */}
+          <Box className="Notifications">
+            {/* <Typography component="span" className='Notificationscount'>  2</Typography>
+           <Notifications />  */}
+            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+              <Tooltip title="Notifications">
+                <IconButton
+                  onClick={handleNotificationClick}
+                  size="small"
+                  sx={{ ml: 2 }}
+                >
+                  <img src={Notificationsicon} alt='Notificationsicon'/> Notifications
+                </IconButton>
+              </Tooltip>
+            </Box>
           </Box>
-          <Notifications />
-          <MyProfile />
-        </div>
+         
+
+        </Box>
       </List>
+      <Link variant="logo" className="wgllogo wgllogoposition">
+            <Typography component="div" className="wgllogocontainer" onClick={handleHomeClick}>
+              <img src={logo} alt="logo" />
+              {labels.eServicePortal}
+            </Typography>
+          </Link>
     </Box>
   );
 
@@ -71,44 +116,78 @@ const Nav = ({ isAuthenticated, window }) => {
       <CssBaseline />
       <AppBar component="nav" className='navbarbackground'>
         <Toolbar>
-          <IconButton
+          <IconButton className=''
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: 'none' } }}
           >
-            <MenuIcon />
+            <MenuIcon className='' />
           </IconButton>
           <Typography
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            className="wgllogodesktop"
           >
-            <Link href="/home" variant="logo" className="wgllogo">
-              <img src={logo} alt="logo" />
-              {labels.eServicePortal}
+            <Link variant="logo" className="wgllogo">
+              <Typography component="div" className="wgllogocontainer" onClick={handleHomeClick}>
+                <img src={logo} alt="logo" />
+                {labels.eServicePortal}
+              </Typography>
             </Link>
+
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             <div className='nav-linksbuttons'>
-              <Support />
-              <Box className="iconcolor">
+              <Box className="Supporticon" sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                <Tooltip title="Support">
+                  <IconButton
+                    onClick={handleSupportClick}
+                    variant="logo"
+                    className="headseticon"
+                    size="small"
+                    sx={{ ml: 2 }}
+                  >
+                    <img src={supporticonblue} alt="Support"></img>
+                    <span className='none-moblie'>Support?</span>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              {/* <Box className="iconcolor none-moblie" >
                 <Tooltip title="Settings">
-                  <SettingsOutlinedIcon />
+                <img src={SettingsOutlinedIcon} alt='SettingsOutlinedIcon'/> 
                 </Tooltip>
               </Box>
-              <Box className="iconcolor">
+              <Box className="iconcolor none-moblie">
                 <Tooltip title="BarChart">
-                  <BarChartOutlinedIcon />
+               
+                  <img src={BarChartOutlinedIcon} alt='BarChartOutlinedIcon'/> 
                 </Tooltip>
               </Box>
-              <Box className="iconcolor">
+              <Box className="iconcolor none-moblie">
                 <Tooltip title="List">
-                  <ListAltOutlinedIcon />
+         
+                  <img src={ListAltOutlinedIcon} alt='ListAltOutlinedIcon'/> 
                 </Tooltip>
+              </Box> */}
+              <Box className="Notifications none-moblie">
+                <Typography component="span" className='Notificationscount'> 2 </Typography>
+                {/* <Notifications /> */}
+                <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                  <Tooltip title="Notifications">
+                    <IconButton
+                      onClick={handleNotificationClick}
+                      size="small"
+                      sx={{ ml: 2 }}
+                    >
+                       <img src={Notificationsicon} alt='Notificationsicon'/> 
+                      
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
-              <Notifications />
               <MyProfile />
             </div>
           </Box>

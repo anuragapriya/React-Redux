@@ -19,9 +19,8 @@ export const genericlabels={
 }
 
 export const verifyEmailLabels={
-    header:"Verify your email.",
-    message1:"Thank you for registering! Before you can start using your account, we need to verify your email address.",
-    message2:"Please check you registered email and verify.",
+    header:"Registeration Successful",
+    message1:"Your account has been created successfully. Please check your email to verify your account.",
     btnSecondaryText:"Close",
     btnPrimaryText:"Ok"
 }
@@ -30,7 +29,7 @@ export const verifiedRegistrationLabels={
     header:"Verification Completed",
     message1:"Thank you for verifying your email address!",
     message2:"Please click on the below button to complete registration.",
-    message2NonRegistration:"Your request is pending for admin approval. You will be notified once request is approved.",
+    message2NonRegistration:"Your registration request has been submitted successfully. Please wait for admin approval before accessing the portal.",
     btnSecondaryText:"Close",
     btnPrimaryText:"Complete registration"
 }
@@ -38,7 +37,7 @@ export const verifiedRegistrationLabels={
 export const notVerifiedRegistrationLabels={
     header:"Verification expired",
     message1:"Your verification link is expired.",
-    message2:"Please click on the below button to resend the verification link to your registered mail.",
+    message2:"Please re-send the verification request.",
     btnSecondaryText:"Close",
     btnPrimaryText:"Re-Verify"
 }
@@ -51,13 +50,13 @@ export const emailSentLabels={
 
 export const mapCenterRegistrationLabels={
     header:"Map Center Access",
-    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
+    message1:"Your registration request has been submitted successfully. Please wait for admin approval before accessing the portal.",
     btnSecondaryText:"Close",
 }
 
 export const diversityRegistrationLabels={
     header:"Supplier Diversity Access",
-    message1:"Thank you for your request. We will send an email to the registered address within 24 hours.",
+    message1:"Your registration is successfully done.",
     btnSecondaryText:"Close",
 }
 
@@ -85,4 +84,17 @@ export const aggrementEALabel={
     message1:"All the Information provided through the Washington Gas Energy Assistance portal is the confidential information of Washington Light Company and is not to be distributed to any other party without the express written permission of Washington Gas Light Company.",
     btnSecondaryText:"Close",
     btnPrimaryText:"I Agree"
+}
+
+export const myProfileLabels={
+    header:"My Profile",
+    message1:"Profile data is updated successfully.",
+    btnSecondaryText:"Close",
+    deleteMessage: "Profile Deleted successfully."
+}
+
+export const SupportLabels={
+    header:"Support",
+    message1:"Support Details is updated successfully.",
+    btnSecondaryText:"Close",
 }

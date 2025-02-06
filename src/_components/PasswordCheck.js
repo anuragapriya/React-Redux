@@ -16,7 +16,7 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
 
     const validatePassword = (password,userName) => {
         const newValidations = {
-            length: password?.length >= 16, //&& password?.length <= 16,
+            length: password?.length >= 8 && password?.length <= 16,
             uppercase: /[A-Z]/.test(password),
             lowercase: /[a-z]/.test(password),
             number: /[0-9]/.test(password),
@@ -33,40 +33,40 @@ const PasswordCheck = ({ password,userName, onValidationChange }) => {
         <div className="passwordselect">
             <p>Your password must contain</p>
             <ul>
-                <li style={{ color: validations.length ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.length} readOnly />
-                        <span className="checkmark"></span>At least 16 Characters
+                        <span style={{ color: validations.length ? 'green' : 'red' }} className="checkmark"></span>8 to 16 characters
                     </label>
                 </li>
-                <li style={{ color: validations.uppercase ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.uppercase} readOnly />
-                        <span className="checkmark"></span>Upper case letter (A-Z).
+                        <span style={{ color: validations.uppercase ? 'green' : 'red' }} className="checkmark"></span>Upper case letter (A-Z).
                     </label>
                 </li>
-                <li style={{ color: validations.lowercase ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.lowercase} readOnly />
-                        <span className="checkmark"></span>Lower case letters (a-z).
+                        <span style={{ color: validations.lowercase ? 'green' : 'red' }} className="checkmark"></span>Lower case letters (a-z).
                     </label>
                 </li>
-                <li style={{ color: validations.number ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.number} readOnly />
-                        <span className="checkmark"></span>Numbers (0-9)
+                        <span style={{ color: validations.number ? 'green' : 'red' }} className="checkmark"></span>Numbers (0-9)
                     </label>
                 </li>
-                <li style={{ color: validations.special ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.special} readOnly />
-                        <span className="checkmark"></span>Symbols (!@#$%^&*?/\|"':;+)
+                        <span style={{ color: validations.special ? 'green' : 'red' }} className="checkmark"></span>Symbols (!@#$%^&*?/\|"':;+)
                     </label>
                 </li>
-                <li style={{ color: validations.fullname ? 'green' : 'red' }}>
+                <li >
                     <label className="passwordselectli">
                         <input type="checkbox" checked={validations.fullname} readOnly />
-                        <span className="checkmark"></span>Password should not contain your FullName
+                        <span style={{ color: validations.fullname ? 'green' : 'red' }} className="checkmark"></span>Password should not contain your FullName
                     </label>
                 </li>
             </ul>

@@ -16,30 +16,32 @@ const VerifiedRegistration = () => {
     const data = userVerify?.Data;
     const isVerified = data?.IsVerified;
     const portalKey = data?.PortalKey || '';
+    const portalID = data?.PortalID || 0;
     const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
    
-    const token = new URLSearchParams(location.search).get('verifyId');
+    const verifyId = new URLSearchParams(location.search).get('verifyId');
     const id = data?.UserId;
     const emailAddress = data?.Email;
 
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                await dispatch(registrationActions.getVerifiedUserData(token));
+                await dispatch(registrationActions.getVerifiedUserData(verifyId));
             } catch (error) {
-                dispatch(alertActions.error({ message: error.message, header: "Verification Failed" }));
+                dispatch(alertActions.error({ message: error?.message || error, header: "Verification Failed" }));
             }
         };
 
-        if (token) {
+        if (verifyId) {
             verifyEmail();
         } else {
             dispatch(alertActions.error({ message: "Email verification Id not found!", header: "Verification Failed" }));
         }
-    }, [dispatch, token]);
+    }, [dispatch, verifyId]);
 
     const handleClick = () => {
         if (id) {
+            localStorage.setItem('portalID', portalID);
             if (portalKey.toLowerCase() === 'mc') {
                 navigate(`/registration/mapCenter/${portalKey}/${id}`);
             }
@@ -68,11 +70,12 @@ const VerifiedRegistration = () => {
                 header: emailSentLabels.header
             }));
         } catch (error) {
-            dispatch(alertActions.error(error));
+            dispatch(alertActions.error({ message: error?.message || error, header: "Verification Failed" }));
+
         }
     }
 
-    if (!token) return null;
+    if (!verifyId) return null;
 
     return (
 
