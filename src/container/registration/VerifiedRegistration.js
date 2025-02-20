@@ -6,6 +6,8 @@ import { verifiedRegistrationLabels, notVerifiedRegistrationLabels, genericlabel
 import { registrationActions } from '_store/registration.slice';
 import TimerModal from '_components/TimerModal';
 import { alertActions } from '_store';
+import { Login } from 'container/loginPage';
+import { LoginLayout } from 'container/layout';
 
 const VerifiedRegistration = () => {
     const dispatch = useDispatch();
@@ -14,11 +16,11 @@ const VerifiedRegistration = () => {
 
     const userVerify = useSelector((x) => x.registration?.verifiedUserData);
     const data = userVerify?.Data;
-    const isVerified = data?.IsVerified;
+    const isVerified = data?.IsVerified || data?.Status?.toLowerCase() == 'submitted';
     const portalKey = data?.PortalKey || '';
     const portalID = data?.PortalID || 0;
-    const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc' || portalKey.toLowerCase() === 'sd';
-   
+    const isRequiredCompleteRegistration = portalKey.toLowerCase() === 'mc';
+
     const verifyId = new URLSearchParams(location.search).get('verifyId');
     const id = data?.UserId;
     const emailAddress = data?.Email;
@@ -44,6 +46,7 @@ const VerifiedRegistration = () => {
             localStorage.setItem('portalID', portalID);
             if (portalKey.toLowerCase() === 'mc') {
                 navigate(`/registration/mapCenter/${portalKey}/${id}`);
+                localStorage.setItem('mapcenterUserID', id);
             }
             else if (portalKey.toLowerCase() === 'sd') {
                 navigate(`/registration/diversity/${portalKey}/${id}`);
@@ -54,7 +57,7 @@ const VerifiedRegistration = () => {
 
     const handleSubmit = async () => {
         try {
-            var result = await dispatch(registrationActions.resendVerificationLink({emailAddress, id}));
+            var result = await dispatch(registrationActions.resendVerificationLink({ emailAddress, id }));
             if (result?.error) {
                 dispatch(alertActions.error({
                     showAfterRedirect: true,
@@ -63,7 +66,7 @@ const VerifiedRegistration = () => {
                 }));
                 return;
             }
-
+            handleClose();
             dispatch(alertActions.success({
                 showAfterRedirect: true,
                 message: emailSentLabels.message1,
@@ -75,11 +78,16 @@ const VerifiedRegistration = () => {
         }
     }
 
+    const handleClose = () => {
+        navigate('/');
+    }
+
     if (!verifyId) return null;
 
     return (
 
         <>
+            <LoginLayout />
             {(userVerify && !(userVerify?.loading || userVerify?.error)) && <div>
 
                 {(isVerified && isRequiredCompleteRegistration) && <ModalPopup
@@ -89,6 +97,7 @@ const VerifiedRegistration = () => {
                     btnPrimaryText={verifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={verifiedRegistrationLabels.btnSecondaryText}
                     handlePrimaryClick={() => handleClick()}
+                    handleSecondaryClick={() => handleClose()}
                     className="verifiedRegistrationpopup"
                 />
                 }
@@ -98,7 +107,7 @@ const VerifiedRegistration = () => {
                     message1={verifiedRegistrationLabels.message1}
                     message2={verifiedRegistrationLabels.message2NonRegistration}
                     btnSecondaryText={genericlabels.lblClose}
-                    handleBtnSecondaryClick={() => handleClick()}
+                    handleBtnSecondaryClick={() => handleClose()}
                 />
                 }
                 {!isVerified && <ModalPopup
@@ -108,7 +117,8 @@ const VerifiedRegistration = () => {
                     btnPrimaryText={notVerifiedRegistrationLabels.btnPrimaryText}
                     btnSecondaryText={notVerifiedRegistrationLabels.btnSecondaryText}
                     handlePrimaryClick={() => handleSubmit()}
-                     className="verifiedRegistrationpopup"
+                    handleSecondaryClick={() => handleClose()}
+                    className="verifiedRegistrationpopup"
                 />
                 }
             </div>

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { alertActions } from '_store';
-import { Typography, Button, Box, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
+import { Typography, Button, Box, FormGroup, FormControlLabel, Checkbox, ClickAwayListener } from '@mui/material';
 import Popper from '@mui/material/Popper';
 import Grid from "@material-ui/core/Grid";
 import { CustomFormControl, CustomDatePicker } from '_components';
@@ -95,6 +95,11 @@ const MarketerCreate = ({ marketers, uetFileData, isOpen, onClose, onOpen, handl
         onClose();
     };
 
+    const handleClickAway = () => {
+        reset();
+        onClose();
+    };
+
     return (
         <>
             <Button
@@ -113,6 +118,7 @@ const MarketerCreate = ({ marketers, uetFileData, isOpen, onClose, onOpen, handl
                                 </Grid>
                             </Grid>
                         </Typography>
+                       
                         <CustomFormControl
                             id="MarketerName"
                             label="Marketer Name"
@@ -121,6 +127,7 @@ const MarketerCreate = ({ marketers, uetFileData, isOpen, onClose, onOpen, handl
                             errors={errors}
                             handleBlur={handleBlur}
                         />
+                        
                         <CustomFormControl
                             id="ServiceProvider"
                             label="Service Provider #"
@@ -146,6 +153,7 @@ const MarketerCreate = ({ marketers, uetFileData, isOpen, onClose, onOpen, handl
                             <Typography component="div" className='userprofilelist'>
                                 <Typography variant="h2" className='userprofilelistcontent'>Permitted UET File Types</Typography>
                             </Typography>
+                            <Typography component="div" className='CreateMarketercheckbox'>
                             {uetFileData?.map(file => (
                                 <FormControlLabel
                                     key={file.UETFileID}
@@ -158,6 +166,7 @@ const MarketerCreate = ({ marketers, uetFileData, isOpen, onClose, onOpen, handl
                                     label={file.UETFileName}
                                 />
                             ))}
+                            </Typography>
                         </FormGroup>
                         <Typography component="div" className="CreateMarketerbutton">
                             <Button

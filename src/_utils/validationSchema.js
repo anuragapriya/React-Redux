@@ -41,7 +41,7 @@ export const passwordValidationSchema = (fullName) => Yup.object().shape({
 
 export const resetPasswordValidationSchema = (fullName) => Yup.object().shape({
     CurrentPassword: Yup.string()
-    .required('Current Password is required'),
+        .required('Current Password is required'),
     Password: Yup.string()
         .required('New Password is required')
         .test('minLength', 'Password must be 8 to 16 characters', value => value && value.length >= 8 && value.length <= 16)
@@ -55,21 +55,21 @@ export const resetPasswordValidationSchema = (fullName) => Yup.object().shape({
 });
 
 export const mapCenterValidationSchema = Yup.object().shape({
-    FullName: Yup.string()
+    FullName: Yup.string().nullable()
         .required('Full Name is required'),
-    HomeStreetAddress1: Yup.string()
+    HomeStreetAddress1: Yup.string().nullable()
         .matches(/^[a-zA-Z0-9\s,.'-]*$/, 'Address can contain alphanumeric characters and special characters')
         .required('Address is required'),
-    HomeCity: Yup.string()
+    HomeCity: Yup.string().nullable()
         .matches(/^[a-zA-Z\s-]*$/, 'City can contain alphabets, spaces, and hyphens')
         .required('City is required'),
     HomeState: Yup.number()
         .nullable()
         .required('State is required'),
-    HomeZipCode: Yup.string()
+    HomeZipCode: Yup.string().nullable()
         .matches(/^\d{5}$/, 'Zip code must be 5 digits')
         .required('Zip code is required'),
-    DLNumber: Yup.string()
+    DLNumber: Yup.string().nullable()
         .matches(/^[a-zA-Z0-9]{1,18}$/, 'Driving License can contain up to 18 alphanumeric characters')
         .required('Driving License is required'),
     DLState: Yup.number()
@@ -78,19 +78,76 @@ export const mapCenterValidationSchema = Yup.object().shape({
     CompanyName: Yup.string()
         .nullable()
         .required('Company Name is required'),
-    TaxIdentificationNumber: Yup.string()
+    TaxIdentificationNumber: Yup.string().nullable()
         .matches(/^\d{9}$/, 'Tax Identification Number must be 9 digits')
         .required('Tax Identification Number is required'),
-    CompanyStreetAddress1: Yup.string()
+    CompanyStreetAddress1: Yup.string().nullable()
         .matches(/^[a-zA-Z0-9\s,.'-]*$/, 'Address can contain alphanumeric characters and special characters')
         .required('Address is required'),
-    CompanyCity: Yup.string()
+    CompanyCity: Yup.string().nullable()
         .matches(/^[a-zA-Z\s-]*$/, 'City can contain alphabets, spaces, and hyphens')
         .required('City is required'),
     CompanyState: Yup.number()
         .nullable()
         .required('State is required'),
-    CompanyZipCode: Yup.string()
+    CompanyZipCode: Yup.string().nullable()
+        .matches(/^\d{5}$/, 'Zip code must be 5 digits')
+        .required('Zip code is required'),
+    CompanyContactName: Yup.string()
+        .nullable()
+        .required('Full Name is required'),
+    CompanyContactTelephone: Yup.string()
+        .nullable()
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (e.g., 123-123-1234)'),
+    CompanyContactEmailAddress: Yup.string()
+        .nullable()
+        .required('Email Address is required')
+        .email('Email Address is invalid')
+});
+
+
+export const mapCenterAdminValidationSchema = Yup.object().shape({
+    FullName: Yup.string().nullable()
+        .required('Full Name is required'),
+    MobileNumber: Yup.string()
+        .nullable()
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (e.g., 123-123-1234)'),
+    HomeStreetAddress1: Yup.string().nullable()
+        .matches(/^[a-zA-Z0-9\s,.'-]*$/, 'Address can contain alphanumeric characters and special characters')
+        .required('Address is required'),
+    HomeCity: Yup.string().nullable()
+        .matches(/^[a-zA-Z\s-]*$/, 'City can contain alphabets, spaces, and hyphens')
+        .required('City is required'),
+    HomeState: Yup.number()
+        .nullable()
+        .required('State is required'),
+    HomeZipCode: Yup.string().nullable()
+        .matches(/^\d{5}$/, 'Zip code must be 5 digits')
+        .required('Zip code is required'),
+    DLNumber: Yup.string().nullable()
+        .matches(/^[a-zA-Z0-9]{1,18}$/, 'Driving License can contain up to 18 alphanumeric characters')
+        .required('Driving License is required'),
+    DLState: Yup.number()
+        .nullable()
+        .required('License state is required'),
+    CompanyName: Yup.string()
+        .nullable()
+        .required('Company Name is required'),
+    TaxIdentificationNumber: Yup.string().nullable()
+        .matches(/^\d{9}$/, 'Tax Identification Number must be 9 digits')
+        .required('Tax Identification Number is required'),
+    CompanyStreetAddress1: Yup.string().nullable()
+        .matches(/^[a-zA-Z0-9\s,.'-]*$/, 'Address can contain alphanumeric characters and special characters')
+        .required('Address is required'),
+    CompanyCity: Yup.string().nullable()
+        .matches(/^[a-zA-Z\s-]*$/, 'City can contain alphabets, spaces, and hyphens')
+        .required('City is required'),
+    CompanyState: Yup.number()
+        .nullable()
+        .required('State is required'),
+    CompanyZipCode: Yup.string().nullable()
         .matches(/^\d{5}$/, 'Zip code must be 5 digits')
         .required('Zip code is required'),
     CompanyContactName: Yup.string()
@@ -123,7 +180,7 @@ export const profileValidationSchema = () => Yup.object().shape({
 
 export const otpValidationSchema = Yup.object().shape({
     otp: Yup.string().length(6, "OTP must be exactly 6 digits").required("OTP is required"),
-  });
+});
 
 export const loginValidationSchema = Yup.object().shape({
     Email: Yup.string()
@@ -174,7 +231,7 @@ export const profileInformationSchema = Yup.object().shape({
     MobileNumber: Yup.string()
         .nullable()
         .required('Phone Number is required')
-        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),    
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
     EmailID: Yup.string().nullable().required('Email Address is required')
         .email('Email Address is invalid'),
     StateID: Yup.number().nullable().required('State is required'),
@@ -194,9 +251,9 @@ export const supportInformationSchema = Yup.object().shape({
     Fax: Yup.string().nullable().notRequired(),
 });
 
-export const newRoleSchema =Yup.object().shape({
-RoleName: Yup.string().required('Role Name is required'),
-PortalId: Yup.number().nullable().required('Please select any Portal')
+export const newRoleSchema = Yup.object().shape({
+    RoleName: Yup.string().required('Role Name is required'),
+    PortalId: Yup.number().nullable().required('Please select any Portal')
 });
 
 export const newAnnounceMentSchema = Yup.object().shape({
@@ -205,23 +262,25 @@ export const newAnnounceMentSchema = Yup.object().shape({
     RoleID: Yup.string().nullable().required('Please select any Role'),
     Data: Yup.string().required('Message is required'),
     SelectedDate: Yup.array()
-      .of(Yup.date().nullable().required('Select Date is required'))
-      .required('Select Date is required')
-      .min(2, 'Please select a date range'),
-  });
+        .of(Yup.date().nullable().required('Select Date is required'))
+        .required('Select Date is required')
+        .min(2, 'Please select a date range'),
+});
 
-  export const newFaqSchema = Yup.object().shape({
+export const newFaqSchema = Yup.object().shape({
     Question: Yup.string().required('Title is required'),
     PortalID: Yup.number().nullable().required('Please select any Portal'),
     Answer: Yup.string().required('Message is required')
-  });
-
-  export const userProfileFilterSchema = Yup.object().shape({
-    PortalId: Yup.number().nullable().required('Portal is Required'),
 });
-    
+
+export const userProfileFilterSchema = Yup.object().shape({
+    //  PortalId: Yup.number().nullable().required('Portal is Required'),
+    email: Yup.string().nullable()
+        .email('Invalid email address'),
+});
+
 export const createMarketerSchema = Yup.object().shape({
-    MarketerName: Yup.string().nullable().required('Company Name is Required'),    
+    MarketerName: Yup.string().nullable().required('Company Name is Required'),
     ServiceProvider: Yup.number().nullable().required('Service Provider are Required'),
     StartDate: Yup.date().nullable().required('Start Date is required')
 });
@@ -237,4 +296,55 @@ export const createMarketerGroupSchema = Yup.object().shape({
     StartMonth: Yup.date().required('Start Month is required'),
     EndMonth: Yup.date().required('End Month is required'),
     BalancingModelID: Yup.string().required('Balancing Model is required'),
+});
+
+export const profileInformationUpdateSchema = Yup.object().shape({
+    FullName: Yup.string().nullable().required('Full Name is required'),
+    CompanyName: Yup.string().nullable().required('Company Name is required'),
+    MobileNumber: Yup.string()
+        .nullable()
+        .required('Phone Number is required')
+        .matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
+    EmailID: Yup.string().nullable().required('Email Address is required')
+        .email('Email Address is invalid')
+});
+
+export const profileInformationMCUpdateSchema = Yup.object().shape({
+    FullName: Yup.string().nullable().required('Full Name is required'),
+    EmailID: Yup.string().nullable().required('Email Address is required')
+        .email('Email Address is invalid'),
+    AlternateEmail: Yup.string().nullable().notRequired()
+        .email('Email Address is invalid'),
+    MobileNumber: Yup.string().nullable().required('Phone Number is required').matches(/^\d{3}-\d{3}-\d{4}$/, 'Phone number must be in the following format (eg. 123-123-1234)'),
+    HomeStreetAddress1: Yup.string().nullable().required('Home Address is required'),
+    HomeCity: Yup.string().nullable().required('Home City is required'),
+    HomeState: Yup.number().nullable().required('State is required'),
+    HomeZipCode: Yup.string().nullable().required('ZipCode is required'),
+    DLNumber: Yup.string().nullable().required('DL Number is required'),
+    DLState: Yup.number().nullable().required('DL State is required'),
+    CompanyName: Yup.string().nullable().required('Company Name is required'),
+    TaxIdentificationNumber: Yup.string().nullable().required('Tax Identification Number is required'),
+    CompanyStreetAddress1: Yup.string().nullable().required('Company Address is required'),
+    CompanyCity: Yup.string().nullable().required('Company Cityis required'),
+    CompanyState: Yup.number().nullable().required('Company State is required'),
+    CompanyZipCode: Yup.string().nullable().required('Company ZipCode is required'),
+    CompanyContactName: Yup.string().nullable().required('Company ContactName is required'),
+    CompanyContactTelephone: Yup.string().nullable().required('Company Contact Telephone is required'),
+    CompanyContactEmailAddress: Yup.string().nullable().required('Email Address is required')
+        .email('Email Address is invalid'),
+    AuthorizedWGLContact: Yup.string().notRequired()
+});
+
+export const createPipelineNomination = Yup.object().shape({
+    PipelineID: Yup.number().nullable().required('Jurisdiction is required'),
+    ContractID: Yup.number().nullable().required('ContractID is required'),
+});
+
+export const pipelineNominationFilterSchema = Yup.object().shape({
+    MarketerID: Yup.number().nullable().required('Marketer is Required'),
+    PipelineID: Yup.number().nullable().required('Pipeline is Required'),
+    SelectedDate: Yup.array()
+        .of(Yup.date().nullable().required('From - To date is required'))
+        .required('From - To is required')
+        .min(2, 'Please select a from - to'),
 });

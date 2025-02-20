@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { labels } from "_utils/labels";
 import { logo } from '../../images';
+import { LoginLayout } from "container/layout";
 const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const header = "New Password"
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
 
   const userId = user?.UserID;
   const email = user?.EmailID;
- 
+
   const id = new URLSearchParams(location.search).get('verifyId') || usersID;
   const FullName = user?.FullName;
 
@@ -30,7 +31,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const [newPassword, setNewPassword] = useState("");
   const [modalState, setModalState] = useState({ open: true, otpOpen: false });
 
-  const { handleSubmit, control, formState: { errors, isValid }, watch, trigger,reset } = useForm({
+  const { handleSubmit, control, formState: { errors, isValid }, watch, trigger, reset } = useForm({
     resolver: yupResolver(passwordValidationSchema(FullName)),
   });
   const password = watch('Password', '');
@@ -65,12 +66,14 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const handleOpen = () => setModalState({ ...modalState, open: true });
   const handleClose = () => {
     reset({ Password: '' });
-    setModalState({ open: false, otpOpen: false });
-   if(handleCloseModal) {handleCloseModal(); }
-  
+    setModalState({ open: false, otpOpen: true });
+   
   };
   const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
-  const handleOtpClose = () => setModalState({ ...modalState, otpOpen: false });
+  const handleOtpClose = () => { 
+    setModalState({ ...modalState, otpOpen: false });
+    handleNavigateLogin();
+    if (handleCloseModal) { handleCloseModal(); } }
 
   const handleBlur = async (e) => {
     const fieldName = e.target.name;
@@ -94,7 +97,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
       await handleClose();
       await handleOtpOpen();
     } catch (error) {
-       dispatch(alertActions.error({ message: error?.message || error, header: "New Password" }));
+      dispatch(alertActions.error({ message: error?.message || error, header: "New Password" }));
     }
   };
 
@@ -128,21 +131,34 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
       }
 
       await handleOtpClose();
-      await navigate('/');
       await dispatch(alertActions.success({
         showAfterRedirect: true,
         message: resetSuccessLabels.message1,
-        header: resetSuccessLabels.header
+        header: resetSuccessLabels.header,
+        islogout:true
       }));
     } catch (error) {
-       dispatch(alertActions.error({ message: error?.message || error, header: "New Password" }));
+      dispatch(alertActions.error({ message: error?.message || error, header: "New Password" }));
     }
+  }
+
+  const handleNavigateLogin = () => {
+    if (!usersID) {
+      navigate('/');
+    }
+  }
+
+  const handleCancel = () => {
+    handleClose();
+    handleNavigateLogin();
+    if (handleCloseModal) { handleCloseModal(); }
   }
 
   return (
     <>
       {!(user?.loading || user?.error) && (
         <>
+       {!usersID && <LoginLayout />}
           <Modal
             open={modalState.open}
             aria-labelledby="child-modal-title"
@@ -191,7 +207,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
                         variant="contained"
                         color="primary"
                         className="buttonCancel"
-                        onClick={handleClose}
+                        onClick={handleCancel}
                       >
                         Cancel
                       </Button>

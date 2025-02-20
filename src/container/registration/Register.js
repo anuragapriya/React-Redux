@@ -10,6 +10,7 @@ import { ModalPopup } from '_components';
 import Grid from "@material-ui/core/Grid";
 import { aggrementEALabel, genericlabels, verifyEmailLabels } from '_utils/labels';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import EARegistrationPopup from './EARegistrationPopup';
 
 const Register = () => {
     const header = "Registration";
@@ -130,8 +131,9 @@ const Register = () => {
                         </Grid>
                     </Grid>
                 </Typography>
+              
             </form>
-            {openAgreeModal && <ModalPopup
+            {openAgreeModal && <EARegistrationPopup
                 header={aggrementEALabel.header}
                 message1={aggrementEALabel.message1}
                 btnPrimaryText={aggrementEALabel.btnPrimaryText}
@@ -139,6 +141,9 @@ const Register = () => {
                 handlePrimaryClick={handleConfirmClick}
                 handleSecondaryClick={handleClose}
             />}
+              
+                
+                
         </Typography>
     );
 };

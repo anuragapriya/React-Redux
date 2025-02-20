@@ -14,6 +14,9 @@ import { supportReducer } from './support.slice';
 import { faqReducer } from './faq.slice';
 import {marketerReducer} from './marketer.slice';
 import { marketergroupReducer } from './marketergroup.slice';
+import { nominationReducer } from './nomination.slice';
+import { myprofileReducer } from './ProfileUpdate.slice';
+import { nominationpipelineReducer } from './nominationPipeline.slice';
 
 export * from './alert.slice';
 export * from './auth.slice';
@@ -28,9 +31,10 @@ export * from './announcement.slice';
 export * from './support.slice';
 export * from './faq.slice';
 export * from './marketer.slice';
-export * from './marketergroup.slice'
-
-
+export * from './marketergroup.slice';
+export * from './nomination.slice';
+export * from './ProfileUpdate.slice';
+export * from './nominationPipeline.slice';
 
 export const store = configureStore({
     reducer: {
@@ -47,6 +51,9 @@ export const store = configureStore({
         supports:supportReducer,
         faq:faqReducer,
         marketer: marketerReducer,
-        marketergroup:marketergroupReducer
+        marketergroup:marketergroupReducer,
+        nomination: nominationReducer,
+        profileupdate:myprofileReducer,
+        nominationpipeline: nominationpipelineReducer
     },
 });

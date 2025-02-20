@@ -7,7 +7,7 @@ const SupportDetails = ({register, control, errors, handleBlur,trigger, handlePo
     return(
     <Grid item xs={12} sm={6} md={4} className='supplierDetailes Personal-Informationsheading'>
       <Typography component="h2">Support Details</Typography>
-      <Typography className="passwordcheck" component="div">
+      <Typography className="passwordcheck marbottom0 selecticon" component="div">
         <AutocompleteInput       
           id="PortalID"
           control={control}

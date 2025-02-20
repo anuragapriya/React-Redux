@@ -1,22 +1,41 @@
 import { Fragment } from 'react';
-   import { useNavigate, useLocation } from 'react-router-dom';
-   import React from 'react';
-   import RouteList from './routes/RouteList';
-   import { history } from '_utils';
+import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import RouteList from './routes/RouteList';
+import { history } from '_utils';
+// import { useDispatch } from 'react-redux';
+// import { authActions } from '_store';
 
-   const App = () => {
-     history.navigate = useNavigate();
-     history.location = useLocation();
+const App = () => {
+  // const dispatch=useDispatch()
+  history.navigate = useNavigate();
+  history.location = useLocation();
+  //  const logout = () => dispatch(authActions.logout());
 
-     return (
-       <div>
-         <React.StrictMode>
-           <Fragment>
-             <RouteList />
-           </Fragment>
-         </React.StrictMode>
-       </div>
-     );
-   };
+  //  useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     logout();
+  //     // Optionally, show a confirmation dialog
+  //     event.preventDefault();
+  //     event.returnValue = '';
+  //   };
 
-   export default App;
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, []);
+
+  return (
+    <div>
+      <React.StrictMode>
+        <Fragment>
+          <RouteList />
+        </Fragment>
+      </React.StrictMode>
+    </div>
+  );
+};
+
+export default App;

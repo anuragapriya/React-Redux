@@ -16,10 +16,6 @@ export const user = {
       "jwToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJSYXZpLlNvbmkxQHN1dGhlcmxhbmRnbG9iYWwuY29tIiwianRpIjoiNDlhMWMwZjYtMGVlMy00ZjYxLTk4OTMtNWRiNGJmZWVhOTFjIiwiZW1haWwiOiJSYXZpLlNvbmkxQHN1dGhlcmxhbmRnbG9iYWwuY29tIiwidWlkIjoiUmF2aS5Tb25pMUBzdXRoZXJsYW5kZ2xvYmFsLmNvbSIsImlwIjoiMTkyLjE2OC4xLjUiLCJleHAiOjE3MzQwMTc4MzgsImlzcyI6Ildhc2hnYXMtZVNlcnZpY2UiLCJhdWQiOiJXYXNoZ2FzLWVTZXJ2aWNlIn0.gWctwIu5Uu-CbgbIi05dBAog9TP7C7Adxwvf07B_2xE",
       "Status": "Approved",
       "tokenExpiry": "2024-12-12T21:07:19.0712093+05:30",
-      "isAdmin": true,
-      "StateID": 3,
-      "Address": "Test Address",
-      "ZipCode": "3564734",
     },
     "UserAccess": [
       {
@@ -363,24 +359,6 @@ export const user = {
         ]
       }
     ],
-    "State": [
-      {
-        "StateId": 2,
-        "StateName": "AL"
-      },
-      {
-        "StateId": 3,
-        "StateName": "NY"
-      },
-      {
-        "StateId": 4,
-        "StateName": "WC"
-      },
-      {
-        "StateId": 5,
-        "StateName": "CL"
-      }
-    ]
   }
 }
 
@@ -1690,7 +1668,7 @@ export const marketerGroupGetData = {
   "Data": {
     "MarketerID": 1,
     "MarketerName": "Marketer1",
-    "MarketerStartDate":"2024-01-27T12:25:22.747Z",
+    "MarketerStartDate": "2024-01-27T12:25:22.747Z",
     "MarketerGroups": [
       {
         "ID": 1,
@@ -1809,7 +1787,7 @@ export const marketerGroupGetData = {
     ]
   }
 }
-export const pipelineMatrixData={
+export const pipelineMatrixData = {
   "Succeeded": true,
   "Message": "Get Pipeline Matrix successfully!!",
   "Errors": null,
@@ -2117,7 +2095,7 @@ export const pipelineMatrixData={
   ]
 }
 
-export const pipelineGuideData={
+export const pipelineGuideData = {
   "Succeeded": true,
   "Message": "Get PipelineDeliveryGuid successfully",
   "Errors": null,
@@ -2129,13 +2107,6 @@ export const pipelineGuideData={
       "RemainingFTLoad": 4000
     },
     "PipeLines": [
-      {
-        "MatrixID": 2,
-        "PipeNomination": 2000,
-        "PipelineName": "Columbia",
-        "MinValue": "45",
-        "MaxValue": "80"
-      },
       {
         "MatrixID": 8,
         "PipeNomination": 2000,
@@ -2173,4 +2144,78 @@ export const pipelineGuideData={
       }
     ]
   }
+}
+
+export const getNominationPipeline = {
+  Data: {
+    NominationData: {
+      PipelineID: 1,
+      PipelineName: "Columbia",
+      CompanyId: 173,
+      ContractData: [
+        {
+          ContractID: 1,
+          ContractName: "Contract1",
+          ContractDetails: [
+            {
+              ContractDate: "2025-02-17T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-18T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-19T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-20T08:44:00.38",
+              ContractValue: "1000"
+            }
+          ]
+        },
+        {
+          ContractID: 2,
+          ContractName: "Contract",
+          ContractDetails: [
+            {
+              ContractDate: "2025-02-17T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-18T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-19T08:44:00.38",
+              ContractValue: "1000"
+            },
+            {
+              ContractDate: "2025-02-20T08:44:00.38",
+              ContractValue: "1000"
+            }
+          ]
+        }
+      ]
+    },
+    PipelineData: [
+      {
+        PipelineID: 1,
+        PipelineName: "Covept"
+      },
+      {
+        PipelineID: 2,
+        PipelineName: "TransCo"
+      }
+    ]
+  }
+}
+
+export const getByInterruptible =
+{
+  Data: [
+    { GroupID: 1, MarkerterID: 1, MarketerName: 'Marketer 1', firmGroupName: 'Group 1', imbalanceAtFOM: 10, nominations: 20, usage: 30, adjustments: 5, drv: 2, imbalanceAtEOM: 15, thresholdVolume: 100, outsideThresholdVolume: 10, comments: 'Comment 1' },
+    { GroupID: 2, MarkerterID: 1, MarketerName: 'Marketer 1', firmGroupName: 'Group 2', imbalanceAtFOM: 10, nominations: 20, usage: 30, adjustments: 5, drv: 2, imbalanceAtEOM: 15, thresholdVolume: 100, outsideThresholdVolume: 10, comments: 'Comment 1' },
+  ]
 }

@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { CustomTextFieldInput, AutocompleteInput, CustomDatePicker } from '_components';
 import { alertActions } from '_store';
-import { Typography, Button, Box } from '@mui/material';
+import { Typography, Button, Box, ClickAwayListener } from '@mui/material';
 import Popper from '@mui/material/Popper';
 import Grid from "@material-ui/core/Grid";
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -84,6 +84,11 @@ const MarketerFilter = ({ handleFilterSubmit, isOpen, onClose, onOpen }) => {
         });
     };
 
+    const handleClickAway = () => {
+        resetValues();
+        onClose();
+    };
+
     return (
         <>
             <Button className='Filter' type="button" variant="contained" color="primary" aria-describedby={id} onClick={handleClick}>
@@ -119,12 +124,15 @@ const MarketerFilter = ({ handleFilterSubmit, isOpen, onClose, onOpen }) => {
                                 label="Start Date"
                             />
                         </Typography>
+                        <Typography className='marbottom0 selecticon'>
                         <AutocompleteInput
                             control={control}
                             name="IsActive"
                             label="Status"
                             options={statusData}
                         />
+                        </Typography>
+                        
                         <Typography component="div" className="CreateMarketerbutton">
                             <Button
                                 type="submit"

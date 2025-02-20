@@ -18,12 +18,13 @@ const ResetPassword = ({ open, handleClose, onSubmitToOTP }) => {
     const { register, handleSubmit, trigger, formState: { errors, isValid } } = useForm(formOptions);
 
     const onSubmit = async ({ email }) => {
+        dispatch(alertActions.clear());
         try {
             const result = await dispatch(authActions.forgotPasswordRequest({ email }));
              if (result?.error) {                
                 dispatch(alertActions.error({
                     showAfterRedirect: true,
-                    message: result?.error.message,
+                    message: result?.payload,
                     header: emailSentLabels.header
                 }));
                 return;

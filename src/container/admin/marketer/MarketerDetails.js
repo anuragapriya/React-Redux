@@ -5,9 +5,8 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 const MarketerDetails = ({ marketer, uetFileData }) => {
-    console.log(marketer);
-    console.log(uetFileData);
     const [uetFileTypes, setUetFileTypes] = useState([]);
 
     useEffect(() => {
@@ -27,7 +26,7 @@ const MarketerDetails = ({ marketer, uetFileData }) => {
     return (
         <>
             <Box className="userInformationcontainer">
-                <Accordion component="div">
+                <Accordion component="div" defaultExpanded>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1-content"
@@ -99,7 +98,7 @@ const MarketerDetails = ({ marketer, uetFileData }) => {
                             </Grid>
 
                         </Grid>
-                      
+
 
 
 
@@ -108,43 +107,49 @@ const MarketerDetails = ({ marketer, uetFileData }) => {
                 </Accordion>
             </Box>
             <Box className="userInformationcontainer">
-                            <Accordion component="div">
-                                <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1-content"
-                                    id="panel1-header"
-                                    component="div"
-                                >
-                                    <Typography component="h2" className='userInformation'>UET File Types</Typography>
-                                </AccordionSummary>
-                                <AccordionDetails>
-                                    <Grid container spacing={3}>
-                                        <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                            <Typography component="div" className="UserName">
-                                                
-                                                <FormGroup className='FormGrouplist'>
-                                                    {uetFileData.map(file => (
-                                                        <FormControlLabel
-                                                            key={file.UETFileID}
-                                                            control={
-                                                                <Checkbox
-                                                                    disabled={true}
-                                                                    checked={uetFileTypes.includes(file.UETFileID)}
-                                                                    name={file.UETFileID?.toString()}
-                                                                />
-                                                            }
-                                                            label={file.UETFileName}
-                                                        />
-                                                    ))}
-                                                </FormGroup>
-                                            </Typography>
+                <Accordion component="div" defaultExpanded>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1-content"
+                        id="panel1-header"
+                        component="div"
+                    >
+                        <Typography component="h2" className='userInformation'>UET File Types</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container spacing={3}>
+                            <Grid size={{ xs: 12, sm: 12, md: 12 }}>
+                                <Typography component="div" className="UserName">
 
-                                        </Grid>
-                                    </Grid>
-                                </AccordionDetails>
-                            </Accordion>
+                                    <FormGroup className='FormGrouplist'>
+                                    <Grid container spacing={1}>
+                                        {uetFileData.map(file => (
+                                           
+                            <Grid size={{ xs: 3, sm: 3, md: 3 }}>
+                                            <FormControlLabel
+                                                key={file.UETFileID}
+                                                control={
+                                                    <Checkbox
+                                                        disabled={true}
+                                                        checked={uetFileTypes.includes(file.UETFileID)}
+                                                        name={file.UETFileID?.toString()}
+                                                    />
+                                                }
+                                                label={file.UETFileName}
+                                            />
+                                            </Grid>
+                                           
+                                        ))}
+                                         </Grid>
+                                    </FormGroup>
+                                </Typography>
 
-                        </Box>
+                            </Grid>
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
+
+            </Box>
 
         </>
 

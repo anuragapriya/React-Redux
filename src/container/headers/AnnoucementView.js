@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid2';
 import { Edit, PushPin, PushPinOutlined, Download } from '@mui/icons-material';
@@ -7,7 +7,8 @@ import { materialsymbolsdownload } from '../../images';
 import dayjs from 'dayjs';
 import { base64ToFile } from '_utils';
 import { alertActions, announcementAction } from '_store';
-import { announcementData } from '_utils/constant';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+dayjs.extend(isSameOrAfter);
 
 const AnnouncementView = ({ isCardDashboard }) => {
     const dispatch = useDispatch();
@@ -31,12 +32,20 @@ const AnnouncementView = ({ isCardDashboard }) => {
     const handleDownload = (base64String, fileName) => {
         base64ToFile(base64String, fileName);
     };
+
+    const currentAndFutureAnnouncements = useMemo(() => {
+        return data.filter(announcement => dayjs(announcement.StartDate).isSameOrAfter(dayjs(), 'day'));
+    }, [data]);
+
+    const notificationCount = currentAndFutureAnnouncements.length || 0;
+
     return (
         <Typography className="Announcementcontainerlist ">
-            {!isCardDashboard && <Typography variant="h4" gutterBottom className="Announcementcontent ">
-                Notifications
-            </Typography>
-            }
+            {!isCardDashboard && (
+                <Typography variant="h4" gutterBottom className="Announcementcontent">
+                    Notifications
+                </Typography>
+            )}
             <Typography className='Announcementcontainer' component="div">
                 {data && data.length > 0 ? (
                     data.map((data, index) => (

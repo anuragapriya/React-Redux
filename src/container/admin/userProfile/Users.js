@@ -4,17 +4,39 @@ import { UserProfileList } from "container/admin";
 import { Button } from '@material-ui/core';
 import Grid from '@mui/material/Grid2';
 import { userProfileAction, alertActions, } from '_store';
+import { Jurisdiction } from 'container/energyAssistance';
+import UserProfileDetailsMCAdmin from './profiles/UserProfileDetailsMCAdmin';
+import { useParams } from 'react-router-dom';
 
 const Users = () => {
   const header = " User Profile";
   const dispatch = useDispatch();
-  const userProfiles = useSelector(x => x.userProfile?.userProfileData);
+
+  const { portal } = useParams();
+  const portalId = Number(portal);
+
   const [data, setData] = useState([]);
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const authUser = useSelector(x => x.auth?.value);
-  const user = authUser?.Data;
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showDetailSection, setshowDetailSection] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [rowSelection, setRowSelection] = useState({});
+  const [editedRowId, setEditedRowId] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const adminList = user?.UserAccess?.filter(access => access.Role.toLowerCase() === "admin");
+  const authUser = useSelector(x => x.auth?.value);
+  const userProfiles = useSelector(x => x.userProfile?.userProfileData);
+
+  const user = authUser?.Data;
+  const userdetails = user?.UserDetails;
+  const userAccess= user?.UserAccess;
+  const authUserName = `${userdetails.FirstName} ${userdetails.LastName}`;
+  const isReviewer = userAccess?.some(access => access.Role.toLowerCase().includes('reviewer'));
+  const isAdmin = userAccess?.some(access => access.Role.toLowerCase().includes('admin'));
+
+  const adminList = userAccess?.filter(access =>
+    ["admin", "reviewer"].includes(access.Role.toLowerCase())
+  );
 
   const portalData = adminList ? adminList?.map(admin => ({
     PortalId: admin.PortalId,
@@ -23,9 +45,8 @@ const Users = () => {
   })) : [];
 
   const defaultPortalId = portalData ? portalData[0]?.PortalId : 0;
-  const [portalId, setPortalId] = useState(defaultPortalId);
-  const [editedRowId, setEditedRowId] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [portalId, setPortalId] = useState(defaultPortalId);
+
   const authUserId = useSelector(x => x.auth?.userId);
 
   useEffect(() => {
@@ -43,21 +64,21 @@ const Users = () => {
       }
     };
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, portalId]);
 
   // Toggle lock/unlock for a specific userId
   const handleLockToggle = async (row) => {
     dispatch(alertActions.clear());
     try {
       const transformedData = {
-        UserId: row.original.UserID,
-        CreatedBy: authUserId.toString()
+        UserId: row.UserID,
+        CreatedBy: authUserName
       }
       let result;
       if (transformedData) {
         result = await dispatch(userProfileAction.lockProfile(transformedData));
       }
-      console.log(result);
+
       if (result?.error) {
         dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
         return;
@@ -76,7 +97,7 @@ const Users = () => {
     try {
       const transformedData = {
         UserID: user?.UserID,
-        CreatedBy: authUserId.toString()
+        CreatedBy: authUserName
       }
       let result;
       if (transformedData) {
@@ -88,7 +109,7 @@ const Users = () => {
         return;
       }
       handleRefresh();
-      dispatch(alertActions.success({ message: "User Profile Rejected Successfully.", header: header, showAfterRedirect: true }));
+      dispatch(alertActions.success({ message: "Registration request rejected.", header: header, showAfterRedirect: true }));
     }
     catch (error) {
       dispatch(alertActions.error({ message: error?.message || error, header: header }));
@@ -105,7 +126,7 @@ const Users = () => {
       updatedRows[rowData.UserID][field] = newValue;
       return updatedRows;
     });
-    const newData = data?.User?.map(row => row.UserID === rowData.UserID ? { ...row, [field]: newValue } : row);
+    const newData = data?.User?.map(row => row.UserID === rowData.UserID ? { ...row, [field]: newValue, isEdited: true } : row);
     setData(pre => ({ ...pre, User: [...newData] }));
     setIsDataChanged(true); // Set data changed to true
   };
@@ -132,7 +153,7 @@ const Users = () => {
       // Transform the deleted profiles for further processing
       const transformedData = deletedProfiles.map((item) => ({
         UserID: item.UserID,
-        UpdatedBy: authUserId.toString()
+        UpdatedBy: authUserName
       }));
       let result;
 
@@ -162,31 +183,34 @@ const Users = () => {
         editedRowData = [singleRowData]; // Wrap in an array for consistency
       } else {
         // Handle multiple object updates
-        editedRowData = Object.values(editedRowId);
+      //   editedRowData = Object.values(editedRowId);
+        editedRowData = selectedRows.filter(row => editedRowId[row.UserID]);
       }
       const transformedData = editedRowData.map((item) => ({
         MappingID: item.MappingID || 0,
         UserID: item.UserID,
+        CompanyName: item.CompanyName,
         PortalID: portalId,
-        RoleID: item.RoleID,
-        AgencyID: item.AgencyID,
-        UpdatedBy: authUserId.toString()
+        RoleID: item.RoleID || 0,
+        AgencyID: item.AgencyID || '',
+        JurisdictionID: item.JurisdictionID || '',
+        MarketerID: item.MarketerID || 0,
+        UpdatedBy: authUserName
       }))
 
       let result;
       if (transformedData.length > 0) {
         result = await dispatch(userProfileAction.update(transformedData));
       }
-      console.log(result);
       if (result?.error) {
         dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
         return;
       }
       handleRefresh();
-      setIsDataChanged(true); // Set data changed to true
-      dispatch(alertActions.success({ message: "User Profile Assigned and Approved Successfully.", header: header, showAfterRedirect: true }));
+      dispatch(alertActions.success({ message: "User updated successfully.", header: header, showAfterRedirect: true }));
     }
     catch (error) {
+      handleRefresh();
       dispatch(alertActions.error({ message: error?.message || error, header: header }));
     }
   };
@@ -199,6 +223,12 @@ const Users = () => {
     const data = { PortalId: portalId };
     const newData = await dispatch(userProfileAction.filter(data)).unwrap();
     setData(newData?.Data);
+    setIsDataChanged(false);
+    setSelectedUser(null);
+    setshowDetailSection(false);
+    setSelectedRows([]);
+    setRowSelection({});
+    setEditedRowId({});
   }
 
   const handleCancelClick = async () => {
@@ -207,13 +237,14 @@ const Users = () => {
 
   return (
     <>
-      {!(userProfiles?.loading || userProfiles?.error) &&
-        <>
+      {/* {!(userProfiles?.loading || userProfiles?.error) && */}
+      <>
+        {!showDetailSection && (<>
           <UserProfileList
             portalData={portalData}
             userProfiles={data}
             portalId={portalId}
-            setPortalId={setPortalId}
+            // setPortalId={setPortalId}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
             handleDelete={handleDelete}
@@ -222,6 +253,15 @@ const Users = () => {
             handleChange={handleChange}
             singleUserUpdate={singleUserUpdate}
             handleFilterSubmit={handleFilterSubmit}
+            setSelectedUser={setSelectedUser}
+            setshowDetailSection={setshowDetailSection}
+            rowSelection={rowSelection}
+            setRowSelection={setRowSelection}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            handleRefresh={handleRefresh}
+            isAdmin={isAdmin}
+            isReviewer={isReviewer}
           />
           <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
             <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
@@ -233,13 +273,17 @@ const Users = () => {
               color="primary"
               className='submitbutton'
               onClick={() => handleSubmit()}
-              disabled={!isDataChanged} // Disable button if no data change
-            >
+              // disabled={!isDataChanged} >
+             disabled={selectedRows.length === 0 || !isDataChanged}> 
               Save
             </Button>
           </Grid>
-        </>
-      }
+        </>)}
+        {showDetailSection &&
+          <UserProfileDetailsMCAdmin selectedUser={selectedUser} setSelectedUser={setSelectedUser} setshowDetailSection={setshowDetailSection} handleReject={handleReject} handleRefresh={handleRefresh} />
+        }
+      </>
+      {/* } */}
     </>
   );
 };

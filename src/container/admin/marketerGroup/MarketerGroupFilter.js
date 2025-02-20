@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { CustomTextFieldInput, AutocompleteInput } from '_components';
 import { alertActions, marketergroupAction } from '_store';
-import { Typography, Button, Box, TextField } from '@mui/material';
+import { Typography, Button, Box, TextField, ClickAwayListener } from '@mui/material';
 import Popper from '@mui/material/Popper';
 import { Grid } from '@material-ui/core';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -40,7 +40,6 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
     }, [watchedValues]);
 
     useEffect(() => {
-        console.log("Setting MarketerID:", marketerId);
         if (marketerId) {
             setValue('MarketerID', marketerId);
         }
@@ -55,7 +54,7 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
             const startMonth = dayjs(data.StartMonth).isValid() ? dayjs(data.StartMonth).toISOString() : null;
             const endMonth = dayjs(data.EndMonth).isValid() ? dayjs(data.EndMonth).toISOString() : null;
             data = { ...data, StartMonth: startMonth, EndMonth: endMonth };
-            console.log("filter Data", data);
+
             const result = await dispatch(marketergroupAction.filter(data)).unwrap();
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: "Fetch Failed" }));
@@ -98,6 +97,11 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
         });
     };
 
+    const handleClickAway = () => {
+        resetValues();
+        onClose();
+    };
+
     return (
         <>
             <Button className='Filter' type="button" variant="contained" color="primary" aria-describedby={id} onClick={handleClick}>
@@ -113,6 +117,7 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
                                 </Grid>
                             </Grid>
                         </Typography>
+                         <Typography component="div" className='marbottom0 selecticon marginbottom16'>
                         <AutocompleteInput
                             control={control}
                             name="MarketerID"
@@ -123,6 +128,7 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
                             handleBlur={handleBlur}
                             trigger={trigger}
                         />
+                        </Typography>
                         <CustomTextFieldInput
                             control={control}
                             name="GroupName"

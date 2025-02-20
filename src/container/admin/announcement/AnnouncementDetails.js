@@ -46,8 +46,7 @@ const AnnouncementDetails = ({ announcementData, onEditClick, handleRefresh }) =
 
     const onBulkDeleteClick = async () => {
         dispatch(alertActions.clear());
-        try {
-            console.log(selectedAnnouncements);
+        try {           
             const result = await dispatch(announcementAction.deleteAllAnnouncement(selectedAnnouncements));
 
             if (result?.error) {

@@ -27,6 +27,7 @@ import ListAltOutlinedIcon from './assets/images/ListAltOutlinedIcon.svg'
 import SettingsOutlinedIcon from './assets/images/SettingsOutlinedIcon.svg'
 import BarChartOutlinedIcon from './assets/images/BarChartOutlinedIcon.svg'
 import Notificationsicon from './assets/images/Notificationsicon.svg'
+import SortIcon from './assets/images/tdesignorderdescending.svg';
 export {
     profileuser,
     ListAltOutlinedIcon,
@@ -54,7 +55,8 @@ export {
     calendar,
     dashiconsadmintools,
     codiconsave,
-    materialsymbolsclose
+    materialsymbolsclose,
+    SortIcon
 };
 
 

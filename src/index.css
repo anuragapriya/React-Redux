@@ -126,6 +126,25 @@ body {
   float: right;
 }
 
+.Supporticon .active , .Supporticon .active:hover{
+  border-radius: 60px;
+  border: 2px solid var(--WG-Blue-700, #0059B3);
+  background: var(--WG-Blue-700, #0059B3);
+  color:#ffffff;
+  padding: 5px;
+  }
+  .Supporticon .active span{
+    color:#fff;
+  }
+  .Supporticon .active span.MuiIconButton-loadingIndicator{
+    background: url(./assets/images/headseticon-white.svg);
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    display: block;
+    text-align: left;
+    margin-left: -37px;
+    }
 
 
 /* GALLERY */
@@ -176,4 +195,36 @@ body {
 
 .editlabel label{
   transform: translate(14px, -9px) scale(1);
+  }
+
+  .MuiBadge-badge{
+    display: none !important;
+  }
+
+  .custom-table-container .MuiTableCell-stickyHeader {
+    position: sticky;
+    background: white;
+    z-index: 1;
+  }
+  
+  .custom-table-container .MuiTableCell-stickyHeader[data-sticky="left"] {
+    left: 0;
+  }
+  
+  .custom-table-container .MuiTableCell-stickyHeader[data-sticky="right"] {
+    right: 0;
+  }
+  
+  .header-scroll {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 8px;
+  }
+  
+  .header-scroll > div {
+    display: inline-block;
+    min-width: 100px;
+    padding: 8px;
+    border: 1px solid #ccc;
   }

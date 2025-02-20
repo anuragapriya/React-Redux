@@ -90,7 +90,7 @@ function createExtraActions() {
         return createAsyncThunk(
             `${name}/logout`, async (arg, { dispatch }) => {
                 try {
-                    console.log(`${window.location.origin}/`);
+                    //console.log(`${window.location.origin}/`);
                     const isInternalUser = JSON.parse(localStorage.getItem('isInternalUser'));
                     if (isInternalUser) {
                         await msalInstance.initialize();
@@ -105,6 +105,8 @@ function createExtraActions() {
                     localStorage.removeItem('appMenuItems');
                     localStorage.removeItem('portalID');
                     localStorage.removeItem('isInternalUser');
+                    localStorage.removeItem('breadcrumb');
+                    localStorage.removeItem('mapcenterUserID');
                     history.navigate('/');
                 } catch (error) {
                     dispatch(alertActions.error({ message: error, header: "Logout Failed" }));

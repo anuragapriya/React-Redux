@@ -17,18 +17,18 @@ const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnP
     handleBtnSecondaryClick();
   };
 
-  useEffect(() => {
-    if (open && countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prevCountdown) => prevCountdown - 1);
-      }, 1000);
+  // useEffect(() => {
+  //   if (open && countdown > 0) {
+  //     const timer = setInterval(() => {
+  //       setCountdown((prevCountdown) => prevCountdown - 1);
+  //     }, 1000);
 
-      return () => clearInterval(timer);
-    } else if (countdown === 0) {
-      setOpen(false);
-      handleBtnSecondaryClick();
-    }
-  }, [open, countdown]);
+  //     return () => clearInterval(timer);
+  //   } else if (countdown === 0) {
+  //     setOpen(false);
+  //     handleBtnSecondaryClick();
+  //   }
+  // }, [open, countdown]);
 
  
   return (
@@ -50,13 +50,13 @@ const TimerModal = ({alertType, timerCountdown, header, message1, message2, btnP
          </Typography>
          <DialogTitle id="alert-dialog-title"  className="headercontent mobile-block" >{header}</DialogTitle>
           <DialogContentText id="alert-dialog-description" className="p-0">
-            {message1 && <p className="modalpopupcontent">{message1}</p>}
-            {message2 && <p className="modalpopupcontent">{message2}</p>}
-            <p className="modalpopupcontent modalpopupcontenterror" >It will close automatically in {countdown} seconds.</p>
+            {message1 && <p className="modalpopupcontent ">{message1}</p>}
+            {message2 && <p className="modalpopupcontent ">{message2}</p>}
+            {/* <p className="modalpopupcontent modalpopupcontenterror" >It will close automatically in {countdown} seconds.</p> */}
           </DialogContentText>
          
         </DialogContent>
-        <DialogActions className='p-0'>
+        <DialogActions className='p-0 successclosebutton'>
           {btnPrimaryText && <Button  className="Loginbutton" onClick={handleBtnPrimaryClick} color="primary">
             {btnPrimaryText}
           </Button>

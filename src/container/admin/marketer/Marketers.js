@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MarketerFilter from "./MarketerFilter";
-import { Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from "@mui/material";
+import {  Typography, Backdrop, CircularProgress ,Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import MarketerList from "./MarketerList";
 import { alertActions } from '_store';
-import { marketerGetData } from '_utils/constant';
+// import { marketerGetData } from '_utils/constant';
 import MarketerCreate from './MarketerCreate';
 import { CommonConfimationmodal, ModalPopup } from '_components';
 import { marketerAction } from '_store/marketer.slice';
@@ -24,15 +24,16 @@ const Marketers = () => {
   const [rowSelection, setRowSelection] = useState({});
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [openComponent, setOpenComponent] = useState(null); // State to track which component is open
+  const [backdropOpen, setBackdropOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       dispatch(alertActions.clear());
       try {
-        // const result = await dispatch(marketerAction.get()).unwrap();
-        // const marketerData = result?.Data;
-        const result = null;//await dispatch(marketerAction.get()).unwrap();
-        const marketerData = marketerGetData?.Data;
+        const result = await dispatch(marketerAction.get()).unwrap();
+        const marketerData = result?.Data;
+        // const result = null;//await dispatch(marketerAction.get()).unwrap();
+        // const marketerData = marketerGetData?.Data;
         setData(marketerData);
       } catch (error) {
         dispatch(alertActions.error({
@@ -179,7 +180,14 @@ const Marketers = () => {
 
   const handleOpenComponent = (component) => {
     setOpenComponent(prev => prev === component ? null : component);
+    setBackdropOpen(prev => prev === component ? false : true); // Toggle backdrop
   };
+
+  const handleCloseBackdrop = () => {
+    setBackdropOpen(false);
+    setOpenComponent(null);
+  };
+
 
   return (
     <>
@@ -200,7 +208,7 @@ const Marketers = () => {
                     <MarketerFilter
                       handleFilterSubmit={handleFilterSubmit}
                       isOpen={openComponent === 'filter'}
-                      onClose={() => setOpenComponent(null)}
+                      onClose={handleCloseBackdrop}
                       onOpen={() => handleOpenComponent('filter')}
                     />
                   </Grid>
@@ -209,7 +217,7 @@ const Marketers = () => {
                       marketers={marketers}
                       uetFileData={data?.UETFileDate}
                       isOpen={openComponent === 'create'}
-                      onClose={() => setOpenComponent(null)}
+                      onClose={handleCloseBackdrop}
                       onOpen={() => handleOpenComponent('create')}
                       handleRefresh={handleRefresh}
                     />
@@ -220,39 +228,37 @@ const Marketers = () => {
           </Grid>
         </Grid>
       </Typography>
+      <div className={backdropOpen ? 'backdrop' : ''}>
+      <MarketerList
+        marketerData={data}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        onLockToggle={handleLockToggle}
+        handleChange={handleChange}
+        rowSelection={rowSelection}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        setRowSelection={setRowSelection}
+        handleRefresh={handleRefresh}
+        handleToggleActiveStatus={handleToggleActiveStatus}
+      />
+      </div>
+      <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
+        <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
+          Cancel
+        </Button>
+        <Button type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className='submitbutton'
+          onClick={() => handleSubmit()}
+          disabled={!isDataChanged}
+        >
+          Save
+        </Button>
+      </Grid>
 
-      {/* {!(marketers?.loading || marketers?.error) && */}
-        <>
-          <MarketerList
-            marketerData={data}
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-            onLockToggle={handleLockToggle}
-            handleChange={handleChange}
-            rowSelection={rowSelection}
-            selectedRows={selectedRows}
-            setSelectedRows={setSelectedRows}
-            setRowSelection={setRowSelection}
-            handleRefresh={handleRefresh}
-            handleToggleActiveStatus={handleToggleActiveStatus}
-          />
-          <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
-            <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
-              Cancel
-            </Button>
-            <Button type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className='submitbutton'
-              onClick={() => handleSubmit()}
-              disabled={!isDataChanged}
-            >
-              Save
-            </Button>
-          </Grid>
-        </>
-      {/* } */}
       {confirmDialogOpen && <ModalPopup
         header="Marketer"
         message1="Are you sure you want to deactivate selected marketers?"

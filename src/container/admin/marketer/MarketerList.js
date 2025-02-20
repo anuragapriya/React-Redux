@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import IconButton from '@mui/material/IconButton';
-import { Box, InputAdornment, TextField, Tooltip } from '@mui/material';
-import { PlayCircleOutline, PauseCircleOutline, Clear, DeleteForever, Sync } from '@mui/icons-material';
-import { ModalPopup, MultiSelectAutocomplete } from '_components';
+import { Box,  TextField, Tooltip ,Typography } from '@mui/material';
+import { PlayCircleOutline, PauseCircleOutline,   Sync ,FilterListOff} from '@mui/icons-material';
+import { ModalPopup, MultiSelectAutocomplete, MultiSelectMenu } from '_components';
 import { MarketerDetails } from "container/admin";
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -13,7 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, setIsModalOpen, onLockToggle, selectedRows, setSelectedRows,
     setRowSelection, handleToggleActiveStatus, handleRefresh }) => {
 
-    const uetFiles = marketerData?.UETFileDate?.map(uet => ({ value: uet.UETFileID, label: uet.UETFileName })) || [];
+    const uetFiles = marketerData?.UETFileDate?.map(uet => ({ value: uet.UETFileID.toString(), label: uet.UETFileName })) || [];
     const data = marketerData?.Marketers || [];
     const [selectedRow, setSelectedRow] = useState(null);
 
@@ -48,8 +48,6 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
         const baseColumns = [
             {
                 accessorKey: 'PortalID', header: 'Portal ID',
-                enableEditing: false,
-                enableSorting: true,
                 Cell: ({ row }) => (
                     <span onClick={() => handleAddEdit(row)} >
                         {row.original.PortalID}
@@ -59,8 +57,6 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
             {
                 accessorKey: 'MarketerName',
                 header: 'Marketer Name',
-                enableEditing: true,
-                enableSorting: true,
                 Cell: ({ cell, row }) => (
                     <TextField
                         className='ServiceProvider'
@@ -72,8 +68,6 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
             {
                 accessorKey: 'StartDate',
                 header: 'Start Date',
-                enableEditing: true,
-                enableSorting: true,
                 //filterVariant: 'date',
                 filterFn: (row, columnId, filterValue) => {
                     const dateValue = row.getValue(columnId);
@@ -107,8 +101,6 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
             {
                 accessorKey: 'ServiceProvider',
                 header: 'Service Provider',
-                enableEditing: true,
-                enableSorting: true,
                 Cell: ({ cell, row }) => (
                     <TextField
                         className='ServiceProvider'
@@ -130,18 +122,23 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
                 // filterFn: (row, columnId, filterValue) => {
                 //     const rowValue = row.getValue(columnId);
                 //     const selectedValues = rowValue.split(','); // Split the comma-separated values
-                //     return selectedValues.some(value => filterValue.toLowerCase().includes(value.toLowerCase())); // Check if any selected value matches the filter value
+                //     return selectedValues.some(value => {
+                //       const file = uetFiles.find(file => file.value === value);
+                //       return file?.label.toLowerCase().includes(filterValue.toLowerCase());
+                //     });
                 // },
                 Cell: ({ row, column }) => {
                     const columnKey = column.id || column.accessorKey;
                     const selectedValues = row.original[columnKey]?.split(',') || [];
                     return (
-                        <MultiSelectAutocomplete
+                        <Typography component="div" className='marbottom0 selecticon margintop10'>
+                        <MultiSelectMenu
                             options={uetFiles}
                             onChange={(newValue) => handleMultiSelectChange(newValue, row, columnKey)}
                             label="UET File Type"
                             value={selectedValues.join(',')}
                         />
+                        </Typography>
                     );
                 }
             }
@@ -158,7 +155,7 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
         columns,
         data,
         enableHiding: false,
-        enableGlobalFilter: true,
+        columnFilterDisplayMode: 'popover',
         enableFullScreenToggle: false,
         enableColumnActions: false,
         paginationDisplayMode: 'pages',
@@ -168,6 +165,7 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
         positionExpandColumn: 'first',
         positionActionsColumn: "last",
         positionToolbarAlertBanner: 'none',
+        autoResetPageIndex: false,
         state: {
             rowSelection,
         },
@@ -178,8 +176,18 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
         displayColumnDefOptions: {
             'mrt-row-expand': {
                 header: "",
-                size: 10,//make the expand column wider
-            }
+                size: 10, // make the expand column wider
+                muiTableHeadCellProps: {
+                    sx: {
+                        display: 'none', // Hide the expand column
+                    },
+                },
+                muiTableBodyCellProps: {
+                    sx: {
+                        display: 'none', // Hide the expand column
+                    },
+                },
+            },
         },
         initialState: {
             columnOrder: [
@@ -192,6 +200,29 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
                 "UETFileID",
                 'mrt-row-actions'
             ],
+            sorting: [
+                {
+                  id: 'PortalID', 
+                  desc: false, 
+                },
+                {
+                  id: 'MarketerName', 
+                  desc: false, 
+                },
+                {
+                  id: 'StartDate', 
+                  desc: false, 
+                },
+              {
+                  id: 'ServiceProvider', 
+                  desc: false, 
+                },
+              {
+                  id: 'UETFileID', 
+                  desc: false, 
+                },
+              
+              ],
         },
         renderTopToolbarCustomActions: () => (
             <Box
@@ -202,10 +233,10 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
                     flexWrap: 'wrap',
                 }}
             >
-                <Tooltip title="Refresh" className='Deactivate'>
+                <Tooltip title="Clear filter" className='Deactivate'>
                     <div>
                         <IconButton onClick={handleRefresh} >
-                            <Sync variant="contained" color="secondary" />
+                            <FilterListOff variant="contained" color="secondary" />
                         </IconButton>
                     </div>
                 </Tooltip>
@@ -250,7 +281,6 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
 
     useEffect(() => {
         const selectedFlatRows = table.getSelectedRowModel().flatRows;
-        console.log("Get Selected rows", selectedFlatRows); // Get selected rows
         setSelectedRows(selectedFlatRows.map((row) => row.original)); // Extract original row data
     }, [rowSelection, table]); // Re-run when rowSelection changes
 
