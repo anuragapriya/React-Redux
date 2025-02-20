@@ -8,7 +8,7 @@ const fileTypeAcceptable = (accepts, file) => {
    }
 
    return accepts.some((accept) => {
-      console.log('Checking accept:', accept);
+     // console.log('Checking accept:', accept);
       if (file.type && accept.match(mimeTypeRegexp)) {
          const [typeLeft, typeRight] = file.type.split('/')
          const [acceptLeft, acceptRight] = accept.split('/')

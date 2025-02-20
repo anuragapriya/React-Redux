@@ -24,7 +24,7 @@ const ManageProfileMC = () => {
     const documentTypeData = user?.DocumentData || [];
     const states = user?.State || [];
     const exsistingFiles = user?.FileData || [];
-    
+
     const documentData = documentTypeData.map(x => ({
         label: x.DocumentDescription,
         value: x.DocumentTypeID
@@ -47,20 +47,21 @@ const ManageProfileMC = () => {
         const fetchData = async () => {
             try {
                 dispatch(mapCenterAction.clear());
-                const user = await dispatch(mapCenterAction.get({id})).unwrap();
+                const user = await dispatch(mapCenterAction.get({ id })).unwrap();
                 const data = user?.Data;
+                localStorage.setItem('mapcenterUserID', id);
                 reset(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
                         ID: file.ID,
-                        AdditionalID:file.AdditionalID,
+                        AdditionalID: file.AdditionalID,
                         DocumentTypeID: file.DocumentTypeID,
                         FileName: file.FileName,
                         Format: file.Format,
                         Size: file.Size,
                         PortalKey: file.PortalKey,
                         File: file.File,
-                        Url:file.Url
+                        Url: file.Url
                     })));
                 }
             } catch (error) {
@@ -114,6 +115,10 @@ const ManageProfileMC = () => {
                 CompanyContactEmailAddress: data.CompanyContactEmailAddress,
                 AuthorizedWGLContact: data.AuthorizedWGLContact,
                 AdditionalID: user?.AdditionalID || 0,
+                StatusID: 1,
+                PhoneNumber: user.MobileNumber,
+                EmailID: user.EmailID,
+                ModifiedBy: data.FullName,
                 FileData: files
             };
             let result;
@@ -122,11 +127,12 @@ const ManageProfileMC = () => {
             } else {
                 result = await dispatch(mapCenterAction.insert({ id, transformedData }));
             }
-           
+
             if (result?.error) {
-                dispatch(alertActions.error({  message: result?.payload || result?.error.message, header: header }));
+                dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
                 return;
             }
+            localStorage.removeItem('mapcenterUserID');
             navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
@@ -164,12 +170,17 @@ const ManageProfileMC = () => {
         }
     };
 
+    const handleCancelClick=()=>
+    {
+        navigate('/');
+    }
+
     return (
         <>
             {!(user?.loading || user?.error) && (
                 <Typography component="div" className="MapCenterAccecss">
                     <Typography component="div" className="MapCenterAccecssheading">
-                        <Typography component="h1"  variant="h5">Map Center Access</Typography>
+                        <Typography component="h1" variant="h5">Map Center Access</Typography>
                     </Typography>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Typography className="Personal-Information-container" component="div">
@@ -220,7 +231,7 @@ const ManageProfileMC = () => {
                                                 <Typography component="div" className="Personal-Informationsheading ">
                                                     <Typography component="h2" variant="h5">Document Upload  <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
                                                 </Typography>
-                                                <Typography component="div" className="passwordcheck">
+                                                <Typography component="div" className="passwordcheck marbottom0 selecticon">
                                                     <AutocompleteInput
                                                         control={control}
                                                         name="documentType"
@@ -261,6 +272,9 @@ const ManageProfileMC = () => {
                             </Grid>
                         </Typography>
                         <Grid item xs={12} sm={12} md={12} className="Personal-Information">
+                            <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
+                                Cancel
+                            </Button>
                             <Button type="submit" variant="contained" className="CompleteRegistration" color="primary" disabled={!isValid} >
                                 Complete Registration
                             </Button>

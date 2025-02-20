@@ -149,9 +149,9 @@ const Support = () => {
 
       const handleBlur = async (e) => {
             const fieldName = e.target.name;
-            console.log(`Triggering validation for: ${fieldName}`);
-            const result = await trigger(fieldName);
-            console.log(`Validation result for ${fieldName}:`, result);
+           // console.log(`Triggering validation for: ${fieldName}`);
+            await trigger(fieldName);
+          //  console.log(`Validation result for ${fieldName}:`, result);
       };
 
       const handleDownload = (base64String, fileName) => {

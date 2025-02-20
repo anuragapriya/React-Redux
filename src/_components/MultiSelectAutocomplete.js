@@ -81,7 +81,6 @@ return (
         {...params}
         name={name}
         label={label}
-        placeholder="Search options"
         error={!!error}
         helperText={helperText}
         slotProps={{

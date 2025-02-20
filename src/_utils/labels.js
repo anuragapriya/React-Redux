@@ -51,6 +51,10 @@ export const emailSentLabels={
 export const mapCenterRegistrationLabels={
     header:"Map Center Access",
     message1:"Your registration request has been submitted successfully. Please wait for admin approval before accessing the portal.",
+    message2:"Registration request has been approved and completed",
+    message3:"User record updated successfully",
+    message4:"User registration verified successfully",
+    message5:"Registration request rejected",
     btnSecondaryText:"Close",
 }
 
@@ -83,7 +87,9 @@ export const aggrementEALabel={
     header:"Energy Assistance",
     message1:"All the Information provided through the Washington Gas Energy Assistance portal is the confidential information of Washington Light Company and is not to be distributed to any other party without the express written permission of Washington Gas Light Company.",
     btnSecondaryText:"Close",
-    btnPrimaryText:"I Agree"
+    btnPrimaryText:"Acknowledge",
+    agreeText:"I agree",
+    confText:"Confidential Information Disclaimer"
 }
 
 export const myProfileLabels={

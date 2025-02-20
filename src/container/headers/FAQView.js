@@ -14,12 +14,13 @@ const FAQView = () => {
   const faqData = useSelector(x => x.faq?.faqList);
 
   const authUserId = useSelector(x => x.auth?.userId);
+  const userID = authUserId || localStorage.getItem('mapcenterUserID') || 99;
 
   useEffect(() => {
     const fetchData = async () => {
       dispatch(alertActions.clear());
       try {
-        await dispatch(faqAction.get(authUserId)).unwrap();
+        await dispatch(faqAction.get(userID)).unwrap();
       } catch (error) {
         setError(error?.message || error);
       }

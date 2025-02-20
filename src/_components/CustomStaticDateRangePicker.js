@@ -27,8 +27,12 @@ const CustomStaticDateRangePicker = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
+ 
 
-  const handleOpen = () => setOpen(prevOpen => !prevOpen);
+  const handleOpen = (event) => {
+    event.stopPropagation(); // Prevent click propagation issues
+    setOpen(prevOpen => !prevOpen);
+  };
   const handleClose = () => setOpen(false);
 
   const parseDate = (date) => (date ? new Date(date) : null);
@@ -58,7 +62,7 @@ const CustomStaticDateRangePicker = ({
                     <>
                       <InputAdornment position="end">
                         <IconButton onClick={handleOpen}>
-                          <CalendarTodayIcon onClick={handleOpen} />
+                          <CalendarTodayIcon />
                         </IconButton>
                       </InputAdornment>
                       {error && (

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { AutocompleteInput, CustomFormControl } from '_components';
 
-const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBlur }) => {
+const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBlur, isDisabled }) => {
     return <>
         <CustomFormControl
             id="CompanyName"
@@ -11,14 +11,16 @@ const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBl
             register={register}
             errors={errors}
             handleBlur={handleBlur}
+            //disable={isDisabled || false}
         />
         <CustomFormControl
             id="TaxIdentificationNumber"
             label="Tax Identification Number"
-            type="text"
+            type="number"
             register={register}
             errors={errors}
             handleBlur={handleBlur}
+            disable={isDisabled || false}
         />
         <CustomFormControl
             id="CompanyStreetAddress1"
@@ -27,6 +29,7 @@ const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBl
             register={register}
             errors={errors}
             handleBlur={handleBlur}
+            disable={isDisabled || false}
         />
         <CustomFormControl
             id="CompanyCity"
@@ -35,9 +38,10 @@ const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBl
             register={register}
             errors={errors}
             handleBlur={handleBlur}
+            disable={isDisabled || false}
         />
         <Grid container spacing={3} >
-            <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails passwordcheck">
+            <Grid item xs={12} sm={12} md={6} className="Personal-Information marbottom0 selecticon  CompanyDetails passwordcheck">
                 <AutocompleteInput
                     control={control}
                     name="CompanyState"
@@ -47,16 +51,18 @@ const CompanyDetails = ({ register, errors, control,trigger, stateData, handleBl
                     helperText={errors.CompanyState?.message}
                     handleBlur={handleBlur}
                     trigger={trigger}
+                    disabled={isDisabled || false}
                 />
                 </Grid>
-                <Grid item xs={12} sm={12} md={6} className="Personal-Information CompanyDetails">
+                <Grid item xs={12} sm={12} md={6} className="Personal-Information marbottom0  CompanyDetails">
                 <CustomFormControl
                     id="CompanyZipCode"
                     label="Zip Code"
-                    type="text"
+                    type="number"
                     register={register}
                     errors={errors}
                     handleBlur={handleBlur}
+                    disable={isDisabled || false}
                 />
             </Grid>  
            

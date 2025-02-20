@@ -1,0 +1,50 @@
+trigger: none  # No automatic trigger on commits
+
+pr: none  # No automatic trigger on pull requests
+
+pool:
+  name: Default
+  demands:
+    - Agent.Name -equals AZWSVDOP100
+
+
+steps:
+  # ✅ Install Node.js
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+  # ✅ Install Dependencies
+  - script: |
+      npm ci --prefer-offline --no-audit --legacy-peer-deps
+    displayName: 'Install Dependencies'
+    workingDirectory: $(Build.SourcesDirectory)
+
+  # ✅ Build React Application
+  - script: |
+      npm run build
+    displayName: 'Build React Application'
+    workingDirectory: $(Build.SourcesDirectory)
+
+  # ✅ Validate Build Output
+  - script: |
+      @echo off
+      if not exist "$(Build.SourcesDirectory)\build" (
+        echo Build output directory not found!
+        exit /b 1
+      )
+    displayName: 'Validate Build Output'
+    workingDirectory: $(Build.SourcesDirectory)
+
+  # ✅ Deploy New Build to Azure Web App
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'azure-s1'
+      appType: 'webApp'
+      WebAppName: 'WGLHZUS2DESVAS001'
+      package: '$(Build.SourcesDirectory)\build'
+    displayName: 'Deploy to Azure Web App'
+    condition: succeeded()
+

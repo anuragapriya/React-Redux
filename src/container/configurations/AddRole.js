@@ -50,7 +50,6 @@ const AddRole = ({ handleFetch }) => {
         dispatch(alertActions.clear());
         try {
             data={...data, RoleDescription:data.RoleName}
-            console.log(data);
             const result =await dispatch(masterActions.saveRole({data})).unwrap();
 
             if (result?.error) {

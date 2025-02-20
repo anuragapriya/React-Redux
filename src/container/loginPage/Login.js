@@ -36,6 +36,7 @@ const Login = () => {
             const loginResponse = await msalInstance.loginPopup({
                 scopes: ["User.Read"],
             });
+            console.log('SSO Response', loginResponse);
             setAccount(loginResponse.account);
             if (loginResponse.account) {
                 // Assuming you have a way to determine if the user is internal

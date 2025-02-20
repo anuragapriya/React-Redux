@@ -33,9 +33,10 @@ function createExtraActions() {
         getUserProfile: getUserProfile(),
         update: update(),
         delete: _delete(),
+        verifyUser:verifyUser(),
         rejectUser: rejectUser(),
         filter: filter(),
-        lockProfile:lockProfile()
+        lockProfile:lockProfile()       
     };
 
     function getUserProfile() {
@@ -60,6 +61,20 @@ function createExtraActions() {
                 try {
                    // const data = transformedData[0];
                     const response = await trackPromise(fetchWrapper.post(`${baseUrl}/AssignRoleToUser`,{RoleAssignments: transformedData}));
+                    return response;
+                } catch (error) {
+                    return rejectWithValue(error);
+                }
+            }
+        );
+    }
+
+    function verifyUser() { 
+        return createAsyncThunk( 
+            `${name}/verifyUser`,
+            async ( transformedData , { rejectWithValue }) => { 
+                try {
+                    const response = await trackPromise(fetchWrapper.put(`${baseUrl}/MapCenterUserUpdateBySecurityReviewer`, transformedData ));
                     return response;
                 } catch (error) {
                     return rejectWithValue(error);

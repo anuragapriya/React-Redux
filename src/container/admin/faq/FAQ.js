@@ -99,9 +99,8 @@ const FAQ = () => {
 
     const handleBlur = async (e) => {
         const fieldName = e.target.name;
-        console.log(`Triggering validation for: ${fieldName}`);
-        const result = await trigger(fieldName);
-        console.log(`Validation result for ${fieldName}:`, result);
+        await trigger(fieldName);
+       // console.log(`Validation result for ${fieldName}:`, result);
     };
 
     const handleEditClick = async (faq) => {
@@ -142,7 +141,7 @@ const FAQ = () => {
                             <Grid size={{ xs: 12, sm: 12, md: 6 }} >
                                 <Grid container>
                                     <Grid size={{ xs: 12, sm: 12, md: 6 }}>
-                                        <Typography component="div" className='passwordcheck '>
+                                        <Typography component="div" className='passwordcheck marbottom0 selecticon'>
                                             <AutocompleteInput
                                                 id="PortalID"
                                                 control={control}

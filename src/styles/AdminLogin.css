@@ -24,7 +24,7 @@
     margin: 24px 0px;
 }
 
-.CardDetail {
+.CardDetail .MuiCardContent-root {
     /* width: 245px; */
     height: 180px;
     flex-shrink: 0;
@@ -32,7 +32,7 @@
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: var(--White, #FFF);
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
-    display: flex;
+    display: grid;
     align-items: center;
     cursor: pointer;
 
@@ -41,10 +41,11 @@
 .CardDetail .MuiPaper-root.MuiPaper-elevation {
     box-shadow: none;
     background-color: transparent;
-    width: 100%;
+    max-width: 100%;
+    padding: 0px;
 }
 
-.CardDetail .css-1lt5qva-MuiCardContent-root .MuiTypography-gutterBottom {
+.CardDetail .MuiTypography-gutterBottom {
     color: var(--WG-Blue-700, #0059B3);
     text-align: center;
     font-family: "ITC Avant Garde Gothic Std Md";
@@ -53,6 +54,19 @@
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+    padding: 20px;
+    margin-bottom: 0px;
+}
+
+.CardDetail:nth-last-child(1) .MuiTypography-gutterBottom {
+    padding: 0px 20px 0px 0px;
+    text-align: left;
+}
+
+.CardDetail .MuiCardContent-root,
+.CardDetail .MuiCardContent-root:last-child {
+    padding: 0px;
+    padding-bottom: 0px;
 }
 
 .CardDetail:nth-last-child(1) .MuiCardContent-root {
@@ -350,12 +364,14 @@
     line-height: normal;
     font-variant: all-small-caps;
     text-transform: uppercase;
+    text-transform: uppercase;
+    display: inline-table;
 }
 
 .admincontent table tbody tr td {
     border-bottom: 0px;
     font-family: "Proxima Nova Rg";
-    color: var(--Gray-700, #4D4C52);
+    color: var(--Gray-700, #71717A);
     font-size: 16px;
 }
 
@@ -399,7 +415,7 @@
     border-color: #DFEDFF !important;
 }
 
-.admincontentContainer table tbody tr td:nth-child(3) span {
+.admincontentContainer table tbody tr td:nth-child(3) span ,.admincontentContainer .Customertable  table tbody tr td:nth-child(2) span {
     color: #4fa4ef;
     cursor: pointer;
     font-size: 16px;
@@ -452,7 +468,7 @@
 
 .userInformation {
     color: var(--WG-Blue-700, #0059B3);
-    font-family: "ITC Avant Garde Gothic Std";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -594,13 +610,14 @@
     font-weight: 400;
     overflow: hidden;
     color: var(--Gray-700, #4D4C52);
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /* text-overflow: ellipsis;
+    white-space: nowrap; */
     font-family: "Proxima Nova Rg";
     font-size: 16px;
     font-style: normal;
     line-height: normal;
     font-variant: all-small-caps;
+    word-wrap: break-word;
 }
 
 .userInformationcontainer .UserName {
@@ -617,12 +634,15 @@
     text-transform: uppercase;
     margin: 50px 0px;
 }
-.CardDetailContainer-right .Announcementcontainer{
+
+.CardDetailContainer-right .Announcementcontainer {
     background: transparent;
-    border:0px;
-    box-shadow:none;
+    border: 0px;
+    box-shadow: none;
 }
-.Announcementcontainerlist .CardDetailContainer ,.Announcementcontainer {
+
+.Announcementcontainerlist .CardDetailContainer,
+.Announcementcontainer {
     border-radius: 8px;
     border: 1px solid var(--WG-Blue-100, #DFEDFF);
     background: #FFF;
@@ -670,6 +690,7 @@
     padding: 15px;
     border: 0px;
     box-shadow: 0px 2px 2px 0px rgba(0, 89, 179, 0.25);
+
 }
 
 .Filtercontainer h2 {
@@ -1074,6 +1095,7 @@
 .Filtercontainer {
     width: 400px;
     padding: 0px 20px;
+    z-index: 9;
 }
 
 .UploadContainer a svg:nth-last-child(1) path {
@@ -1123,12 +1145,12 @@
 }
 
 .faqtextarea .MuiInputBase-root.MuiInput-root::before,
-.faqtextarea .css-5h82ro-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before {
+.faqtextarea .MuiInputBase-root.MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before {
     border: 0px;
     border-bottom: 0px;
 }
 
-.faqtextarea .MuiFormControl-root.css-1iw3t7y-MuiFormControl-root {
+.faqtextarea .MuiFormControl-root.MuiFormControl-root {
     width: 100%;
 }
 
@@ -1198,7 +1220,6 @@
 }
 
 .admincontentContainer .dateMonthlist {
-    display: flex;
     padding: 0px;
 }
 
@@ -1239,7 +1260,7 @@
 
 svg.SearchIcon path,
 .AccordionSummaryheadingcontent span svg path,
-.userInformationcontainer span svg path {
+.userInformationcontainer span svg path ,.profilenavbar.support-list .MuiAccordionSummary-root  svg path {
     fill: #0A3B70;
 }
 
@@ -1260,7 +1281,7 @@ svg.SearchIcon {
     padding: 8px 0px;
 }
 
-.suportcontentcontainer .AccordionSummaryheadingcontent.css-1808mag-MuiPaper-root-MuiAccordion-root::before {
+.suportcontentcontainer .AccordionSummaryheadingcontent.MuiPaper-root.MuiAccordion-root::before {
     background-color: transparent;
 }
 
@@ -1269,7 +1290,7 @@ svg.SearchIcon {
     min-height: 40px;
 }
 
-.suportcontentcontainer .AccordionSummaryheadingcontent button .css-yfrx4k-MuiAccordionSummary-content.Mui-expanded {
+.suportcontentcontainer .AccordionSummaryheadingcontent button .MuiAccordionSummary-content.Mui-expanded {
     margin: 10px 0px;
 }
 
@@ -1359,22 +1380,34 @@ svg.SearchIcon {
     width: 8px;
 }
 
-.MuiTableContainer-root::-webkit-scrollbar {
+.MuiTableContainer-root::-webkit-scrollbar,
+.profilenavbar .heightmin::-webkit-scrollbar,
+.CreateMarketercheckbox::-webkit-scrollbar ,
+.support-list .MuiPaper-root.MuiPopover-paper::-webkit-scrollbar {
     width: 5px;
     height: 8px;
 }
 
 .Announcementcontainer::-webkit-scrollbar-track,
+.profilenavbar .heightmin::-webkit-scrollbar-track,
+.CreateMarketercheckbox::-webkit-scrollbar-track,
+.support-list .MuiPaper-root.MuiPopover-paper::-webkit-scrollbar-track,
 .MuiTableContainer-root::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
 .Announcementcontainer::-webkit-scrollbar-thumb,
+.profilenavbar .heightmin::-webkit-scrollbar-thumb,
+.CreateMarketercheckbox::-webkit-scrollbar-thumb,
+.support-list .MuiPaper-root.MuiPopover-paper::-webkit-scrollbar-thumb,
 .MuiTableContainer-root::-webkit-scrollbar-thumb {
     background: #888;
 }
 
 .Announcementcontainer::-webkit-scrollbar-thumb:hover,
+.profilenavbar .heightmin::-webkit-scrollbar-thumb:hover,
+.CreateMarketercheckbox::-webkit-scrollbar-thumb:hover,
+.support-list .MuiPaper-root.MuiPopover-paper::-webkit-scrollbar-thumb:hover,
 .MuiTableContainer-root::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
@@ -1394,7 +1427,8 @@ svg.SearchIcon {
     line-height: normal;
     text-transform: uppercase;
     height: 48px;
-    padding: 8px 15px
+    padding: 8px 15px;
+    margin-right: 15px;
 }
 
 .containedLoginbuttonleft .Rejectbutton,
@@ -1453,7 +1487,7 @@ svg.SearchIcon {
     width: 100%;
 }
 
-.marketerFiltercontainer .SelectedDate .MuiInputBase-colorPrimary .MuiInputAdornment-positionEnd.css-elo8k2-MuiInputAdornment-root {
+.marketerFiltercontainer .SelectedDate .MuiInputBase-colorPrimary .MuiInputAdornment-positionEnd.MuiInputAdornment-root {
     margin-right: 10px;
 }
 
@@ -1466,17 +1500,19 @@ svg.SearchIcon {
     display: block;
 }
 
-.CreateMarketer label {
+/* .CreateMarketer label {
     width: 50%;
     margin-right: 0px;
     float: left;
-}
+} */
 
 .clear-both {
     clear: both;
 }
 
-.Filtercontainerinner .CreateMarketerbutton .submitbutton ,.BalancingModel .CreateMarketerbutton .submitbutton {
+.Filtercontainerinner .CreateMarketerbutton .submitbutton,
+.profilenavbar .CreateMarketerbutton .submitbutton,
+.BalancingModel .CreateMarketerbutton .submitbutton {
     float: right;
     border-radius: 4px;
     background: var(--WG-Blue-900, #0A3B70);
@@ -1492,7 +1528,16 @@ svg.SearchIcon {
     text-transform: uppercase;
 }
 
-.Filtercontainerinner .CreateMarketerbutton .cancelbutton  ,.BalancingModel .CreateMarketerbutton .cancelbutton{
+.Filtercontainerinner .CreateMarketerbutton .cancelbutton:hover,
+.BalancingModel .CreateMarketerbutton .cancelbutton:hover {
+
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    background-color: #d5d5d5;
+}
+
+.Filtercontainerinner .CreateMarketerbutton .cancelbutton,
+.profilenavbar .CreateMarketerbutton .cancelbutton,
+.BalancingModel .CreateMarketerbutton .cancelbutton {
     border-radius: 4px;
     background: var(--Gray-100, #F5F5F6);
     box-shadow: 0px 1px 1px 0px rgba(132, 132, 140, 0.25);
@@ -1611,7 +1656,7 @@ svg.SearchIcon {
     font-weight: 400;
     line-height: normal;
     text-transform: capitalize;
-    margin: 10px 10px 0px 0px;
+    margin: 10px 10px 0px 10px;
 }
 
 .PipeLineDelivery .EditIcon {
@@ -1663,6 +1708,7 @@ svg.SearchIcon {
     font-weight: 400;
     line-height: normal;
     font-variant: all-small-caps;
+    margin: 0px 10px;
 }
 
 .PipeLineDelivery .PipeLinecountmin {
@@ -1680,6 +1726,7 @@ svg.SearchIcon {
 .PipeLineDeliveryGrid .PipeLineDeliverywdith {
     width: 18.88%;
     margin: 0px 10px;
+    display: flex;
 
 }
 
@@ -1695,10 +1742,14 @@ svg.SearchIcon {
 .CardDetailContainer .menuItemIcon {
     background: url('../assets/images/dashiconsadmintools.svg');
     background-size: 100%;
-    width: 60px;
+    width: 50px;
     height: 50px;
-    margin: 0px;
+    margin: 20px 10px 0px 50px;
     background-repeat: no-repeat;
+}
+
+.MuiBreadcrumbs-li button {
+    padding: 0px 8px;
 }
 
 .CreateMarketerhight {
@@ -1735,9 +1786,11 @@ svg.SearchIcon {
     float: right;
 }
 
-.admincontentContainer .DeleteSelected button{
+.admincontentContainer .DeleteSelected button {
     background: var(--Red-500, #EF4444);
+    border-radius: 25px;
 }
+
 .admincontentContainer .Deactivate button,
 .EditPipeLineMatrixcontainer .Deactivate button {
     background: #0059B3;
@@ -1794,7 +1847,7 @@ svg.SearchIcon {
 
 .EditPipeLineMatrixcontainer thead th:nth-child(1) {
     color: var(--WG-Blue-900, #0A3B70);
-    font-family: "ITC Avant Garde Gothic Std";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -1805,7 +1858,7 @@ svg.SearchIcon {
 .EditPipeLineMatrixcontainer thead th {
     color: var(--WG-Blue-700, #0059B3);
     text-align: center;
-    font-family: "ITC Avant Garde Gothic Std";
+    font-family: "ITC Avant Garde Gothic Std Md";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -1837,10 +1890,42 @@ svg.SearchIcon {
 }
 
 .EditPipeLineMatrixcontainer .marketrtableContainertable .userprofilelist {
-    padding: 0px 20px;
+    padding: 0px 20px 0px 0px;
+    margin: 20px 0px;
 }
 
+.EditPipeLineMatrixcontainer .marketrtableContainertable table tbody tr td.MuiTableCell-root.MuiTableCell-body div {}
 
+.EditPipeLineMatrixcontainer .marketrtableContainertable .MuiSelect-select {
+    border: 0px;
+    color: var(--WG-Blue-900, #0A3B70);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.EditPipeLineMatrixcontainer .marketrtableContainertable .Mui-TableHeadCell-Content-Actions.MuiBox-root {
+    display: none !important;
+}
+
+.EditPipeLineMatrixcontainer .marketrtableContainertable .MuiPaper-root .MuiBox-root {
+    display: none;
+}
+
+.EditPipeLineMatrixcontainer .marketrtableContainertable .MuiPaper-root .MuiTableContainer-root .MuiBox-root {
+    display: flex;
+}
+
+.EditPipeLineMatrixcontainer .marketrtableContainertable .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+    border: 0px;
+}
+
+.EditPipeLineMatrixcontainer .MuiFormControl-root {
+    width: 80%;
+}
 
 .userprofilelist .PipeLineDeliverynone {
     display: none;
@@ -1860,11 +1945,20 @@ svg.SearchIcon {
     line-height: normal;
     text-transform: uppercase;
 }
-.EditPipeLineMatrixcontainer .marketrtableContainertable table tbody tr td:nth-child(1) .MuiFormControl-root input{
-    color: var(--WG-Blue-700, #0059B3); 
+
+.EditPipeLineMatrixcontainer .marketrtableContainertable table tbody tr td:nth-child(1) .MuiFormControl-root input {
+    color: var(--WG-Blue-700, #0059B3);
     font-weight: 600;
     text-align: left;
+    color: var(--WG-Blue-700, #0059B3);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: uppercase;
 }
+
 .EditPipeLineMatrixcontainer .marketrtableContainertable table tbody tr td .MuiFormControl-root input {
     color: var(--Gray-500, #71717A);
     text-align: center;
@@ -1925,39 +2019,580 @@ svg.SearchIcon {
     width: 100%;
     margin-bottom: 16px;
 }
-.MarketerManagement{
+
+.MarketerManagement {
     justify-content: end;
 }
-.gasflowcontainer{
+
+.gasflowcontainer {
     background: var(--WG-Blue-50, #F0F7FF);
     padding: 12px;
 }
-.gasflowpadding{
+
+.gasflowpadding {
     padding: 25px;
 }
-.gasflowcontainer .subtitle{
+
+.gasflowcontainer .subtitle {
     color: var(--WG-Blue-900, #0A3B70);
-font-family: "ITC Avant Garde Gothic Std Md";
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.gasflowcontainer .gasflowdescription {
+    color: #000;
+    font-family: "Proxima Nova Rg";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.marketrtableContainertable .MuiPaper-root.MuiPaper-elevation div:nth-child(3) {
+    display: none;
+}
+
+.Registrationcontainer .marbottom0 .MuiFormControl-marginNormal.MuiFormControl-fullWidth {
+    margin: 0px;
+    background: transparent;
+    margin-bottom: 2px;
+}
+
+.Registrationcontainer .marbottom0.titlemarginbottom {
+    margin-bottom: 16px;
+}
+
+.admincontentContainer thead tr th.MuiTableCell-root:nth-child(2),
+.admincontentContainer thead tr td:nth-child(2) {
+    padding: 10px 0px 0px;
+    text-align: center;
+}
+
+.admincontentContainer thead tr th.MuiTableCell-root:nth-child(3),
+.admincontentContainer tbody tr td:nth-child(3) {
+    padding: 10px 0px 0px;
+}
+
+.admincontentContainer th.MuiTableCell-root:nth-child(2) .Mui-TableHeadCell-Content,
+.admincontentContainer thead tr td:nth-child(2) .Mui-TableHeadCell-Content-Labels,
+.admincontentContainer thead tr th:nth-child(2) .Mui-TableHeadCell-Content-Labels,
+.admincontentContainer thead tr th:nth-child(2) .Mui-TableHeadCell-Content {
+    display: block;
+}
+
+.admincontentContainer thead tr th:nth-child(2) {
+    border-radius: 8px 0px 0px 0px;
+}
+
+.admincontentContainer thead tr th:nth-last-child(1) {
+    border-radius: 0px 8px 0px 0px;
+}
+
+.admincontentContainer thead tr th {
+    padding: 10px 10px 0px;
+    background: var(--WG-Blue-100, #DFEDFF);
+}
+
+.admincontentContainer tbody tr td {
+    padding: 10px 10px 0px;
+}
+
+
+
+.admincontentContainer tr td .MuiSelect-select,
+.admincontentContainer tr td .MuiInputBase-input,
+.Filtercontainer .MuiInputBase-input {
+    padding: 12px 14px;
+    color: var(--Gray-500, #71717A);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.admincontent table tbody tr td:nth-child(2) {
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.MuiList-root.MuiList-padding li:hover {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    background-color: transparent;
+    color: #0A3B70;
+}
+
+.MuiList-root.MuiList-padding li {
+    color: var(--Gray-500, #71717A);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.wgllogocontainer {
+    display: flex;
+}
+
+.MuiBreadcrumbs-li .MuiButtonBase-root .MuiSvgIcon-root {
+    fill: var(--WG-Blue-700, #0059B3);
+}
+
+.MuiBreadcrumbs-ol .MuiBreadcrumbs-separator {
+    background: url('../assets/images/mingcuterightline.svg');
+
+    width: 25px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin: 0px;
+    height: 25px;
+}
+
+.MuiBreadcrumbs-li p {
+    color: var(--WG-Blue-700, #0059B3);
+    font-family: 'Proxima Nova Rg';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.menulist button svg {
+    fill: #0A3B70;
+}
+
+.admincontent table thead tr th .Mui-TableHeadCell-Content button svg.MuiSvgIcon-root path {
+    display: none
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content button {
+    background: url('../assets/images/gridiconsfilter.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin: 0px;
+    opacity: 1;
+    padding: 13px;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content span span .MuiSvgIcon-root path {
+    display: none;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content span span {
+    opacity: 1;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content span span .MuiSvgIcon-root {
+    background: url('../assets/images/tdesignorderdescending.svg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin: 0px;
+    opacity: 1;
+    padding: 13px;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content {
+    display: block;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content-Labels {
+    display: inline-block;
+    width: 100%;
+}
+
+.admincontent .admincontentContainer table thead tr th .Mui-TableHeadCell-Content-Labels span {
+    float: right;
+}
+
+.admincontent .admincontentContainer table thead tr th:nth-child(2) .Mui-TableHeadCell-Content-Labels .MuiCheckbox-colorPrimary svg {
+    margin-right: 10px;
+    fill: #0A3B70;
+}
+
+.admincontent .admincontentContainer table tbody tr td svg {
+    fill: #7BC1FE;
+
+}
+
+.dashbordpage .userprofilelist h2 {
+    color: var(--WG-Blue-900, #0A3B70);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin: 0px 0px 20px;
+}
+
+/* .marbottom0 .MuiInputAdornment-root .MuiSvgIcon-root {
+margin-right: 20px;
+} */
+.BalancingModel .MuiGrid2-grid-md-4 p {
+    color: var(--WG-Blue-900, #0A3B70);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    font-variant: all-small-caps;
+    padding: 5px 0px;
+}
+
+.BalancingModeldata .MuiGrid2-grid-md-4:nth-child(2),
+.BalancingModel .MuiGrid2-grid-md-4:nth-child(2) {
+    text-align: center;
+}
+
+.BalancingModeldata .MuiGrid2-grid-md-4:nth-child(3),
+.BalancingModel .MuiGrid2-grid-md-4:nth-child(3) {
+    text-align: right;
+}
+
+.BalancingModeldata .MuiGrid2-grid-md-4 p {
+    color: var(--Gray-500, #71717A);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: capitalize;
+    padding: 5px 0px;
+}
+
+.MuiButtonBase-root.MuiAccordionSummary-root.Mui-expanded {
+    min-height: auto;
+}
+
+.MuiAccordion-heading .MuiAccordionSummary-content.Mui-expanded {
+    margin: 15px 0;
+}
+
+.inputtags .Personal-Information .MuiOutlinedInput-root {
+    border: 0px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 89, 179, 0.25);
+}
+
+.profilenavbar ul li {
+    color: var(--Gray-700, #4D4C52);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.margintop10 .MuiFormControl-root {
+    margin-top: 4px;
+}
+
+.CreateMarketercheckbox {
+    height: 220px;
+    overflow-y: scroll;
+}
+
+.profilenavbar .AccordionDetailslistcontent .MuiCollapse-wrapperInner .MuiAccordion-region {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.modalpopupcontent.success {
+    color: var(--WG-Blue-700, #0059B3);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Proxima Nova Rg";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    /* 100% */
+    letter-spacing: 0.15px;
+}
+
+.successclosebutton .closebutton,
+.successclosebutton .closebutton:hover {
+    border-radius: 4px;
+    background: var(--WG-Blue-900, #0A3B70);
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    color: var(--White, #FFF);
+    text-align: center;
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-top: 30px;
+}
+
+.profilenavbar .MuiAccordion-root.MuiAccordion-rounded {
+    box-shadow: none;
+}
+
+.profilenavbar .MuiAccordionSummary-root.Mui-expanded.MuiAccordionSummary-gutters {
+    padding: 0px;
+}
+
+.AccordionDetailslistcontent .MuiAccordionSummary-gutters {
+    padding: 0px;
+}
+
+.MuiAccordionDetails-root .AccordionDetailslistcontent {
+    padding: 0px;
+}
+
+.profilenavbar.support-list .MuiList-root li svg {
+    margin-right: 0px;
+}
+
+
+.profilenavbar .MuiMenuItem-gutters .MuiAccordionSummary-gutters {
+    padding: 0px;
+    min-height: 30px;
+}
+
+ .profilenavbar .profileName{
+    color: var(--WG-Blue-700, #0059B3);
+    font-family: "ITC Avant Garde Gothic Std Md";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.profilenavbar  .AccordionSummaryheading, .profilenavbar  .ResetPasswordbutton{
+    color: var(--Gray-700, #4D4C52);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+}
+.profilenavbar  .ResetPasswordbutton{
+ text-align: left;
+ display: block;
+ margin-top: 10px;
+}
+.profilenavbar .MuiAccordionDetails-root{
+    padding: 0px;
+}
+em{
+    font-style: normal !important;
+}
+
+.navcontainer .MuiToolbar-gutters{
+    padding: 0px 20px;
+}
+.Filtercontainerinner .CreateMarketerbutton button:disabled.submitbutton,
+.Filtercontainerinner .CreateMarketerbutton button[disabled].submitbutton
+{
+background-color: #ddd;
+}
+.MuiAccordion-region .MuiAccordionDetails-root .MuiGrid-root.MuiGrid-container{
+display: block;
+}
+.profilenavbar .MuiAccordion-region .MuiInputBase-input{
+    color: var(--WG-Blue-950, #71717A);
+    font-feature-settings: 'liga' off, 'clig' off;
+    font-family: "Proxima Nova Rg" !important;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    padding: 12px 12px 12px 16px;
+}
+
+ .profilenavbar .MuiAccordion-region p.MuiFormHelperText-root{
+    padding: 0px;
+}
+.profilenavbar .MuiAccordion-region .MuiFormControl-root{
+    margin: 0px;
+    margin-top: 16px;
+}
+.profilenavbar .MuiAccordion-region .MuiOutlinedInput-notchedOutline , .profilenavbar .MuiAccordion-region .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline {
+    border-radius: 4px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+
+    box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    font-family: "Proxima Nova Rg";
+    font-size: 16px;
+    color: var(--Gray-700, #4D4C52);
+} 
+.profilenavbar.support-list{
+    position: fixed;
+    right: 20px;
+    top: 42px;
+    border-radius: 8px;
+    border: 1px solid var(--WG-Blue-100, #DFEDFF);
+    background: var(--White, #FFF);
+    box-shadow: 0px 2px 4px 0px rgba(0, 89, 179, 0.25);
+width: 387px;
+}
+.profilenavbar .CreateMarketerbutton .cancelbutton{
+    float: left;
+}
+.profilenavbar  .MuiCollapse-wrapperInner{
+    background-color: #fff;
+} 
+.profilenavbar .MuiPaper-root .MuiAccordion-root::before{
+    background: transparent;
+}
+.profilenavbar .heightmin{
+height: 150px;
+overflow-y: scroll;
+overflow-x: hidden;
+}
+.profilenavbar .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.MuiAutocomplete-root .MuiOutlinedInput-root{
+    padding: 4.4px;
+    padding-right: 39px;
+}
+.profilenavbar .MuiAccordionSummary-content{
+margin: 5px 0x;
+}
+.profilenavbar .MuiAccordionSummary-root{
+    min-height: 30px;
+}
+ .admincontent .admincontentContainer .Customertable table thead tr th .Mui-TableHeadCell-Content{
+display: flex;
+}
+.admincontent .admincontentContainer .Customertable table thead tr th .Mui-TableHeadCell-Content button{
+    padding: 0px;
+    width: 20px;
+    height: 20px;
+}
+.admincontent .Customertable table tbody tr td:nth-child(2) ,.admincontentContainer thead tr th.MuiTableCell-root:nth-child(2){
+text-align: left;
+padding: 10px 10px 0px;
+}
+.admincontentContainer .Customertable thead tr th:nth-child(1) {
+    border-radius: 8px 0px 0px 0px;
+}
+.admincontentContainer .Customertable thead tr th:nth-child(2) {
+    border-radius: 0px 0px 0px 0px;
+}
+.admincontentContainer  .Customertable thead tr th{
+    padding: 10px 10px 10px;
+}
+ .admincontentContainer .Customertable  thead tr th.MuiTableCell-root:nth-child(2) ,.admincontent .Customertable table tbody tr td:nth-child(2) {
+    text-align: left;
+    padding: 10px 10px 0px;
+}
+.userInformationcontainer span.textright .textrighttext{
+    border-radius: 4px;
+background: var(--WG-Blue-100, #DFEDFF);
+padding: 4px 12px;
+display: inline-block;
+}
+.Billingcontainer table tbody tr th:nth-child(1){
+align-items: center;
+}
+.Billingcontainer table tbody tr th{
+
+color: var(--Gray-700, #4D4C52);
+text-align: center;
+text-overflow: ellipsis;
+white-space: nowrap;
+font-family: "Proxima Nova Rg";
 font-size: 14px;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
-text-transform: uppercase;
+font-variant: all-small-caps;
 }
-.gasflowcontainer .gasflowdescription{
-    color: #000;
-font-family: "Proxima Nova Rg";
+.Billingcontainer table tbody tr td:nth-child(1){
+    text-transform: uppercase;
+}
+.Billingcontainer table tbody tr td{
+    overflow: hidden;
+color: var(--Gray-700, #4D4C52);
+text-overflow: ellipsis;
+white-space: nowrap;
+font-family: "Proxima Nova";
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
+text-transform: capitalize;
 }
-.marketrtableContainertable .MuiPaper-root.MuiPaper-elevation div:nth-child(3){
-    display: none;
+.admincontent .Billingcontainer table{
+    border: 0px;
+    box-shadow: none;
 }
+body.menu-open{
+    overflow: hidden;
+}
+.modalpopupcontent.marginauto{
+    margin: auto 0px;
+}
+.cheboxinline{
+    margin: 24px -12px;
+}
+.admincontent .userprofilebutton .submitbutton.buttonmarginleft-20{
+    margin-left: 20px;
+}
+.Customermanagement svg.SearchIcon {
+position: absolute;
+right: 20px;
+}
+.admincontentContainer .Announcementcontainerlist.Announcementlist  .dateMonthlist{
+display: flex;
+}
+.Billingcontainer table.Billingcontainertable  tr td ,
+.admincontent .Billingcontainer table.Billingcontainertable  tr td:nth-child(2){
+    color: var(--Gray-500, #71717A);
+font-family: "Proxima Nova Rg";
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-transform: uppercase;
+text-align: center;
+}
+.Billingcontainer table.Billingcontainertable  tr th {
+    color: var(--WG-Blue-900, #0A3B70);
+font-family: "Proxima Nova Rg";
+font-size: 16px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+font-variant: all-small-caps;
+text-align: center;
+}
+.Billingcontainer table.Billingcontainertable  tr td:nth-child(1){
+    padding-left: 0px;
+}
+.Billingcontainer table.Billingcontainertable  tr th:nth-last-child(1){
+    padding-right: 20px;
+}
+.Billingcontainer table.Billingcontainertable  tr th:nth-child(1) ,
+.Billingcontainer table.Billingcontainertable  tr td:nth-child(1){
+    text-align: left;
+}
+.Billingcontainer table.Billingcontainertable  tr th:nth-last-child(1),
+.Billingcontainer table.Billingcontainertable  tr td:nth-last-child(1){
+    text-align: right;
+}
+.Billingcontainertable{
+    width: 100%;
+}
+
 @media (min-width: 0px) {
 
-    .navcontainer .css-1q89n6x-MuiTypography-root,
+    /* .navcontainer .MuiTypography-root{
+        display: flex;
+    } */
     .navcontainer .css-130f8nx {
         display: block;
     }
@@ -2008,6 +2643,10 @@ line-height: normal;
 @media only screen and (max-width: 1024px) {
     .CardDetailContainer {
         padding: 15px;
+    }
+
+    .EditPipeLineMatrixcontainer .MuiFormControl-root {
+        width: 100%;
     }
 
     .menulist button svg {
@@ -2063,8 +2702,13 @@ line-height: normal;
     }
 
     .marketrtableContainer .marketrtableContainertable {
-        width: 768px;
+        width: 100%;
         overflow: scroll;
+        padding: 0px 15px;
+    }
+
+    .EditPipeLineMatrixcontainer {
+        width: 100%;
     }
 }
 
@@ -2095,6 +2739,11 @@ line-height: normal;
     .PipeLineDeliveryGrid .PipeLineDeliverywdith {
         width: 100%;
         margin: 0px 10px 20px;
+        display: block
+    }
+
+    .userprofilelist .PipeLineDeliverynone {
+        display: flex;
     }
 
     .positionabsolute {
@@ -2178,8 +2827,10 @@ line-height: normal;
     .admincontent table tbody tr td span,
     .admincontentContainer table tbody tr td:nth-child(3) span,
     .admincontent table thead tr .Mui-TableHeadCell-Content-Wrapper,
-    .Filtercontainerinner .CreateMarketerbutton .cancelbutton,.BalancingModel .CreateMarketerbutton .cancelbutton,
-    .Filtercontainerinner .CreateMarketerbutton .submitbutton ,.BalancingModel .CreateMarketerbutton .submitbutton,
+    .Filtercontainerinner .CreateMarketerbutton .cancelbutton,
+    .BalancingModel .CreateMarketerbutton .cancelbutton,
+    .Filtercontainerinner .CreateMarketerbutton .submitbutton,
+    .BalancingModel .CreateMarketerbutton .submitbutton,
     .userprofilelist h2 span {
         font-size: 14px;
     }
@@ -2190,8 +2841,18 @@ line-height: normal;
 
     .CardDetail .MuiCardContent-root:last-child {
         padding-bottom: 0px;
-        display: block;
+        display: grid;
         align-items: center;
+    }
+
+    .Supporticon .none-moblie {
+        display: none;
+        padding-right: 0px;
+        margin-right: 0px
+    }
+
+    .nav-linksbuttons .headseticon img {
+        padding-right: 0px;
     }
 
     .CardDetail .MuiCardContent-root:last-child .cardcontent {
@@ -2272,12 +2933,20 @@ line-height: normal;
     .PipeLineDeliveryGrid .PipeLineDeliverywdith {
         width: 100%;
         margin: 0px 0px 20px;
+        display: block;
+    }
+
+    .none-tab {
+        display: block;
+    }
+
+    .CardDetail .MuiCardContent-root {
+        height: 120px;
     }
 
 
 
-
-    .CardDetail .css-1lt5qva-MuiCardContent-root .MuiTypography-gutterBottom,
+    .CardDetail .MuiCardContent-root .MuiTypography-gutterBottom,
     .navbar-nav .headseticon {
         font-size: 12px;
     }
@@ -2316,38 +2985,53 @@ line-height: normal;
     .userInformationcontainer h2 {
         font-size: 12px;
     }
-    .CardDetail{
+
+    .userprofilelist .PipeLineDeliverynone {
+        display: none;
+    }
+
+    .CardDetail .MuiCardContent-root {
         border-radius: 4px;
-    background: var(--WG-Blue-100, #DFEDFF);
-    color: var(--WG-Blue-900, #0A3B70);
-    text-align: center;
-    font-family: "ITC Avant Garde Gothic Std Md";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-    height: auto;
-    
+        background: var(--WG-Blue-100, #DFEDFF);
+        color: var(--WG-Blue-900, #0A3B70);
+        text-align: center;
+        font-family: "ITC Avant Garde Gothic Std Md";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        text-transform: uppercase;
+        height: auto;
+
     }
-    .CardDetail .MuiCardContent-root{
+
+    .CardDetail {
+        height: auto;
+    }
+
+    .CardDetail .MuiCardContent-root {
         padding-top: 0px;
-   
+
     }
-    .CardDetail .MuiCardContent-root:last-child{
+
+    .CardDetail .MuiCardContent-root:last-child {
         display: flex;
         justify-content: center;
+        height: auto;
     }
-    .CardDetail .MuiPaper-root.MuiPaper-elevation{
-        padding: 10px;
+
+    .CardDetail .MuiPaper-root.MuiPaper-elevation {
+
         max-width: 100%;
     }
-    .CardDetailContainer{
+
+    .CardDetailContainer {
         padding: 0px;
-        background-color: #fff;
+        background-color: transparent;
         border: 0px;
-        box-shadow:none;
+        box-shadow: none;
     }
+
     .menulist button svg {
         right: 10px;
     }
@@ -2391,13 +3075,17 @@ line-height: normal;
         background: var(--WG-Blue-200, #B9DCFE);
         padding: 10px;
     }
-.justifyContent{
-    justify-content: flex-end;
-}
+
+    .justifyContent {
+        justify-content: flex-end;
+    }
+
     .admincontent .admincontentContainer .MarketerManagement button {
         margin: 0px 0px 25px;
     }
-    .userprofilelist h2 span ,.admincontent .userprofilelistcontent{
+
+    .userprofilelist h2 span,
+    .admincontent .userprofilelistcontent {
         font-size: 12px;
     }
 

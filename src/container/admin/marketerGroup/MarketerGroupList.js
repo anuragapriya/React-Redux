@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { Box, TextField, IconButton, Tooltip } from '@mui/material';
-import { Sync } from '@mui/icons-material';
+import { Sync, FilterListOff } from '@mui/icons-material';
 import { ModalPopup } from '_components';
 import { Delete, Deletewhite } from 'images';
 import dayjs from 'dayjs';
@@ -10,10 +10,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import MarketerGroupDetails from './MarketerGroupDetails';
 import BalancingModel from './BalancingModel';
+import { alertActions } from '_store';
+import { useDispatch } from 'react-redux';
 
 const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isModalOpen, setIsModalOpen, selectedRows, setSelectedRows,
     setRowSelection, handleDelete, handleToggleActiveStatus, handleRefresh }) => {
-
+    const dispatch = useDispatch();
+    const header = " Marketer Group";
     const data = marketerGroupData?.MarketerGroups || [];
     const marketerDate = marketerGroupData?.MarketerStartDate || new Date();
     const interruptibleBalancingModel = marketerGroupData?.BalancingModel?.map(bal => ({ value: bal.BalancingModelID, label: bal.BalancingModelName })) || [];
@@ -33,19 +36,19 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
         setSelectedRow(null);
     };
 
-    const handleRowDelete = (row) => {
-        handleDelete(row);
+    const handleRowDelete = async(row) => {
+        dispatch(alertActions.clear());
+        await handleDelete(row);
         setIsModalOpen(false);
         setSelectedRows([]);
         setRowSelection({});
+        dispatch(alertActions.success({ message: "Marketer group deleted successfully", header: header }));
     };
 
     const columns = useMemo(() => [
         {
             accessorKey: 'GroupName',
             header: 'Group Name',
-            enableEditing: true,
-            enableSorting: true,
             Cell: ({ cell, row }) => (
                 <TextField
                     className='ServiceProvider'
@@ -59,25 +62,18 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
             accessorKey: 'GroupType',
             header: 'Group Type',
             id: 'GroupType',
-            enableColumnFilter: true,
-            enableSorting: true,
         },
         {
             accessorKey: 'JurisdictionName',
             header: 'Jurisdiction',
             id: 'JurisdictionName',
-            enableColumnFilter: false,
-            enableSorting: true,
         },
         {
             accessorKey: 'StartMonth',
             header: 'Start Month',
-            enableEditing: true,
-            enableSorting: true,
-            enableColumnFilter: true,
             //filterVariant: 'date',
             filterFn: (row, columnId, filterValue) => {
-                const dateValue = row.getValue(columnId);                
+                const dateValue = row.getValue(columnId);
                 return dayjs(dateValue).format('MMMM YYYY').toLowerCase().includes(filterValue.toLowerCase());
             },
             Cell: ({ cell, row }) => {
@@ -110,12 +106,9 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
         {
             accessorKey: 'EndMonth',
             header: 'End Month',
-            enableEditing: true,
-            enableSorting: true,
-            enableColumnFilter: true,
             //filterVariant: 'date',
             filterFn: (row, columnId, filterValue) => {
-                const dateValue = row.getValue(columnId);                
+                const dateValue = row.getValue(columnId);
                 return dayjs(dateValue).format('MMMM YYYY').toLowerCase().includes(filterValue.toLowerCase());
             },
             Cell: ({ cell, row }) => {
@@ -151,10 +144,18 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
             accessorKey: 'BalancingModelID',
             header: 'Balancing Model',
             id: 'BalancingModelID',
-            enableSorting: true,
-            enableColumnFilter: true,
-            filterVariant: 'select',
-            filterSelectOptions: allBalancingModel,
+            filterFn: (row, columnId, filterValue) => {
+                const balancingModelID = row.getValue(columnId);
+                if (!balancingModelID) {
+                    return false;
+                }
+
+                const balancingModel = allBalancingModel.find(model => model.value === balancingModelID);
+                if (!balancingModel) {
+                    return false;
+                }
+                return balancingModel.label.toLowerCase().includes(filterValue.toLowerCase());
+            },
             Cell: ({ row, column }) => {
                 const columnKey = column.id || column.accessorKey;
                 const balancingModelList = (row?.original.GroupType?.toLowerCase() === "firm"
@@ -186,17 +187,17 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
         columns,
         data,
         enableHiding: false,
-        enableColumnFilters: true,
-        enableGlobalFilter: true,
+        columnFilterDisplayMode: 'popover',
         enableFullScreenToggle: false,
         enableColumnActions: false,
         paginationDisplayMode: 'pages',
         enableRowActions: true,
         enableRowSelection: true,
-        enableExpandAll: false,
+        // enableExpandAll: false,
         positionExpandColumn: 'first',
         positionActionsColumn: "last",
         positionToolbarAlertBanner: 'none',
+        autoResetPageIndex: false,
         state: {
             rowSelection,
         },
@@ -207,12 +208,21 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
         displayColumnDefOptions: {
             'mrt-row-expand': {
                 header: "",
-                size: 10,//make the expand column wider
-            }
+                size: 10, // make the expand column wider
+                muiTableHeadCellProps: {
+                    sx: {
+                        display: 'none', // Hide the expand column
+                    },
+                },
+                muiTableBodyCellProps: {
+                    sx: {
+                        display: 'none', // Hide the expand column
+                    },
+                },
+            },
         },
         initialState: {
             columnOrder: [
-                'mrt-row-expand',
                 'mrt-row-select',
                 'GroupName',
                 'GroupType',
@@ -221,6 +231,33 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
                 'EndMonth',
                 'BalancingModelID',
                 'mrt-row-actions'
+            ],
+            sorting: [
+                {
+                    id: 'GroupName',
+                    desc: false,
+                },
+                {
+                    id: 'GroupType',
+                    desc: false,
+                },
+                {
+                    id: 'JurisdictionName',
+                    desc: false,
+                },
+                {
+                    id: 'StartMonth',
+                    desc: false,
+                },
+                {
+                    id: 'EndMonth',
+                    desc: false,
+                },
+                {
+                    id: 'BalancingModelID',
+                    desc: false,
+                },
+
             ],
         },
         renderTopToolbarCustomActions: () => (
@@ -232,10 +269,10 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
                     flexWrap: 'wrap',
                 }}
             >
-                <Tooltip title="Refresh" className='Deactivate'>
+                <Tooltip title="Clear filter" className='Deactivate'>
                     <div>
                         <IconButton onClick={handleRefresh} >
-                            <Sync variant="contained" color="secondary" />
+                            <FilterListOff variant="contained" color="secondary" />
                         </IconButton>
                     </div>
                 </Tooltip>
@@ -254,15 +291,14 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
                     <img src={Delete} alt="Delete" onClick={handleOpenModal}></img>
                 </IconButton>
                 {isModalOpen && <ModalPopup
-                    header="Marketer"
+                    header={header}
                     message1="Are you sure you want to delete this marketer group?"
                     btnPrimaryText="Confirm"
                     btnSecondaryText="Cancel"
-                    handlePrimaryClick={() => handleRowDelete({ original: row })}
+                    handlePrimaryClick={() => handleRowDelete(row.original)}
                     handleSecondaryClick={() => handleCloseModal()}
                 />
                 }
-
             </div>
         ),
         renderDetailPanel: ({ row }) => (

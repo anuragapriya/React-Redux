@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography, Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { alertActions, marketergroupAction } from '_store';
-import { marketerGroupGetData } from '_utils/constant';
 import MarketerGroupCreate from './MarketerGroupCreate';
 import { ModalPopup } from '_components';
 import dayjs from 'dayjs';
@@ -11,11 +10,11 @@ import MarketerGroupFilter from './MarketerGroupFilter';
 import MarketerGroupList from './MarketerGroupList';
 
 const MarketersGroup = () => {
-  const header = " Marketer";
+  const header = " Marketer Group";
   const dispatch = useDispatch();
   // const marketers = marketerGroupGetData.Data;
   const marketers = useSelector(x => x.marketergroup?.marketerGroupList);
-  const authUserId = useSelector(x => x.auth?.userId);
+  //const authUserId = useSelector(x => x.auth?.userId);
   const [data, setData] = useState([]);
   const [isDataChanged, setIsDataChanged] = useState(false);
   const [editedRowId, setEditedRowId] = useState({});
@@ -25,6 +24,7 @@ const MarketersGroup = () => {
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [marketerId, setMarketerId] = useState(null);
   const [openComponent, setOpenComponent] = useState(null); // State to track which component is open
+  const [backdropOpen, setBackdropOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,9 +33,11 @@ const MarketersGroup = () => {
         // const result = marketerGroupGetData;
         const result = await dispatch(marketergroupAction.get(0)).unwrap();
         const marketerData = result?.Data;
+        console.log('Fetched Data:', marketerData); // Log fetched data
         setMarketerId(marketerData?.MarketerID);
         setData(marketerData);
       } catch (error) {
+        console.error('Fetch Error:', error); // Log any errors
         dispatch(alertActions.error({
           message: error?.message || error,
           header: `${header} Failed`
@@ -47,11 +49,6 @@ const MarketersGroup = () => {
 
   const handleChange = (newValue, rowData, field) => {
     if (field === 'StartMonth' || field === 'EndMonth') {
-      // const parsedDate = dayjs(newValue, 'YYYY-MM-DD', true);
-      // if (!parsedDate.isValid()) {
-      //   console.error('Invalid date:', newValue);
-      //   return;
-      // }
       newValue = dayjs(newValue).isValid() ? dayjs(newValue).toISOString() : null;
     }
     setEditedRowId((prev) => {
@@ -88,7 +85,6 @@ const MarketersGroup = () => {
         MarketerID: marketers?.MarketerID
       }));
 
-      console.log("edit data", transformedData);
       let result;
       if (transformedData.length > 0) {
         result = await dispatch(marketergroupAction.update(transformedData));
@@ -99,7 +95,7 @@ const MarketersGroup = () => {
       }
       setIsDataChanged(true);
       handleRefresh();
-      dispatch(alertActions.success({ message: "Marketed Group data updated Successfully.", header: header, showAfterRedirect: true }));
+     // dispatch(alertActions.success({ message: "Marketed Group data updated Successfully.", header: header, showAfterRedirect: true }));
     } catch (error) {
       dispatch(alertActions.error({ message: error?.message || error, header: header }));
     }
@@ -131,9 +127,7 @@ const MarketersGroup = () => {
     try {
       const transformedData = Array.isArray(rowsToDelete)
         ? rowsToDelete.map((row) => row.ID) // For bulk delete
-        : [rowsToDelete.original.original.ID]; // For single row delete
-
-      console.log("delete Data", transformedData);
+        : [rowsToDelete.ID]; // For single row delete
 
       let result;
       result = await dispatch(marketergroupAction.bulkDelete(transformedData));
@@ -156,7 +150,6 @@ const MarketersGroup = () => {
       MarketerID: marketerId || marketers?.MarketerID,
       EndMonth: null
     }
-    console.log("refresh data", data);
     const newData = await dispatch(marketergroupAction.filter(data)).unwrap();
     const marketerData = newData?.Data;
     //const marketerData = marketerGroupGetData.Data;
@@ -168,7 +161,15 @@ const MarketersGroup = () => {
 
   const handleOpenComponent = (component) => {
     setOpenComponent(prev => prev === component ? null : component);
+    setBackdropOpen(prev => prev === component ? false : true); // Toggle backdrop
   };
+
+  const handleCloseBackdrop = () => {
+    setBackdropOpen(false);
+    setOpenComponent(null);
+  };
+
+  
 
   return (
     <>
@@ -192,7 +193,7 @@ const MarketersGroup = () => {
                       marketerData={data?.Marketer}
                       handleFilterSubmit={handleFilterSubmit}
                       isOpen={openComponent === 'filter'}
-                      onClose={() => setOpenComponent(null)}
+                      onClose={() => handleCloseBackdrop()}
                       onOpen={() => handleOpenComponent('filter')}
                     />
                   </Grid>
@@ -201,59 +202,63 @@ const MarketersGroup = () => {
                       handleRefresh={handleRefresh}
                       marketerGroupData={data}
                       isOpen={openComponent === 'create'}
-                      onClose={() => setOpenComponent(null)}
+                      onClose={() => handleCloseBackdrop()}
                       onOpen={() => handleOpenComponent('create')}
                     />
-                 </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-          </Typography>
+      </Typography>
 
-          {!(marketers?.loading || marketers?.error) &&
-            <>
-              <MarketerGroupList
-                marketerGroupData={data}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-                handleChange={handleChange}
-                rowSelection={rowSelection}
-                selectedRows={selectedRows}
-                setSelectedRows={setSelectedRows}
-                setRowSelection={setRowSelection}
-                handleRefresh={handleRefresh}
-                handleDelete={handleDelete}
-                handleToggleActiveStatus={handleToggleActiveStatus}
-              />
-              <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
-                <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
-                  Cancel
-                </Button>
-                <Button type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className='submitbutton'
-                  onClick={handleSubmit}
-                  disabled={!isDataChanged}
-                >
-                  Save
-                </Button>
-              </Grid>
-            </>
-          }
-          {confirmDialogOpen && <ModalPopup
-            header="Marketer"
-            message1="Are you sure you want to deactivate selected marketers?"
-            btnPrimaryText="Confirm"
-            btnSecondaryText="Cancel"
-            handlePrimaryClick={handleConfirmDeactivation}
-            handleSecondaryClick={() => setConfirmDialogOpen(false)}
-          />}
-        </>
-        );
+      {/* {!(marketers?.loading || marketers?.error) && */}
+
+      <>
+        <div className={backdropOpen ? 'backdrop' : ''}>
+          <MarketerGroupList
+            marketerGroupData={data}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            handleChange={handleChange}
+            rowSelection={rowSelection}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            setRowSelection={setRowSelection}
+            handleRefresh={handleRefresh}
+            handleDelete={handleDelete}
+            handleToggleActiveStatus={handleToggleActiveStatus}
+          />
+        </div>
+        <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
+          <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
+            Cancel
+          </Button>
+          <Button type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className='submitbutton'
+            onClick={handleSubmit}
+            disabled={!isDataChanged}
+          >
+            Save
+          </Button>
+        </Grid>
+      </>
+
+      {/* } */}
+      {confirmDialogOpen && <ModalPopup
+        header="Marketer Group"
+        message1="Are you sure you want to delete selected marketer group?"
+        btnPrimaryText="Confirm"
+        btnSecondaryText="Cancel"
+        handlePrimaryClick={handleConfirmDeactivation}
+        handleSecondaryClick={() => setConfirmDialogOpen(false)}
+      />}
+    </>
+  );
 }
 
-        export default MarketersGroup;
+export default MarketersGroup;

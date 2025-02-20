@@ -8,11 +8,11 @@ const getAppMenus = (portalKey, isMBAdmin) => {
     switch (portalKey.toLowerCase()) {
         case "ai":
             addMenuItem('Account Search', 'dashboardAI', 1);
-            addMenuItem('Upload', 'upload', 2);
+           // addMenuItem('Upload', 'upload', 2);
             break;
         case "ea":
             addMenuItem('Dashboard', 'dashboardEA', 1, 'dashboard');
-            addMenuItem('Jurisdiction', 'jurisdiction', 2, 'jurisdiction');
+           // addMenuItem('Jurisdiction', 'jurisdiction', 2, 'jurisdiction');
             break;
         case "mc":
             addMenuItem('Map Request', 'dashboardMC', 1);
@@ -23,28 +23,34 @@ const getAppMenus = (portalKey, isMBAdmin) => {
                 orderID: 1,
                 items: [
                     { name: 'PIPELINE DELIVERY', link: 'pipelinedelivery', orderID: 1 },
-                    { name: 'NOMINATION BY PIPELINE', link: 'faqCreate', orderID: 2 },
-                    { name: 'NOMINATION BY GROUP', link: 'faqCreate', orderID: 3 }
+                    { name: 'NOMINATION BY PIPELINE', link: 'nominationPipeline', orderID: 2 },
+                    { name: 'NOMINATION BY GROUP', link: 'nominationGroup', orderID: 3 }
                 ]
             });
-            addMenuItem('Filehub', 'pipeline', 2);
-            addMenuItem('Services', 'nomination', 3);
+            addMenuItem('Filehub', '', 2);
+            addMenuItem('Services', '', 3);
             appMenuItems.push({
                 name: 'Adjustments',
                 orderID: 4,
                 items: [
-                    { name: 'BY FIRM', link: 'pipelinedelivery', orderID: 1 },
-                    { name: 'By Interruptible', link: 'faqCreate', orderID: 2 }
+                    { name: 'BY FIRM', link: '', orderID: 1 },
+                    { name: 'By Interruptible', link: 'byInterruptible', orderID: 2 }
                 ]
             });
-            addMenuItem('Customers', 'userprofile', 5);
+            addMenuItem('Customers', '', 5);
             break;
         case "sd":
             addMenuItem('Supplier', 'dashboardSD', 1);
             break;
         case "admin":
-            addMenuItem('Users', 'userprofile', 1);
+            //addMenuItem('Users', 'userprofile', 1);
             // addMenuItem('Role Management', 'configuration', 3);
+            appMenuItems.push({
+                name:'Users',
+                orderID:1,
+                items:[]
+            });
+            addMenuItem('Customers', 'customer', 3);
             addMenuItem('Announcements', 'announcement', 4);
             appMenuItems.push({
                 name: 'Support',
@@ -65,8 +71,13 @@ const getAppMenus = (portalKey, isMBAdmin) => {
                 });
             }
             break;
-        case "securityreviewer":
-            addMenuItem('Users', 'userprofile', 1);
+        case "reviewer":
+           // addMenuItem('Users', 'userprofile', 1);
+           appMenuItems.push({
+            name:'Users',
+            orderID:1,
+            items:[]
+        });
         default:
             break;
     }

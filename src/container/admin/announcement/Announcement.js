@@ -255,7 +255,7 @@ const Announcement = () => {
     };
 
     return (
-        <Box className="Announcementcontainerlist">
+        <Box className="Announcementcontainerlist Announcementlist">
             <Typography component="h2" className='Announcementcontent'>ANNOUNCEMENTS</Typography>
             <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer'>
                 <Grid container direction="row" spacing={{ xs: 2, md: 3 }} >
@@ -273,7 +273,7 @@ const Announcement = () => {
                                     <Grid size={{ xs: 12, sm: 12, md: 6 }}  >
                                         <Grid container  >
                                             <Grid size={{ xs: 12, sm: 12, md: 12 }}  >
-                                                <Typography component="div" className='passwordcheck '>
+                                                <Typography component="div" className='passwordcheck marbottom0 selecticon '>
                                                     <AutocompleteInput
                                                         id="PortalID"
                                                         control={control}
@@ -292,7 +292,7 @@ const Announcement = () => {
                                     <Grid size={{ xs: 12, sm: 12, md: 6 }} >
                                         <Grid container  >
                                             <Grid size={{ xs: 12, sm: 12, md: 12 }} >
-                                                <Typography component="div" className='passwordcheck '>
+                                                <Typography component="div" className='passwordcheck  marbottom0 selecticon'>
                                                     <MultiSelectInput
                                                         id="RoleID"
                                                         control={control}
@@ -312,13 +312,11 @@ const Announcement = () => {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-
-
                             </Grid>
                             <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                                 <Grid container >
                                     <Grid size={{ xs: 12, sm: 12, md: 12 }} className="SelectedDate">
-                                        <Typography component="div" className="passwordcheck border-none">
+                                        <Typography component="div" className="passwordcheck border-none marbottom0 selecticon">
                                             <CustomStaticDateRangePicker
                                                 id="SelectedDate"
                                                 control={control}
@@ -334,8 +332,8 @@ const Announcement = () => {
                                     </Grid>
                                 </Grid>
                             </Grid>
-
                         </Grid>
+                        <Typography className='marbottom0 titlemarginbottom'>
                         <CustomFormControl
                             id="Title"
                             name="Title"
@@ -345,6 +343,7 @@ const Announcement = () => {
                             errors={errors}
                             handleBlur={handleBlur}
                         />
+                        </Typography>
                         <Box className="ComposeAnnouncement">
                             <CustomTextArea
                                 id="Data"

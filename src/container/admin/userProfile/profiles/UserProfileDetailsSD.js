@@ -13,7 +13,6 @@ import { SignalCellularConnectedNoInternet2BarTwoTone } from "@mui/icons-materia
 
 const UserProfileDetailsSD = ({ userData, roles, handleReject, singleUserUpdate }) => {
     const header = " Individual User Profile";
-    console.log('sd',userData);
     const dispatch = useDispatch();
     const id = userData.UserID;
     const RoleName = roles.filter((item) => item?.value === userData.RoleID);
@@ -54,7 +53,7 @@ const UserProfileDetailsSD = ({ userData, roles, handleReject, singleUserUpdate 
     return (
         <Box>
             <Box className="userInformationcontainer">
-                <Accordion component="div">
+                <Accordion component="div" defaultExpanded>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1-content"
@@ -68,30 +67,30 @@ const UserProfileDetailsSD = ({ userData, roles, handleReject, singleUserUpdate 
                             <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                                 <Typography component="div" className="UserName">
                                     <Grid container spacing={3}>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                     <Grid size={{ xs: 6, sm: 6, md: 4 }}>
                                             <Typography component="span" className="textleft">User Name:</Typography>
                                         </Grid>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                           <Grid size={{ xs: 6, sm: 6, md: 8 }}>
                                             <Typography component="span" className="textright">{userData?.FullName}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Typography>
                                 <Typography component="div" className="UserName">
                                     <Grid container spacing={3}>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                     <Grid size={{ xs: 6, sm: 6, md: 4 }}>
                                             <Typography component="span" className="textleft">Company Name:</Typography>
                                         </Grid>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                           <Grid size={{ xs: 6, sm: 6, md: 8 }}>
                                             <Typography component="span" className="textright">{user?.CompanyName}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Typography>
                                 <Typography component="div" className="UserName">
                                     <Grid container spacing={3}>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                     <Grid size={{ xs: 6, sm: 6, md: 4 }}>
                                             <Typography component="span" className="textleft">Email:</Typography>
                                         </Grid>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                           <Grid size={{ xs: 6, sm: 6, md: 8 }}>
                                             <Typography component="span" className="textright">{userData?.EmailID}</Typography>
                                         </Grid>
                                     </Grid>
@@ -100,20 +99,20 @@ const UserProfileDetailsSD = ({ userData, roles, handleReject, singleUserUpdate 
                             <Grid size={{ xs: 12, sm: 12, md: 6 }}>
                                 <Typography component="div" className="UserName">
                                     <Grid container spacing={3}>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                     <Grid size={{ xs: 6, sm: 6, md: 4 }}>
                                             <Typography component="span" className="textleft">Phone Number:</Typography>
                                         </Grid>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                           <Grid size={{ xs: 6, sm: 6, md: 8 }}>
                                             <Typography component="span" className="textright">{user?.PhoneNumber}</Typography>
                                         </Grid>
                                     </Grid>
                                 </Typography>
                                 <Typography component="div" className="UserName">
                                     <Grid container spacing={3}>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                     <Grid size={{ xs: 6, sm: 6, md: 4 }}>
                                             <Typography component="span" className="textleft">Portal Role :</Typography>
                                         </Grid>
-                                        <Grid size={{ xs: 6, sm: 6, md: 6 }}>
+                                           <Grid size={{ xs: 6, sm: 6, md: 8 }}>
                                             <Typography component="span" className="textright">{RoleName[0]?.label}</Typography>
                                         </Grid>
                                     </Grid>
@@ -128,7 +127,7 @@ const UserProfileDetailsSD = ({ userData, roles, handleReject, singleUserUpdate 
                     <Box className="userInformationcontainer p-0">
                         <Grid container spacing={3}>
                             <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                <Accordion>
+                                <Accordion defaultExpanded>
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls="panel1-content"

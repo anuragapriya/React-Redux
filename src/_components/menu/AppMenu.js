@@ -16,7 +16,7 @@ const AppMenu = ({ appMenuItems }) => {
     <div className="menulist">
     <div className={classes.appMenu}>
       {appMenuItems.map((item, index) => (
-        <AppMenuItem 
+        <AppMenuItem key={index}
         {...item}
         activeItem={activeItem}
         setActiveItem={setActiveItem} />

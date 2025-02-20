@@ -172,9 +172,9 @@ const ManageProfileSD = () => {
 
   const handleBlur = async (e) => {
     const fieldName = e.target.name;
-    console.log(`Triggering validation for: ${fieldName}`);
-    const result = await trigger(fieldName);
-    console.log(`Validation result for ${fieldName}:`, result);
+   // console.log(`Triggering validation for: ${fieldName}`);
+     await trigger(fieldName);
+   // console.log(`Validation result for ${fieldName}:`, result);
   };
 
   const handleOnChange = (event, newvalue) => {
@@ -224,7 +224,7 @@ const ManageProfileSD = () => {
                       <Typography component="div" className="Personal-Informationsheading">
                         <Grid item xs={12} sm={6} md={12} >
                           <Typography component="h2" variant="h5" >Documents upload <img src={raphaelinfo} alt='raphaelinfo'></img></Typography>
-                          <Typography component="div" className="passwordcheck">
+                          <Typography component="div" className="passwordcheck marbottom0 selecticon">
                             <AutocompleteInput
                               control={control}
                               name="documentType"

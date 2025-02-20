@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Typography, Button, Box, TextField, Popper } from '@mui/material';
+import { Typography, Button, Box, TextField, Popper, ClickAwayListener } from '@mui/material';
 import { Grid } from '@material-ui/core';
 import { AddCircleOutline } from '@mui/icons-material';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -73,7 +73,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                 BalancingModelID: data.BalancingModelID,
                 MarketerID: marketerGroupData?.MarketerID || 0,
             };
-            console.log('Marketer Group Create', transformedData);
+
             const result = await dispatch(marketergroupAction.insert(transformedData)).unwrap();
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: "Fetch Failed" }));
@@ -104,6 +104,10 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
         onClose();
     }
 
+    const handleClickAway = () => {
+        handleClear();
+    };
+
     return (
         <>
             <Button
@@ -113,6 +117,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
             ><AddCircleOutline />  Group
             </Button>
             <Popper id={id} open={canBeOpen} anchorEl={anchorEl} className="Filtercontainer marketerGroup Border ">
+              
                 <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }} className="Filtercontainerinner">
                     <form onSubmit={handleSubmit(onSubmit)} className='Registrationcontainer marketerFiltercontainer'>
                         <Typography component="div" className='userprofilelist'>
@@ -122,6 +127,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                                 </Grid>
                             </Grid>
                         </Typography>
+                        
                         <CustomFormControl
                             id="GroupName"
                             label="Marketer Group Name"
@@ -130,6 +136,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                             errors={errors}
                             handleBlur={handleBlur}
                         />
+                        <Typography component="div" className='marbottom0 selecticon marginbottom16'>
                         <AutocompleteInput
                             control={control}
                             name="GroupType"
@@ -140,6 +147,8 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                             handleBlur={handleBlur}
                             trigger={trigger}
                         />
+                         </Typography>
+                         <Typography component="div" className='marbottom0 selecticon marginbottom16'>
                         <AutocompleteInput
                             control={control}
                             name="JurisdictionID"
@@ -151,6 +160,8 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                             trigger={trigger}
                             disabled={groupType?.toLowerCase() !== 'interruptible'}
                         />
+                        </Typography>
+                       
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Controller
                                 name="StartMonth"
@@ -199,6 +210,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                                 )}
                             />
                         </LocalizationProvider>
+                        <Typography component="div" className='marbottom0 selecticon marginbottom16'>
                         <AutocompleteInput
                             control={control}
                             name="BalancingModelID"
@@ -209,6 +221,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                             handleBlur={handleBlur}
                             trigger={trigger}
                         />
+                        </Typography>
                         <Box component="div" className="CreateMarketerbutton"   >
 
 
@@ -230,6 +243,7 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                         </Box>
                     </form>
                 </Box>
+             
             </Popper>
         </>
     );

@@ -1,8 +1,4 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
+# Node.js with React - Security Scans, Report Generation & Cleanup
 trigger:
   - Development
 
@@ -10,6 +6,15 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+  # ✅ Cleanup Step to Remove Old Files Before Execution
+  - script: |
+      echo "Cleaning up old files from previous runs..."
+      rm -rf $(Build.ArtifactStagingDirectory)/*
+      rm -rf dependency-check*
+      rm -rf node_modules
+      npm cache clean --force
+    displayName: 'Pre-Cleanup: Remove Old Build Files & Free Memory'
+
   - task: NodeTool@0
     inputs:
       versionSpec: '20.x'
@@ -18,26 +23,20 @@ steps:
   - script: |
       npm cache clean --force
       npm install --force
-      npm run build
-    displayName: 'Install Dependencies & Build'
+    displayName: 'Install Dependencies'
 
+  # ✅ Build React Application
   - script: |
-      # Ensure the build directory exists
+      npm run build
+    displayName: 'Build React Application'
+
+  # ✅ Ensure web.config is added
+  - script: |
       mkdir -p $(Build.ArtifactStagingDirectory)/build
 
-      # Ensure web.config is added if not already present
-      if [ ! -f "$(Build.ArtifactStagingDirectory)/build/web.config" ]; then
-        echo '<?xml version="1.0" encoding="utf-8"?>' > $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '<configuration>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '  <system.webServer>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '    <staticContent>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '      <mimeMap fileExtension=".otf" mimeType="font/otf" />' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '    </staticContent>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '  </system.webServer>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-        echo '</configuration>' >> $(Build.ArtifactStagingDirectory)/build/web.config
-      fi
     displayName: 'Ensure web.config is Added to Build Folder'
 
+  # ✅ Copy Build Files to Staging Directory
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)/build'
@@ -45,6 +44,7 @@ steps:
       TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
     displayName: 'Copy Build Files to Staging Directory'
 
+  # ✅ Archive Build Output
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
@@ -53,17 +53,11 @@ steps:
       archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     displayName: 'Archive Build Output'
 
+  # ✅ Publish Build Artifact
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       ArtifactName: 'drop'
     displayName: 'Publish Build Artifact'
 
-  - task: AzureRmWebAppDeployment@4
-    inputs:
-      ConnectionType: 'AzureRM'
-      azureSubscription: 'azure-s1'
-      appType: 'webApp'
-      WebAppName: 'WGLHZUS2DESVAS001'
-      package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    displayName: 'Deploy to Azure Web App'
+

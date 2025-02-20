@@ -36,7 +36,7 @@ const PersonalDetails = ({ isPasswordValid, register, errors, watch, control, tr
 
     return (
         <>
-            <Typography component="div" className='passwordcheck mobile-padding'>
+            <Typography component="div" className='passwordcheck mobile-padding marbottom0 selecticon'>
                 <AutocompleteInput
                     control={control}
                     name="PortalId"
