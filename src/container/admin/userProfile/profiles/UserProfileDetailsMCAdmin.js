@@ -396,34 +396,24 @@ const UserProfileDetailsMCAdmin = ({ selectedUser, setSelectedUser, setshowDetai
                                 <Grid item xs={12} sm={12} md={6} >
                                     {isAdmin &&
                                         (<>
-                                            {[4, 9].includes(statusID) &&
-                                                <Button
-                                                    type="button"
-                                                    variant="contained" className='submitbutton save buttonmarginleft-20' color="primary"
-                                                    disabled={!isValid}
-                                                    onClick={handleApproveClick}>
-                                                    Approve
-                                                </Button>
-                                            }
-                                            {[4, 9, 6].includes(statusID) &&
-                                                <Button
-                                                    type="button"
-                                                    variant="contained" className='submitbutton save' color="primary"
-                                                    disabled={!isValid}
-                                                    onClick={handleSaveClick}>
-                                                    Save
-                                                </Button>
-                                            }
+                                            <Button
+                                                type="button"
+                                                variant="contained" className='submitbutton save' color="primary"
+                                                disabled={!isValid || ![4, 9, 6].includes(statusID)}
+                                                onClick={handleSaveClick}>
+                                                Save
+                                            </Button>
+
                                         </>)}
-                                    {(isReviewer && statusID === 1) && (<>
+                                    {(isReviewer) && (<>
                                         <Button
                                             type="button"
                                             variant="contained" className='submitbutton save' color="primary"
-                                            onClick={handleVerifyClick}>
+                                            onClick={handleVerifyClick} disabled={statusID !== 1}>
                                             Verify
                                         </Button>
                                         <Button type="button" variant="contained" className="delete" //onClick={() => handleRejectClick()}
-                                            onClick={() => handleReject(selectedUser)}>
+                                            onClick={() => handleReject(selectedUser)} disabled={statusID !== 1}>
                                             Deny
                                         </Button>
                                     </>

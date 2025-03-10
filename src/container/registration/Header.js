@@ -9,16 +9,16 @@ import { Breadcrumb } from "_components";
 const Header = () => {
     const navigate = useNavigate();
     const [activeButton, setActiveButton] = React.useState('');
-    const breadcrumb = localStorage.getItem('breadcrumb') || '';
-    const id = localStorage.getItem('mapcenterUserID') || 99;
+    const breadcrumb = sessionStorage.getItem('breadcrumb') || '';
+    const id = sessionStorage.getItem('mapcenterUserID') || 99;
     
     const handleSupportClick = () => {
-        localStorage.setItem('breadcrumb', 'Support');
+        sessionStorage.setItem('breadcrumb', 'Support');
         setActiveButton('support');
         navigate('faqView');
     }
     const handleHomeClick = async () => {
-        localStorage.removeItem('breadcrumb');
+        sessionStorage.removeItem('breadcrumb');
         setActiveButton(null);
         navigate(`/registration/mapCenter/mc/${id}`);
       }

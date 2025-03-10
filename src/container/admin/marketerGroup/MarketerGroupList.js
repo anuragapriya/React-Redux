@@ -269,7 +269,7 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
                     flexWrap: 'wrap',
                 }}
             >
-                <Tooltip title="Clear filter" className='Deactivate'>
+                <Tooltip title="Refresh" className='Deactivate'>
                     <div>
                         <IconButton onClick={handleRefresh} >
                             <FilterListOff variant="contained" color="secondary" />
@@ -286,7 +286,7 @@ const MarketerGroupList = ({ marketerGroupData, rowSelection, handleChange, isMo
             </Box>
         ),
         renderRowActions: ({ row }) => (
-            <div style={{ display: 'flex', gap: '0.5rem' }} className='tableicons'>
+            <div  className='tableicons'>
                 <IconButton className='delete' >
                     <img src={Delete} alt="Delete" onClick={handleOpenModal}></img>
                 </IconButton>

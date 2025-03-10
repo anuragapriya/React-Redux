@@ -1,6 +1,6 @@
-import  React,{useEffect, useMemo} from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Link from "@material-ui/core/Link";
-import { logo,  Notificationsicon } from '../images';
+import { BarChartOutlinedIcon, ListAltOutlinedIcon, logo, Notificationsicon } from '../images';
 import { labels } from "_utils/labels";
 import { MyProfile } from 'container/headers';
 import { Box, AppBar, CssBaseline, Divider, Drawer, IconButton, List, Toolbar, Typography, Tooltip } from "@mui/material";
@@ -18,31 +18,48 @@ dayjs.extend(isSameOrAfter);
 const drawerWidth = 240;
 
 const Nav = ({ isAuthenticated, window, portalID }) => {
- const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeButton, setActiveButton] = React.useState('');
   const [backdropOpen, setBackdropOpen] = React.useState(false); // State to manage backdrop visibility
-  const breadcrumb = localStorage.getItem('breadcrumb') || '';
-  const showHeaderMenu = JSON.parse(localStorage.getItem('showHeaderMenu')) || false;
+  const portalId = sessionStorage.getItem('portalID') || portalID;
+  const breadcrumb = sessionStorage.getItem('breadcrumb') || '';
+  const showHeaderMenu = JSON.parse(sessionStorage.getItem('showHeaderMenu')) || false;
 
   const announcementsData = useSelector(x => x.announcement?.allAnnouncements);
   const data = announcementsData?.AnnouncementData || [];
-  const authUserId = useSelector(x => x.auth?.userId);
+  const id = useSelector(x => x.auth?.userId);
+  const authUser = useSelector(x => x.auth?.value);
+  const user = authUser?.Data;
+  const userAccess = user?.UserAccess;
+  const isPortalAdmin = userAccess?.some(access => access.Role.toLowerCase().includes('admin') && access.PortalId.toString() === (portalID?.toString() || portalId?.toString()));
+  const isAdmin = userAccess?.some(access => access.Role.toLowerCase().includes('admin'));
+
+    const portalsList = userAccess ? userAccess.map(access => ({
+        PortalId: access.PortalId,
+        PortalName: access.PortalName,
+        PortalKey: access.PortalKey,
+    })) : [];
+
+  const portalIdList = portalsList.map(portal => portal.PortalId);
+
+    const portalIds = portalIdList.join(',');
 
   useEffect(() => {
-    if (showHeaderMenu) {
-      const fetchData = async () => {
-        try {
-          dispatch(alertActions.clear());
-          await dispatch(announcementAction.getAllAnnouncements(authUserId)).unwrap();
-        } catch (error) {
-          console.log(error?.message || error);
-        }
-      };
+    const fetchData = async () => {
+      try {
+        dispatch(alertActions.clear());
+        await dispatch(announcementAction.getAllAnnouncements({id,portalIds})).unwrap();
+      } catch (error) {
+        console.log(error?.message || error);
+      }
+    };
+
+    if (isAuthenticated) {
       fetchData();
     }
-  }, [dispatch,showHeaderMenu, authUserId]);
+  }, [dispatch, showHeaderMenu, id,portalIds, isAuthenticated]);
 
   const currentAndFutureAnnouncements = useMemo(() => {
     return data.filter(announcement => dayjs(announcement.StartDate).isSameOrAfter(dayjs(), 'day'));
@@ -55,16 +72,16 @@ const Nav = ({ isAuthenticated, window, portalID }) => {
   };
 
   const handleHomeClick = async () => {
-    localStorage.setItem('showHeaderMenu', false);
-    localStorage.removeItem('breadcrumb');
-    localStorage.removeItem('appMenuItems');
+    sessionStorage.setItem('showHeaderMenu', false);
+    sessionStorage.removeItem('breadcrumb');
+    sessionStorage.removeItem('appMenuItems');
     setActiveButton(null);
     setBackdropOpen(false); // Close the backdrop
     navigate('/home');
   };
 
   const handleSupportClick = () => {
-    localStorage.setItem('breadcrumb', 'Support');
+    sessionStorage.setItem('breadcrumb', 'Support');
     setActiveButton('support');
     setBackdropOpen(false); // Open the backdrop
     navigate('faqView');
@@ -73,6 +90,11 @@ const Nav = ({ isAuthenticated, window, portalID }) => {
   const handleNotificationClick = () => {
     setBackdropOpen(false); // Open the backdrop
     navigate('notification');
+  };
+
+  const handleActivityLogClick = () => {
+    setBackdropOpen(false); // Open the backdrop
+    navigate(`activityLog/${portalId}`);
   };
 
   const handleBackdropClick = () => {
@@ -186,9 +208,23 @@ const Nav = ({ isAuthenticated, window, portalID }) => {
                       </Tooltip>
                     </Box>
                   </Box>
+                  {isPortalAdmin && <Box className="Notifications none-moblie">
+                    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+                      <Tooltip title="Activity Log">
+                        <IconButton
+                          onClick={handleActivityLogClick}
+                          size="small"
+                          sx={{ ml: 2 }}
+                        >
+                          <img src={ListAltOutlinedIcon} alt='ListAltOutlinedIcon' />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+                  </Box>
+                  }
                 </>
               )}
-              <MyProfile showHeaderMenu={showHeaderMenu} />
+              <MyProfile showHeaderMenu={showHeaderMenu} isAdmin={isAdmin} />
             </div>
           </Box>
         </Toolbar>

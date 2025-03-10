@@ -1,63 +1,46 @@
-# Node.js with React - Security Scans, Report Generation & Cleanup
 trigger:
   - Development
 
-pool:
-  vmImage: ubuntu-latest
+pool: 
+  vmImage: windows-latest
 
 steps:
-  # ✅ Cleanup Step to Remove Old Files Before Execution
-  - script: |
-      echo "Cleaning up old files from previous runs..."
-      rm -rf $(Build.ArtifactStagingDirectory)/*
-      rm -rf dependency-check*
-      rm -rf node_modules
-      npm cache clean --force
-    displayName: 'Pre-Cleanup: Remove Old Build Files & Free Memory'
-
+  # ✅ Install Latest Node.js (22.x for better performance)
   - task: NodeTool@0
     inputs:
       versionSpec: '20.x'
-    displayName: 'Install Node.js'
+    displayName: 'Install Node.js 20'
 
+  # ✅ Install Dependencies (Only if node_modules is missing)
   - script: |
-      npm cache clean --force
-      npm install --force
-    displayName: 'Install Dependencies'
+      if not exist "$(Build.SourcesDirectory)\node_modules" (
+        echo "node_modules not found. Installing dependencies..."
+        npm i --prefer-offline --legacy-peer-deps --concurrency=%NUMBER_OF_PROCESSORS%
+      ) else (
+        echo "Skipping dependency installation as node_modules already exists."
+      )
+    displayName: 'Install Dependencies (Skip if Exists)'
+    workingDirectory: $(Build.SourcesDirectory)
 
-  # ✅ Build React Application
+  # ✅ Run Security Audit (Optional, can be disabled)
+  # ✅ Run Security Audit (Log warnings but do not fail pipeline)
+  #- script: |
+  #    npm audit --audit-level=high || echo "⚠ Security vulnerabilities found. Please review the report."
+  #  displayName: 'Run Security Audit (Warnings Only)'
+  #  continueOnError: true  # This ensures the pipeline does not fail but logs issues
+
+
+  # ✅ Build React Application with Multi-Threading
   - script: |
-      npm run build
-    displayName: 'Build React Application'
+      npm run build -- --max-old-space-size=4096 --threads=%NUMBER_OF_PROCESSORS%
+    displayName: 'Build React Application (Optimized)'
+    workingDirectory: $(Build.SourcesDirectory)
 
-  # ✅ Ensure web.config is added
+  # ✅ Validate Build Output
   - script: |
-      mkdir -p $(Build.ArtifactStagingDirectory)/build
-
-    displayName: 'Ensure web.config is Added to Build Folder'
-
-  # ✅ Copy Build Files to Staging Directory
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(Build.SourcesDirectory)/build'
-      Contents: '**'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
-    displayName: 'Copy Build Files to Staging Directory'
-
-  # ✅ Archive Build Output
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/build'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    displayName: 'Archive Build Output'
-
-  # ✅ Publish Build Artifact
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      ArtifactName: 'drop'
-    displayName: 'Publish Build Artifact'
-
+      if not exist "$(Build.SourcesDirectory)\build" (
+        echo Build output directory not found!
+        exit /b 1
+      )
+    displayName: 'Validate Build Output'
 

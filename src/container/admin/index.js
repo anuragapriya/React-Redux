@@ -18,7 +18,8 @@ import Customer from "./customers/Customer";
 import CustomerDetails from "./customers/CustomerDetails";
 import CustomerFilter from "./customers/CustomerFilter";
 
+
+
 export {Announcement,FAQ,Users,UserProfileList,UserFilter,Support,AnnouncementDetails,
     Marketers,MarketerDetails,MarketerFilter,MarketerCreate, MarketersGroup,MarketerGroupList,MarketerGroupDetails,
-    MarketerGroupFilter,MarketerGroupCreate,Customer,CustomerDetails,CustomerFilter
-};
+    MarketerGroupFilter,MarketerGroupCreate,Customer,CustomerDetails,CustomerFilter}

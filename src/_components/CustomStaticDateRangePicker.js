@@ -7,6 +7,7 @@ import { FormControl, TextField, InputAdornment, IconButton, Box } from '@mui/ma
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ErrorIcon from '@mui/icons-material/Error';
 import { makeStyles } from "@material-ui/core/styles";
+import dayjs from 'dayjs';
 
 const useStyles = makeStyles({
   disabledDate: {
@@ -27,7 +28,6 @@ const CustomStaticDateRangePicker = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
- 
 
   const handleOpen = (event) => {
     event.stopPropagation(); // Prevent click propagation issues
@@ -35,7 +35,7 @@ const CustomStaticDateRangePicker = ({
   };
   const handleClose = () => setOpen(false);
 
-  const parseDate = (date) => (date ? new Date(date) : null);
+  const parseDate = (date) => (date ? dayjs(date).startOf('day').toDate() : null);
 
   return (
     <FormControl fullWidth margin="normal" style={{ position: 'relative' }}>
@@ -91,16 +91,19 @@ const CustomStaticDateRangePicker = ({
                     visible={open}
                     dateRange={field.value ? [parseDate(field.value[0]), parseDate(field.value[1])] : [new Date(), new Date()]}
                     onDateClick={(minDate, maxDate) => {
-                      field.onChange([minDate, maxDate]);
-                      trigger(name);
-                      handleClose();
+                      if (minDate <= maxDate) {
+                        field.onChange([minDate, maxDate]);
+                        trigger(name);
+                        handleClose();
+                      }
                     }}
                     type="free-range"
                     minDate={minimumDate || undefined} // Use minimumDate prop
                     renderDay={(day, selectedDate, isInCurrentMonth, dayComponent) => {
-                      const isDisabled = day < minimumDate;
+                      const isDisabled = day < minimumDate || (field.value && day < parseDate(field.value[0]));
                       return React.cloneElement(dayComponent, {
                         className: isDisabled ? classes.disabledDate : '',
+                        onClick: isDisabled ? undefined : dayComponent.props.onClick,
                       });
                     }}
                   />

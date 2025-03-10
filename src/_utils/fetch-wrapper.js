@@ -59,8 +59,8 @@ async function handleResponse(response) {
          // handle validation errors
          if (response.status === 400) {
             const errorData= !isJson && await response.json() ;
-            const validationErrors = data && data.Message || errorData && errorData.errors;
-            const errors= JSON.stringify(validationErrors);
+            const validationErrors =  errorData && errorData?.errors;
+            const errors= data && data.Message || JSON.stringify(validationErrors);
             return Promise.reject(errors);
         }
 

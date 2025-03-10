@@ -28,7 +28,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const FullName = user?.FullName;
 
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
+  //const [newPassword, setNewPassword] = useState("");
   const [modalState, setModalState] = useState({ open: true, otpOpen: false });
 
   const { handleSubmit, control, formState: { errors, isValid }, watch, trigger, reset } = useForm({
@@ -66,7 +66,8 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const handleOpen = () => setModalState({ ...modalState, open: true });
   const handleClose = () => {
     reset({ Password: '' });
-    setModalState({ open: false, otpOpen: true });
+    handleNavigateLogin();
+    setModalState({ open: false, otpOpen: false });
    
   };
   const handleOtpOpen = () => setModalState({ ...modalState, open: false, otpOpen: true });
@@ -83,7 +84,9 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
   const onSubmit = async (data) => {
     try {
       dispatch(alertActions.clear());
-      const result = await dispatch(authActions.generateOtp({ email }));
+      //const result = await dispatch(authActions.generateOtp({ email }));
+      const newPassword= data.Password;
+      const result = await dispatch(authActions.resetPasswordRequest({ userId, newPassword }));
       if (result?.error) {
         dispatch(alertActions.error({
           showAfterRedirect: true,
@@ -93,9 +96,15 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
         return;
       }
 
-      await setNewPassword(data.Password);
+     // await setNewPassword(data.Password);
       await handleClose();
-      await handleOtpOpen();
+    //  await handleOtpOpen();
+    await dispatch(alertActions.success({
+      showAfterRedirect: true,
+      message: resetSuccessLabels.message1,
+      header: resetSuccessLabels.header,
+      islogout:true
+    }));
     } catch (error) {
       dispatch(alertActions.error({ message: error?.message || error, header: "New Password" }));
     }
@@ -119,7 +128,7 @@ const NewPassword = ({ isModalOpen, handleCloseModal, usersID }) => {
         return;
       }
 
-      const resetResult = await dispatch(authActions.resetPasswordRequest({ userId, newPassword }));
+      const resetResult = null;//await dispatch(authActions.resetPasswordRequest({ userId, newPassword }));
 
       if (resetResult?.error) {
         dispatch(alertActions.error({

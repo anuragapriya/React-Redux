@@ -233,7 +233,7 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
                     flexWrap: 'wrap',
                 }}
             >
-                <Tooltip title="Clear filter" className='Deactivate'>
+                <Tooltip title="Refresh" className='Deactivate'>
                     <div>
                         <IconButton onClick={handleRefresh} >
                             <FilterListOff variant="contained" color="secondary" />
@@ -251,7 +251,7 @@ const MarketerList = ({ marketerData, rowSelection, handleChange, isModalOpen, s
         ),
         renderRowActions: ({ row }) => {
             return (
-                <div style={{ display: 'flex', gap: '0.5rem' }} className='tableicons'>
+                <div  className='tableicons'>
                     <IconButton onClick={() => handleOpenModal(row)} className='lock'>
                         {row.original.IsActive ? <PlayCircleOutline /> : <PauseCircleOutline />}
                     </IconButton>

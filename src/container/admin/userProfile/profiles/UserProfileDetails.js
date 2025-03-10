@@ -183,27 +183,28 @@ const UserProfileDetails = ({ userData, roles, userProfiles, portalAccess, porta
             </Box>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 6, sm: 6, md: 6 }} className="ResetPasswordbutton">
-                    {userData?.Status.toLowerCase() === 'approved' && <> <Button
+                     <> <Button
                         type="submit"
                         variant="contained"
                         className='ResetPassword'
                         color="primary"
                         onClick={() => handleResetPassword(userData?.EmailID)}
+                        disabled={userData?.Status.toLowerCase() !== 'approved'}
                     >
                         Reset Password
                     </Button>
-                        {userData?.IsAccountLock && <Button
+                        <Button
                             type="submit"
                             variant="contained"
                             className='ResetPassword'
                             color="primary"
                             onClick={() => onLockToggle(userData)}
+                            disabled={userData?.Status.toLowerCase() !== 'approved' || !userData.IsAccountLock}
                         >
                             Unlock Account
                         </Button>
-                        }
                     </>
-                    }
+                    
                 </Grid>
 
                 <Grid size={{ xs: 6, sm: 6, md: 6 }} className="containedLoginbuttonleft">
@@ -219,16 +220,17 @@ const UserProfileDetails = ({ userData, roles, userProfiles, portalAccess, porta
                             Reject
                         </Button>
                     </Typography> */}
-                    {userData?.Status.toLowerCase() === 'submitted' && <Button
+                   {userData?.Status.toLowerCase() !== 'approved' &&  <Button
                         type="submit"
                         variant="contained"
                         className='Loginbutton'
                         color="primary"
                         onClick={() => singleUserUpdate(userData)}
+                        disabled={userData?.Status.toLowerCase() !== 'submitted'}
                     >
                         Approve
                     </Button>
-                    }
+                   }
                 </Grid>
 
             </Grid>

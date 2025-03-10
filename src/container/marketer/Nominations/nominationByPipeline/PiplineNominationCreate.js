@@ -42,13 +42,13 @@ const PipelineNominationCreate = ({ pipelineData, marketerId, fromDate, isOpen, 
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
-            const dateAdded = dayjs(fromDate).isValid() ? dayjs(fromDate).toISOString() : new Date.toISOString();
+            const dateAdded = dayjs(fromDate).isValid() ? dayjs(fromDate) : dayjs(new Date());
 
             const transformedData = {
                 MarketerID: marketerId || 0,
                 PipelineID: data.PipelineID,
                 ContractID: data.ContractID.toString(),
-                DateAdded: dateAdded
+                DateAdded: dayjs(dateAdded).format('YYYY-MM-DDTHH:mm:ss')
             };
 
             const result = await dispatch(nominationpipelineAction.insert(transformedData)).unwrap();
@@ -116,7 +116,7 @@ const PipelineNominationCreate = ({ pipelineData, marketerId, fromDate, isOpen, 
                             <CustomFormControl
                                 id="ContractID"
                                 label="Contract#"
-                                type="text"
+                                type="number"
                                 register={register}
                                 errors={errors}
                                 handleBlur={handleBlur}

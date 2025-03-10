@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 export const registerValidationSchema = Yup.object().shape({
     FullName: Yup.string()
-        .required('Full Name is required'),
+        .required('Full Name is required')
+        .matches(/^[A-Za-z\s]+$/, 'Full Name can only contain alphabets and spaces'),
     CompanyName: Yup.string()
         .required('Company Name is required'),
     MobileNumber: Yup.string()
@@ -337,7 +338,8 @@ export const profileInformationMCUpdateSchema = Yup.object().shape({
 
 export const createPipelineNomination = Yup.object().shape({
     PipelineID: Yup.number().nullable().required('Jurisdiction is required'),
-    ContractID: Yup.number().nullable().required('ContractID is required'),
+    ContractID: Yup.string().nullable()
+    .required('ContractID is required'),
 });
 
 export const pipelineNominationFilterSchema = Yup.object().shape({
@@ -347,4 +349,52 @@ export const pipelineNominationFilterSchema = Yup.object().shape({
         .of(Yup.date().nullable().required('From - To date is required'))
         .required('From - To is required')
         .min(2, 'Please select a from - to'),
+});
+
+export const byFirmFilter= Yup.object().shape({
+    StartMonth: Yup.date().required('Month is required')
+});
+
+export const byInterruptibleFilter= Yup.object().shape({
+    MarketerID: Yup.number().nullable().required('Marketer is Required'),
+    StartMonth: Yup.date().required('Month is required')
+});
+
+export const activityFilterSchema = Yup.object().shape({
+    SelectedDate: Yup.array()
+        .of(Yup.date().nullable().required('From - To date is required'))
+        .required('From - To is required')
+        .min(2, 'Please select a from - to'),
+});
+
+export const accountInquirySchema = Yup.object().shape({
+    searchType: Yup.string().required('Search type is required'),
+    washingtonGasAccount: Yup.string().when('searchType', {
+        is: 'Washington Gas Account',
+        then: Yup.string().matches(/^\d+$/, 'Invalid account number').required('Account number is required'),
+    }),
+    accountHolder: Yup.object().shape({
+        firstName: Yup.string().when('searchType', {
+            is: 'Account Holder',
+            then: Yup.string().required('First name or organization is required'),
+        }),
+        lastName: Yup.string(),
+    }).default(undefined),
+    phoneNumber: Yup.string().when('searchType', {
+        is: 'Phone Number',
+        then: Yup.string().matches(/^\d{3}-\d{3}-\d{4}$/, 'Invalid phone number').required('Phone number is required'),
+    }),
+    serviceAddress: Yup.object().shape({
+        houseNumber: Yup.string().when('searchType', {
+            is: 'Service Address',
+            then: Yup.string(),
+        }),
+        apartmentSuite: Yup.string(),
+        streetAddress: Yup.string().when('searchType', {
+            is: 'Service Address',
+            then: Yup.string().required('Street address is required'),
+        }),
+        city: Yup.string(),
+        state: Yup.string(),
+    }).default(undefined),
 });

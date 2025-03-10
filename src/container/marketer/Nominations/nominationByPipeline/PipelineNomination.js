@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button } from "@mui/material";
+import { Typography, Button ,Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { ModalPopup } from '_components';
 import PiplineNominationList from './PiplineNominationList';
@@ -9,6 +9,7 @@ import PipelineNominationCreate from './PiplineNominationCreate';
 import { alertActions, nominationpipelineAction } from '_store';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
+import { getNominationPipeline } from '_utils/constant';
 
 dayjs.extend(utc);
 
@@ -19,12 +20,11 @@ const PipelineNomination = () => {
   const marketerData=nominationData?.MarketerData;
   const pipelineData= nominationData?.PipelineData;
   const [data, setData] = useState([]);
-  const [fromDate, setFromDate] = useState(dayjs().utc().startOf('month').toDate());
-  const [toDate, setToDate] = useState(dayjs().utc().endOf('month').toDate());
+  const [fromDate, setFromDate] = useState(dayjs().startOf('month'));
+  const [toDate, setToDate] = useState(dayjs().endOf('month'));
   const [marketerId, setMarketerId] = useState(null);
   const [pipelineID, setPipelineID] = useState(null);
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const [editedRecords, setEditedRecords] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
@@ -40,9 +40,9 @@ const PipelineNomination = () => {
         const nominationData = result?.Data;
         setMarketerId(nominationData?.NominationData?.CompanyId);
         setPipelineID(nominationData?.NominationData?.PipelineID);
-        console.log(dayjs().utc().startOf('month').toDate());
-        setFromDate(dayjs().utc().startOf('month').toDate());
-        setToDate(dayjs().utc().endOf('month').toDate());
+
+        setFromDate(dayjs().startOf('month'));
+        setToDate(dayjs().endOf('month'));
         setData(nominationData);
       } catch (error) {
         console.error('Fetch Error:', error); // Log any errors
@@ -61,56 +61,44 @@ const PipelineNomination = () => {
   
     // Create a new array for the updated contract data
     const updatedContractData = newData.NominationData.ContractData.map(contract => {
-      // Create a shallow copy of the contract object
-      const newContract = { ...contract };
+        // Create a shallow copy of the contract object
+        const newContract = { ...contract };
   
-      if (newContract.ContractID === rowData.ContractID) {
-        const date = dayjs(columnId, 'DD/MM').format('YYYY-MM-DD');
-        const detail = newContract.ContractDetails.find(d => dayjs(d.ContractDate).format('YYYY-MM-DD') === date);
-        newContract.ContractDetails = [...newContract.ContractDetails];
-        if (detail) {
-          detail.ContractValue = newValue;
-        } else {
-          newContract.ContractDetails.push({ ContractDate: date, ContractValue: newValue });
+        if (newContract.ContractID.toString() === rowData.ContractID) {
+            const date = dayjs(columnId, 'DD/MM').format('YYYY-MM-DD');
+            const detail = newContract.ContractDetails.find(d => dayjs(d.ContractDate).format('YYYY-MM-DD') === date);
+            newContract.ContractDetails = [...newContract.ContractDetails];
+            if (detail) {
+                detail.ContractValue = newValue;
+            } else {
+                newContract.ContractDetails.push({ ContractDate: date, ContractValue: newValue });
+            }
+            // Set the isEditing flag to true
+            newContract.isEditing = true;
         }
-      }
   
-      return newContract;
+        return newContract;
     });
   
     newData.NominationData.ContractData = updatedContractData;
   
     setData(newData);
-    setEditedRecords(prev => {
-      const updatedRecords = { ...prev };
-      const contract = updatedContractData.find(c => c.ContractID === rowData.ContractID);
-      if (contract) {
-        const editedDetails = contract.ContractDetails.filter(d => d.ContractValue === newValue);
-        if (!updatedRecords[contract.ContractID]) {
-          updatedRecords[contract.ContractID] = { ContractDetails: [] };
-        }
-        // Replace the existing details for the contract with the new ones
-        updatedRecords[contract.ContractID].ContractDetails = updatedRecords[contract.ContractID].ContractDetails.filter(
-          d => dayjs(d.ContractDate).format('YYYY-MM-DD') !== dayjs(editedDetails[0].ContractDate).format('YYYY-MM-DD')
-        );
-        updatedRecords[contract.ContractID].ContractDetails.push(...editedDetails);
-      }
-      return updatedRecords;
-    });
     setIsDataChanged(true);
-  };
+};
 
   const handleSubmit = async () => {
     dispatch(alertActions.clear());
     try {
-      const transformedData = Object.entries(editedRecords).flatMap(([contractID, contract]) =>
-        contract.ContractDetails.map(detail => ({
-          CompanyID: data?.NominationData?.CompanyId,
-          PipelineID: data?.NominationData?.PipelineID,
-          ContractID: contractID, // Use the contractID from the key
-          NominationDate: detail?.ContractDate,
-          NominationAmount: detail?.ContractValue
-        }))
+      const transformedData = data.NominationData.ContractData
+      .filter(contract => contract.isEditing) // Filter contracts based on isEdited flag
+      .flatMap(contract => 
+          contract.ContractDetails.map(detail => ({
+              CompanyID: data?.NominationData?.CompanyId,
+              PipelineID: data?.NominationData?.PipelineID,
+              ContractID: contract.ContractID,
+              NominationDate: detail?.ContractDate,
+              NominationAmount: detail?.ContractValue
+          }))
       );
       let result;
       if (transformedData.length > 0) {
@@ -122,7 +110,7 @@ const PipelineNomination = () => {
       }
       setIsDataChanged(true);
       handleRefresh();
-      dispatch(alertActions.success({ message: "Marketed Group data updated Successfully.", header: header, showAfterRedirect: true }));
+      dispatch(alertActions.success({ message: "Pipeline nominations updated successfully", header: header, showAfterRedirect: true }));
     } catch (error) {
       dispatch(alertActions.error({ message: error?.message || error, header: header }));
     }
@@ -132,22 +120,22 @@ const PipelineNomination = () => {
       const data = {
         marketerID:marketerId,
         pipelineID:pipelineID,
-        FromDate:fromDate,
-        ToDate:toDate       
+        FromDate:dayjs(fromDate).format('YYYY-MM-DDTHH:mm:ss'),
+        ToDate:dayjs(toDate).format('YYYY-MM-DDTHH:mm:ss')       
       }
       const newData = await dispatch(nominationpipelineAction.filter(data)).unwrap();
       const nominationpipelineData = newData?.Data;
       const nominationData = nominationpipelineData?.NominationData;
-      setMarketerId(nominationData?.CompanyId);
-      setPipelineID(nominationData?.PipelineID);
+     // setMarketerId(nominationData?.CompanyId);
+     // setPipelineID(nominationData?.PipelineID);
       setData(nominationpipelineData);
       setSelectedRows([]);
       setRowSelection({});
     };
 
     const handleFilterSubmit = async (newData) => {
-      setData(newData);
-      setMarketerId(newData?.MarketerID);
+      await setData(newData);
+     // setMarketerId(newData?.MarketerID);
     };
 
   const handleCancelClick = async () => {
@@ -175,7 +163,7 @@ const PipelineNomination = () => {
 
         const transformedData = dataToDelete.map(row => ({
           ContractID: row.ContractID.toString(),
-          FromDate: fromDate, 
+          FromDate:dayjs(fromDate).format('YYYY-MM-DDTHH:mm:ss'),  
           CompanyID: data?.NominationData?.CompanyId,
           PipelineID: data?.NominationData?.PipelineID
         }));
@@ -185,7 +173,7 @@ const PipelineNomination = () => {
           dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
           return;
         }
-        await setMarketerId(prevMarketerId => prevMarketerId);
+       // await setMarketerId(prevMarketerId => prevMarketerId);
         handleRefresh();
         dispatch(alertActions.success({ message: "Contract deleted successfully.", header: header, showAfterRedirect: true }));
       } catch (error) {
@@ -211,15 +199,15 @@ const PipelineNomination = () => {
           <Grid size={{ xs: 12, sm: 4, md: 4 }}>
             <Grid container>
               <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                <Typography variant="h2" className='userprofilelistcontent'>Nomination By Pipline</Typography>
+                <Typography variant="h2" className='userprofilelistcontent'>Nomination By Pipeline</Typography>
               </Grid>
             </Grid>
           </Grid>
           <Grid size={{ xs: 12, sm: 12, md: 8 }} >
-            <Grid container spacing={2} justifyContent="flex-end" className="MarketerManagement">
+            <Grid container  justifyContent="flex-end" className="MarketerManagement">
               <Grid size={{ xs: 12, sm: 12, md: 8 }} >
-                <Grid container spacing={2} justifyContent="flex-end">
-                  <Grid size={{ xs: 6, sm: 6, md: 4 }}>
+                <Grid container spacing={{ xs: 0, md: 2 }} justifyContent="flex-end">
+                  <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                     <PipelineNominationFilter
                       marketerData={marketerData}
                       pipelineData={pipelineData}
@@ -237,7 +225,7 @@ const PipelineNomination = () => {
                       onOpen={() => handleOpenComponent('filter')}
                     />
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+                  <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                     <PipelineNominationCreate
                       pipelineData={pipelineData}
                       marketerId={marketerId}
@@ -257,10 +245,15 @@ const PipelineNomination = () => {
       </Typography>
       <>
         <div className={backdropOpen ? 'backdrop' : ''}>
+        </div>
+        <Box className="PiplineNominationList">
           <PiplineNominationList
             data={data}
+            setData={setData}
+            setIsDataChanged={setIsDataChanged}
             fromDate={fromDate}
             toDate={toDate}
+            pipelineID={pipelineID}
             selectedRows={selectedRows}
             setSelectedRows={setSelectedRows}
             handleChange={handleChange}
@@ -269,8 +262,11 @@ const PipelineNomination = () => {
             handleToggleActiveStatus={handleToggleActiveStatus}
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
+            rowSelection={rowSelection}
+            setRowSelection={setRowSelection}
           />
-        </div>
+          </Box>
+        
         <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
           <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
             Cancel

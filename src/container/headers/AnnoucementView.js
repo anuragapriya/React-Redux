@@ -15,19 +15,31 @@ const AnnouncementView = ({ isCardDashboard }) => {
     const header = "Notifications";
     const announcementsData = useSelector(x => x.announcement?.allAnnouncements);
     const data = announcementsData?.AnnouncementData || [];
-    const authUserId = useSelector(x => x.auth?.userId);
+    const authUser = useSelector(x => x.auth?.value);
+    const id = useSelector(x => x.auth?.userId);
+    const user = authUser?.Data;
+    const userAccess = user?.UserAccess;
+    const portalsList = userAccess ? userAccess.map(access => ({
+        PortalId: access.PortalId,
+        PortalName: access.PortalName,
+        PortalKey: access.PortalKey,
+    })) : [];
+
+    const portalIdList = portalsList.map(portal => portal.PortalId);
+
+    const portalIds = portalIdList.join(',');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 dispatch(alertActions.clear());
-                await dispatch(announcementAction.getAllAnnouncements(authUserId)).unwrap();
+                await dispatch(announcementAction.getAllAnnouncements({id, portalIds})).unwrap();
             } catch (error) {
                 console.log(error?.message || error);
             }
         };
         fetchData();
-    }, [dispatch, authUserId]);
+    }, [dispatch, id,portalIds]);
 
     const handleDownload = (base64String, fileName) => {
         base64ToFile(base64String, fileName);

@@ -14,7 +14,7 @@ const FAQView = () => {
   const faqData = useSelector(x => x.faq?.faqList);
 
   const authUserId = useSelector(x => x.auth?.userId);
-  const userID = authUserId || localStorage.getItem('mapcenterUserID') || 99;
+  const userID = authUserId || sessionStorage.getItem('mapcenterUserID') || 99;
 
   useEffect(() => {
     const fetchData = async () => {

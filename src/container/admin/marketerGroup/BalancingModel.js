@@ -25,8 +25,8 @@ const BalancingModel = ({ marketerGroupID, label, value, onChange, options, disa
     const handleSave = async () => {
         dispatch(alertActions.clear());
         try {
-            const startM = dayjs(startMonth).isValid() ? dayjs(startMonth).toISOString() : null;
-            const endM = dayjs(endMonth).isValid() ? dayjs(endMonth).toISOString() : null;
+            const startM = dayjs(startMonth).isValid() ? dayjs(startMonth).format('YYYY-MM-DDTHH:mm:ss') : null;
+            const endM = dayjs(endMonth).isValid() ? dayjs(endMonth).format('YYYY-MM-DDTHH:mm:ss') : null;
             const transformedData = {
                 MarketerGroupID: marketerGroupID,
                 BalancingModelID: selectedValue,
