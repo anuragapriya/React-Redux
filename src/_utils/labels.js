@@ -2,7 +2,7 @@ export const labels = {
     loginHeader: "LogIn",
     loginButtonLabel: "LOGIN",
     resetPwdButtonLabel: "Forgot your password?",
-    signUpLabel: "now",
+    signUpLabel: "Register now",
     passwordChecklistLabel: "Your password must contain:",
     jurisdictionLabel: "JURISDICTION",
     seasonStartLabel: "SEASON START",
@@ -36,14 +36,14 @@ export const verifiedRegistrationLabels={
 
 export const notVerifiedRegistrationLabels={
     header:"Verification expired",
-    message1:"Your verification link is expired.",
-    message2:"Please re-send the verification request.",
+    message1:"Email verification link expired",
+   // message2:"Please re-send the verification request.",
     btnSecondaryText:"Close",
     btnPrimaryText:"Re-Verify"
 }
 
 export const emailSentLabels={
-    header:"Email Sent",
+    header:"Forgot Password",
     message1:"Check you email and open the link we sent you to continue.",
     btnSecondaryText:"Close",
 }

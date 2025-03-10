@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import dayjs from 'dayjs';
 import { Lock, LockOpen, Sync, FilterListOff } from '@mui/icons-material';
@@ -8,13 +8,21 @@ import { Delete, Deletewhite } from 'images';
 import { ModalPopup } from '_components';
 import { alertActions } from '_store';
 import { useDispatch } from 'react-redux';
+import { debounce } from 'lodash';
 
-const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelectedRows,
-  handleChange, handleDelete, handleRefresh, handleToggleActiveStatus, isModalOpen, setIsModalOpen }) => {
+const PipelineNominationList = ({ data = [],setData,setIsDataChanged, fromDate, toDate, selectedRows, setSelectedRows,
+  handleChange, handleDelete, handleRefresh, handleToggleActiveStatus, isModalOpen, setIsModalOpen,
+  rowSelection, setRowSelection, pipelineID }) => {
   const tableContainerRef = useRef(null);
   const dispatch = useDispatch();
-  const header ="Nomination By Pipeline";
-  const generateDateRange = (start, end) => {
+  const header = "Nomination By Pipeline";  
+  const [tableData, setTableData] = useState([]);
+  const [pinnedRow, setPinnedRow] = useState([]);
+  const [localData, setLocalData] = useState({});
+
+  const pipelineName = useMemo(() => data?.PipelineData?.find(p => p.PipelineID === pipelineID)?.Name, [data, pipelineID]);
+
+  const generateDateRange = useCallback((start, end) => {
     const dates = [];
     let currentDate = dayjs(start);
     const endDate = dayjs(end);
@@ -24,69 +32,156 @@ const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelec
       currentDate = currentDate.add(1, 'day');
     }
     return dates;
-  };
+  }, []);
 
-  const transformData = (data) => {
-    if (!data || !data.NominationData || !data.NominationData.ContractData) {
-      return { transformed: [], columns: [] };
-    }
-
+  const transformData = useCallback((data) => {
     const transformed = [];
     const dateRange = generateDateRange(fromDate, toDate);
-
-    data.NominationData.ContractData.forEach(contract => {
-      const row = { ContractID: contract.ContractID };
+    if (!data || !data.NominationData || !data.NominationData.ContractData) {
+      const row = { ContractID: "dummy", isTotal: false };
       dateRange.forEach(date => {
-        row[date] = 0; // Initialize with empty string
-      });
-      contract.ContractDetails.forEach(detail => {
-        const date = dayjs(detail.ContractDate).format('DD/MM');
-        if (row.hasOwnProperty(date)) {
-          row[date] = detail.ContractValue;
-        }
+        row[date] = 0;
       });
       transformed.push(row);
-    });
-
+    } else {
+      data.NominationData?.ContractData.forEach(contract => {
+        const row = { ContractID: contract.ContractID.toString(), isTotal: false };
+        dateRange.forEach(date => {
+          row[date] = 0;
+        });
+        contract.ContractDetails.forEach(detail => {
+          const date = dayjs(detail.ContractDate).format('DD/MM');
+          if (row.hasOwnProperty(date)) {
+            row[date] = detail.ContractValue;
+          }
+        });
+        transformed.push(row);
+      });
+    }
     const columns = [
-      { header: 'Contract#', accessorKey: 'ContractID', id: 'ContractID' },
+      { header: 'Contracts', accessorKey: 'ContractID', id: 'ContractID' },
       ...dateRange.map(date => ({
         accessorKey: date,
         header: date,
         id: date,
         Cell: ({ cell, row }) => (
           <TextField
-            className='ServiceProvider'
-            value={cell.getValue() || ''}
-            onChange={(e) => handleChange(e.target.value, row.original, cell.column.id)}
+            className="ServiceProvider"
+            value={localData[row.original.ContractID]?.[date] || cell.getValue() || ''}
+            onChange={(e) => handleLocalChange(e.target.value, row.original, cell.column.id)}
+            disabled={row.original.isTotal}
           />
         ),
       }))
     ];
 
     return { transformed, columns };
-  };
+  }, [fromDate, toDate, generateDateRange, localData]);
 
-  const handleOpenModal = () => {
+  const extractTotals = useCallback((rowvalue, totalData, dateRange) => {
+    if (!totalData) return null;
+    const totals = { ContractID: totalData?.ContractName.toString(), isTotal: true, className: 'sticky-row' };
+    totalData?.ContractDetails.forEach(detail => {
+      const date = dayjs(detail.ContractDate).format('DD/MM');
+      if (dateRange.includes(date)) {
+        totals[date] = detail.ContractValue;
+      }
+    });
+    return totals;
+  }, []);
+
+  const handleOpenModal = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, [setIsModalOpen]);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
+    setSelectedRows([]);
+    setRowSelection({});
+  }, [setIsModalOpen, setSelectedRows, setRowSelection]);
+
+  const handleRowDelete = useCallback(async (row) => {
+    try {
+      dispatch(alertActions.clear());
+      await handleDelete(row);
+      setIsModalOpen(false);
+      setSelectedRows([]);
+      setRowSelection({});
+    } catch (error) {
+      console.error("Error deleting row:", error);
+    }
+  }, [dispatch, handleDelete, setIsModalOpen, setSelectedRows, setRowSelection]);
+
+  const handleLocalChange = (newValue, rowData, columnId) => {
+    setLocalData(prevLocalData => ({
+      ...prevLocalData,
+      [rowData.ContractID]: {
+        ...prevLocalData[rowData.ContractID],
+        [columnId]: newValue
+      }
+    }));
+    debouncedHandleChange(newValue, rowData, columnId);
   };
 
-  const handleRowDelete = async (row) => {
-    dispatch(alertActions.clear());
-    await handleDelete(row);
-    setIsModalOpen(false);   
-  };
+  const debouncedHandleChange = useCallback(debounce((newValue, rowData, columnId) => {
+    setData(prevData => {
+      const updatedContractData = prevData.NominationData.ContractData.map(contract => {
+        if (contract.ContractID.toString() === rowData.ContractID) {
+          const date = dayjs(columnId, 'DD/MM').format('YYYY-MM-DD');
+          const newContractDetails = contract.ContractDetails.map(detail => {
+            if (dayjs(detail.ContractDate).format('YYYY-MM-DD') === date) {
+              return { ...detail, ContractValue: newValue };
+            }
+            return detail;
+          });
 
-  const { transformed, columns } = transformData(data);
-  const [tableData, setTableData] = useState(transformed);
+          // If the date was not found, add a new detail
+          if (!newContractDetails.some(detail => dayjs(detail.ContractDate).format('YYYY-MM-DD') === date)) {
+            newContractDetails.push({ ContractDate: date, ContractValue: newValue });
+          }
+
+          return { ...contract, ContractDetails: newContractDetails, isEditing: true };
+        }
+        return contract;
+      });
+
+      return {
+        ...prevData,
+        NominationData: {
+          ...prevData.NominationData,
+          ContractData: updatedContractData,
+        },
+      };
+    });
+    setIsDataChanged(true);
+  }, 300), [setData]);
+
+  const { transformed, columns } = useMemo(() => transformData(data), [data, transformData]);
+  const dateRange = useMemo(() => generateDateRange(fromDate, toDate), [fromDate, toDate, generateDateRange]);
+
+  const totalPipeline = useMemo(() => extractTotals('Pipeline', data.NominationData?.TotalPipelineData, dateRange), [data, dateRange, extractTotals]);
+  const totalAllPipeline = useMemo(() => extractTotals('AllPipeline', data.NominationData?.TotalAllPipelineData, dateRange), [data, dateRange, extractTotals]);
+  const totalGroup = useMemo(() => extractTotals('Group', data.NominationData?.TotalGroupData, dateRange), [data, dateRange, extractTotals]);
+
+  const getTransformedData = useCallback(() => {
+    let newData = [];
+    if (data && data?.NominationData && data?.NominationData?.ContractData) {
+      newData = [...transformed, totalPipeline, totalAllPipeline, totalGroup];
+    } else {
+      newData = [...transformed];
+    }
+    return newData;
+  }, [data, transformed, totalPipeline, totalAllPipeline, totalGroup]);
 
   useEffect(() => {
-    setTableData(transformed);
-  }, [data]);
+    const setdata = async () => {
+      const newTableData = getTransformedData();
+      await setTableData(newTableData);
+      const pinnedRows = newTableData ? newTableData.filter(row => row?.isTotal && row.ContractID !== "dummy").map(row => row.ContractID) : [];
+      await setPinnedRow(pinnedRows);
+      }
+      setdata();
+  }, [getTransformedData]);
 
   const table = useMaterialReactTable({
     columns,
@@ -97,34 +192,71 @@ const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelec
     columnFilterDisplayMode: 'popover',
     enableFullScreenToggle: false,
     enableColumnActions: false,
-    paginationDisplayMode: 'pages',
+    enablePagination: false,
     enableRowActions: true,
-    enableRowSelection: true,
+    enableStickyHeader: true,
     positionExpandColumn: 'first',
     positionActionsColumn: 'last',
     positionToolbarAlertBanner: 'none',
     layoutMode: 'grid-no-grow',
     initialState: {
       columnPinning: { left: ['mrt-row-select', 'ContractID'], right: ['mrt-row-actions'] },
+      columnVisibility: { 'mrt-row-pin': false },
     },
-    onRowSelectionChange: ({ selectedRowModel }) => {
-      setSelectedRows(selectedRowModel.rows.map(row => row.original));
+    state: {
+      rowSelection,
     },
+    getRowId: (originalRow) => originalRow?.ContractID?.toString(),
+    enableRowPinning: true,
+    rowPinningDisplayMode: 'sticky',
+    muiTableContainerProps: {
+      sx: {
+        maxHeight: '400px',
+      },
+    },
+    muiTableBodyProps: {
+      sx: {
+        display: tableData && tableData?.find(t => t.ContractID === "dummy") ? 'flex' : 'table-row-group',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        fontSize: '1.5rem',
+        color: 'gray',
+      },
+      children: tableData && tableData?.find(t => t.ContractID === "dummy") ? 'No data to display' : null,
+    },
+    muiTableBodyRowProps: ({ row, table }) => {
+      const { density } = table.getState();
+      return {
+        sx: {
+          height: row.getIsPinned()
+            ? `${density === 'compact' ? 37 : density === 'comfortable' ? 53 : 69}px`
+            : undefined,
+        },
+      };
+    },
+    onRowSelectionChange: (newRowSelection) => {
+      setRowSelection(newRowSelection);
+    },
+    enableRowSelection: (row) => !row.original?.isTotal, // Disable row selection for total rows
     renderRowActions: ({ row }) => (
-      <div style={{ display: 'flex', gap: '0.5rem' }} className='tableicons'>
-        <IconButton className='delete' >
-          <img src={Delete} alt="Delete" onClick={handleOpenModal}></img>
-        </IconButton>
-        {isModalOpen && <ModalPopup
-          header={header}
-          message1="Are you sure you want to delete this contract?"
-          btnPrimaryText="Confirm"
-          btnSecondaryText="Cancel"
-          handlePrimaryClick={() => handleRowDelete(row.original)}
-          handleSecondaryClick={() => handleCloseModal()}
-        />
-        }
-      </div>
+      !row.original?.isTotal && (
+        <div   className='tableicons'>
+          <IconButton className='delete' onClick={handleOpenModal}>
+            <img src={Delete} alt="Delete" />
+          </IconButton>
+          {isModalOpen && (
+            <ModalPopup
+              header={header}
+              message1="Are you sure you want to delete this contract?"
+              btnPrimaryText="Confirm"
+              btnSecondaryText="Cancel"
+              handlePrimaryClick={() => handleRowDelete(row.original)}
+              handleSecondaryClick={handleCloseModal}
+            />
+          )}
+        </div>
+      )
     ),
     renderTopToolbarCustomActions: () => (
       <Box
@@ -137,7 +269,7 @@ const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelec
       >
         <Tooltip title="Refresh" className='Deactivate'>
           <div>
-            <IconButton onClick={handleRefresh} >
+            <IconButton onClick={handleRefresh}>
               <FilterListOff variant="contained" color="secondary" />
             </IconButton>
           </div>
@@ -145,7 +277,7 @@ const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelec
         <Tooltip title="Delete Selected" className='DeleteSelected'>
           <div>
             <IconButton onClick={handleToggleActiveStatus} disabled={selectedRows?.length === 0}>
-              <img src={Deletewhite} alt="Delete"  ></img>
+              <img src={Deletewhite} alt="Delete" />
             </IconButton>
           </div>
         </Tooltip>
@@ -153,10 +285,26 @@ const PipelineNominationList = ({ data, fromDate, toDate, selectedRows, setSelec
     ),
   });
 
+  useEffect(() => {
+    const selectedFlatRows = table.getSelectedRowModel().flatRows;
+    setSelectedRows(selectedFlatRows.map((row) => row.original));
+  }, [rowSelection, table]);
+  
+  useEffect(() => {
+    if(pinnedRow){
+    table.setRowPinning({
+      top: pinnedRow,
+    });
+    console.log('tablepinnedrow',pinnedRow);
+  }
+  }, [pinnedRow]);
+
   return (
-    <div style={{ overflowX: 'auto' }} ref={tableContainerRef}>
-      <MaterialReactTable table={table} />
-    </div>
+    <>
+      <div ref={tableContainerRef}> {/* Set fixed height */}
+        <MaterialReactTable table={table} />
+      </div>
+    </>
   );
 };
 

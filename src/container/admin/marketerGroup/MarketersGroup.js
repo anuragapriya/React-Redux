@@ -175,18 +175,18 @@ const MarketersGroup = () => {
     <>
       <Typography component="div" className='userprofilelist '>
         <Grid container direction="row" spacing={2}>
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+          <Grid size={{ xs: 12, sm: 12, md: 7 }}>
             <Grid container>
               <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                 <Typography variant="h2" className='userprofilelistcontent'>Marketer Group Management - <span>{data?.MarketerName}</span></Typography>
               </Grid>
             </Grid>
           </Grid>
-          <Grid size={{ xs: 12, sm: 12, md: 8 }} >
+          <Grid size={{ xs: 12, sm: 12, md: 5 }} >
             <Grid container spacing={2} justifyContent="flex-end" className="MarketerManagement">
-              <Grid size={{ xs: 12, sm: 12, md: 8 }} >
+              <Grid size={{ xs: 12, sm: 12, md: 12 }} >
                 <Grid container spacing={2} justifyContent="flex-end">
-                  <Grid size={{ xs: 6, sm: 6, md: 4 }}>
+                  <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                     <MarketerGroupFilter
                       marketerId={marketerId}
                       setMarketerId={setMarketerId}
@@ -197,7 +197,7 @@ const MarketersGroup = () => {
                       onOpen={() => handleOpenComponent('filter')}
                     />
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 4, md: 4 }}>
+                  <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                     <MarketerGroupCreate
                       handleRefresh={handleRefresh}
                       marketerGroupData={data}
@@ -217,6 +217,7 @@ const MarketersGroup = () => {
 
       <>
         <div className={backdropOpen ? 'backdrop' : ''}>
+        </div>
           <MarketerGroupList
             marketerGroupData={data}
             isModalOpen={isModalOpen}
@@ -230,7 +231,7 @@ const MarketersGroup = () => {
             handleDelete={handleDelete}
             handleToggleActiveStatus={handleToggleActiveStatus}
           />
-        </div>
+      
         <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
           <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
             Cancel

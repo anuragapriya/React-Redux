@@ -15,29 +15,30 @@ const getAppMenus = (portalKey, isMBAdmin) => {
            // addMenuItem('Jurisdiction', 'jurisdiction', 2, 'jurisdiction');
             break;
         case "mc":
-            addMenuItem('Map Request', 'dashboardMC', 1);
+            addMenuItem('Map Center', 'dashboardMC', 1);
             break;
         case "mb":
             appMenuItems.push({
                 name: 'Nomination',
                 orderID: 1,
                 items: [
-                    { name: 'PIPELINE DELIVERY', link: 'pipelinedelivery', orderID: 1 },
-                    { name: 'NOMINATION BY PIPELINE', link: 'nominationPipeline', orderID: 2 },
-                    { name: 'NOMINATION BY GROUP', link: 'nominationGroup', orderID: 3 }
+                    { name: 'NOMINATION BY PIPELINE', link: 'nominationPipeline', orderID: 1 },
+                    { name: 'NOMINATION BY GROUP', link: 'nominationGroup', orderID: 2},
+                    { name: 'PIPELINE DELIVERY', link: 'pipelinedelivery', orderID: 3}
                 ]
             });
-            addMenuItem('Filehub', '', 2);
+            addMenuItem('Filehub', 'Filehub', 2);
             addMenuItem('Services', '', 3);
             appMenuItems.push({
                 name: 'Adjustments',
                 orderID: 4,
                 items: [
-                    { name: 'BY FIRM', link: '', orderID: 1 },
+                    { name: 'BY FIRM', link: 'byfirm', orderID: 1 },
                     { name: 'By Interruptible', link: 'byInterruptible', orderID: 2 }
                 ]
             });
-            addMenuItem('Customers', '', 5);
+            addMenuItem('Customers','customerDetails', 5);
+            addMenuItem('Reports', 'Reports', 6);
             break;
         case "sd":
             addMenuItem('Supplier', 'dashboardSD', 1);
@@ -52,6 +53,7 @@ const getAppMenus = (portalKey, isMBAdmin) => {
             });
             addMenuItem('Customers', 'customer', 3);
             addMenuItem('Announcements', 'announcement', 4);
+            addMenuItem('SeasonDates', 'seasonDates', 5);
             appMenuItems.push({
                 name: 'Support',
                 orderID: 5,

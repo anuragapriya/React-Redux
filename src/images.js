@@ -14,6 +14,7 @@ import materialsymbolsupload from './assets/images/material-symbols_upload.svg';
 import Check from './assets/images/Check.svg';
 import error from './assets/images/error.svg';
 import materialsymbolsdownload from './assets/images/material-symbols_download.svg';
+import downloadIcon from './assets/images/downloadIcon.svg';
 import Delete from './assets/images/mi_delete.svg';
 import raphaelinfo from './assets/images/raphael_info.svg';
 import supporticon from './assets/images/support-icon.svg'
@@ -28,6 +29,7 @@ import SettingsOutlinedIcon from './assets/images/SettingsOutlinedIcon.svg'
 import BarChartOutlinedIcon from './assets/images/BarChartOutlinedIcon.svg'
 import Notificationsicon from './assets/images/Notificationsicon.svg'
 import SortIcon from './assets/images/tdesignorderdescending.svg';
+import DownloadLogo from './assets/images/DownloadLogo.png';
 export {
     profileuser,
     ListAltOutlinedIcon,
@@ -56,7 +58,9 @@ export {
     dashiconsadmintools,
     codiconsave,
     materialsymbolsclose,
-    SortIcon
+    SortIcon,
+    downloadIcon,
+    DownloadLogo
 };
 
 

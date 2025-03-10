@@ -9,7 +9,7 @@ import { AutocompleteInput, CustomFormControl, CustomStaticDateRangePicker, Cust
 import { styled } from '@mui/system';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import AnnouncementDetails from './AnnouncementDetails';
-import { supportSupportedFormat } from '_utils/constant';
+import { announcementFormat, supportSupportedFormat } from '_utils/constant';
 import { newAnnounceMentSchema } from '_utils/validationSchema';
 import { base64ToFile, convertToBase64, fileExtension, fileSizeReadable, fileTypeAcceptable } from '_utils';
 import dayjs from 'dayjs';
@@ -42,7 +42,7 @@ const Announcement = () => {
 
     const [data, setData] = useState(null);
     const authUser = useSelector(x => x.auth?.value);
-    const authUserId = useSelector(x => x.auth?.userId);
+    const id = useSelector(x => x.auth?.userId);
     const user = authUser?.Data;
 
     const [selectedPortal, setSelectedPortal] = useState(null);
@@ -58,6 +58,10 @@ const Announcement = () => {
         PortalKey: admin.PortalKey,
     })) : [];
 
+    const portalIdList = portalsList.map(portal => portal.PortalId);
+
+    const portalIds = portalIdList.join(',');
+
     const portalData = portalsList ? portalsList.map(x => ({
         label: x.PortalName,
         value: x.PortalId
@@ -65,12 +69,15 @@ const Announcement = () => {
 
     const { register, handleSubmit, setValue, reset, control, formState: { errors, isValid }, trigger } = useForm({
         resolver: yupResolver(newAnnounceMentSchema),
+        defaultValues:{
+            'SelectedDate':[dayjs(new Date()),dayjs(new Date())]
+        },
         mode: 'onBlur',
     });
 
     useEffect(() => {
         fetchData();
-    }, [dispatch, reset, authUserId]);
+    }, [dispatch, reset, id,portalIds]);
 
     useEffect(() => {
         setValue('PortalID', selectedPortal);
@@ -83,7 +90,7 @@ const Announcement = () => {
     const fetchData = async () => {
         try {
             dispatch(alertActions.clear());
-            const result = await dispatch(announcementAction.get(authUserId)).unwrap();
+            const result = await dispatch(announcementAction.get({id, portalIds})).unwrap();
             setData(result?.Data);
         } catch (error) {
             dispatch(alertActions.error({
@@ -100,7 +107,7 @@ const Announcement = () => {
             const formattedAnnouncementEndDate = dayjs(formData.SelectedDate[1]).utc().format('YYYY-MM-DDTHH:mm:ss');
             const transformedData = {
                 ID: editingAnnouncement?.ID || 0,
-                UserID: authUserId,
+                UserID: id,
                 PortalID: formData.PortalID,
                 RoleID: formData.RoleID,
                 Title: formData.Title,
@@ -161,7 +168,7 @@ const Announcement = () => {
         file.sizeReadable = fileSizeReadable(file.size);
 
         if (file.size > maxFileSize) {
-            handleError({ code: 2, message: `${file.name} is too large` });
+            handleError({ code: 2, message: `File size cannot exceed 5MB` });
             return;
         }
 
@@ -170,7 +177,7 @@ const Announcement = () => {
             return;
         }
 
-        if (!fileTypeAcceptable(supportSupportedFormat, file)) {
+        if (!fileTypeAcceptable(announcementFormat, file)) {
             handleError({ code: 1, message: `${file.name} is not a valid file type` });
             return;
         }
@@ -334,15 +341,15 @@ const Announcement = () => {
                             </Grid>
                         </Grid>
                         <Typography className='marbottom0 titlemarginbottom'>
-                        <CustomFormControl
-                            id="Title"
-                            name="Title"
-                            label="Title"
-                            type="text"
-                            register={register}
-                            errors={errors}
-                            handleBlur={handleBlur}
-                        />
+                            <CustomFormControl
+                                id="Title"
+                                name="Title"
+                                label="Title"
+                                type="text"
+                                register={register}
+                                errors={errors}
+                                handleBlur={handleBlur}
+                            />
                         </Typography>
                         <Box className="ComposeAnnouncement">
                             <CustomTextArea

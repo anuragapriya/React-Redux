@@ -12,7 +12,6 @@ import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-
 const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, setMarketerId, isOpen, onClose, onOpen }) => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -51,8 +50,8 @@ const MarketerGroupFilter = ({ marketerData, handleFilterSubmit, marketerId, set
     const onSubmit = async (data) => {
         dispatch(alertActions.clear());
         try {
-            const startMonth = dayjs(data.StartMonth).isValid() ? dayjs(data.StartMonth).toISOString() : null;
-            const endMonth = dayjs(data.EndMonth).isValid() ? dayjs(data.EndMonth).toISOString() : null;
+            const startMonth = dayjs(data.StartMonth).isValid() ? dayjs(data.StartMonth).format('YYYY-MM-DDTHH:mm:ss') : null;
+            const endMonth = dayjs(data.EndMonth).isValid() ? dayjs(data.EndMonth).format('YYYY-MM-DDTHH:mm:ss') : null;
             data = { ...data, StartMonth: startMonth, EndMonth: endMonth };
 
             const result = await dispatch(marketergroupAction.filter(data)).unwrap();

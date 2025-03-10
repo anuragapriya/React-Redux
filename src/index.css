@@ -228,3 +228,7 @@ body {
     padding: 8px;
     border: 1px solid #ccc;
   }
+
+  .admincontent .containedLoginbuttonleft .Loginbutton.buttonmarginleft-20{
+    margin-left: 20px;
+}

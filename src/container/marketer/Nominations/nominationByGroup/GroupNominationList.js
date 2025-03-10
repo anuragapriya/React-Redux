@@ -1,131 +1,263 @@
-import React, { useState, useCallback,useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
+import { Typography,TextField } from '@mui/material';
 import dayjs from 'dayjs';
-import { TextField, IconButton } from '@mui/material';
-import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import utc from 'dayjs/plugin/utc';
 
-const GroupNominationList = ({ data, fromDate,toDate }) => {
-   const tableContainerRef = useRef(null);
+
+const GroupNominationList = ({fromDate, toDate , data,handleChange}) => {
+  const tableContainerRef = useRef(null);
+  const [tableData, setTableData] = useState([]);
+  const [pinnedRow, setPinnedRow] = useState([]);
+  const generateDateRange = useCallback((start, end) => {
+    const dates = [];
+    let currentDate = dayjs(start);
+    const endDate = dayjs(end);
+
+
+    while (currentDate.isBefore(endDate) || currentDate.isSame(endDate)) {
+      dates.push(currentDate.format('DD/MM'));
+      currentDate = currentDate.add(1, 'day');
+    }
+    return dates;
+
+  }, []);
+
   
-    const handleChange = useCallback((value, rowIndex, columnId) => {
-      setTableData(prevData => {
-        const newData = [...prevData];
-        newData[rowIndex][columnId] = value;
-        return newData;
+  const transformData = useCallback((data) => {
+    const transformed = [];
+    const dateRange = generateDateRange(fromDate, toDate);
+    if (!data || !data.GroupData || !data.GroupData.GroupData1) {
+      const row = { ContractID: "dummy", isTotal: false };
+      dateRange.forEach(date => {
+        row[date] = 0; // Initialize with empty string
       });
-    }, []);
-  
-    const generateDateRange = (start, end) => {
-      const dates = [];
-      let currentDate = dayjs(start);
-      const endDate = dayjs(end);
-  
-      while (currentDate.isBefore(endDate) || currentDate.isSame(endDate)) {
-        dates.push(currentDate.format('DD/MM'));
-        currentDate = currentDate.add(1, 'day');
-      }
-  
-      return dates;
-    };
-  
-    const transformData = (data) => {
-      if (!data || !data.Data || !data.Data.NominationData || !data.Data.NominationData.ContractData) {
-        return { transformed: [], columns: [] };
-      }
-  
-      const transformed = [];
-      const dateRange = generateDateRange(fromDate, toDate);
-  
-      data.Data.NominationData.ContractData.forEach(contract => {
-        const row = { ContractName: contract.ContractName };
+      transformed.push(row);
+      console.log(transformed);
+    } else {
+      data.GroupData?.GroupData1.forEach(contract => {
+        const GroupHeaderRow = { GroupID: contract?.GroupID,GroupName:contract?.GroupName.toString(), isGroupHeader: true, isTotal: false };
+        transformed.push(GroupHeaderRow);
+        const nominationRow = { GroupID: contract?.GroupID, GroupName: "Nomination" , isTotal: false };
         dateRange.forEach(date => {
-          row[date] = ''; // Initialize with empty string
+          nominationRow[date] = 0;
         });
-        contract.ContractDetails.forEach(detail => {
-          const date = dayjs(detail.ContractDate).format('DD/MM');
-          if (row.hasOwnProperty(date)) {
-            row[date] = detail.ContractValue;
+  
+        contract.GroupDetails.forEach(detail => {
+          
+          const ShipmentDate = dayjs(detail.ShipmentDate).format('DD/MM');
+          if (nominationRow.hasOwnProperty(ShipmentDate)) {
+            nominationRow[ShipmentDate] = detail.NominationValue;
           }
         });
-        transformed.push(row);
+  
+        transformed.push(nominationRow);
+        // Second row (DRV)
+        const drvRow = { GroupID: contract?.GroupID, GroupName: "DRV",isTotal: false };
+        dateRange.forEach(date => {
+          drvRow[date] = 0;
+        });
+  
+        contract.GroupDetails.forEach(detail => {
+          const date = dayjs(detail.GroupDate).format('DD/MM');
+          if (drvRow.hasOwnProperty(date)) {
+            drvRow[date] = detail.DRV_value;
+          }
+        });
+  
+        transformed.push(drvRow);
+      });
+    }
+    const columns = [
+      { header: data?.GroupData?.MarketerName, accessorKey: "GroupName", id: 'GroupName'},
+      ...dateRange.map(date => ({
+        accessorKey: date,
+        header: date,
+        id: date,
+        Cell: ({ cell, row }) => (
+          <TextField
+            className="ServiceProvider"//{`ServiceProvider ${row.original.isTotal ? 'total-row-textbox' : ''}`}
+            value={cell.getValue() || ''}
+            onChange={(e) => handleChange(e.target.value, row.original, cell.column.id)}
+            disabled={row.original.isTotal}
+          />
+        ),
+      }))
+    ];
+
+    return { transformed, columns };
+  }, [fromDate, toDate, generateDateRange, handleChange]);
+  const extractTotals = (rowvalue, totalData, dateRange) => {
+    if (!totalData) {
+      return null;
+    };
+    if(rowvalue === "Pipeline"){
+      const totals = { GroupID: rowvalue, GroupName: "PipeNomination", isTotal: true, className: 'sticky-row' };
+      totalData?.ContractDetails.forEach(detail => {
+        const date = dayjs(detail.ContractDate).format('DD/MM');
+        if (dateRange.includes(date)) {
+          totals[date] = detail.ContractValue;
+        }
+      });
+      return totals;
+    }else if(rowvalue === "DRV_Total"){
+      const totals = { GroupID: rowvalue, GroupName: "Group DRV", isTotal: true, className: 'sticky-row' };
+
+      // Initialize each date with zero
+      dateRange.forEach(date => {
+        totals[date] = 0;
+      });
+      totalData.GroupData1.forEach(group => {
+        group.GroupDetails.forEach(detail => {
+          const date = dayjs(detail.GroupDate).format('DD/MM');
+          if (dateRange.includes(date)) {
+            totals[date] = (totals[date] || '') + detail.DRV_value;
+          }
+        });
       });
   
-      const columns = [
-        { header: 'Contract Name', accessorKey: 'ContractName', id: 'ContractName' },
-        {
-          header: () => (
-            <IconButton onClick={scrollLeft}>
-              <ArrowBack />
-            </IconButton>
-          ),
-          id: 'scrollLeft',
-          accessorKey: 'scrollLeft',
-          disableSortBy: true,
-          disableFilters: true,
-        },
-        ...dateRange.map(date => ({
-          accessorKey: date,
-          header: date,
-          id: date,
-          Cell: ({ cell, row }) => (
-            <TextField
-              className='ServiceProvider'
-              value={cell.getValue() || ''}
-              onChange={(e) => handleChange(e.target.value, row.index, cell.column.id)}
-            />
-          ),
-        })),
-        {
-          header: () => (
-            <IconButton onClick={scrollRight}>
-              <ArrowForward />
-            </IconButton>
-          ),
-          id: 'scrollRight',
-          accessorKey: 'scrollRight',
-          disableSortBy: true,
-          disableFilters: true,
-        },
-      ];
-  
-      return { transformed, columns };
-    };
-  
-    const { transformed, columns } = transformData(data);
-    const [tableData, setTableData] = useState(transformed);
-  
-    const scrollLeft = () => {
-      if (tableContainerRef.current) {
-        tableContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-      }
-    };
-  
-    const scrollRight = () => {
-      if (tableContainerRef.current) {
-        tableContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-      }
-    };
-    const table = useMaterialReactTable({
-        columns,
-        data:tableData,
-        enableHiding: false,
-        enableSorting:false,
-        enableColumnFilters:false,
-        columnFilterDisplayMode: 'popover',
-        enableFullScreenToggle: false,
-        enableColumnActions: false,
-        paginationDisplayMode: 'pages',
-        positionExpandColumn: 'first',
-        positionActionsColumn: "last",
-        positionToolbarAlertBanner: 'none',
-    });
-  
-    return (
-      <div style={{ overflowX: 'auto' }} ref={tableContainerRef}>
-        <MaterialReactTable table={table} />
-      </div>
-    );
+      return totals;
+    }else{
+      const totals = { GroupID: rowvalue, GroupName: "Group Nom", isTotal: true, className: 'sticky-row' };
+      totalData?.GroupDetails.forEach(detail => {
+        const date = dayjs(detail.GroupDate).format('DD/MM');
+        if (dateRange.includes(date)) {
+          totals[date] = detail.NominationValue;
+        }
+      });
+      return totals;
+    }
+
   };
+  const { transformed, columns } = useMemo(() => transformData(data), [data, transformData]);
+  const dateRange = useMemo(() => generateDateRange(fromDate, toDate), [fromDate, toDate, generateDateRange]);
+ 
+  // const totalPipeline = useMemo(() => extractTotals('Pipeline', data.NominationData?.TotalPipelineData, dateRange), [data, dateRange]);
+  // const totalAllPipeline = useMemo(() => extractTotals('AllPipeline', data.NominationData?.TotalAllPipelineData, dateRange), [data, dateRange]);
+  const totalGroup = useMemo(() => extractTotals('Group', data.GroupData?.TotalGroupData, dateRange), [data, dateRange]);
+  const totalNomination = useMemo(() => extractTotals('Pipeline', data?.NominationData?.TotalAllPipelineData, dateRange), [data, dateRange]);
+  const totalDRV = useMemo(() => extractTotals('DRV_Total', data.GroupData, dateRange), [data, dateRange]);
+
+  const getTransformefData = () => {
+    let newData = [];
+    if (data && data?.GroupData && data?.GroupData?.GroupData1) {
+      newData = [...transformed, totalGroup,totalDRV,totalNomination];
+    }
+    else {
+      newData = [...transformed];
+    }
+    return newData;
+  }
+
+  useEffect(() => {
+    const setdata = async () => {
+    const newTableData = getTransformefData();
+    await setTableData(newTableData);
+    const pinnedRows = newTableData ? newTableData.filter(row => row?.isTotal && row.GroupID !== "dummy").map(row => row.GroupID) : [];
+    await setPinnedRow(pinnedRows);
+    console.log("3333333333333333333333333",pinnedRows);
+    }
+    setdata();
+  }, [data,transformed, totalGroup]);
+
   
-  export default GroupNominationList;
-  
+  useEffect(() => {
+    if(pinnedRow){
+    table.setRowPinning({
+      top: pinnedRow,
+    });
+    console.log('tablepinnedrow',pinnedRow);
+  }
+  }, [pinnedRow]);
+  const table = useMaterialReactTable({
+    columns,
+    data: tableData,
+    enableSorting: false,
+    enableColumnFilters: false,
+    columnFilterDisplayMode: 'popover',
+    enablePagination: false,
+    enableHiding: false,
+    enableRowActions: false,
+    enableStickyHeader: true,
+    enableGlobalFilter: false,
+    enableColumnActions: false,
+    enableDensityToggle: false,
+    enableFullScreenToggle: false,
+    layoutMode: 'grid-no-grow',
+    initialState: {
+      columnPinning: { left: ["GroupName"] },
+      columnVisibility: { 'mrt-row-pin': false },
+    },
+    getRowId: (originalRow) => originalRow?.GroupID?.toString(),
+    enableRowPinning: true,
+    rowPinningDisplayMode: 'sticky',
+    muiTableContainerProps: {
+      sx: {
+        maxHeight: '400px',
+      },
+    },
+    muiTableBodyProps: {
+      sx: {
+        display: tableData && tableData?.find(t => t.GroupID === "dummy") ? 'flex' : 'table-row-group',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        fontSize: '1.5rem',
+        color: 'gray',
+      },
+      children: tableData && tableData?.find(t => t.GroupID === "dummy") ? 'No data to display' : null,
+    },
+    muiTableBodyRowProps: ({ row, table }) => {
+      const { density } = table.getState();
+      return {
+        sx: {
+          height: row.getIsPinned()
+            ? `${density === 'compact' ? 37 : density === 'comfortable' ? 53 : 69}px`
+            : undefined,
+        },
+      };
+    },
+    
+      // muiTableBodyRowProps: ({ row }) => ({
+      //   sx: row.original.isGroupHeader
+      //     ? { fontWeight: "bold", pointerEvents: "none" } // Apply styles if it's a group header
+      //     : {}, // Default empty object for other rows
+      // }),
+      muiTableBodyCellEditTextFieldProps: ({ row, column }) =>
+      row.original.isGroupHeader
+        ? column.accessorKey === "GroupName"
+          ? {} // Show textbox only for "Value" column in group header
+          : { sx: { display: "none" } } // Hide other columns in group header
+        : { sx: { display: "none" } },
+
+        muiTableBodyCellProps: ({ cell, row, table }) => {
+          if (row.original.isGroupHeader) {
+            const totalColumns = table.getAllColumns().length; // Get total column count
+        
+            return {
+              colSpan: cell.column.id === "GroupName" ? totalColumns : 0, // Span all columns or hide
+              sx: cell.column.id === "GroupName"
+                ? {
+                    color: "red",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    textAlign: "center",
+                    backgroundColor: "#f5f5f5", // Optional: Highlight the row
+                    width: "150%", // Ensure full width
+                  }
+                : { display: "none" }, // Hide unwanted columns
+            };
+          }
+        },
+        
+        
+  });
+
+  return (
+    <div ref={tableContainerRef}>
+      <MaterialReactTable table={table} />
+    </div>
+  );
+};
+
+export default GroupNominationList;

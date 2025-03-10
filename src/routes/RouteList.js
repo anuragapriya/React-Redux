@@ -13,19 +13,24 @@ import { DashboardLayout } from 'container/layout';
 import { Configuration } from "container/configurations";
 import { Users, Announcement, Support, FAQ, Marketers, MarketersGroup } from "container/admin";
 import { HomeEA, Jurisdiction } from 'container/energyAssistance';
-import { AccountSearch, Upload } from 'container/accountInquiry';
+import { AccountInquiry, AccountSearch, Upload } from 'container/accountInquiry';
 import { getAppMenus } from '_utils';
-import { AnnouncementView, FAQView } from 'container/headers';
-import { HomeMC } from 'container/mapCenter';
-import { PipelineDelivery, PipelineNomination, GroupNomination, Interruptible } from 'container/marketer';
+import { AnnouncementCenter, AnnouncementView, FAQView } from 'container/headers';
+import { HomeMC ,MapCenter } from 'container/mapCenter';
+import { PipelineDelivery, PipelineNomination, GroupNomination, Interruptible,Byfiram ,ByInterruptible ,FileHub, Reports, Customers } from 'container/marketer';
 import { HomeSD } from 'container/suplierDiversity';
 import { Customer } from 'container/admin';
+import Firm from 'container/marketer/summaryAdjustment/byFirm/Firm';
+import { ActivityList } from 'container/user';
+import SuplierDiversity from 'container/suplierDiversity/SuplierDiversity';
+
 
 const RouteList = () => {
   const promiseTracker = usePromiseTracker();
   const intervalRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [portalID,setPortalID]=useState(null);
   const logout = () => dispatch(authActions.logout());
   const authUser = useSelector(x => x.auth?.value);
   const user = authUser?.Data;
@@ -40,7 +45,7 @@ const RouteList = () => {
   })) : [];
 
   const isAuthenticated = useSelector(x => x.auth.isAuthenticated);
-  const savedMenuItems = localStorage.getItem('appMenuItems');
+  const savedMenuItems = sessionStorage.getItem('appMenuItems');
 
   const [appMenuItems, setAppMenuItems] = useState([]);
 
@@ -49,41 +54,43 @@ const RouteList = () => {
     setAppMenuItems(newMenu);
   }, [savedMenuItems]);
 
-  // ------------- This need to be uncomment when we integrate Refresh Token ---------------
-  // const getToken = useCallback(() => {
-  //   const auth = store.getState().auth.value;
-  //   if (auth?.Data) {
-  //     const tokenExpiry = auth?.Data?.UserDetails?.tokenExpiry;
-  //     const now = new Date();
-  //     const hours = now.getHours();
-  //     const minutes = now.getMinutes();
-  //     const seconds = now.getSeconds();
+  
+  const getToken = useCallback(() => {
+    const auth = store.getState().auth.value;
+    if (auth?.Data) {
+      const tokenExpiry = auth?.Data?.UserDetails?.tokenExpiry;
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
 
-  //     const tokenExpiryDateTime = new Date(tokenExpiry);
-  //     tokenExpiryDateTime.setMinutes(tokenExpiryDateTime.getMinutes() - 2); // 2 minutes before expiry
-  //     const targetHours = tokenExpiryDateTime.getHours();
-  //     const targetMinutes = tokenExpiryDateTime.getMinutes();
-  //     const targetSeconds = tokenExpiryDateTime.getSeconds();
-  //     if (hours === targetHours && minutes === targetMinutes && seconds === targetSeconds) {
-  //       dispatch(authActions.refreshToken());
-  //     }
-  //   }
-  // }, [dispatch]);
+      const tokenExpiryDateTime = new Date(tokenExpiry);
+      tokenExpiryDateTime.setMinutes(tokenExpiryDateTime.getMinutes() - 2); // 2 minutes before expiry
+      const targetHours = tokenExpiryDateTime.getHours();
+      const targetMinutes = tokenExpiryDateTime.getMinutes();
+      const targetSeconds = tokenExpiryDateTime.getSeconds();
+      if (hours === targetHours && minutes === targetMinutes && seconds === targetSeconds) {
+        dispatch(authActions.refreshToken());
+      }
+    }
+  }, [dispatch]);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => getToken(), 1000);
-  //   intervalRef.current = interval;
-  //   return () => clearInterval(interval);
-  // }, [getToken]);
-  //------------END----------------
+  useEffect(() => {
+    const interval = setInterval(() => getToken(), 1000);
+    intervalRef.current = interval;
+    return () => clearInterval(interval);
+  }, [getToken]);
+ 
   const handleCardClick = (portalKey, isMBAdmin, path) => {
+    const selectedPortal = portalData.find(p=>p.PortalKey.toLowerCase()===portalKey.toLowerCase());
     const menus = getAppMenus(portalKey, isMBAdmin);
     const userMenuIndex = menus.findIndex(menu => menu.name === 'Users');
     if (userMenuIndex !== -1) {
       menus[userMenuIndex] = getUserMenus(menus[userMenuIndex]);
     }
+    setPortalID(selectedPortal?.PortalId);
     setAppMenuItems(menus);
-    localStorage.setItem('appMenuItems', JSON.stringify(menus));
+    sessionStorage.setItem('appMenuItems', JSON.stringify(menus));
     navigate(`/${path}`);
   };
 
@@ -99,7 +106,7 @@ const RouteList = () => {
 
   return (
     <div>
-      <Nav isAuthenticated={isAuthenticated} />
+      <Nav isAuthenticated={isAuthenticated} portalID={portalID} />
       <Notification />
       <LoadingOverlay loading={promiseTracker.promiseInProgress}></LoadingOverlay>
       <div className="container inputtags admincontent">
@@ -118,17 +125,22 @@ const RouteList = () => {
               <Route path="/support" element={<Support />} />
               <Route path="/dashboardEA" element={<HomeEA />} />
               <Route path="/jurisdiction" element={<Jurisdiction />} />
-              <Route path="/dashboardAI" element={<AccountSearch />} />
+              <Route path="/dashboardAI" element={<AccountInquiry />} />
               <Route path="/upload" element={<Upload />} />
-              <Route path="/dashboardMC" element={<HomeMC />} />
-              <Route path="/dashboardSD" element={<HomeSD />} />
+              <Route path="/dashboardMC" element={<MapCenter />} />
+              <Route path="/dashboardSD" element={<SuplierDiversity />} />
               <Route path="/faqView" element={<FAQView />} />
-              <Route path="/notification" element={<AnnouncementView />} />
+              <Route path="/notification" element={<AnnouncementCenter />} />
               <Route path="/pipelinedelivery" element={<PipelineDelivery />} />
               <Route path="/nominationPipeline" element={<PipelineNomination />} />
               <Route path="/nominationGroup" element={<GroupNomination />} />
-              <Route path="/byInterruptible" element={<Interruptible />} />
               <Route path="/customer" element={<Customer />} />
+              <Route path="/byfirm" element={<Firm/>} />
+              <Route path="/byInterruptible" element={<Interruptible/>} />
+              <Route path="/FileHub" element={<FileHub/>} />
+              <Route path="/Reports" element={<Reports/>} />
+              <Route path="/customerDetails" element={<Customers/>}/>
+              <Route path="/activityLog/:portalID" element={<ActivityList/>}/>
             </Route>
             {/* public */}
             <Route path="/*" element={<LoginLayout isAuthenticated={isAuthenticated} />} />

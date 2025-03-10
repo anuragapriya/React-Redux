@@ -59,7 +59,7 @@ function createExtraActions() {
             `${name}/filter`,
             async (data, { rejectWithValue }) => { 
                 try {
-                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/nominationFilter`,{Data: data}));
+                    const response = await trackPromise(fetchWrapper.post(`${baseUrl}/nominationFilter`, data));
                     return response;
                 } catch (error) {
                     return rejectWithValue(error);

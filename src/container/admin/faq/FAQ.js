@@ -86,7 +86,7 @@ const FAQ = () => {
             }
             resetAllValues();
             handleRefresh();
-            dispatch(alertActions.success({ message: "FAQ published Successfully.", header: header, showAfterRedirect: true }));
+            dispatch(alertActions.success({ message: "FAQ created successfully", header: header, showAfterRedirect: true }));
         } catch (error) {
             dispatch(alertActions.error({ message: error?.message || error, header: "Fetch Failed" }));
         }

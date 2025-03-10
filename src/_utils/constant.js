@@ -849,6 +849,10 @@ export const supplierSupportedFormat = ['.jpg', '.png', '.docx', '.pdf']
 
 export const supportSupportedFormat = ['.jpg', '.png', '.docx', '.pdf']
 
+export const announcementFormat=['.jpg', '.png', '.docx', '.pdf','.xls','.xlsx','.txt','.zip','.csv']
+
+export const firmSupportedFormat = ['.xls', '.xlsx']
+
 export const registerMapCenter =
 {
   "Data": {
@@ -2147,75 +2151,3872 @@ export const pipelineGuideData = {
 }
 
 export const getNominationPipeline = {
-  Data: {
-    NominationData: {
-      PipelineID: 1,
-      PipelineName: "Columbia",
-      CompanyId: 173,
-      ContractData: [
+  "Succeeded": true,
+  "Message": null,
+  "Errors": null,
+  "Data": {
+    "NominationData": {
+      "PipelineID": 101,
+      "PipelineName": "Columbia",
+      "CompanyId": 173,
+      "ContractData": [
         {
-          ContractID: 1,
-          ContractName: "Contract1",
-          ContractDetails: [
+          "ContractID": 3934,
+          "ContractDetails": [
             {
-              ContractDate: "2025-02-17T08:44:00.38",
-              ContractValue: "1000"
+              "ContractDate": "2025-02-13T00:00:00",
+              "ContractValue": "500"
             },
             {
-              ContractDate: "2025-02-18T08:44:00.38",
-              ContractValue: "1000"
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
             },
             {
-              ContractDate: "2025-02-19T08:44:00.38",
-              ContractValue: "1000"
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
             },
             {
-              ContractDate: "2025-02-20T08:44:00.38",
-              ContractValue: "1000"
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "700"
+            },
+            {
+              "ContractDate": "2025-02-02T00:00:00",
+              "ContractValue": "100"
             }
           ]
         },
         {
-          ContractID: 2,
-          ContractName: "Contract",
-          ContractDetails: [
+          "ContractID": 86149,
+          "ContractDetails": [
             {
-              ContractDate: "2025-02-17T08:44:00.38",
-              ContractValue: "1000"
-            },
-            {
-              ContractDate: "2025-02-18T08:44:00.38",
-              ContractValue: "1000"
-            },
-            {
-              ContractDate: "2025-02-19T08:44:00.38",
-              ContractValue: "1000"
-            },
-            {
-              ContractDate: "2025-02-20T08:44:00.38",
-              ContractValue: "1000"
+              "ContractDate": "2025-02-01T00:00:00",
+              "ContractValue": "40"
             }
           ]
-        }
-      ]
-    },
-    PipelineData: [
-      {
-        PipelineID: 1,
-        PipelineName: "Covept"
+        },
+        {
+          "ContractID": 1234,
+          "ContractDetails": [
+            {
+              "ContractDate": "2025-02-13T00:00:00",
+              "ContractValue": "500"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "700"
+            },
+            {
+              "ContractDate": "2025-02-02T00:00:00",
+              "ContractValue": "100"
+            }
+          ]
+        },
+        {
+          "ContractID": 3456,
+          "ContractDetails": [
+            {
+              "ContractDate": "2025-02-13T00:00:00",
+              "ContractValue": "500"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "700"
+            },
+            {
+              "ContractDate": "2025-02-02T00:00:00",
+              "ContractValue": "100"
+            }
+          ]
+        },
+        {
+          "ContractID": 7890,
+          "ContractDetails": [
+            {
+              "ContractDate": "2025-02-13T00:00:00",
+              "ContractValue": "500"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "700"
+            },
+            {
+              "ContractDate": "2025-02-02T00:00:00",
+              "ContractValue": "100"
+            }
+          ]
+        },
+        {
+          "ContractID": 4567,
+          "ContractDetails": [
+            {
+              "ContractDate": "2025-02-13T00:00:00",
+              "ContractValue": "500"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "600"
+            },
+            {
+              "ContractDate": "2025-02-14T00:00:00",
+              "ContractValue": "700"
+            },
+            {
+              "ContractDate": "2025-02-02T00:00:00",
+              "ContractValue": "100"
+            }
+          ]
+        },
+      ],
+      "TotalPipelineData": {
+        "ContractName": "Columbia",
+        "ContractDetails": [
+          {
+            "ContractDate": "2025-02-01T00:00:00",
+            "ContractValue": "40"
+          },
+          {
+            "ContractDate": "2025-02-02T00:00:00",
+            "ContractValue": "100"
+          },
+          {
+            "ContractDate": "2025-02-13T00:00:00",
+            "ContractValue": "500"
+          },
+          {
+            "ContractDate": "2025-02-14T00:00:00",
+            "ContractValue": "1900" 
+          }
+        ]
       },
+      "TotalAllPipelineData": {
+        "ContractName": "Pipeline",
+        "ContractDetails": [
+          {
+            "ContractDate": "2025-02-01T00:00:00",
+            "ContractValue": "40"
+          },
+          {
+            "ContractDate": "2025-02-02T00:00:00",
+            "ContractValue": "100"
+          },
+          {
+            "ContractDate": "2025-02-13T00:00:00",
+            "ContractValue": "500"
+          },
+          {
+            "ContractDate": "2025-02-14T00:00:00",
+            "ContractValue": "1900" //total of all contracts for the pipeline Columbia for the month of February 14th 600+600+700
+          }
+        ]
+      },
+      "TotalGroupData": {
+        "ContractName": "Group",
+        "ContractDetails": []
+      }
+    },
+    "PipelineData": [
       {
-        PipelineID: 2,
-        PipelineName: "TransCo"
+        "PipelineID": 101,
+        "Name": "Columbia"
+      }
+    ],
+    "MarketerData": [
+      {
+        "MarketerID": 173,
+        "MarketerName": "Amerada Hess Corp"
       }
     ]
   }
 }
 
-export const getByInterruptible =
-{
-  Data: [
-    { GroupID: 1, MarkerterID: 1, MarketerName: 'Marketer 1', firmGroupName: 'Group 1', imbalanceAtFOM: 10, nominations: 20, usage: 30, adjustments: 5, drv: 2, imbalanceAtEOM: 15, thresholdVolume: 100, outsideThresholdVolume: 10, comments: 'Comment 1' },
-    { GroupID: 2, MarkerterID: 1, MarketerName: 'Marketer 1', firmGroupName: 'Group 2', imbalanceAtFOM: 10, nominations: 20, usage: 30, adjustments: 5, drv: 2, imbalanceAtEOM: 15, thresholdVolume: 100, outsideThresholdVolume: 10, comments: 'Comment 1' },
+export const getByInterruptible ={
+  "Succeeded": true,
+  "Message": null,
+  "Errors": null,
+  "Data": {
+    "InterruptibleData": [
+      {
+        "AllocationGroupID": 743,
+        "CompanyID": 100914,
+        "CompanyName": "NRG Business Market,LLC - 145",
+        "AllocationGroup": "HEM MD IP",
+        "EffectiveDate": "2024-12-01T00:00:00",
+        "EndDate": "2024-12-31T00:00:00",
+        "PreviousBalanceFirm": 0,
+        "PreviousBalanceInterruptible": -7630,
+        "CashOutAdjustmentAmount": 0,
+        "ImbalanceAdjustedVolume": 0,
+        "DailyRequiredVolume": 0,
+        "ShipmentMonth": "2024-12-01T00:00:00",
+        "TotalForecastImbal": 0,
+        "TotalNominationAllocations": 0,
+        "TotalUsage": 508,
+        "ThresholdValue": 76,
+        "MonthEndImbalanceInterruptible": -8138,
+        "MonthEndImbalanceFirm": -7630,
+        "OutsideThresholdAmount": -8062
+      }
+    ],
+    "Marketers": [
+      {
+        "MarketerID": 101,
+        "MarketerName": "Washington Gas"
+      },
+      {
+        "MarketerID": 103,
+        "MarketerName": "Constellation Energy Source"
+      },
+      {
+        "MarketerID": 134,
+        "MarketerName": "UGI Energy Services - 33"
+      },
+      {
+        "MarketerID": 136,
+        "MarketerName": "WGL Energy Svcs - 35"
+      },
+      {
+        "MarketerID": 161,
+        "MarketerName": "Colonial Energy"
+      },
+      {
+        "MarketerID": 177,
+        "MarketerName": "NOVEC Energy Solutions – 76"
+      },
+      {
+        "MarketerID": 179,
+        "MarketerName": "Sprague Op Res LLC - 78"
+      },
+      {
+        "MarketerID": 182,
+        "MarketerName": "Bollinger Energy"
+      },
+      {
+        "MarketerID": 203,
+        "MarketerName": "Sprague Op Res LLC - 102"
+      },
+      {
+        "MarketerID": 204,
+        "MarketerName": "Gateway Energy Services"
+      },
+      {
+        "MarketerID": 205,
+        "MarketerName": "Stand Energy"
+      },
+      {
+        "MarketerID": 210,
+        "MarketerName": "A-Advantage Heating & A/C, Inc."
+      },
+      {
+        "MarketerID": 211,
+        "MarketerName": "Argent Heating & Cooling, LLC"
+      },
+      {
+        "MarketerID": 212,
+        "MarketerName": "ARS of MD d/b/a John C. Dorsey"
+      },
+      {
+        "MarketerID": 213,
+        "MarketerName": "R. A. Dobson, Inc."
+      },
+      {
+        "MarketerID": 214,
+        "MarketerName": "Home Appliance Repair"
+      },
+      {
+        "MarketerID": 215,
+        "MarketerName": "JED Mechanical"
+      },
+      {
+        "MarketerID": 216,
+        "MarketerName": "Jiffy Plumbing and Heating, Inc."
+      },
+      {
+        "MarketerID": 217,
+        "MarketerName": "Mindte Heating & A/C"
+      },
+      {
+        "MarketerID": 218,
+        "MarketerName": "Moran's Refrigeration Service"
+      },
+      {
+        "MarketerID": 219,
+        "MarketerName": "My Plumber"
+      },
+      {
+        "MarketerID": 220,
+        "MarketerName": "A-One Air, Inc."
+      },
+      {
+        "MarketerID": 221,
+        "MarketerName": "All-Pro Services, Inc."
+      },
+      {
+        "MarketerID": 222,
+        "MarketerName": "Brennan's Heating & A/C Service"
+      },
+      {
+        "MarketerID": 223,
+        "MarketerName": "Central Services, Inc."
+      },
+      {
+        "MarketerID": 224,
+        "MarketerName": "Mann-In, Inc."
+      },
+      {
+        "MarketerID": 226,
+        "MarketerName": "Spartan Plumbing, Heating"
+      },
+      {
+        "MarketerID": 227,
+        "MarketerName": "Utility Service Express"
+      },
+      {
+        "MarketerID": 228,
+        "MarketerName": "Cropp-Metcalfe"
+      },
+      {
+        "MarketerID": 229,
+        "MarketerName": "John C. Flood"
+      },
+      {
+        "MarketerID": 230,
+        "MarketerName": "S. J. Burdick, Inc."
+      },
+      {
+        "MarketerID": 231,
+        "MarketerName": "Featherstone A/C & Heating, Inc."
+      },
+      {
+        "MarketerID": 232,
+        "MarketerName": "Foley Mechanical"
+      },
+      {
+        "MarketerID": 233,
+        "MarketerName": "Jim's Inc. (Plumbing & Heating)"
+      },
+      {
+        "MarketerID": 234,
+        "MarketerName": "Jolles Brothers, Inc."
+      },
+      {
+        "MarketerID": 235,
+        "MarketerName": "Jones-Rogers, Inc."
+      },
+      {
+        "MarketerID": 236,
+        "MarketerName": "M & M Mechanical, Inc."
+      },
+      {
+        "MarketerID": 237,
+        "MarketerName": "Pope's Heating & A/C Service"
+      },
+      {
+        "MarketerID": 238,
+        "MarketerName": "Air Pro Heating and A/C, Inc."
+      },
+      {
+        "MarketerID": 239,
+        "MarketerName": "John C. Flood, Inc. of Va."
+      },
+      {
+        "MarketerID": 240,
+        "MarketerName": "C. B. Lucas Co., Inc."
+      },
+      {
+        "MarketerID": 241,
+        "MarketerName": "Robinsons Air Cond. & Htg."
+      },
+      {
+        "MarketerID": 242,
+        "MarketerName": "Vernon Heating & A/C"
+      },
+      {
+        "MarketerID": 243,
+        "MarketerName": "Woodbridge Plumbing, Inc."
+      },
+      {
+        "MarketerID": 244,
+        "MarketerName": "Ace A/C & Heating Co."
+      },
+      {
+        "MarketerID": 245,
+        "MarketerName": "Hamby Services Corp."
+      },
+      {
+        "MarketerID": 246,
+        "MarketerName": "Combustioneer Corp."
+      },
+      {
+        "MarketerID": 247,
+        "MarketerName": "Northstar Heating & A/C, Inc."
+      },
+      {
+        "MarketerID": 248,
+        "MarketerName": "Airon, Inc."
+      },
+      {
+        "MarketerID": 249,
+        "MarketerName": "Airflow Service Company"
+      },
+      {
+        "MarketerID": 250,
+        "MarketerName": "Bowman's Heating & Air Cond."
+      },
+      {
+        "MarketerID": 251,
+        "MarketerName": "Cyprus Heating & A/C, Inc."
+      },
+      {
+        "MarketerID": 252,
+        "MarketerName": "M.E. Flow, Inc."
+      },
+      {
+        "MarketerID": 253,
+        "MarketerName": "RAM Company Heating & A/C, Inc."
+      },
+      {
+        "MarketerID": 254,
+        "MarketerName": "Richards' Air Cond. Co., Inc."
+      },
+      {
+        "MarketerID": 255,
+        "MarketerName": "Service Specialties, Inc."
+      },
+      {
+        "MarketerID": 256,
+        "MarketerName": "Silver Spring A/C & Heating Co."
+      },
+      {
+        "MarketerID": 257,
+        "MarketerName": "David Snell & Son, Inc."
+      },
+      {
+        "MarketerID": 259,
+        "MarketerName": "Parrish Services"
+      },
+      {
+        "MarketerID": 260,
+        "MarketerName": "Aaron Gas Solutions"
+      },
+      {
+        "MarketerID": 263,
+        "MarketerName": "A-1 Heating & A/C"
+      },
+      {
+        "MarketerID": 266,
+        "MarketerName": "A-Annandale Plumbing"
+      },
+      {
+        "MarketerID": 267,
+        "MarketerName": "Air Distribution Co. Inc. (Adco)"
+      },
+      {
+        "MarketerID": 268,
+        "MarketerName": "Capitol Services Plumbing"
+      },
+      {
+        "MarketerID": 270,
+        "MarketerName": "C. L. Hibbard Plumbing"
+      },
+      {
+        "MarketerID": 271,
+        "MarketerName": "Wachter & Norwood"
+      },
+      {
+        "MarketerID": 272,
+        "MarketerName": "Sanford Kramer Plumbing & Heatin"
+      },
+      {
+        "MarketerID": 273,
+        "MarketerName": "Refrigeration Systems"
+      },
+      {
+        "MarketerID": 274,
+        "MarketerName": "Northern Virginia Heating"
+      },
+      {
+        "MarketerID": 275,
+        "MarketerName": "Nichols & Phipps Plumbing & Heat"
+      },
+      {
+        "MarketerID": 276,
+        "MarketerName": "McCarthy Heating and A/C"
+      },
+      {
+        "MarketerID": 277,
+        "MarketerName": "Leonard-Splaine Co, Inc."
+      },
+      {
+        "MarketerID": 278,
+        "MarketerName": "General Heating/ARS"
+      },
+      {
+        "MarketerID": 279,
+        "MarketerName": "Garneski Air Conditioning & Heat"
+      },
+      {
+        "MarketerID": 280,
+        "MarketerName": "Galaxy Heating & A/C"
+      },
+      {
+        "MarketerID": 281,
+        "MarketerName": "Climate Heating & Cooling"
+      },
+      {
+        "MarketerID": 286,
+        "MarketerName": "Mark's AC"
+      },
+      {
+        "MarketerID": 305,
+        "MarketerName": "D. H. Stevens, Inc."
+      },
+      {
+        "MarketerID": 306,
+        "MarketerName": "Trademasters Service Corp."
+      },
+      {
+        "MarketerID": 307,
+        "MarketerName": "Washington Enterprises1"
+      },
+      {
+        "MarketerID": 308,
+        "MarketerName": "Washington Enterprises"
+      },
+      {
+        "MarketerID": 309,
+        "MarketerName": "John G. Webster Company"
+      },
+      {
+        "MarketerID": 310,
+        "MarketerName": "James A. Wheat & Sons"
+      },
+      {
+        "MarketerID": 311,
+        "MarketerName": "Fry Plumbing and Heating Corp."
+      },
+      {
+        "MarketerID": 312,
+        "MarketerName": "Hawkins Plumbing"
+      },
+      {
+        "MarketerID": 313,
+        "MarketerName": "Krafft Air Conditioning Service "
+      },
+      {
+        "MarketerID": 314,
+        "MarketerName": "3-D Plumbing & Heating, Inc."
+      },
+      {
+        "MarketerID": 315,
+        "MarketerName": "A-Wayne's Heating and Cooling"
+      },
+      {
+        "MarketerID": 316,
+        "MarketerName": "Kensington Heating & Cooling"
+      },
+      {
+        "MarketerID": 325,
+        "MarketerName": "United Air Temp"
+      },
+      {
+        "MarketerID": 326,
+        "MarketerName": "Constellation New Energy"
+      },
+      {
+        "MarketerID": 385,
+        "MarketerName": "Home Air"
+      },
+      {
+        "MarketerID": 433,
+        "MarketerName": "Stehle Engineering Corp"
+      },
+      {
+        "MarketerID": 434,
+        "MarketerName": "Rodgers Consulting"
+      },
+      {
+        "MarketerID": 435,
+        "MarketerName": "Constellation Design Group, Inc"
+      },
+      {
+        "MarketerID": 437,
+        "MarketerName": "A. Morton Thomas and Associates"
+      },
+      {
+        "MarketerID": 438,
+        "MarketerName": "Inframap"
+      },
+      {
+        "MarketerID": 439,
+        "MarketerName": "Control Point Associates, Inc"
+      },
+      {
+        "MarketerID": 440,
+        "MarketerName": "Loiederman Soltesz Associates"
+      },
+      {
+        "MarketerID": 445,
+        "MarketerName": "Bolton-Latham,LLC."
+      },
+      {
+        "MarketerID": 446,
+        "MarketerName": "Macris,hendricks & Glascock P.A."
+      },
+      {
+        "MarketerID": 447,
+        "MarketerName": "The Wilson T. Ballard Company"
+      },
+      {
+        "MarketerID": 465,
+        "MarketerName": "R.C. Fields, Jr. & Associates"
+      },
+      {
+        "MarketerID": 466,
+        "MarketerName": "VIKA, Inc"
+      },
+      {
+        "MarketerID": 467,
+        "MarketerName": "Earth Tech, Inc."
+      },
+      {
+        "MarketerID": 468,
+        "MarketerName": "Christopher Consultants, Ltd"
+      },
+      {
+        "MarketerID": 469,
+        "MarketerName": "Mid-Atlantic Utility Locating "
+      },
+      {
+        "MarketerID": 470,
+        "MarketerName": "Washington Gas Co."
+      },
+      {
+        "MarketerID": 471,
+        "MarketerName": "Town of Leesburg, VA"
+      },
+      {
+        "MarketerID": 485,
+        "MarketerName": "CAS Engineering"
+      },
+      {
+        "MarketerID": 486,
+        "MarketerName": "VSA Construction Services, LLC"
+      },
+      {
+        "MarketerID": 487,
+        "MarketerName": "VIKA"
+      },
+      {
+        "MarketerID": 488,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 505,
+        "MarketerName": "Patton, Harris, Rust & Associate"
+      },
+      {
+        "MarketerID": 525,
+        "MarketerName": "Baker and Associates"
+      },
+      {
+        "MarketerID": 545,
+        "MarketerName": "National Cable Construction, Inc"
+      },
+      {
+        "MarketerID": 565,
+        "MarketerName": "christopher consultants, ltd."
+      },
+      {
+        "MarketerID": 566,
+        "MarketerName": "century eng"
+      },
+      {
+        "MarketerID": 567,
+        "MarketerName": "Wiles Mensch Corporation"
+      },
+      {
+        "MarketerID": 585,
+        "MarketerName": "Rodger's consulting"
+      },
+      {
+        "MarketerID": 586,
+        "MarketerName": "RODGERS CONSULTING, INC."
+      },
+      {
+        "MarketerID": 587,
+        "MarketerName": "tbe group"
+      },
+      {
+        "MarketerID": 588,
+        "MarketerName": "Mercado Consultants, Inc."
+      },
+      {
+        "MarketerID": 589,
+        "MarketerName": "Control Point Associates, Inc."
+      },
+      {
+        "MarketerID": 590,
+        "MarketerName": "Bolton & Associates LLC"
+      },
+      {
+        "MarketerID": 591,
+        "MarketerName": "VIKA, Inc, Attn:Ms J.J. Mashburn"
+      },
+      {
+        "MarketerID": 592,
+        "MarketerName": "The Tech Group, Inc."
+      },
+      {
+        "MarketerID": 593,
+        "MarketerName": "the techgroup, inc"
+      },
+      {
+        "MarketerID": 594,
+        "MarketerName": "THE TECH GROUP, INC"
+      },
+      {
+        "MarketerID": 595,
+        "MarketerName": "Johnson, Mirmiran & Thompson"
+      },
+      {
+        "MarketerID": 605,
+        "MarketerName": "Cervantes & Associates, P.C."
+      },
+      {
+        "MarketerID": 606,
+        "MarketerName": "Wiley & Wilson, Inc."
+      },
+      {
+        "MarketerID": 625,
+        "MarketerName": "Fibernet Construction, LLC "
+      },
+      {
+        "MarketerID": 626,
+        "MarketerName": "PEPCO"
+      },
+      {
+        "MarketerID": 645,
+        "MarketerName": "Dewberry and Davis, LLC"
+      },
+      {
+        "MarketerID": 646,
+        "MarketerName": "Arlington County DES"
+      },
+      {
+        "MarketerID": 665,
+        "MarketerName": "Fairfax County, DPWES"
+      },
+      {
+        "MarketerID": 685,
+        "MarketerName": "Delon Hampton & Associates"
+      },
+      {
+        "MarketerID": 705,
+        "MarketerName": "So-Deep, Inc."
+      },
+      {
+        "MarketerID": 725,
+        "MarketerName": "So Deep Inc."
+      },
+      {
+        "MarketerID": 726,
+        "MarketerName": "So Deep, Inc."
+      },
+      {
+        "MarketerID": 727,
+        "MarketerName": "Whitney, Bailey, Cox & Magnani "
+      },
+      {
+        "MarketerID": 745,
+        "MarketerName": "Accurate Infrastructure Data Inc"
+      },
+      {
+        "MarketerID": 765,
+        "MarketerName": "Capitol Engineers, P.C."
+      },
+      {
+        "MarketerID": 785,
+        "MarketerName": "the Engineering Groupe, Inc."
+      },
+      {
+        "MarketerID": 786,
+        "MarketerName": "Maddox Engineers & Surveyors"
+      },
+      {
+        "MarketerID": 787,
+        "MarketerName": "dominion surveyors inc."
+      },
+      {
+        "MarketerID": 788,
+        "MarketerName": "EBA Engineering Inc."
+      },
+      {
+        "MarketerID": 789,
+        "MarketerName": "William H. Gordon Associates"
+      },
+      {
+        "MarketerID": 790,
+        "MarketerName": "VIKA, Incorporated"
+      },
+      {
+        "MarketerID": 791,
+        "MarketerName": "Legion Design/Campbell & Assoc."
+      },
+      {
+        "MarketerID": 792,
+        "MarketerName": "Design/Build Concepts, Ltd."
+      },
+      {
+        "MarketerID": 805,
+        "MarketerName": "Dewberry"
+      },
+      {
+        "MarketerID": 825,
+        "MarketerName": "KCI"
+      },
+      {
+        "MarketerID": 826,
+        "MarketerName": "KCW ENGINEERING TECHNOLOGIES,INC"
+      },
+      {
+        "MarketerID": 827,
+        "MarketerName": "kcw wngineering tec."
+      },
+      {
+        "MarketerID": 828,
+        "MarketerName": "FAIRFAX WATER"
+      },
+      {
+        "MarketerID": 829,
+        "MarketerName": "Adtek Engineers, Inc"
+      },
+      {
+        "MarketerID": 830,
+        "MarketerName": "fairfax county water"
+      },
+      {
+        "MarketerID": 831,
+        "MarketerName": "KCI Technologies, Inc."
+      },
+      {
+        "MarketerID": 832,
+        "MarketerName": "Landmark Engineering, Inc."
+      },
+      {
+        "MarketerID": 833,
+        "MarketerName": "Fairfax County Water Authority"
+      },
+      {
+        "MarketerID": 834,
+        "MarketerName": "Vika Inc."
+      },
+      {
+        "MarketerID": 835,
+        "MarketerName": "KCI Technologies"
+      },
+      {
+        "MarketerID": 846,
+        "MarketerName": "Loudoun County"
+      },
+      {
+        "MarketerID": 866,
+        "MarketerName": "Fairfax Water"
+      },
+      {
+        "MarketerID": 886,
+        "MarketerName": "Burgess & Niple"
+      },
+      {
+        "MarketerID": 906,
+        "MarketerName": "Gutschick, Little & Weber, PA"
+      },
+      {
+        "MarketerID": 907,
+        "MarketerName": "Dulles Transit Engineers, JV"
+      },
+      {
+        "MarketerID": 908,
+        "MarketerName": "Gutschick Little & Weber"
+      },
+      {
+        "MarketerID": 910,
+        "MarketerName": "Delon Hampton and Associates"
+      },
+      {
+        "MarketerID": 926,
+        "MarketerName": "Richter & Associates"
+      },
+      {
+        "MarketerID": 946,
+        "MarketerName": "Clark Pinnacle"
+      },
+      {
+        "MarketerID": 947,
+        "MarketerName": "JMT Engineering"
+      },
+      {
+        "MarketerID": 949,
+        "MarketerName": "Marlboro Engineering Cons., Inc."
+      },
+      {
+        "MarketerID": 950,
+        "MarketerName": "CAPITOL DEVELOPMENT DESIGN"
+      },
+      {
+        "MarketerID": 951,
+        "MarketerName": "Woolpert, Inc."
+      },
+      {
+        "MarketerID": 952,
+        "MarketerName": "Charles P. Johnson & Associates"
+      },
+      {
+        "MarketerID": 953,
+        "MarketerName": "Adtek Engineers, Inc."
+      },
+      {
+        "MarketerID": 954,
+        "MarketerName": "Land Design Consultants"
+      },
+      {
+        "MarketerID": 967,
+        "MarketerName": "Capitol Development Design Inc."
+      },
+      {
+        "MarketerID": 968,
+        "MarketerName": "Capitol Development Design, inc."
+      },
+      {
+        "MarketerID": 969,
+        "MarketerName": "ECC"
+      },
+      {
+        "MarketerID": 970,
+        "MarketerName": "Ben Dyer Associates, Inc."
+      },
+      {
+        "MarketerID": 971,
+        "MarketerName": "Clark Realty Capital, L.L.C."
+      },
+      {
+        "MarketerID": 972,
+        "MarketerName": "metcalf & eddy"
+      },
+      {
+        "MarketerID": 987,
+        "MarketerName": "C.C. Johnson & Malhotra, P.C."
+      },
+      {
+        "MarketerID": 988,
+        "MarketerName": "Infrasource(Mid Atlantic Pipelin"
+      },
+      {
+        "MarketerID": 989,
+        "MarketerName": "Rummel, Klepper & Kahl, LLP"
+      },
+      {
+        "MarketerID": 990,
+        "MarketerName": "PEPCO / Henkels & McCoy"
+      },
+      {
+        "MarketerID": 1007,
+        "MarketerName": "URS Corporation"
+      },
+      {
+        "MarketerID": 1008,
+        "MarketerName": "Patton Harris Rust & Associates"
+      },
+      {
+        "MarketerID": 1009,
+        "MarketerName": "Greenhorne & O'Mara"
+      },
+      {
+        "MarketerID": 1010,
+        "MarketerName": "BOWMAN CONSULTING"
+      },
+      {
+        "MarketerID": 1027,
+        "MarketerName": "Greenman-Pedersen, Inc."
+      },
+      {
+        "MarketerID": 1028,
+        "MarketerName": "DEWBERRY"
+      },
+      {
+        "MarketerID": 1047,
+        "MarketerName": "Pepco"
+      },
+      {
+        "MarketerID": 1048,
+        "MarketerName": "DCWASA"
+      },
+      {
+        "MarketerID": 1049,
+        "MarketerName": "D.C. Water & Sewer Authority"
+      },
+      {
+        "MarketerID": 1050,
+        "MarketerName": "DC WASA"
+      },
+      {
+        "MarketerID": 1067,
+        "MarketerName": "Water and Sewer Authority"
+      },
+      {
+        "MarketerID": 1090,
+        "MarketerName": "Capitol Recovery Services"
+      },
+      {
+        "MarketerID": 1110,
+        "MarketerName": "Morris & Ritchie Associates, Inc"
+      },
+      {
+        "MarketerID": 1148,
+        "MarketerName": "McKissack and Mckissack"
+      },
+      {
+        "MarketerID": 1168,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 1190,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 1207,
+        "MarketerName": "Adtek Engineers"
+      },
+      {
+        "MarketerID": 1227,
+        "MarketerName": "Huron Consulting"
+      },
+      {
+        "MarketerID": 1228,
+        "MarketerName": "Bolton and Associates, LLC"
+      },
+      {
+        "MarketerID": 1229,
+        "MarketerName": "Prince George's County, Maryland"
+      },
+      {
+        "MarketerID": 1247,
+        "MarketerName": "ADTEK"
+      },
+      {
+        "MarketerID": 1267,
+        "MarketerName": "Meridian Surveys"
+      },
+      {
+        "MarketerID": 1268,
+        "MarketerName": "Johnson Mirmiran and Thompson In"
+      },
+      {
+        "MarketerID": 1269,
+        "MarketerName": "Sheladia Associates Inc"
+      },
+      {
+        "MarketerID": 1270,
+        "MarketerName": "Washington Suburban Sanitary Commission"
+      },
+      {
+        "MarketerID": 1271,
+        "MarketerName": "WSSC"
+      },
+      {
+        "MarketerID": 1288,
+        "MarketerName": "Rinker Design Associates"
+      },
+      {
+        "MarketerID": 1289,
+        "MarketerName": "LR Engineering, LLC"
+      },
+      {
+        "MarketerID": 1308,
+        "MarketerName": "Michael Baker Jr"
+      },
+      {
+        "MarketerID": 1309,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 1368,
+        "MarketerName": "Bromley's Utility Consulting Svc"
+      },
+      {
+        "MarketerID": 1369,
+        "MarketerName": "William H. Gordon Assoc., Inc."
+      },
+      {
+        "MarketerID": 1391,
+        "MarketerName": "URS Corp."
+      },
+      {
+        "MarketerID": 1408,
+        "MarketerName": "CLARK NEXSEN"
+      },
+      {
+        "MarketerID": 1428,
+        "MarketerName": "George Mason University"
+      },
+      {
+        "MarketerID": 1429,
+        "MarketerName": "Morris & Ritchie Associates"
+      },
+      {
+        "MarketerID": 1448,
+        "MarketerName": "AB Consultants Inc."
+      },
+      {
+        "MarketerID": 1449,
+        "MarketerName": "AECOM Technical Services, Inc"
+      },
+      {
+        "MarketerID": 1488,
+        "MarketerName": "Washington Suburban Sanit Comm"
+      },
+      {
+        "MarketerID": 1508,
+        "MarketerName": "AULtec Inc."
+      },
+      {
+        "MarketerID": 1509,
+        "MarketerName": "CH2M HILL INC"
+      },
+      {
+        "MarketerID": 1510,
+        "MarketerName": "BRUDIS AND ASSOCIATES INC."
+      },
+      {
+        "MarketerID": 1528,
+        "MarketerName": "Walter L. Phillips Inc."
+      },
+      {
+        "MarketerID": 1548,
+        "MarketerName": "A. Morton Thomas & Associates"
+      },
+      {
+        "MarketerID": 1549,
+        "MarketerName": "BURGESS & NIPLE, INC."
+      },
+      {
+        "MarketerID": 1568,
+        "MarketerName": "Paciulli, Simmons & Associates"
+      },
+      {
+        "MarketerID": 1588,
+        "MarketerName": "Precision Surveying and Consulti"
+      },
+      {
+        "MarketerID": 1589,
+        "MarketerName": "Volkert Engineering PC"
+      },
+      {
+        "MarketerID": 1608,
+        "MarketerName": "Naval Facilities"
+      },
+      {
+        "MarketerID": 1628,
+        "MarketerName": "West Consulting Group LLC"
+      },
+      {
+        "MarketerID": 1629,
+        "MarketerName": "USDA-10300 Baltimore Ave"
+      },
+      {
+        "MarketerID": 1648,
+        "MarketerName": "Urban Ltd."
+      },
+      {
+        "MarketerID": 1668,
+        "MarketerName": "PG Associates, Inc."
+      },
+      {
+        "MarketerID": 1688,
+        "MarketerName": "MONTGOMERY COUNTY, MARYLAND"
+      },
+      {
+        "MarketerID": 1689,
+        "MarketerName": "Montgomery County Government"
+      },
+      {
+        "MarketerID": 1708,
+        "MarketerName": "Metropolitan Comm. Group"
+      },
+      {
+        "MarketerID": 1748,
+        "MarketerName": "michael belisle design"
+      },
+      {
+        "MarketerID": 1768,
+        "MarketerName": "Charles P.Johnson & Assoc."
+      },
+      {
+        "MarketerID": 1808,
+        "MarketerName": "MACRIS, HENDRICKS & GLASCOCK, P."
+      },
+      {
+        "MarketerID": 1828,
+        "MarketerName": "William H. Gordon Associates, In"
+      },
+      {
+        "MarketerID": 1849,
+        "MarketerName": "Maddox Engineers and Surveyors"
+      },
+      {
+        "MarketerID": 1868,
+        "MarketerName": "William H Gordon Associates"
+      },
+      {
+        "MarketerID": 1888,
+        "MarketerName": "PHRA "
+      },
+      {
+        "MarketerID": 1908,
+        "MarketerName": "utility locating service inc"
+      },
+      {
+        "MarketerID": 1910,
+        "MarketerName": "Bowman"
+      },
+      {
+        "MarketerID": 1928,
+        "MarketerName": "Qwest Government Services, Inc."
+      },
+      {
+        "MarketerID": 1929,
+        "MarketerName": "HNTB"
+      },
+      {
+        "MarketerID": 1948,
+        "MarketerName": "Landesign, Inc."
+      },
+      {
+        "MarketerID": 1968,
+        "MarketerName": "Montgomery County"
+      },
+      {
+        "MarketerID": 1988,
+        "MarketerName": "Tenacity Group"
+      },
+      {
+        "MarketerID": 1989,
+        "MarketerName": "FBRC, LLC"
+      },
+      {
+        "MarketerID": 2008,
+        "MarketerName": "damian@utilitysystems.com"
+      },
+      {
+        "MarketerID": 2029,
+        "MarketerName": "Daniel Consultants, Inc"
+      },
+      {
+        "MarketerID": 2048,
+        "MarketerName": "Patton, Harris, Rust & Assoc, pc"
+      },
+      {
+        "MarketerID": 2068,
+        "MarketerName": "Michael Baker Jr., Inc."
+      },
+      {
+        "MarketerID": 2088,
+        "MarketerName": "B. Frank Joy, LLC"
+      },
+      {
+        "MarketerID": 2108,
+        "MarketerName": "Gulick Group Land Resources"
+      },
+      {
+        "MarketerID": 2128,
+        "MarketerName": "Shell Energy"
+      },
+      {
+        "MarketerID": 2208,
+        "MarketerName": "Precision Systems, Inc"
+      },
+      {
+        "MarketerID": 2228,
+        "MarketerName": "ADTEK ENGINEERS"
+      },
+      {
+        "MarketerID": 2248,
+        "MarketerName": "Associates Plumbing, Inc."
+      },
+      {
+        "MarketerID": 2249,
+        "MarketerName": "Dewberry & Davis "
+      },
+      {
+        "MarketerID": 2268,
+        "MarketerName": "Woolpert"
+      },
+      {
+        "MarketerID": 2288,
+        "MarketerName": "Bernard F. Locraft Civil Engineers"
+      },
+      {
+        "MarketerID": 2308,
+        "MarketerName": "drs development, llc"
+      },
+      {
+        "MarketerID": 2348,
+        "MarketerName": "Wallace Montgomery"
+      },
+      {
+        "MarketerID": 2368,
+        "MarketerName": "Taylor Wiseman Taylor"
+      },
+      {
+        "MarketerID": 2431,
+        "MarketerName": "Utility Professional Services In"
+      },
+      {
+        "MarketerID": 2443,
+        "MarketerName": "CDM"
+      },
+      {
+        "MarketerID": 2446,
+        "MarketerName": "Macris Hendricks and Glascock P."
+      },
+      {
+        "MarketerID": 2468,
+        "MarketerName": "Berman Enterprises, LP"
+      },
+      {
+        "MarketerID": 2477,
+        "MarketerName": "O Brien and Gere Engineers Inc"
+      },
+      {
+        "MarketerID": 2535,
+        "MarketerName": "Bohler Engineering"
+      },
+      {
+        "MarketerID": 2584,
+        "MarketerName": "O'Brien and Gere"
+      },
+      {
+        "MarketerID": 2594,
+        "MarketerName": "Washington Gas"
+      },
+      {
+        "MarketerID": 2652,
+        "MarketerName": "macris,hendricks & glascock, p.a"
+      },
+      {
+        "MarketerID": 2726,
+        "MarketerName": "Baltimore Gas & Electric"
+      },
+      {
+        "MarketerID": 2776,
+        "MarketerName": "Engineering and Environment Inc."
+      },
+      {
+        "MarketerID": 3019,
+        "MarketerName": "Trammell Crow Company"
+      },
+      {
+        "MarketerID": 3020,
+        "MarketerName": "Joe Jackson Associates, P.C."
+      },
+      {
+        "MarketerID": 3023,
+        "MarketerName": "Rummel Klepper and Kahl LLP"
+      },
+      {
+        "MarketerID": 3029,
+        "MarketerName": "Rummel, Klepper & Khal,LLP"
+      },
+      {
+        "MarketerID": 3030,
+        "MarketerName": "George Mason University"
+      },
+      {
+        "MarketerID": 3068,
+        "MarketerName": "Stantec"
+      },
+      {
+        "MarketerID": 3079,
+        "MarketerName": "Rummel, Klepper & Kahl"
+      },
+      {
+        "MarketerID": 3084,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 3085,
+        "MarketerName": "Greenhorne & O 'Mara"
+      },
+      {
+        "MarketerID": 3088,
+        "MarketerName": "Alexandria Surveys"
+      },
+      {
+        "MarketerID": 3155,
+        "MarketerName": "A. Morton Thomas and Associates"
+      },
+      {
+        "MarketerID": 3170,
+        "MarketerName": "Georgetown University"
+      },
+      {
+        "MarketerID": 3284,
+        "MarketerName": "Tri Tek Engineering"
+      },
+      {
+        "MarketerID": 3381,
+        "MarketerName": "Applied Civil Engineering"
+      },
+      {
+        "MarketerID": 3389,
+        "MarketerName": "Joyce Engineering Corporation"
+      },
+      {
+        "MarketerID": 3397,
+        "MarketerName": "Accumark, Inc."
+      },
+      {
+        "MarketerID": 3521,
+        "MarketerName": "JAS Engineering & Design, LLC"
+      },
+      {
+        "MarketerID": 3695,
+        "MarketerName": "Prince William County"
+      },
+      {
+        "MarketerID": 3730,
+        "MarketerName": "Vogel Engineering +Timmons Group"
+      },
+      {
+        "MarketerID": 3804,
+        "MarketerName": "Greenhorne & O'mara"
+      },
+      {
+        "MarketerID": 4035,
+        "MarketerName": "Archibuild"
+      },
+      {
+        "MarketerID": 4287,
+        "MarketerName": "AB CONSULTANTS, INC."
+      },
+      {
+        "MarketerID": 4291,
+        "MarketerName": "Baltimore Gas and Electric"
+      },
+      {
+        "MarketerID": 4292,
+        "MarketerName": "BGE"
+      },
+      {
+        "MarketerID": 4552,
+        "MarketerName": "RK&K Consulting Engineers, LLP "
+      },
+      {
+        "MarketerID": 4693,
+        "MarketerName": "KCW Engineering Technologies"
+      },
+      {
+        "MarketerID": 4719,
+        "MarketerName": "BC Consultants, Inc."
+      },
+      {
+        "MarketerID": 4744,
+        "MarketerName": "Utilities Search Inc"
+      },
+      {
+        "MarketerID": 4780,
+        "MarketerName": "PHR+A"
+      },
+      {
+        "MarketerID": 5080,
+        "MarketerName": "Wallace, Montgomery & Associates"
+      },
+      {
+        "MarketerID": 5140,
+        "MarketerName": "Pepco"
+      },
+      {
+        "MarketerID": 5444,
+        "MarketerName": "Wallace, Montgomery & Assoc."
+      },
+      {
+        "MarketerID": 5560,
+        "MarketerName": "NAI The Michael Companies"
+      },
+      {
+        "MarketerID": 5701,
+        "MarketerName": "Dominion Surveyors"
+      },
+      {
+        "MarketerID": 5739,
+        "MarketerName": "Michael Baker Jr., Inc"
+      },
+      {
+        "MarketerID": 5904,
+        "MarketerName": "WRA"
+      },
+      {
+        "MarketerID": 6024,
+        "MarketerName": "Dewberry & Davis LLC"
+      },
+      {
+        "MarketerID": 6398,
+        "MarketerName": "O'Connell & Lawrence, Inc."
+      },
+      {
+        "MarketerID": 6424,
+        "MarketerName": "O'Connell & Lawrence, Inc."
+      },
+      {
+        "MarketerID": 6684,
+        "MarketerName": "Jefferson Builders, Inc."
+      },
+      {
+        "MarketerID": 6945,
+        "MarketerName": "CDDI LLC"
+      },
+      {
+        "MarketerID": 7047,
+        "MarketerName": "Montgomery County MD"
+      },
+      {
+        "MarketerID": 7206,
+        "MarketerName": "Capitol Development Design Inc."
+      },
+      {
+        "MarketerID": 7371,
+        "MarketerName": "National Park Service"
+      },
+      {
+        "MarketerID": 7460,
+        "MarketerName": "Whitney Bailey Cox & Magnani,LLC"
+      },
+      {
+        "MarketerID": 7477,
+        "MarketerName": "Patton, Harris, Rust & Assoc"
+      },
+      {
+        "MarketerID": 7485,
+        "MarketerName": "PATTON HARRIS RUST + ASS"
+      },
+      {
+        "MarketerID": 7531,
+        "MarketerName": "CDDI, LLC"
+      },
+      {
+        "MarketerID": 7931,
+        "MarketerName": "Architectural Solutions LLC"
+      },
+      {
+        "MarketerID": 8186,
+        "MarketerName": "M-NCPPC"
+      },
+      {
+        "MarketerID": 8366,
+        "MarketerName": "Charles P. Johnson &amp; Associates"
+      },
+      {
+        "MarketerID": 8509,
+        "MarketerName": "DMJMHarris"
+      },
+      {
+        "MarketerID": 8707,
+        "MarketerName": "Soltesz"
+      },
+      {
+        "MarketerID": 8887,
+        "MarketerName": "Huntley, Nyce & Associates"
+      },
+      {
+        "MarketerID": 8927,
+        "MarketerName": "Greenhorne & O'Mara"
+      },
+      {
+        "MarketerID": 9088,
+        "MarketerName": "Loiederman Soltesz Associates"
+      },
+      {
+        "MarketerID": 9128,
+        "MarketerName": "Bowman Consulting Group, Ltd."
+      },
+      {
+        "MarketerID": 9150,
+        "MarketerName": "RJM Engineering"
+      },
+      {
+        "MarketerID": 9186,
+        "MarketerName": "huntley nyce"
+      },
+      {
+        "MarketerID": 9228,
+        "MarketerName": "Greenhorne & O'mara"
+      },
+      {
+        "MarketerID": 9372,
+        "MarketerName": "John E. Harms, Jr. & Associates"
+      },
+      {
+        "MarketerID": 9387,
+        "MarketerName": "ESE Consultants (Toll Brothers)"
+      },
+      {
+        "MarketerID": 9728,
+        "MarketerName": "Inframap Corp"
+      },
+      {
+        "MarketerID": 10028,
+        "MarketerName": "Parsons Brinckerhoff"
+      },
+      {
+        "MarketerID": 10606,
+        "MarketerName": "CDDI"
+      },
+      {
+        "MarketerID": 10806,
+        "MarketerName": "Whitman, Requardt & Associates"
+      },
+      {
+        "MarketerID": 10827,
+        "MarketerName": "NDEC Corp."
+      },
+      {
+        "MarketerID": 10909,
+        "MarketerName": "Huntley, Nyce & Associates, Ltd"
+      },
+      {
+        "MarketerID": 11491,
+        "MarketerName": "Dominion Energy"
+      },
+      {
+        "MarketerID": 11649,
+        "MarketerName": "KCW ENGINEERING TECH INC."
+      },
+      {
+        "MarketerID": 11670,
+        "MarketerName": "Utility Consultants, Inc."
+      },
+      {
+        "MarketerID": 13289,
+        "MarketerName": "GREENHORNE AND O'MARA"
+      },
+      {
+        "MarketerID": 14050,
+        "MarketerName": "AIDATA Inc"
+      },
+      {
+        "MarketerID": 15037,
+        "MarketerName": "PEPCO"
+      },
+      {
+        "MarketerID": 16273,
+        "MarketerName": "AMT LLC"
+      },
+      {
+        "MarketerID": 16751,
+        "MarketerName": "McCrone Inc."
+      },
+      {
+        "MarketerID": 16869,
+        "MarketerName": "WSSC"
+      },
+      {
+        "MarketerID": 17630,
+        "MarketerName": "FirstData/Remitco"
+      },
+      {
+        "MarketerID": 17649,
+        "MarketerName": "Nolan Associates, Inc."
+      },
+      {
+        "MarketerID": 17771,
+        "MarketerName": "Site Solutions Inc"
+      },
+      {
+        "MarketerID": 17870,
+        "MarketerName": "Minkoff Development Corporation"
+      },
+      {
+        "MarketerID": 17909,
+        "MarketerName": "LSA"
+      },
+      {
+        "MarketerID": 18150,
+        "MarketerName": "RDA Engineers Inc."
+      },
+      {
+        "MarketerID": 18190,
+        "MarketerName": "Utility Sytems C&E, LLC"
+      },
+      {
+        "MarketerID": 18209,
+        "MarketerName": "Bowman Consulting"
+      },
+      {
+        "MarketerID": 18389,
+        "MarketerName": "WASHINGTON GAS"
+      },
+      {
+        "MarketerID": 18609,
+        "MarketerName": "City of Rockville"
+      },
+      {
+        "MarketerID": 18873,
+        "MarketerName": "JACOBS ENGINEERING GROUP"
+      },
+      {
+        "MarketerID": 19931,
+        "MarketerName": "Stand Energy 2"
+      },
+      {
+        "MarketerID": 20013,
+        "MarketerName": "A. Morton Thomas and Assoc,, Inc"
+      },
+      {
+        "MarketerID": 20377,
+        "MarketerName": "Arlington County Government"
+      },
+      {
+        "MarketerID": 20451,
+        "MarketerName": "Danella Engineering & Const."
+      },
+      {
+        "MarketerID": 20629,
+        "MarketerName": "Solar Energy Design, Inc."
+      },
+      {
+        "MarketerID": 21131,
+        "MarketerName": "Capitol Engineers, PC"
+      },
+      {
+        "MarketerID": 21249,
+        "MarketerName": "Chester Engineers"
+      },
+      {
+        "MarketerID": 21631,
+        "MarketerName": "Dewberry and Davis LLC"
+      },
+      {
+        "MarketerID": 21694,
+        "MarketerName": "JA Underground"
+      },
+      {
+        "MarketerID": 21871,
+        "MarketerName": "Edwards Utility Mapping"
+      },
+      {
+        "MarketerID": 22849,
+        "MarketerName": "M-NCPPC"
+      },
+      {
+        "MarketerID": 23289,
+        "MarketerName": "Oyster Imus Petzold and Assoc"
+      },
+      {
+        "MarketerID": 23450,
+        "MarketerName": "Axiom Engineering Design"
+      },
+      {
+        "MarketerID": 23810,
+        "MarketerName": "Loudoun Water"
+      },
+      {
+        "MarketerID": 24430,
+        "MarketerName": "MEX-EC LLC"
+      },
+      {
+        "MarketerID": 24649,
+        "MarketerName": "US Dept. of Agriculture"
+      },
+      {
+        "MarketerID": 25331,
+        "MarketerName": "PHRA"
+      },
+      {
+        "MarketerID": 25689,
+        "MarketerName": "West Group Properties LLC"
+      },
+      {
+        "MarketerID": 25751,
+        "MarketerName": "Brudis and Associates"
+      },
+      {
+        "MarketerID": 25789,
+        "MarketerName": "Toole Design Group"
+      },
+      {
+        "MarketerID": 27253,
+        "MarketerName": "Wheaton Vol. Rescue Squad"
+      },
+      {
+        "MarketerID": 27293,
+        "MarketerName": "MCG Utilities"
+      },
+      {
+        "MarketerID": 27913,
+        "MarketerName": "Charles P. Johnson & Assoc. Inc."
+      },
+      {
+        "MarketerID": 28112,
+        "MarketerName": "O'Brien & Gere"
+      },
+      {
+        "MarketerID": 28219,
+        "MarketerName": "O'Brien & Gere"
+      },
+      {
+        "MarketerID": 28492,
+        "MarketerName": "O'Brien & Gere"
+      },
+      {
+        "MarketerID": 28674,
+        "MarketerName": "Oyster Imus Petzold and Associat"
+      },
+      {
+        "MarketerID": 30534,
+        "MarketerName": "Accumark Inc"
+      },
+      {
+        "MarketerID": 30575,
+        "MarketerName": "Arlington County Gov't"
+      },
+      {
+        "MarketerID": 31318,
+        "MarketerName": "Alpha Corporation"
+      },
+      {
+        "MarketerID": 32114,
+        "MarketerName": "Benning & Associates, Inc."
+      },
+      {
+        "MarketerID": 32258,
+        "MarketerName": "Rajan Mahima Associates"
+      },
+      {
+        "MarketerID": 32594,
+        "MarketerName": "Urban, Ltd."
+      },
+      {
+        "MarketerID": 33115,
+        "MarketerName": "Dewberry Engineers Inc "
+      },
+      {
+        "MarketerID": 34340,
+        "MarketerName": "1218 T Street NW"
+      },
+      {
+        "MarketerID": 34594,
+        "MarketerName": "Landesign"
+      },
+      {
+        "MarketerID": 35974,
+        "MarketerName": "Pennoni Associates Inc."
+      },
+      {
+        "MarketerID": 36415,
+        "MarketerName": "Georgetown"
+      },
+      {
+        "MarketerID": 36594,
+        "MarketerName": "Lanier Poppe Engineering"
+      },
+      {
+        "MarketerID": 37217,
+        "MarketerName": "Pepco"
+      },
+      {
+        "MarketerID": 37234,
+        "MarketerName": "Washington Suburban Sanitary Com"
+      },
+      {
+        "MarketerID": 37515,
+        "MarketerName": "bowman condulting group"
+      },
+      {
+        "MarketerID": 37714,
+        "MarketerName": "Nat'l Capital Planning Commissio"
+      },
+      {
+        "MarketerID": 37895,
+        "MarketerName": "Pepco Government Services LLC"
+      },
+      {
+        "MarketerID": 38158,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 38354,
+        "MarketerName": "Greenhorne and O'Mara, Inc."
+      },
+      {
+        "MarketerID": 38475,
+        "MarketerName": "Whitman Requardt and Associates "
+      },
+      {
+        "MarketerID": 38914,
+        "MarketerName": "William H. Gordon Associates,Inc"
+      },
+      {
+        "MarketerID": 39455,
+        "MarketerName": "Legion Design"
+      },
+      {
+        "MarketerID": 39655,
+        "MarketerName": "Dewberry "
+      },
+      {
+        "MarketerID": 40354,
+        "MarketerName": "Whitman Requardt & Associates"
+      },
+      {
+        "MarketerID": 40455,
+        "MarketerName": "W.S.S.C."
+      },
+      {
+        "MarketerID": 40662,
+        "MarketerName": "PULS "
+      },
+      {
+        "MarketerID": 40917,
+        "MarketerName": "VHB"
+      },
+      {
+        "MarketerID": 41215,
+        "MarketerName": "Johnson Bernat Associates"
+      },
+      {
+        "MarketerID": 42235,
+        "MarketerName": "Wiley|Wilson"
+      },
+      {
+        "MarketerID": 42874,
+        "MarketerName": "Dewberry & Davis"
+      },
+      {
+        "MarketerID": 42936,
+        "MarketerName": "UDR, INC."
+      },
+      {
+        "MarketerID": 42983,
+        "MarketerName": "CHA Inc. (Pepco Contractor)"
+      },
+      {
+        "MarketerID": 43174,
+        "MarketerName": "KCI Management"
+      },
+      {
+        "MarketerID": 43635,
+        "MarketerName": "VIKA Capitol, LLC"
+      },
+      {
+        "MarketerID": 44138,
+        "MarketerName": "STV Incorporated"
+      },
+      {
+        "MarketerID": 44274,
+        "MarketerName": "RK&K"
+      },
+      {
+        "MarketerID": 44358,
+        "MarketerName": "Pepco Holdings, Inc. (PHI)"
+      },
+      {
+        "MarketerID": 44454,
+        "MarketerName": "A Advantage Heating & A/C"
+      },
+      {
+        "MarketerID": 44495,
+        "MarketerName": "CountrySide Surveys"
+      },
+      {
+        "MarketerID": 44555,
+        "MarketerName": "UDR"
+      },
+      {
+        "MarketerID": 45176,
+        "MarketerName": "Pepco"
+      },
+      {
+        "MarketerID": 45238,
+        "MarketerName": "Black & Veatch"
+      },
+      {
+        "MarketerID": 45834,
+        "MarketerName": "Ben Dyer Associates"
+      },
+      {
+        "MarketerID": 46055,
+        "MarketerName": "Ayers Saint Gross"
+      },
+      {
+        "MarketerID": 46395,
+        "MarketerName": "CDI Properties, LLC"
+      },
+      {
+        "MarketerID": 47274,
+        "MarketerName": "Jacobs"
+      },
+      {
+        "MarketerID": 47275,
+        "MarketerName": "Gannett Fleming Inc"
+      },
+      {
+        "MarketerID": 48059,
+        "MarketerName": "DC Water"
+      },
+      {
+        "MarketerID": 48214,
+        "MarketerName": "Landmark Engineering"
+      },
+      {
+        "MarketerID": 49514,
+        "MarketerName": "AB CONSULTANTS INC."
+      },
+      {
+        "MarketerID": 49554,
+        "MarketerName": "Gutschick, Little & Weber, P.A."
+      },
+      {
+        "MarketerID": 49974,
+        "MarketerName": "Government Services IPT"
+      },
+      {
+        "MarketerID": 50134,
+        "MarketerName": "Greenhorne & O'Mara"
+      },
+      {
+        "MarketerID": 50255,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 50855,
+        "MarketerName": "TRC Solutions"
+      },
+      {
+        "MarketerID": 50935,
+        "MarketerName": "Utility Professional Services"
+      },
+      {
+        "MarketerID": 51954,
+        "MarketerName": "Sabra, Wang and Associates, Inc."
+      },
+      {
+        "MarketerID": 53256,
+        "MarketerName": "Snider and Associates"
+      },
+      {
+        "MarketerID": 53295,
+        "MarketerName": "Potomac Valley Surveys"
+      },
+      {
+        "MarketerID": 53614,
+        "MarketerName": "DAJANI, LLC"
+      },
+      {
+        "MarketerID": 54634,
+        "MarketerName": "Voyten And Associates, Inc."
+      },
+      {
+        "MarketerID": 55034,
+        "MarketerName": "US Army"
+      },
+      {
+        "MarketerID": 55514,
+        "MarketerName": "DC Water"
+      },
+      {
+        "MarketerID": 55635,
+        "MarketerName": "Indra Energy - MD - 119"
+      },
+      {
+        "MarketerID": 55636,
+        "MarketerName": "Smart One Energy"
+      },
+      {
+        "MarketerID": 55638,
+        "MarketerName": "Maryland Gas and Electric"
+      },
+      {
+        "MarketerID": 55654,
+        "MarketerName": "Meridian Surveys"
+      },
+      {
+        "MarketerID": 56174,
+        "MarketerName": "Rinker Design Associates"
+      },
+      {
+        "MarketerID": 58038,
+        "MarketerName": "EnerNoc"
+      },
+      {
+        "MarketerID": 58395,
+        "MarketerName": "CHACONSULTING"
+      },
+      {
+        "MarketerID": 60034,
+        "MarketerName": "RDA"
+      },
+      {
+        "MarketerID": 62435,
+        "MarketerName": "None"
+      },
+      {
+        "MarketerID": 62437,
+        "MarketerName": "Dewberry"
+      },
+      {
+        "MarketerID": 63278,
+        "MarketerName": "AMEC"
+      },
+      {
+        "MarketerID": 64356,
+        "MarketerName": "Gannett Fleming"
+      },
+      {
+        "MarketerID": 64494,
+        "MarketerName": "DCWATER"
+      },
+      {
+        "MarketerID": 64598,
+        "MarketerName": "DC Water"
+      },
+      {
+        "MarketerID": 64814,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 65135,
+        "MarketerName": "Constellation New Energy 2"
+      },
+      {
+        "MarketerID": 66794,
+        "MarketerName": "ECS Mid-Atlantic, LLC"
+      },
+      {
+        "MarketerID": 67394,
+        "MarketerName": "TRC Solution"
+      },
+      {
+        "MarketerID": 68494,
+        "MarketerName": "Greenhorne & O'Mara, Inc."
+      },
+      {
+        "MarketerID": 68495,
+        "MarketerName": "GHD Inc"
+      },
+      {
+        "MarketerID": 69194,
+        "MarketerName": "Visnic Homes, Inc."
+      },
+      {
+        "MarketerID": 69514,
+        "MarketerName": "Rice Associates Inc."
+      },
+      {
+        "MarketerID": 70434,
+        "MarketerName": "Xoom Energy Maryland"
+      },
+      {
+        "MarketerID": 70454,
+        "MarketerName": "World Energy"
+      },
+      {
+        "MarketerID": 70494,
+        "MarketerName": "Greeley and Hansen"
+      },
+      {
+        "MarketerID": 70677,
+        "MarketerName": "Forest Glen Annex "
+      },
+      {
+        "MarketerID": 70695,
+        "MarketerName": "Forest Glen Annex"
+      },
+      {
+        "MarketerID": 71014,
+        "MarketerName": "Advisors LLC"
+      },
+      {
+        "MarketerID": 71655,
+        "MarketerName": "McKissack &McKissack Inc"
+      },
+      {
+        "MarketerID": 71895,
+        "MarketerName": "McKissack and McKissack Inc"
+      },
+      {
+        "MarketerID": 72179,
+        "MarketerName": "Insight Property Group"
+      },
+      {
+        "MarketerID": 72875,
+        "MarketerName": "Energy Plus Natural Gas LLC"
+      },
+      {
+        "MarketerID": 73396,
+        "MarketerName": "AMT LLC"
+      },
+      {
+        "MarketerID": 73914,
+        "MarketerName": "Deca Energy"
+      },
+      {
+        "MarketerID": 73915,
+        "MarketerName": "Ambit Energy"
+      },
+      {
+        "MarketerID": 74174,
+        "MarketerName": "CNA, LLC"
+      },
+      {
+        "MarketerID": 74355,
+        "MarketerName": "Sabra, Wang, & Associates, Inc."
+      },
+      {
+        "MarketerID": 74714,
+        "MarketerName": "Georgetown University"
+      },
+      {
+        "MarketerID": 75394,
+        "MarketerName": "Utility Profrssional Services, I"
+      },
+      {
+        "MarketerID": 75576,
+        "MarketerName": "Kibart, Inc."
+      },
+      {
+        "MarketerID": 76734,
+        "MarketerName": "IGS Energy - MD - 128"
+      },
+      {
+        "MarketerID": 77554,
+        "MarketerName": "The Engineering Groupe"
+      },
+      {
+        "MarketerID": 77755,
+        "MarketerName": "O'Brien & Gere"
+      },
+      {
+        "MarketerID": 77834,
+        "MarketerName": "O'Brien & Gere"
+      },
+      {
+        "MarketerID": 78514,
+        "MarketerName": "Parsons Brinckerhoff, INC"
+      },
+      {
+        "MarketerID": 79099,
+        "MarketerName": "HNTB"
+      },
+      {
+        "MarketerID": 80065,
+        "MarketerName": "TRC Solutions"
+      },
+      {
+        "MarketerID": 82856,
+        "MarketerName": "AB Consultants Inc"
+      },
+      {
+        "MarketerID": 82859,
+        "MarketerName": "CAS Engineering, Inc"
+      },
+      {
+        "MarketerID": 85337,
+        "MarketerName": "Langan Engineering and Environme"
+      },
+      {
+        "MarketerID": 85400,
+        "MarketerName": "Dewberry Consultants LLC"
+      },
+      {
+        "MarketerID": 88794,
+        "MarketerName": "Georgetown University-PFM"
+      },
+      {
+        "MarketerID": 89135,
+        "MarketerName": "Engie Power & Gas - 135"
+      },
+      {
+        "MarketerID": 89194,
+        "MarketerName": "Langan Engineering"
+      },
+      {
+        "MarketerID": 89534,
+        "MarketerName": "Langan Engineering & Environment"
+      },
+      {
+        "MarketerID": 90154,
+        "MarketerName": "A. Morton Thomas"
+      },
+      {
+        "MarketerID": 90454,
+        "MarketerName": "Witmer Associates LLC"
+      },
+      {
+        "MarketerID": 90954,
+        "MarketerName": "Constellation Energy Gas Choice"
+      },
+      {
+        "MarketerID": 90976,
+        "MarketerName": "Kim Engineering"
+      },
+      {
+        "MarketerID": 91974,
+        "MarketerName": "CAD-CON Consulting Inc"
+      },
+      {
+        "MarketerID": 93354,
+        "MarketerName": "AMT, LLC"
+      },
+      {
+        "MarketerID": 95454,
+        "MarketerName": "TRC Solution"
+      },
+      {
+        "MarketerID": 99461,
+        "MarketerName": "CHA Consulting, Inc"
+      },
+      {
+        "MarketerID": 100535,
+        "MarketerName": "Viridian Energy"
+      },
+      {
+        "MarketerID": 100554,
+        "MarketerName": "Xoom Energy"
+      },
+      {
+        "MarketerID": 100895,
+        "MarketerName": "Insight, LLC"
+      },
+      {
+        "MarketerID": 100914,
+        "MarketerName": "NRG Business Market,LLC - 145"
+      },
+      {
+        "MarketerID": 101516,
+        "MarketerName": "McIlvried DiDiano & Mox LLC"
+      },
+      {
+        "MarketerID": 103174,
+        "MarketerName": "Engie Power & Gas - 144"
+      },
+      {
+        "MarketerID": 104474,
+        "MarketerName": "Stand Energy UCB RR"
+      },
+      {
+        "MarketerID": 104756,
+        "MarketerName": "Insight LLC"
+      },
+      {
+        "MarketerID": 105614,
+        "MarketerName": "Triad Engineering"
+      },
+      {
+        "MarketerID": 105679,
+        "MarketerName": "Triad Engineering"
+      },
+      {
+        "MarketerID": 105682,
+        "MarketerName": "Wiley Wilson"
+      },
+      {
+        "MarketerID": 106114,
+        "MarketerName": "EBA Engineering "
+      },
+      {
+        "MarketerID": 106655,
+        "MarketerName": "EBA Engineering"
+      },
+      {
+        "MarketerID": 108496,
+        "MarketerName": "Utility Professional Services, I"
+      },
+      {
+        "MarketerID": 108594,
+        "MarketerName": "Utility Professional Services "
+      },
+      {
+        "MarketerID": 109494,
+        "MarketerName": "ab consultants"
+      },
+      {
+        "MarketerID": 119354,
+        "MarketerName": "Insight"
+      },
+      {
+        "MarketerID": 120394,
+        "MarketerName": "Louis Berger Group"
+      },
+      {
+        "MarketerID": 121234,
+        "MarketerName": "Dacca, Inc."
+      },
+      {
+        "MarketerID": 122074,
+        "MarketerName": "Louis Berger Water Services Inc"
+      },
+      {
+        "MarketerID": 122214,
+        "MarketerName": "Enspire Energy"
+      },
+      {
+        "MarketerID": 123275,
+        "MarketerName": "CEGC"
+      },
+      {
+        "MarketerID": 124754,
+        "MarketerName": "JJB DC Inc."
+      },
+      {
+        "MarketerID": 126195,
+        "MarketerName": "WGL Energy customer care center"
+      },
+      {
+        "MarketerID": 127554,
+        "MarketerName": "Burns & McDonnell"
+      },
+      {
+        "MarketerID": 128254,
+        "MarketerName": "USA Groups"
+      },
+      {
+        "MarketerID": 136034,
+        "MarketerName": "Direct Energy Services,LLC-156"
+      },
+      {
+        "MarketerID": 142214,
+        "MarketerName": "SFE Energy"
+      },
+      {
+        "MarketerID": 142215,
+        "MarketerName": "AGERA Energy - 159"
+      },
+      {
+        "MarketerID": 142216,
+        "MarketerName": "AGERA Energy - 160"
+      },
+      {
+        "MarketerID": 142815,
+        "MarketerName": "Department of Energy & Environment (DOEE)"
+      },
+      {
+        "MarketerID": 142816,
+        "MarketerName": "Office of Home Energy Programs (OHEP)"
+      },
+      {
+        "MarketerID": 142817,
+        "MarketerName": "Montgomery County Social Services"
+      },
+      {
+        "MarketerID": 142818,
+        "MarketerName": "Prince Georges County Social Services"
+      },
+      {
+        "MarketerID": 142819,
+        "MarketerName": "Saint Mary's County Social Services"
+      },
+      {
+        "MarketerID": 142820,
+        "MarketerName": "Frederick County Department of Social Services"
+      },
+      {
+        "MarketerID": 142821,
+        "MarketerName": "Calvert County Social Services"
+      },
+      {
+        "MarketerID": 142822,
+        "MarketerName": "Charles County Social Services"
+      },
+      {
+        "MarketerID": 142823,
+        "MarketerName": "Virginia Department of Social Services (VDSS)"
+      },
+      {
+        "MarketerID": 142824,
+        "MarketerName": "Fairfax County Social Services"
+      },
+      {
+        "MarketerID": 142825,
+        "MarketerName": "Prince William County Social Services"
+      },
+      {
+        "MarketerID": 142826,
+        "MarketerName": "Alexandria Division of Human Services"
+      },
+      {
+        "MarketerID": 142827,
+        "MarketerName": "Winchester Department of Social Services"
+      },
+      {
+        "MarketerID": 142828,
+        "MarketerName": "Shenandoah Department of Social Services"
+      },
+      {
+        "MarketerID": 142829,
+        "MarketerName": "Arlington County Social Services"
+      },
+      {
+        "MarketerID": 142830,
+        "MarketerName": "Loudoun County Department of Family Services"
+      },
+      {
+        "MarketerID": 142831,
+        "MarketerName": "Salvation Army"
+      },
+      {
+        "MarketerID": 142832,
+        "MarketerName": "Saint Vincent de Paul  Society"
+      },
+      {
+        "MarketerID": 142833,
+        "MarketerName": "Catholic Charities"
+      },
+      {
+        "MarketerID": 142834,
+        "MarketerName": "Luthern Social Services"
+      },
+      {
+        "MarketerID": 142876,
+        "MarketerName": "NOVEC Energy Solutions – 164"
+      },
+      {
+        "MarketerID": 142895,
+        "MarketerName": "Dominion Energy Solutions - 150"
+      },
+      {
+        "MarketerID": 142909,
+        "MarketerName": "MAJOR Energy"
+      },
+      {
+        "MarketerID": 142922,
+        "MarketerName": "NRG Home"
+      },
+      {
+        "MarketerID": 142936,
+        "MarketerName": "Mansfield Power and Gas LLC"
+      },
+      {
+        "MarketerID": 142939,
+        "MarketerName": "Just Energy"
+      },
+      {
+        "MarketerID": 142941,
+        "MarketerName": "Shipley Energy"
+      },
+      {
+        "MarketerID": 142942,
+        "MarketerName": "Planet Energy"
+      },
+      {
+        "MarketerID": 142943,
+        "MarketerName": "Spring Power & Gas"
+      },
+      {
+        "MarketerID": 142944,
+        "MarketerName": "Twin Eagle Energy"
+      },
+      {
+        "MarketerID": 142968,
+        "MarketerName": "Indra Energy - DC - 169"
+      },
+      {
+        "MarketerID": 142969,
+        "MarketerName": "Indra Energy - VA - 170"
+      },
+      {
+        "MarketerID": 142983,
+        "MarketerName": "Viridian Energy DUAL"
+      },
+      {
+        "MarketerID": 142984,
+        "MarketerName": "Viridian Energy UCB BR"
+      },
+      {
+        "MarketerID": 142985,
+        "MarketerName": "Engie Power & Gas - 173"
+      },
+      {
+        "MarketerID": 142991,
+        "MarketerName": "IDT Energy"
+      },
+      {
+        "MarketerID": 142992,
+        "MarketerName": "MPower Energy NJ LLC"
+      },
+      {
+        "MarketerID": 142993,
+        "MarketerName": "PESCO Energy - 175"
+      },
+      {
+        "MarketerID": 142994,
+        "MarketerName": "PESCO Energy - 176"
+      },
+      {
+        "MarketerID": 142995,
+        "MarketerName": "Think Energy"
+      },
+      {
+        "MarketerID": 142996,
+        "MarketerName": "Virginia Retail Energy - 178"
+      },
+      {
+        "MarketerID": 142997,
+        "MarketerName": "Virginia Retail Energy - 179"
+      },
+      {
+        "MarketerID": 142998,
+        "MarketerName": "Stand Energy - 180"
+      },
+      {
+        "MarketerID": 142999,
+        "MarketerName": "Stand Energy - 181"
+      },
+      {
+        "MarketerID": 143009,
+        "MarketerName": "Clearview Energy"
+      },
+      {
+        "MarketerID": 143010,
+        "MarketerName": "South Jersey Energy Corp - 184"
+      },
+      {
+        "MarketerID": 143011,
+        "MarketerName": "South Jersey Energy Corp - 185"
+      },
+      {
+        "MarketerID": 143012,
+        "MarketerName": "Indra Energy - MD - 186"
+      },
+      {
+        "MarketerID": 143013,
+        "MarketerName": "Tomorrow Energy Corp"
+      },
+      {
+        "MarketerID": 143014,
+        "MarketerName": "Think Energy - 188"
+      },
+      {
+        "MarketerID": 143015,
+        "MarketerName": "American Power & Gas"
+      },
+      {
+        "MarketerID": 143016,
+        "MarketerName": "Atlantic Energy"
+      },
+      {
+        "MarketerID": 143017,
+        "MarketerName": "Median Energy"
+      },
+      {
+        "MarketerID": 143027,
+        "MarketerName": "Josco Energy - 192"
+      },
+      {
+        "MarketerID": 143028,
+        "MarketerName": "Josco Energy - 193"
+      },
+      {
+        "MarketerID": 143029,
+        "MarketerName": "CleanSky Energy - DC and MD - 194"
+      },
+      {
+        "MarketerID": 143030,
+        "MarketerName": "CleanSky Energy - DC and MD - 195"
+      },
+      {
+        "MarketerID": 143039,
+        "MarketerName": "UGI Energy Services - 197"
+      },
+      {
+        "MarketerID": 143040,
+        "MarketerName": "Indra Energy - MD - 198"
+      },
+      {
+        "MarketerID": 143041,
+        "MarketerName": "Indra Energy - MD - 199"
+      },
+      {
+        "MarketerID": 143042,
+        "MarketerName": "Indra Energy - DC - 200"
+      },
+      {
+        "MarketerID": 143043,
+        "MarketerName": "Indra Energy - DC - 201"
+      },
+      {
+        "MarketerID": 143044,
+        "MarketerName": "Indra Energy - VA - 202"
+      },
+      {
+        "MarketerID": 143045,
+        "MarketerName": "Indra Energy - VA - 203"
+      },
+      {
+        "MarketerID": 143047,
+        "MarketerName": "MD DHCD"
+      },
+      {
+        "MarketerID": 143049,
+        "MarketerName": "Park Power LLC - DC - 204"
+      },
+      {
+        "MarketerID": 143050,
+        "MarketerName": "Park Power LLC - DC - 205"
+      },
+      {
+        "MarketerID": 143051,
+        "MarketerName": "Park Power LLC - DC - 206"
+      },
+      {
+        "MarketerID": 143063,
+        "MarketerName": "East Coast Power & Gas - MD - 207"
+      },
+      {
+        "MarketerID": 143064,
+        "MarketerName": "East Coast Power & Gas - MD - 208"
+      },
+      {
+        "MarketerID": 143065,
+        "MarketerName": "East Coast Power & Gas - MD - 209"
+      },
+      {
+        "MarketerID": 143066,
+        "MarketerName": "Statewise Energy - MD - 210"
+      },
+      {
+        "MarketerID": 143087,
+        "MarketerName": "Statewise Energy - MD - 211"
+      },
+      {
+        "MarketerID": 143099,
+        "MarketerName": "NRG Business Market,LLC - 212"
+      },
+      {
+        "MarketerID": 143100,
+        "MarketerName": "NRG Business Market,LLC - 213"
+      },
+      {
+        "MarketerID": 143101,
+        "MarketerName": "NRG Business Market,LLC - 214"
+      },
+      {
+        "MarketerID": 143113,
+        "MarketerName": "Nordic Energy Services - 215"
+      },
+      {
+        "MarketerID": 143114,
+        "MarketerName": "Nordic Energy Services - 216"
+      },
+      {
+        "MarketerID": 143115,
+        "MarketerName": "Nordic Energy Services - 217"
+      },
+      {
+        "MarketerID": 143116,
+        "MarketerName": "Nordic Energy Services - 218"
+      },
+      {
+        "MarketerID": 143117,
+        "MarketerName": "SunSea Energy - DC - 219"
+      },
+      {
+        "MarketerID": 143118,
+        "MarketerName": "SunSea Energy - DC - 220"
+      },
+      {
+        "MarketerID": 143119,
+        "MarketerName": "SunSea Energy - DC - 221"
+      },
+      {
+        "MarketerID": 143120,
+        "MarketerName": "SunSea Energy - DC - 222"
+      },
+      {
+        "MarketerID": 143121,
+        "MarketerName": "SunSea Energy - MD & VA - 223"
+      },
+      {
+        "MarketerID": 143122,
+        "MarketerName": "SunSea Energy - MD & VA - 224"
+      },
+      {
+        "MarketerID": 143123,
+        "MarketerName": "SunSea Energy - MD & VA - 225"
+      },
+      {
+        "MarketerID": 143124,
+        "MarketerName": "SunSea Energy - MD & VA - 226"
+      },
+      {
+        "MarketerID": 143125,
+        "MarketerName": "Alpha Gas and Electric - DC - 227"
+      },
+      {
+        "MarketerID": 143127,
+        "MarketerName": "Alpha Gas and Electric - DC - 229"
+      },
+      {
+        "MarketerID": 143128,
+        "MarketerName": "Alpha Gas and Electric - VA - 230"
+      },
+      {
+        "MarketerID": 143129,
+        "MarketerName": "Alpha Gas and Electric - DC - 231"
+      },
+      {
+        "MarketerID": 143130,
+        "MarketerName": "Alpha Gas and Electric - VA - 232"
+      },
+      {
+        "MarketerID": 143132,
+        "MarketerName": "Alpha Gas and Electric - VA - 234"
+      },
+      {
+        "MarketerID": 143133,
+        "MarketerName": "Alpha Gas and Electric - MD - 235"
+      },
+      {
+        "MarketerID": 143134,
+        "MarketerName": "Alpha Gas and Electric - MD - 236"
+      },
+      {
+        "MarketerID": 143135,
+        "MarketerName": "Alpha Gas and Electric - MD - 237"
+      },
+      {
+        "MarketerID": 143136,
+        "MarketerName": "Alpha Gas and Electric - MD - 238"
+      },
+      {
+        "MarketerID": 143145,
+        "MarketerName": "Green Choice Energy - DC - 239"
+      },
+      {
+        "MarketerID": 143146,
+        "MarketerName": "Green Choice Energy - DC - 240"
+      },
+      {
+        "MarketerID": 143147,
+        "MarketerName": "Green Choice Energy - DC - 241"
+      },
+      {
+        "MarketerID": 143148,
+        "MarketerName": "Green Choice Energy - DC - 242"
+      },
+      {
+        "MarketerID": 143149,
+        "MarketerName": "Green Choice Energy - MD & VA - 243"
+      },
+      {
+        "MarketerID": 143150,
+        "MarketerName": "Green Choice Energy - MD & VA - 244"
+      },
+      {
+        "MarketerID": 143151,
+        "MarketerName": "Green Choice Energy - MD & VA - 245"
+      },
+      {
+        "MarketerID": 143152,
+        "MarketerName": "Green Choice Energy - MD & VA - 246"
+      },
+      {
+        "MarketerID": 143155,
+        "MarketerName": "Discount Power LLC - DC - 247"
+      },
+      {
+        "MarketerID": 143156,
+        "MarketerName": "Discount Power LLC - DC - 248"
+      },
+      {
+        "MarketerID": 143157,
+        "MarketerName": "Discount Power LLC - DC - 249"
+      },
+      {
+        "MarketerID": 143158,
+        "MarketerName": "Discount Power LLC - DC - 250"
+      },
+      {
+        "MarketerID": 143159,
+        "MarketerName": "Discount Power LLC - MD & VA - 251"
+      },
+      {
+        "MarketerID": 143160,
+        "MarketerName": "Discount Power LLC - MD & VA - 252"
+      },
+      {
+        "MarketerID": 143161,
+        "MarketerName": "Discount Power LLC - MD & VA - 253"
+      },
+      {
+        "MarketerID": 143162,
+        "MarketerName": "Discount Power LLC - MD & VA - 254"
+      },
+      {
+        "MarketerID": 143163,
+        "MarketerName": "Park Power LLC - MD & VA - 255"
+      },
+      {
+        "MarketerID": 143164,
+        "MarketerName": "Park Power LLC - MD & VA - 256"
+      },
+      {
+        "MarketerID": 143165,
+        "MarketerName": "Park Power LLC - MD & VA - 257"
+      },
+      {
+        "MarketerID": 143166,
+        "MarketerName": "Park Power LLC - MD & VA - 258"
+      },
+      {
+        "MarketerID": 143240,
+        "MarketerName": "Washington Suburban Sanitary Commission "
+      },
+      {
+        "MarketerID": 143244,
+        "MarketerName": "Greenlight Energy Inc."
+      },
+      {
+        "MarketerID": 143248,
+        "MarketerName": "IGS Energy - MD"
+      },
+      {
+        "MarketerID": 143251,
+        "MarketerName": "IGS Energy - VA & DC "
+      },
+      {
+        "MarketerID": 143255,
+        "MarketerName": "Engie Power & Gas"
+      },
+      {
+        "MarketerID": 143263,
+        "MarketerName": "Wave Energy"
+      },
+      {
+        "MarketerID": 143298,
+        "MarketerName": "United Energy Trading "
+      },
+      {
+        "MarketerID": 143317,
+        "MarketerName": "Spark Energy Gas LLC"
+      },
+      {
+        "MarketerID": 143395,
+        "MarketerName": "Virginia Light & Power LLC"
+      },
+      {
+        "MarketerID": 143399,
+        "MarketerName": "New Wave Energy LLC - MD "
+      },
+      {
+        "MarketerID": 143403,
+        "MarketerName": "New Wave Energy LLC - DC & VA"
+      },
+      {
+        "MarketerID": 143415,
+        "MarketerName": "American Power & Gas - DC"
+      },
+      {
+        "MarketerID": 143440,
+        "MarketerName": "Electric Advisers Inc"
+      },
+      {
+        "MarketerID": 143461,
+        "MarketerName": "Vista Energy"
+      },
+      {
+        "MarketerID": 143462,
+        "MarketerName": "Vista Energy - 303"
+      },
+      {
+        "MarketerID": 143463,
+        "MarketerName": "Vista Energy - 304"
+      },
+      {
+        "MarketerID": 143464,
+        "MarketerName": "Vista Energy - 305"
+      },
+      {
+        "MarketerID": 143465,
+        "MarketerName": "Gas South"
+      },
+      {
+        "MarketerID": 143466,
+        "MarketerName": "Gas South - 307"
+      },
+      {
+        "MarketerID": 143467,
+        "MarketerName": "Gas South - 308"
+      },
+      {
+        "MarketerID": 143468,
+        "MarketerName": "Gas South - 309"
+      },
+      {
+        "MarketerID": 143472,
+        "MarketerName": "American Power & Gas - 310"
+      },
+      {
+        "MarketerID": 143473,
+        "MarketerName": "American Power & Gas - DC - 311"
+      },
+      {
+        "MarketerID": 143474,
+        "MarketerName": "Atlantic Energy - 312"
+      },
+      {
+        "MarketerID": 143475,
+        "MarketerName": "Clearview Energy - 313"
+      },
+      {
+        "MarketerID": 143476,
+        "MarketerName": "Deca Energy - 314"
+      },
+      {
+        "MarketerID": 143477,
+        "MarketerName": "Energy Plus Natural Gas LLC - 316"
+      },
+      {
+        "MarketerID": 143478,
+        "MarketerName": "Gateway Energy Services - 317"
+      },
+      {
+        "MarketerID": 143479,
+        "MarketerName": "IDT Energy - 318"
+      },
+      {
+        "MarketerID": 143480,
+        "MarketerName": "Major Energy - 321"
+      },
+      {
+        "MarketerID": 143481,
+        "MarketerName": "Maryland Gas & Electric - 322"
+      },
+      {
+        "MarketerID": 143482,
+        "MarketerName": "Median Energy - 323"
+      },
+      {
+        "MarketerID": 143483,
+        "MarketerName": "Mpower Energy NJ LLC - 324"
+      },
+      {
+        "MarketerID": 143484,
+        "MarketerName": "NRG Home - 325"
+      },
+      {
+        "MarketerID": 143485,
+        "MarketerName": "SFE Energy - 326"
+      },
+      {
+        "MarketerID": 143486,
+        "MarketerName": "Spring Power & Gas - 327"
+      },
+      {
+        "MarketerID": 143487,
+        "MarketerName": "StateWise Energy MD LLC"
+      },
+      {
+        "MarketerID": 143488,
+        "MarketerName": "Xoom Energy - 329"
+      },
+      {
+        "MarketerID": 143489,
+        "MarketerName": "Xoom Energy of VA"
+      }
+    ]
+  }
+}
+
+export const AdminCustomerData={
+  "Succeeded": true,
+  "Message": "Get MArketer Account Association successfully!!",
+  "Errors": null,
+  "Data": {
+    "AccountID": 456660,
+    "AccountNumber": "220002633091",
+    "EffectiveDate": "2025-02-25T00:00:00",
+    "EndDate": "2025-05-30T00:00:00",
+    "CompanyID": 1,
+    "BillingCycleDay": 1,
+    "AllocationGroupID": 2,
+    "Marketer": [
+      {
+        "MarketerID": 1,
+        "MarketerName": "Ambit Energy"
+      },
+      {
+        "MarketerID": 2,
+        "MarketerName": "AGERA Energy"
+      },
+      {
+        "MarketerID": 3,
+        "MarketerName": "Atlantic Energy"
+      },
+      {
+        "MarketerID": 4,
+        "MarketerName": "AOC"
+      },
+      {
+        "MarketerID": 5,
+        "MarketerName": "Bolenja-Italy"
+      }
+    ],
+    "MarketerGroup": [
+      {
+        "ID": 2,
+        "GroupName": "Test Marketer"
+      },
+      {
+        "ID": 3,
+        "GroupName": "Marketer child - Interuptible"
+      }
+    ],
+    "AccountAssociationHistories": [
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2003-01-01T00:00:00",
+        "EndDate": "2004-06-30T00:00:00",
+        "CompanyID": 101,
+        "CompanyName": "Washington Gas",
+        "AllocationGroupID": 61,
+        "AllocationGroup": "IRate Accounts"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2003-07-31T00:00:00",
+        "EndDate": "2006-02-28T00:00:00",
+        "CompanyID": 136,
+        "CompanyName": "WGL Energy Svcs - 35",
+        "AllocationGroupID": 33,
+        "AllocationGroup": "WGES MD IP"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2006-03-01T00:00:00",
+        "EndDate": "2012-09-30T00:00:00",
+        "CompanyID": 173,
+        "CompanyName": "Amerada Hess Corp",
+        "AllocationGroupID": 22,
+        "AllocationGroup": "AMERAD MD IP-Inactive"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2014-12-01T00:00:00",
+        "EndDate": "2016-02-29T00:00:00",
+        "CompanyID": 182,
+        "CompanyName": "Bollinger Energy",
+        "AllocationGroupID": 301,
+        "AllocationGroup": "BOLLIN MD IP"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2012-10-01T00:00:00",
+        "EndDate": "2014-10-31T00:00:00",
+        "CompanyID": 136,
+        "CompanyName": "WGL Energy Svcs - 35",
+        "AllocationGroupID": 33,
+        "AllocationGroup": "WGES MD IP"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2016-03-01T00:00:00",
+        "EndDate": "2016-03-31T00:00:00",
+        "CompanyID": 136,
+        "CompanyName": "WGL Energy Svcs - 35",
+        "AllocationGroupID": 149,
+        "AllocationGroup": "WGES VA IP"
+      },
+      {
+        "AccountID": 456660,
+        "AccountNumber": "220002633091",
+        "EffectiveDate": "2016-03-01T00:00:00",
+        "EndDate": null,
+        "CompanyID": 136,
+        "CompanyName": "WGL Energy Svcs - 35",
+        "AllocationGroupID": 33,
+        "AllocationGroup": "WGES MD IP"
+      }
+    ]
+  }
+} 
+
+export const getByFirm={
+  "Succeeded": true,
+  "Message": null,
+  "Errors": null,
+  "Data": [
+    {
+            AllocationGroupID: 1,
+            AllocationGroup: "AGERA FP",
+            GroupImbalance: 11.237,
+            ImbalanceAdjustedVolume: 997,
+            InventoryBalance: 12.130,
+            EffectiveDate: "2025-02-01T00:00:00"
+        },
+        {
+            AllocationGroupID: 2,
+            AllocationGroup: "AMBIT FP",
+            GroupImbalance: 11.237,
+            ImbalanceAdjustedVolume: 997,
+            InventoryBalance: 12.130,
+            EffectiveDate: "2025-02-01T00:00:00"
+        },
+        {
+            AllocationGroupID: 3,
+            AllocationGroup: "WGES FP",
+            GroupImbalance: 11.237,
+            ImbalanceAdjustedVolume: 997,
+            InventoryBalance: 12.130,
+            EffectiveDate: "2025-02-01T00:00:00"
+        }
   ]
 }
+
+
+export const NominationGroupData = {
+  "Succeeded": true,
+  "Message": null,
+  "Errors": null,
+  "Data": {
+    "GroupData": {     
+      "MarketerID": 173,
+      "MaketerName": "Amerada Hess Corp",
+      "GroupData1": [
+        {
+         "GroupID": 21,
+        "GroupName": "AMERAD DC IP-Inactive",
+          "GroupDetails": [
+            {
+              "ShipmentDate":"2025-03-01T00:00:00",
+              "GroupValue":"728",
+              "GroupDate":"2005-03-01T00:00:00",
+              "NominationID":216,
+              "NominationValue":"826.00",
+              "DRVID":6097,
+              "DRV_value":825
+           },
+           {
+              "ShipmentDate":"2005-03-02T00:00:00",
+              "GroupValue":"778",
+              "GroupDate":"2005-06-02T00:00:00",
+              "NominationID":217,
+              "NominationValue":"0.00",
+              "DRVID":6098,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-03T00:00:00",
+              "GroupValue":"746",
+              "GroupDate":"2025-06-03T00:00:00",
+              "NominationID":218,
+              "NominationValue":"0.00",
+              "DRVID":6099,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-04T00:00:00",
+              "GroupValue":"610",
+              "GroupDate":"2025-06-04T00:00:00",
+              "NominationID":219,
+              "NominationValue":"0.00",
+              "DRVID":6100,
+              "DRV_value":769
+           },
+           {
+              "ShipmentDate":"2025-06-05T00:00:00",
+              "GroupValue":"625",
+              "GroupDate":"2025-06-05T00:00:00",
+              "NominationID":220,
+              "NominationValue":"0.00",
+              "DRVID":6101,
+              "DRV_value":769
+           },
+           {
+              "ShipmentDate":"2025-06-06T00:00:00",
+              "GroupValue":"817",
+              "GroupDate":"2025-06-06T00:00:00",
+              "NominationID":221,
+              "NominationValue":"0.00",
+              "DRVID":6102,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-06-07T00:00:00",
+              "GroupValue":"898",
+              "GroupDate":"2025-06-07T00:00:00",
+              "NominationID":222,
+              "NominationValue":"0.00",
+              "DRVID":6103,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-08T00:00:00",
+              "GroupValue":"924",
+              "GroupDate":"2025-06-08T00:00:00",
+              "NominationID":223,
+              "NominationValue":"0.00",
+              "DRVID":6104,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-09T00:00:00",
+              "GroupValue":"795",
+              "GroupDate":"2025-06-09T00:00:00",
+              "NominationID":224,
+              "NominationValue":"0.00",
+              "DRVID":6105,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-10T00:00:00",
+              "GroupValue":"809",
+              "GroupDate":"2025-06-10T00:00:00",
+              "NominationID":225,
+              "NominationValue":"0.00",
+              "DRVID":6106,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-11T00:00:00",
+              "GroupValue":"586",
+              "GroupDate":"2025-06-11T00:00:00",
+              "NominationID":226,
+              "NominationValue":"0.00",
+              "DRVID":6107,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-06-12T00:00:00",
+              "GroupValue":"674",
+              "GroupDate":"2025-06-12T00:00:00",
+              "NominationID":227,
+              "NominationValue":"0.00",
+              "DRVID":6108,
+              "DRV_value":761
+           },
+           {
+              "ShipmentDate":"2025-06-13T00:00:00",
+              "GroupValue":"812",
+              "GroupDate":"2025-06-13T00:00:00",
+              "NominationID":228,
+              "NominationValue":"0.00",
+              "DRVID":6109,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-06-14T00:00:00",
+              "GroupValue":"1170",
+              "GroupDate":"2025-06-14T00:00:00",
+              "NominationID":229,
+              "NominationValue":"0.00",
+              "DRVID":6110,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-15T00:00:00",
+              "GroupValue":"1261",
+              "GroupDate":"2025-06-15T00:00:00",
+              "NominationID":230,
+              "NominationValue":"0.00",
+              "DRVID":6111,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-16T00:00:00",
+              "GroupValue":"1407",
+              "GroupDate":"2025-06-16T00:00:00",
+              "NominationID":231,
+              "NominationValue":"0.00",
+              "DRVID":6112,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-06-17T00:00:00",
+              "GroupValue":"1341",
+              "GroupDate":"2025-06-17T00:00:00",
+              "NominationID":232,
+              "NominationValue":"0.00",
+              "DRVID":6113,
+              "DRV_value":820
+           },
+           {
+              "ShipmentDate":"2025-06-18T00:00:00",
+              "GroupValue":"1233",
+              "GroupDate":"2025-06-18T00:00:00",
+              "NominationID":233,
+              "NominationValue":"0.00",
+              "DRVID":6114,
+              "DRV_value":779
+           },
+           {
+              "ShipmentDate":"2025-06-19T00:00:00",
+              "GroupValue":"965",
+              "GroupDate":"2025-06-19T00:00:00",
+              "NominationID":234,
+              "NominationValue":"0.00",
+              "DRVID":6115,
+              "DRV_value":738
+           },
+           {
+              "ShipmentDate":"2025-06-20T00:00:00",
+              "GroupValue":"979",
+              "GroupDate":"2025-06-20T00:00:00",
+              "NominationID":235,
+              "NominationValue":"0.00",
+              "DRVID":6116,
+              "DRV_value":779
+           },
+           {
+              "ShipmentDate":"2025-06-21T00:00:00",
+              "GroupValue":"793",
+              "GroupDate":"2025-06-21T00:00:00",
+              "NominationID":236,
+              "NominationValue":"0.00",
+              "DRVID":6117,
+              "DRV_value":820
+           },
+           {
+              "ShipmentDate":"2025-06-22T00:00:00",
+              "GroupValue":"973",
+              "GroupDate":"2025-06-22T00:00:00",
+              "NominationID":237,
+              "NominationValue":"0.00",
+              "DRVID":6118,
+              "DRV_value":1028
+           },
+           {
+              "ShipmentDate":"2025-06-23T00:00:00",
+              "GroupValue":"862",
+              "GroupDate":"2025-06-23T00:00:00",
+              "NominationID":238,
+              "NominationValue":"0.00",
+              "DRVID":6119,
+              "DRV_value":1028
+           },
+           {
+              "ShipmentDate":"2025-06-24T00:00:00",
+              "GroupValue":"811",
+              "GroupDate":"2025-06-24T00:00:00",
+              "NominationID":239,
+              "NominationValue":"0.00",
+              "DRVID":6120,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-06-25T00:00:00",
+              "GroupValue":"833",
+              "GroupDate":"2025-06-25T00:00:00",
+              "NominationID":240,
+              "NominationValue":"0.00",
+              "DRVID":6121,
+              "DRV_value":828
+           },
+           {
+              "ShipmentDate":"2025-06-26T00:00:00",
+              "GroupValue":"644",
+              "GroupDate":"2025-06-26T00:00:00",
+              "NominationID":241,
+              "NominationValue":"0.00",
+              "DRVID":6122,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-06-27T00:00:00",
+              "GroupValue":"697",
+              "GroupDate":"2025-06-27T00:00:00",
+              "NominationID":242,
+              "NominationValue":"0.00",
+              "DRVID":6123,
+              "DRV_value":828
+           },
+           {
+              "ShipmentDate":"2025-06-28T00:00:00",
+              "GroupValue":"729",
+              "GroupDate":"2025-06-28T00:00:00",
+              "NominationID":243,
+              "NominationValue":"0.00",
+              "DRVID":6124,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-06-29T00:00:00",
+              "GroupValue":"731",
+              "GroupDate":"2025-06-29T00:00:00",
+              "NominationID":244,
+              "NominationValue":"0.00",
+              "DRVID":6125,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-06-30T00:00:00",
+              "GroupValue":"784",
+              "GroupDate":"2025-06-30T00:00:00",
+              "NominationID":245,
+              "NominationValue":"0.00",
+              "DRVID":6126,
+              "DRV_value":716
+           }
+        ]
+      },
+      {
+         "GroupID": 22,
+        "GroupName": "Group 2",
+          "GroupDetails": [
+            {
+              "ShipmentDate":"2025-03-01T00:00:00",
+              "GroupValue":"728",
+              "GroupDate":"2005-03-01T00:00:00",
+              "NominationID":216,
+              "NominationValue":"826.00",
+              "DRVID":6097,
+              "DRV_value":825
+           },
+           {
+              "ShipmentDate":"2005-03-02T00:00:00",
+              "GroupValue":"778",
+              "GroupDate":"2005-03-02T00:00:00",
+              "NominationID":217,
+              "NominationValue":"0.00",
+              "DRVID":6098,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-03T00:00:00",
+              "GroupValue":"746",
+              "GroupDate":"2025-03-03T00:00:00",
+              "NominationID":218,
+              "NominationValue":"0.00",
+              "DRVID":6099,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-04T00:00:00",
+              "GroupValue":"610",
+              "GroupDate":"2025-03-04T00:00:00",
+              "NominationID":219,
+              "NominationValue":"0.00",
+              "DRVID":6100,
+              "DRV_value":769
+           },
+           {
+              "ShipmentDate":"2025-03-05T00:00:00",
+              "GroupValue":"625",
+              "GroupDate":"2025-03-05T00:00:00",
+              "NominationID":220,
+              "NominationValue":"0.00",
+              "DRVID":6101,
+              "DRV_value":769
+           },
+           {
+              "ShipmentDate":"2025-03-03T00:00:00",
+              "GroupValue":"817",
+              "GroupDate":"2025-03-03T00:00:00",
+              "NominationID":221,
+              "NominationValue":"0.00",
+              "DRVID":6102,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-03-07T00:00:00",
+              "GroupValue":"898",
+              "GroupDate":"2025-03-07T00:00:00",
+              "NominationID":222,
+              "NominationValue":"0.00",
+              "DRVID":6103,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-08T00:00:00",
+              "GroupValue":"924",
+              "GroupDate":"2025-03-08T00:00:00",
+              "NominationID":223,
+              "NominationValue":"0.00",
+              "DRVID":6104,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-09T00:00:00",
+              "GroupValue":"795",
+              "GroupDate":"2025-03-09T00:00:00",
+              "NominationID":224,
+              "NominationValue":"0.00",
+              "DRVID":6105,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-10T00:00:00",
+              "GroupValue":"809",
+              "GroupDate":"2025-03-10T00:00:00",
+              "NominationID":225,
+              "NominationValue":"0.00",
+              "DRVID":6103,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-11T00:00:00",
+              "GroupValue":"586",
+              "GroupDate":"2025-03-11T00:00:00",
+              "NominationID":226,
+              "NominationValue":"0.00",
+              "DRVID":6107,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-03-12T00:00:00",
+              "GroupValue":"674",
+              "GroupDate":"2025-03-12T00:00:00",
+              "NominationID":227,
+              "NominationValue":"0.00",
+              "DRVID":6108,
+              "DRV_value":761
+           },
+           {
+              "ShipmentDate":"2025-03-13T00:00:00",
+              "GroupValue":"812",
+              "GroupDate":"2025-03-13T00:00:00",
+              "NominationID":228,
+              "NominationValue":"0.00",
+              "DRVID":6109,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-03-14T00:00:00",
+              "GroupValue":"1170",
+              "GroupDate":"2025-03-14T00:00:00",
+              "NominationID":229,
+              "NominationValue":"0.00",
+              "DRVID":6110,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-15T00:00:00",
+              "GroupValue":"1261",
+              "GroupDate":"2025-03-15T00:00:00",
+              "NominationID":230,
+              "NominationValue":"0.00",
+              "DRVID":6111,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-16T00:00:00",
+              "GroupValue":"1407",
+              "GroupDate":"2025-03-16T00:00:00",
+              "NominationID":231,
+              "NominationValue":"0.00",
+              "DRVID":6112,
+              "DRV_value":818
+           },
+           {
+              "ShipmentDate":"2025-03-17T00:00:00",
+              "GroupValue":"1341",
+              "GroupDate":"2025-03-17T00:00:00",
+              "NominationID":232,
+              "NominationValue":"0.00",
+              "DRVID":6113,
+              "DRV_value":820
+           },
+           {
+              "ShipmentDate":"2025-03-18T00:00:00",
+              "GroupValue":"1233",
+              "GroupDate":"2025-03-18T00:00:00",
+              "NominationID":233,
+              "NominationValue":"0.00",
+              "DRVID":6114,
+              "DRV_value":779
+           },
+           {
+              "ShipmentDate":"2025-03-19T00:00:00",
+              "GroupValue":"965",
+              "GroupDate":"2025-03-19T00:00:00",
+              "NominationID":234,
+              "NominationValue":"0.00",
+              "DRVID":6115,
+              "DRV_value":738
+           },
+           {
+              "ShipmentDate":"2025-03-20T00:00:00",
+              "GroupValue":"979",
+              "GroupDate":"2025-03-20T00:00:00",
+              "NominationID":235,
+              "NominationValue":"0.00",
+              "DRVID":6116,
+              "DRV_value":779
+           },
+           {
+              "ShipmentDate":"2025-03-21T00:00:00",
+              "GroupValue":"793",
+              "GroupDate":"2025-03-21T00:00:00",
+              "NominationID":236,
+              "NominationValue":"0.00",
+              "DRVID":6117,
+              "DRV_value":820
+           },
+           {
+              "ShipmentDate":"2025-03-22T00:00:00",
+              "GroupValue":"973",
+              "GroupDate":"2025-03-22T00:00:00",
+              "NominationID":237,
+              "NominationValue":"0.00",
+              "DRVID":6118,
+              "DRV_value":1028
+           },
+           {
+              "ShipmentDate":"2025-03-23T00:00:00",
+              "GroupValue":"862",
+              "GroupDate":"2025-03-23T00:00:00",
+              "NominationID":238,
+              "NominationValue":"0.00",
+              "DRVID":6119,
+              "DRV_value":1028
+           },
+           {
+              "ShipmentDate":"2025-03-24T00:00:00",
+              "GroupValue":"811",
+              "GroupDate":"2025-03-24T00:00:00",
+              "NominationID":239,
+              "NominationValue":"0.00",
+              "DRVID":6120,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-03-25T00:00:00",
+              "GroupValue":"833",
+              "GroupDate":"2025-03-25T00:00:00",
+              "NominationID":240,
+              "NominationValue":"0.00",
+              "DRVID":6121,
+              "DRV_value":828
+           },
+           {
+              "ShipmentDate":"2025-03-26T00:00:00",
+              "GroupValue":"644",
+              "GroupDate":"2025-03-26T00:00:00",
+              "NominationID":241,
+              "NominationValue":"0.00",
+              "DRVID":6122,
+              "DRV_value":785
+           },
+           {
+              "ShipmentDate":"2025-03-27T00:00:00",
+              "GroupValue":"697",
+              "GroupDate":"2025-03-27T00:00:00",
+              "NominationID":242,
+              "NominationValue":"0.00",
+              "DRVID":6123,
+              "DRV_value":828
+           },
+           {
+              "ShipmentDate":"2025-03-28T00:00:00",
+              "GroupValue":"729",
+              "GroupDate":"2025-03-28T00:00:00",
+              "NominationID":243,
+              "NominationValue":"0.00",
+              "DRVID":6124,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-03-29T00:00:00",
+              "GroupValue":"731",
+              "GroupDate":"2025-03-29T00:00:00",
+              "NominationID":244,
+              "NominationValue":"0.00",
+              "DRVID":6125,
+              "DRV_value":872
+           },
+           {
+              "ShipmentDate":"2025-03-30T00:00:00",
+              "GroupValue":"784",
+              "GroupDate":"2025-03-30T00:00:00",
+              "NominationID":245,
+              "NominationValue":"0.00",
+              "DRVID":6126,
+              "DRV_value":716
+           }
+        ]
+      },
+      ],
+      "TotalGroupData": {
+        "GroupName": "Group",
+        "GroupDetails": [
+          {
+            "ShipmentDate": null,
+            "GroupValue": null,
+            "GroupDate": "2025-03-03T00:00:00",
+            "NominationID": null,
+            "NominationValue": "3308.00",
+            "DRVID": null,
+            "DRV_value": null
+          },
+          {
+            "ShipmentDate": null,
+            "GroupValue": null,
+            "GroupDate": "2025-03-02T00:00:00",
+            "NominationID": null,
+            "NominationValue": "40.00",
+            "DRVID": null,
+            "DRV_value": null
+          }
+        ]
+      }
+
+    },
+    "MarketerData": [
+      {
+        "MarketerID": 101,
+        "MarketerName": "Washington Gas Light Company"
+      },
+      {
+        "MarketerID": 102,
+        "MarketerName": "AGF Direct Gas Sales Inc"
+      }
+    ],
+    "ListGroupData": [
+      {
+        "GroupID": 21,
+        "GroupName": "AMERAD DC IP-Inactive"
+      },
+      {
+        "GroupID": 22,
+        "GroupName": "AMERAD MD IP-Inactive"
+      },
+      {
+        "GroupID": 23,
+        "GroupName": "BGE HO MD IP-Inactive"
+      }]
+  }
+}
+
+export const fileHubSupportedFormat = ['.xls', '.xlsx']

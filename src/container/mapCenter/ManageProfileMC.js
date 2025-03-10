@@ -49,7 +49,7 @@ const ManageProfileMC = () => {
                 dispatch(mapCenterAction.clear());
                 const user = await dispatch(mapCenterAction.get({ id })).unwrap();
                 const data = user?.Data;
-                localStorage.setItem('mapcenterUserID', id);
+                sessionStorage.setItem('mapcenterUserID', id);
                 reset(data);
                 if (data?.FileData) {
                     setFiles(data?.FileData.map(file => ({
@@ -132,7 +132,7 @@ const ManageProfileMC = () => {
                 dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
                 return;
             }
-            localStorage.removeItem('mapcenterUserID');
+            sessionStorage.removeItem('mapcenterUserID');
             navigate('/');
             dispatch(alertActions.success({ message: mapCenterRegistrationLabels.message1, header: mapCenterRegistrationLabels.header, showAfterRedirect: true }));
 
@@ -225,6 +225,7 @@ const ManageProfileMC = () => {
                                                         handleBlur={handleBlur} />
                                                 </Grid>
                                             </Grid>
+                                            
                                         </Grid>
                                         <Grid item xs={12} sm={12} md={4}>
                                             <Typography component="div" className="UploadFiles-container mapcontainer  ">

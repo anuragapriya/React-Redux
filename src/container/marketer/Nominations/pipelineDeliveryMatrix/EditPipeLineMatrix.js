@@ -55,29 +55,22 @@ const EditPipeLineMatrix = () => {
         setColumns(columns);
     }, [data]);
 
-    // useEffect(() => {
-    //     updateLastRowMin();
-    // }, [tableData]);
+    const handleRefresh = async ()=> {
 
-    // const updateLastRowMin = () => {
-    //     setTableData((prevData) => {
-    //         if (prevData.length > 1) {
-    //             const updatedData = [...prevData];
-    //             const prevMax = updatedData[updatedData.length - 2]?.Range.split("-")[1]?.trim();
-    //             if (prevMax) {
-    //                 updatedData[updatedData.length - 1].Range = `${parseInt(prevMax.replace(/,/g, ""), 10) + 1}`;
-    //             }
-    //             return updatedData;
-    //         }
-    //         return prevData;
-    //     });
-    // };
+        const result = await dispatch(nominationsAction.getDeliveryMatrix(matrixTypeName)).unwrap();
+        const deliveryGuide = result;
+        setData(deliveryGuide);
+    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
         setOpen((previousOpen) => !previousOpen);
     };
 
+    const handleCancelClick = (event) => {
+        handleRefresh();
+        handleClick(event);
+    };
 
     const handleSubmit = async () => {
         try{
@@ -130,6 +123,8 @@ const EditPipeLineMatrix = () => {
             let result;
             if (formattedData) {
                 result = await dispatch(nominationsAction.updateDeliveryMatrix(formattedData));
+                let message = result?.payload?.Message;
+                dispatch(alertActions.success({message}));
             }
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
@@ -388,7 +383,7 @@ const EditPipeLineMatrix = () => {
                                             <Button className='Filter' type="button" variant="contained" color="primary" onClick={handleSubmit}>
                                                 <img src={codiconsave} alt='codiconsave'></img>
                                             </Button>
-                                            <Button className='materialsymbolsclose' type="button" variant="contained" color="primary" onClick={handleClick}>
+                                            <Button className='materialsymbolsclose' type="button" variant="contained" color="primary" onClick={handleCancelClick}>
 
                                                 <img src={materialsymbolsclose} alt='materialsymbolsclose'></img>
 

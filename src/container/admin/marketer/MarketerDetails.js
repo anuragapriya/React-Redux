@@ -11,7 +11,7 @@ const MarketerDetails = ({ marketer, uetFileData }) => {
 
     useEffect(() => {
         // Convert comma-separated string to an array of IDs
-        const uetArray = marketer?.UETFileID.split(',').map(id => parseInt(id.trim(), 10));
+        const uetArray = marketer?.UETFileID ? marketer?.UETFileID?.split(',').map(id => parseInt(id.trim(), 10)) : [];
         setUetFileTypes(uetArray);
     }, [marketer.UETFileID]);
 

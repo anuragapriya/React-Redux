@@ -1,237 +1,276 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography, Button } from "@mui/material";
+import { alertActions, nominationgroupAction } from '_store';
+import { GroupNominationFilter, GroupNominationList } from '../../index';
+import { Typography, Button,Box } from '@mui/material';
 import Grid from "@mui/material/Grid2";
-import { ModalPopup } from '_components';
-import GroupNominationList from './GroupNominationList';
-import { getNominationPipeline } from '_utils/constant';
 import dayjs from 'dayjs';
-
+import utc from 'dayjs/plugin/utc';
+import { NominationGroupData } from '_utils/constant';
 const GroupNomination = () => {
-  const header = " Nomination By Group";
+  const header = "Nomination By Group";
   const dispatch = useDispatch();
- const piplineData=getNominationPipeline;
+  // const nominationData = useSelector(x => x.nominationgroup?.nominationGroupList);
+  // const marketerData=nominationData?.MarketerData;
+  // const marketerGroupData = nominationData?.ListGroupData;
+  // console.log(nominationData);
+  // console.log("marketerGroupData",marketerGroupData);
   const [data, setData] = useState([]);
   const [fromDate, setFromDate] = useState(dayjs().startOf('month').toDate());
   const [toDate, setToDate] = useState(dayjs().endOf('month').toDate());
-  const [isDataChanged, setIsDataChanged] = useState(false);
-  const [editedRowId, setEditedRowId] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [rowSelection, setRowSelection] = useState({});
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [marketerId, setMarketerId] = useState(null);
-  const [openComponent, setOpenComponent] = useState(null); // State to track which component is open
+  const [marketerGroupId, setMarketerGroupId] = useState(null);
+  const [pipelineID, setPipelineID] = useState(null);
+  const [openComponent, setOpenComponent] = useState(null);
   const [backdropOpen, setBackdropOpen] = useState(false);
+  const [editedRecords, setEditedRecords] = useState({});
+  const [isDataChanged, setIsDataChanged] = useState(false);
+  const authUser = useSelector(x => x.auth?.value);
+  const userProfiles = useSelector(x => x.userProfile?.userProfileData);
+  const marketerData = useSelector(x => x.nominationgroup?.nominationGroupList?.MarketerData);
+  const marketerGroupData = useSelector(x => x.nominationgroup?.nominationGroupList?.ListGroupData);
+
+  const user = authUser?.Data;
+  const userdetails = user?.UserDetails;
+  const userAccess = user?.UserAccess;
+  const isAdmin = userAccess?.some(access => access.Role.toLowerCase().includes('admin'));
+  // console.log("isAdmin",isAdmin);
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   dispatch(alertActions.clear());
-    //   try {
-    //     // const result = marketerGroupGetData;
-    //     const result = await dispatch(marketergroupAction.get(0)).unwrap();
-    //     const marketerData = result?.Data;
-    //     console.log('Fetched Data:', marketerData); // Log fetched data
-    //     setMarketerId(marketerData?.MarketerID);
-         setData(getNominationPipeline);
-    //   } catch (error) {
-    //     console.error('Fetch Error:', error); // Log any errors
-    //     dispatch(alertActions.error({
-    //       message: error?.message || error,
-    //       header: `${header} Failed`
-    //     }));
-    //   }
-    // };
-    // fetchData();
-  }, [dispatch,setData]);
+    const fetchData = async () => {
+      dispatch(alertActions.clear());
+      try {
+        const result = await dispatch(nominationgroupAction.get()).unwrap();
+        const nominationData = result?.Data;
+        setData(nominationData);
+        // setData(NominationGroupData?.Data);
+      } catch (error) {
+        console.error('Fetch Error:', error); // Log any errors
+        dispatch(alertActions.error({
+          message: error?.message || error,
+          header: `${header} Failed`
+        }));
+      }
+    };
+    fetchData();
+  }, [dispatch, setData]);
+  const handleRefresh = async () => {
+    const result = await dispatch(nominationgroupAction.get()).unwrap();
+    const nominationData = result?.Data;
+    setData(nominationData);
+  };
 
-  const handleChange = (newValue, rowData, field) => {
-    // if (field === 'StartMonth' || field === 'EndMonth') {
-    //   newValue = dayjs(newValue).isValid() ? dayjs(newValue).toISOString() : null;
-    // }
-    // setEditedRowId((prev) => {
-    //   const updatedRows = { ...prev };
-    //   if (!updatedRows[rowData.ID]) {
-    //     updatedRows[rowData.ID] = { ...rowData };
-    //   }
-    //   updatedRows[rowData.ID][field] = newValue;
-    //   return updatedRows;
-    // });
-    // const newData = data?.MarketerGroups?.map(row => row.ID === rowData.ID ? { ...row, [field]: newValue } : row);
-    // setData(pre => ({ ...pre, MarketerGroups: [...newData] }));
+  const handleCancelClick = async () => {
+    handleRefresh();
+};
+  const pipelineData = [
+    {
+      "PipelineID": 2,
+      "Name": "Test 1"
+    },
+    {
+      "PipelineID": 3,
+      "Name": "Test 2"
+    }
+  ];
+  const handleFilterSubmit = async (newData) => {
+    await setData(newData);
+    setMarketerId(newData?.MarketerID);
+  };
+  const handleCloseBackdrop = () => {
+    setBackdropOpen(false);
+    setOpenComponent(null);
+  };
+
+  const handleOpenComponent = (component) => {
+    setOpenComponent(prev => prev === component ? null : component);
+    setBackdropOpen(prev => prev === component ? false : true); // Toggle backdrop
+  };
+
+  const handleChange = (newValue, rowData, columnId) => {
+    // Create a new copy of the data object to ensure it's not read-only
+    let newData = JSON.parse(JSON.stringify(data));
+
+    // Create a new array for the updated contract data
+    const updatedGroupData = newData.GroupData.GroupData1.map(group => {
+      // Create a shallow copy of the contract object
+      const newGroup = { ...group };
+
+      if (newGroup.GroupID === rowData.GroupID) {
+        const date = dayjs(columnId, 'DD/MM').format('YYYY-MM-DD');
+
+        const detail = newGroup.GroupDetails.find(d => dayjs(d.ShipmentDate).format('YYYY-MM-DD') === date);
+        newGroup.GroupDetails = [...newGroup.GroupDetails];
+        const isNominationRow = rowData.GroupName === "Nomination";
+        const isDRVRow = rowData.GroupName === "DRV";
+        if (detail) {
+
+          if (isNominationRow) {
+            detail.NominationValue = newValue;
+          } else {
+            detail.DRV_value = newValue;
+          }
+
+        } else {
+          console.log("Date not found! Adding missing values.");
+          newGroup.GroupDetails.push({
+            ShipmentDate: `${date}T00:00:00`,
+            GroupDate: `${date}T00:00:00`,
+            GroupValue: rowData.GroupValue || "", // Preserve existing GroupValue
+            NominationID: isNominationRow ? rowData.NominationID || null : null,
+            NominationValue: isNominationRow ? newValue : 0,
+            DRVID: isDRVRow ? rowData.DRVID || null : null,
+            DRV_value: isDRVRow ? newValue : 0,
+          });
+
+
+        }
+      }
+
+      return newGroup;
+    });
+
+    newData.GroupData.GroupData1 = updatedGroupData;
+
+    setData(newData);
+    // Update Edited Records
+    setEditedRecords(prev => {
+      const updatedRecords = { ...prev };
+      const group = updatedGroupData.find(g => g.GroupID === rowData.GroupID);
+
+      if (group) {
+        const editedDetails = group.GroupDetails.filter(d =>
+          (rowData.GroupName === "Nomination" && d.NominationValue === newValue) ||
+          (rowData.GroupName === "DRV" && d.DRV_value === newValue)
+        );
+
+        if (!updatedRecords[group.GroupID]) {
+          updatedRecords[group.GroupID] = { GroupDetails: [] };
+        }
+
+        // Remove existing records for the same date
+        updatedRecords[group.GroupID].GroupDetails = updatedRecords[group.GroupID].GroupDetails.filter(
+          d => dayjs(d.ShipmentDate).format('YYYY-MM-DD') !== dayjs(editedDetails[0].ShipmentDate).format('YYYY-MM-DD')
+        );
+
+        updatedRecords[group.GroupID].GroupDetails.push(...editedDetails);
+      }
+
+      return updatedRecords;
+    });
     setIsDataChanged(true);
   };
 
   const handleSubmit = async () => {
-    // dispatch(alertActions.clear());
-    // try {
-    //   let editedRowData = Object.values(editedRowId);
-    //   const invalidDates = editedRowData.filter(item => !dayjs(item.StartDate).isValid());
-    //   if (invalidDates.length > 0) {
-    //     dispatch(alertActions.error({ message: "One or more dates are invalid. Please correct them before submitting.", header: header }));
-    //     return;
-    //   }
+    dispatch(alertActions.clear());
+    try {
+      const transformedData = Object.entries(editedRecords).flatMap(([groupID, group]) =>
+        group.GroupDetails.map(detail => ({
+          CompanyID: data?.GroupData?.MarketerID || 0, // Adjust this based on available data
+          AllocationGroupID: parseInt(groupID, 10) || 0,
+          NominationDate: detail.ShipmentDate, // Using ShipmentDate as NominationDate
+          NominationAmount: detail.NominationValue || 0,
+          DrvAmount: detail.DRV_value || 0
+        }))
 
-    //   const transformedData = editedRowData.map((item) => ({
-    //     ID: item.ID,
-    //     GroupName: item.GroupName,
-    //     GroupType: item.GroupType,
-    //     JurisdictionID: item.JurisdictionID,
-    //     StartMonth: dayjs(item.StartMonth).toISOString(),
-    //     EndMonth: dayjs(item.EndMonth).toISOString(),
-    //     BalancingModelID: item.BalancingModelID,
-    //     MarketerID: marketers?.MarketerID
-    //   }));
+      );
+      console.log(transformedData);
+      let result;
+      if (transformedData.length > 0) {
+        result = await dispatch(nominationgroupAction.update(transformedData));
+        dispatch(alertActions.success({ message: "Group Nomination Updated Successfully.", header: header, showAfterRedirect: true }));
+      }
+      if (result?.error) {
+        dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
+        return;
+      }
+      handleRefresh();
+    } catch (error) {
+      dispatch(alertActions.error({ message: error?.message || error, header: header }));
+    }
 
-    //   let result;
-    //   if (transformedData.length > 0) {
-    //     result = await dispatch(marketergroupAction.update(transformedData));
-    //   }
-    //   if (result?.error) {
-    //     dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
-    //     return;
-    //   }
-    //   setIsDataChanged(true);
-    //   handleRefresh();
-    //   dispatch(alertActions.success({ message: "Marketed Group data updated Successfully.", header: header, showAfterRedirect: true }));
-    // } catch (error) {
-    //   dispatch(alertActions.error({ message: error?.message || error, header: header }));
-    // }
-  };
-
-//   const handleFilterSubmit = async (newData) => {
-//     setData(newData);
-//     setMarketerId(newData?.MarketerID);
-//   };
-
-  const handleCancelClick = async () => {
-  //  handleRefresh();
-  };
-
-//   const handleToggleActiveStatus = () => {
-//     setConfirmDialogOpen(true);
-//   };
-
-  const handleConfirmDeactivation = async () => {
-    // dispatch(alertActions.clear());
-    // await handleDelete(selectedRows);
-    // setIsDataChanged(true);
-    // setConfirmDialogOpen(false);
-    // dispatch(alertActions.success({ message: "Marketer Groups deleted successfully", header: header }));
-  };
-
-//   const handleDelete = async (rowsToDelete) => {
-//     dispatch(alertActions.clear());
-//     try {
-//       const transformedData = Array.isArray(rowsToDelete)
-//         ? rowsToDelete.map((row) => row.ID) // For bulk delete
-//         : [rowsToDelete.original.original.ID]; // For single row delete
-
-//       let result;
-//       result = await dispatch(marketergroupAction.bulkDelete(transformedData));
-//       if (result?.error) {
-//         dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
-//         return;
-//       }
-//       await setMarketerId(prevMarketerId => prevMarketerId || marketers?.MarketerID);
-//       handleRefresh();
-//       dispatch(alertActions.success({ message: "Marketer Group deleted successfully.", header: header, showAfterRedirect: true }));
-//     } catch (error) {
-//       dispatch(alertActions.error({ message: error?.message || error, header: header }));
-//     }
-//   };
+  }
 
 
-//   const handleOpenComponent = (component) => {
-//     setOpenComponent(prev => prev === component ? null : component);
-//     setBackdropOpen(prev => prev === component ? false : true); // Toggle backdrop
-//   };
 
-//   const handleCloseBackdrop = () => {
-//     setBackdropOpen(false);
-//     setOpenComponent(null);
-//   };
 
   return (
     <>
-      <Typography component="div" className='userprofilelist '>
+      <Typography component="div" className='userprofilelist'>
         <Grid container direction="row" spacing={2}>
-          <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-            <Grid container>
-              <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                <Typography variant="h2" className='userprofilelistcontent'>Nomination By Group</Typography>
-              </Grid>
-            </Grid>
+          <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+            <Typography variant='h2' className='userprofilelistcontent'>Nomination By Group</Typography>
           </Grid>
-          {/* <Grid size={{ xs: 12, sm: 12, md: 8 }} >
+          <Grid size={{ xs: 12, sm: 12, md: 8 }} >
             <Grid container spacing={2} justifyContent="flex-end" className="MarketerManagement">
               <Grid size={{ xs: 12, sm: 12, md: 8 }} >
                 <Grid container spacing={2} justifyContent="flex-end">
                   <Grid size={{ xs: 6, sm: 6, md: 4 }}>
-                    <MarketerGroupFilter
+                    <GroupNominationFilter
+                      marketerData={marketerData}
+                      marketerGroupData={marketerGroupData}
+                      pipelineData={pipelineData}
+                      fromDate={fromDate}
+                      setFromDate={setFromDate}
+                      isAdmin={isAdmin}
+                      toDate={toDate}
+                      setToDate={setToDate}
                       marketerId={marketerId}
                       setMarketerId={setMarketerId}
-                      marketerData={data?.Marketer}
+                      marketerGroupId={marketerGroupId}
+                      setMarketerGroupId={setMarketerGroupId}
+                      pipelineID={pipelineID}
+                      setPipelineID={setPipelineID}
                       handleFilterSubmit={handleFilterSubmit}
                       isOpen={openComponent === 'filter'}
                       onClose={() => handleCloseBackdrop()}
                       onOpen={() => handleOpenComponent('filter')}
                     />
                   </Grid>
-                  <Grid size={{ xs: 12, sm: 4, md: 4 }}>
-                    <MarketerGroupCreate
-                      handleRefresh={handleRefresh}
-                      marketerGroupData={data}
-                      isOpen={openComponent === 'create'}
-                      onClose={() => handleCloseBackdrop()}
-                      onOpen={() => handleOpenComponent('create')}
-                    />
-                  </Grid>
+
                 </Grid>
               </Grid>
             </Grid>
-          </Grid> */}
+          </Grid>
+
+
         </Grid>
       </Typography>
-
-      {/* {!(marketers?.loading || marketers?.error) && */}
-
       <>
         <div className={backdropOpen ? 'backdrop' : ''}>
+          </div>
+          <Box className="PiplineNominationList GroupNominationList">
           <GroupNominationList
-            data={piplineData}
             fromDate={fromDate}
+            setFromDate={setFromDate}
             toDate={toDate}
+            setToDate={setToDate}
+            data={data}
+            handleChange={handleChange}
           />
-        </div>
-        <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
-          <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
-            Cancel
-          </Button>
-          <Button type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className='submitbutton'
-            onClick={handleSubmit}
-            disabled={!isDataChanged}
-          >
-            Save
-          </Button>
-        </Grid>
+        </Box>
       </>
 
-      {/* } */}
-      {confirmDialogOpen && <ModalPopup
-        header="Marketer Group"
-        message1="Are you sure you want to delete selected marketer group?"
-        btnPrimaryText="Confirm"
-        btnSecondaryText="Cancel"
-        handlePrimaryClick={handleConfirmDeactivation}
-        handleSecondaryClick={() => setConfirmDialogOpen(false)}
-      />}
+      <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
+        <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
+          Cancel
+        </Button>
+        <Button type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className='submitbutton'
+          onClick={handleSubmit}
+          disabled={!isDataChanged}
+        >
+          Save
+        </Button>
+      </Grid>
+
+
     </>
-  );
+
+  )
 }
 
 export default GroupNomination;

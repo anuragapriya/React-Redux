@@ -7,13 +7,18 @@ import { DisplayUploadedFile } from '_components';
 import { alertActions, userActions } from '_store';
 import RejectReason from "./RejectReason";
 
-const UserProfileDetailsMC = ({ userData, roles,portalAccess, handleResetPassword, onLockToggle, setSelectedUser, setshowDetailSection }) => {
+const UserProfileDetailsMC = ({ userData, roles, portalAccess, handleResetPassword, onLockToggle, setSelectedUser, setshowDetailSection, singleUserUpdate }) => {
     const header = " User Details";
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const id = userData.UserID;
     const RoleName = roles.filter((item) => item?.value === userData.RoleID);
     const user = useSelector(x => x.users?.userDetails);
+    const authUser = useSelector(x => x.auth.value);
+    const userAccess = authUser?.Data?.UserAccess;
+    const userdetails = authUser?.Data?.UserDetails;
+    const isReviewer = userAccess?.some(access => access.Role.toLowerCase().includes('reviewer'));
+    const isAdmin = userAccess?.some(access => access.Role.toLowerCase().includes('admin'));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -139,33 +144,45 @@ const UserProfileDetailsMC = ({ userData, roles,portalAccess, handleResetPasswor
             </Box>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 6, sm: 6, md: 6 }} className="ResetPasswordbutton">
-                    {userData?.Status.toLowerCase() === 'approved' && <> <Button
+                    {isAdmin && <> <Button
                         type="submit"
                         variant="contained"
                         className='ResetPassword'
                         color="primary"
                         onClick={() => handleResetPassword(userData?.EmailID)}
+                        disabled={userData?.Status.toLowerCase() !== 'approved'}
                     >
                         Reset Password
                     </Button>
-                        {userData?.IsAccountLock && <Button
+                        <Button
                             type="submit"
                             variant="contained"
                             className='ResetPassword'
                             color="primary"
                             onClick={() => onLockToggle(userData)}
+                            disabled={userData?.Status.toLowerCase() !== 'approved' || !userData.IsAccountLock}
                         >
                             Unlock Account
                         </Button>
-                        }
                     </>
                     }
                 </Grid>
                 <Grid size={{ xs: 6, sm: 6, md: 6 }} className="containedLoginbuttonleft">
-                    <Button
+                    {isAdmin && userData?.Status.toLowerCase() !== 'approved' &&
+                     <Button
                         type="submit"
                         variant="contained"
                         className='Loginbutton'
+                        color="primary"
+                        disabled={userData.Status.toLowerCase() !== "verified" || userData.Status.toLowerCase() !== "partially approved"}
+                        onClick={() => singleUserUpdate(userData)}>
+                        Approve
+                    </Button>
+                    }
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        className='Loginbutton buttonmarginleft-20'
                         color="primary"
                         onClick={() => handleReviewChange(userData)}
                     >

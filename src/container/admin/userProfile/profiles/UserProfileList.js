@@ -98,7 +98,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
       }
       dispatch(alertActions.success({
         showAfterRedirect: true,
-        message: "ResetPassword link sent to the User",
+        message: "A password reset link has been sent to the user's registered email address.",
         header: "User Profile"
       }));
     } catch (error) {
@@ -107,6 +107,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
   }
 
   const columns = useMemo(() => {
+    const isRowSelected = Object.keys(rowSelection).length > 0;
     const baseColumns = [{
       accessorKey: 'EmailID', header: 'Email',
       enableEditing: false,
@@ -129,8 +130,8 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
         }
       },
       Cell: ({ row }) => {
-        // Format email to show only part before "@" and hide the domain
-        const formattedEmail = row.original.EmailID.replace(/@.*/, "@...");
+        const email = row.original.EmailID
+        const formattedEmail = email.length > 17 ? email.slice(0, 20) + "..." : email;
         return (
           <Tooltip title={row.original.EmailID} arrow>
             <span onClick={() => handleAddEdit(row)}
@@ -156,6 +157,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
           className='ServiceProvider'
           value={cell.getValue()}
           onChange={(e) => handleChange(e.target.value, row.original, 'CompanyName')}
+          disabled={!rowSelection[row.id] || (isReviewer && row.original.Status.toLowerCase()==="approved")}
         />
       ),
     },
@@ -183,6 +185,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
             label={`Select ${column.columnDef.header}`}
             onChange={(value) => handleChange(value, row.original, columnKey)}
             options={roles}
+            disabled={isReviewer ||  !rowSelection[row.id]}
           />
         )
       }
@@ -216,6 +219,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
               label={`Select ${column.columnDef.header}`}
               onChange={(value) => handleChange(value, row.original, columnKey)}
               options={agencies}
+              disabled={!rowSelection[row.id]}
             />
           )
         }
@@ -238,6 +242,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
               onChange={(newValue) => handleChange(newValue, row.original, columnKey)}
               label={`Select ${column.columnDef.header}`}
               value={selectedValues.join(',')}
+              disabled={!rowSelection[row.id]}
             />
           );
         }
@@ -258,6 +263,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
                 onChange={(newValue) => handleChange(newValue, row.original, columnKey)}
                 label={`Select ${column.columnDef.header}`}
                 value={selectedValues.join(',')}
+                disabled={!rowSelection[row.id]}
               />
             );
           }
@@ -287,13 +293,14 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
               label={`Select ${column.columnDef.header}`}
               onChange={(value) => handleChange(value, row.original, columnKey)}
               options={marketers}
+              disabled={!rowSelection[row.id]}
             />
           )
         }
       })
     }
     return baseColumns;
-  }, [handleChange, roles, statuses, agencies]);
+  }, [handleChange, roles, statuses, agencies,rowSelection]);
 
   const handleAddEdit = (row) => {
     row.toggleExpanded();
@@ -396,7 +403,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
           flexWrap: 'wrap',
         }}
       >
-        <Tooltip title="Clear filter" className='Deactivate'>
+        <Tooltip title="Refresh" className='Deactivate'>
           <div>
             <IconButton onClick={handleRefresh} >
               <FilterListOff variant="contained" color="secondary" />
@@ -405,7 +412,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
         </Tooltip>
         <Tooltip title=" Delete Selected" className='DeleteSelected'>
           <div>
-            <IconButton className='delete' onClick={handleBulkDelete} disabled={selectedRows.length === 0}>
+            <IconButton className='delete' onClick={handleBulkDelete} disabled={selectedRows.length === 0 || isReviewer}>
               <img src={Deletewhite} alt="Delete"  ></img>
             </IconButton>
           </div>
@@ -414,8 +421,8 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
     ),
     renderRowActions: ({ row }) => {
       return (
-        <div style={{ display: 'flex', gap: '0.5rem' }} className='tableicons'>
-          <IconButton className='delete' >
+        <div   className='tableicons'>
+          <IconButton className='delete'  disabled={isReviewer} >
             <img src={Delete} alt="Delete" onClick={handleOpenModal}></img>
           </IconButton>
           {isModalOpen && <ModalPopup
@@ -434,7 +441,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
       <Box sx={{ padding: 2 }}>
         {portalId === 3 ?
           <UserProfileDetailsMC userData={row.original} roles={roles} portalAccess={displayPortalName} setSelectedUser={setSelectedUser} setshowDetailSection={setshowDetailSection}
-            handleResetPassword={handleResetPassword} onLockToggle={onLockToggle} />
+            handleResetPassword={handleResetPassword} onLockToggle={onLockToggle} singleUserUpdate={singleUserUpdate} />
           :
           <UserProfileDetails userData={row.original} portalAccess={displayPortalName} roles={roles}
             portalId={portalId} userProfiles={userProfiles} handleReject={handleReject} singleUserUpdate={singleUserUpdate}
@@ -451,6 +458,7 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
 
   useEffect(() => {
     // This effect runs when rowSelection state is updated
+    console.log('rowSelection',rowSelection);
     const selectedFlatRows = table.getSelectedRowModel().flatRows;
     setSelectedRows(selectedFlatRows.map((row) => row.original)); // Extract original row data
   }, [rowSelection, table]); // Re-run when rowSelection changes
@@ -486,8 +494,11 @@ const UserProfileList = ({ portalData, userProfiles, handleFilterSubmit, handleC
         </Grid>
       </Typography>
       <div className={backdropOpen ? 'backdrop' : ''}>
-        <MaterialReactTable table={table} />
+        
       </div>
+      <Box className="MaterialReactTablemargin-left">
+      <MaterialReactTable table={table} />
+      </Box>
       {confirmDialogOpen && <ModalPopup
         header="Profile Delete"
         message1="Are you sure you want to delete selected profiles?"

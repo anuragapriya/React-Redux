@@ -56,7 +56,7 @@ const Home = ({ handleCardClick, setBreadcrumb }) => {
           name: "marketer",
           title: item.PortalName,
           description: item.PortalName,
-          path: "pipelinedelivery",
+          path: "nominationPipeline",
           portalKey: item.PortalKey,
           portalID: item.PortalId
         }];
@@ -109,22 +109,22 @@ const Home = ({ handleCardClick, setBreadcrumb }) => {
 
 
   useEffect(() => {
-    localStorage.removeItem('breadcrumb');
-    localStorage.removeItem('appMenuItems');
-    localStorage.setItem('showHeaderMenu', false);
+    sessionStorage.removeItem('breadcrumb');
+    sessionStorage.removeItem('appMenuItems');
+    sessionStorage.setItem('showHeaderMenu', false);
     if (data.length === 1) {
-      localStorage.setItem('portalID', data[0].portalID);
+      sessionStorage.setItem('portalID', data[0].portalID);
       handleCardClick(data[0].portalKey, isAdmin, data[0].path);
-      localStorage.setItem('breadcrumb', data[0].title);
-      localStorage.setItem('showHeaderMenu', true);
+      sessionStorage.setItem('breadcrumb', data[0].title);
+      sessionStorage.setItem('showHeaderMenu', true);
     }
   }, [data, isAdmin, handleCardClick]);
 
   const handleClick = (portalKey, path, portalID, title) => {
-    localStorage.setItem('portalID', portalID);
+    sessionStorage.setItem('portalID', portalID);
     handleCardClick(portalKey, isMBAdmin, path);
-    localStorage.setItem('breadcrumb', title);
-    localStorage.setItem('showHeaderMenu', true);
+    sessionStorage.setItem('breadcrumb', title);
+    sessionStorage.setItem('showHeaderMenu', true);
     navigate(`/${path}`);
   };
 

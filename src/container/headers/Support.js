@@ -17,7 +17,7 @@ const Support = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
-    let portalID = localStorage.getItem('portalID') || 99;
+    let portalID = sessionStorage.getItem('portalID') || 99;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -76,13 +76,13 @@ const Support = () => {
                 }}
             >
                 <Box p={2}>
-                    <Menu
+                    <Menu component="div"
                         className='support-list supporticonlist'
                         anchorEl={anchorEl}
                         id="account-menu"
                         open={open}
                         onClose={handleClose}
-                        onClick={handleClose}
+                      //  onClick={handleClose}
                         slotProps={{
                             paper: {
                                 elevation: 0,
@@ -116,7 +116,7 @@ const Support = () => {
                     >
                         <Typography component="div" class="supportcontainer">
                         <Typography component="h3">support</Typography>
-                        <MenuItem onClick={handleEmailService}>
+                        <MenuItem onClick={handleEmailService} component="div">
                         <Grid container spacing={1}>
                         <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <span className='EmailAddress'>Email Address   </span>
@@ -126,7 +126,7 @@ const Support = () => {
                           </Grid>
                           </Grid>
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem component="div">
                         <Grid container spacing={1}>
                         <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <span className='EmailAddress'>Phone Number </span>
@@ -138,7 +138,7 @@ const Support = () => {
                            
                            
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem component="div">
                         <Grid container spacing={1}>
                         <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <span className='EmailAddress' >Fax </span>
@@ -150,7 +150,7 @@ const Support = () => {
                        
                            
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem component="div">
                         <Grid container spacing={1}>
                         <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <span className='EmailAddress'>  Training Material </span>

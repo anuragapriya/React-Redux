@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-import { Typography } from '@mui/material';
-import { MobileNumberInput, CustomFormControl, AutocompleteInput } from '_components';
+import { Typography,TextField } from '@mui/material';
+import { MobileNumberInput, CustomFormControl, AutocompleteInput, CustomMultiTextFieldInput} from '_components';
 
 const SupportDetails = ({register, control, errors, handleBlur,trigger, handlePortalChange, portalData, selectedPortal}) => {
     return(
@@ -22,14 +22,38 @@ const SupportDetails = ({register, control, errors, handleBlur,trigger, handlePo
           onChange={handlePortalChange}
         />
       </Typography>
-      <CustomFormControl
+      {/* <CustomFormControl
         id="EmailAddress"
         label="Email Address"
         type="text"
         register={register}
         errors={errors}
         handleBlur={handleBlur}       
-      />
+      /> */}
+           {/* <CustomFormControl
+                    id="EmailAddress"
+                    label="Email Address"
+                    type="text"
+                    register={register}
+                   
+                /> */}
+                   {/* <TextField
+          id="EmailAddress"
+          label="Email Address"
+          type="text"
+          multiline
+          register={register}
+        /> */}
+        <CustomMultiTextFieldInput
+           id="EmailAddress"
+           label="Email Address"
+           type="text"
+           register={register}
+          rows={1}
+           minRows={1}
+           maxRows={5}
+           errors={errors}
+        />
       <MobileNumberInput
         control={control}
         name="PhoneNumber"

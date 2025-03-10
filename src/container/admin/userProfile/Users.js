@@ -177,16 +177,22 @@ const Users = () => {
     dispatch(alertActions.clear());
     try {
       let editedRowData;
+      let selectedUsers;
 
       if (isSingle && singleRowData) {
         // Handle a single object update
         editedRowData = [singleRowData]; // Wrap in an array for consistency
       } else {
         // Handle multiple object updates
-      //   editedRowData = Object.values(editedRowId);
-        editedRowData = selectedRows.filter(row => editedRowId[row.UserID]);
+        editedRowData = Object.values(editedRowId);
+     
+       selectedUsers = editedRowData
+        .filter(newItem =>
+          selectedRows.some(oldItem => oldItem.UserID === newItem.UserID)
+        ).map(item => item);
+       console.log('selectedUserId', selectedUsers);
       }
-      const transformedData = editedRowData.map((item) => ({
+      const transformedData = selectedUsers.map((item) => ({
         MappingID: item.MappingID || 0,
         UserID: item.UserID,
         CompanyName: item.CompanyName,

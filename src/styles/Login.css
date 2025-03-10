@@ -1202,6 +1202,7 @@ input[type=number] {
     margin-bottom: 24px;
     text-transform: uppercase;
     box-shadow: 0px 1px 1px 0px rgba(0, 89, 179, 0.25);
+    height: 48px;
 }
 
 .Registrationcontainer .MuiFormControl-marginNormal .MuiAutocomplete-endAdornment button .MuiSvgIcon-root {
@@ -1702,7 +1703,7 @@ input[type=number] {
     }
 
     .inputtags .passwordcheck .MuiOutlinedInput-root {
-        padding: 5px;
+        padding:0px 15px 0px;
     }
 
     /* .login-container {
@@ -1817,9 +1818,9 @@ input[type=number] {
         margin-top: 0px;
     }
 
-    .MapCenterAccecss .Personal-Information-container .CompanyDetails {
+    /* .MapCenterAccecss .Personal-Information-container .CompanyDetails {
         padding: 0px 12px;
-    }
+    } */
 
     .forgotpasswordcontainer .passwordselect {
         margin-bottom: 5px;

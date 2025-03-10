@@ -17,6 +17,12 @@ import { marketergroupReducer } from './marketergroup.slice';
 import { nominationReducer } from './nomination.slice';
 import { myprofileReducer } from './ProfileUpdate.slice';
 import { nominationpipelineReducer } from './nominationPipeline.slice';
+import { customerReducer } from './admincustomer.slice';
+import { firmReducer } from './firm.slice';
+import { interruptibleReducer } from './interruptible.slice';
+import { nominationgroupReducer } from './nominationGroup.slice';
+import { activityLogReducer } from './activitylog.slice';
+import { filehubReducer } from './filehub.slice';
 
 export * from './alert.slice';
 export * from './auth.slice';
@@ -35,6 +41,12 @@ export * from './marketergroup.slice';
 export * from './nomination.slice';
 export * from './ProfileUpdate.slice';
 export * from './nominationPipeline.slice';
+export * from './admincustomer.slice';
+export * from './firm.slice';
+export * from './interruptible.slice';
+export * from './nominationGroup.slice';
+export * from './activitylog.slice';
+export * from './filehub.slice';
 
 export const store = configureStore({
     reducer: {
@@ -54,6 +66,12 @@ export const store = configureStore({
         marketergroup:marketergroupReducer,
         nomination: nominationReducer,
         profileupdate:myprofileReducer,
-        nominationpipeline: nominationpipelineReducer
+        nominationpipeline: nominationpipelineReducer,
+        admincustomer:customerReducer,
+        firm: firmReducer,
+        interruptible :interruptibleReducer,
+        nominationgroup:nominationgroupReducer,
+        activityLog:activityLogReducer,
+        filehubReducer:filehubReducer
     },
 });

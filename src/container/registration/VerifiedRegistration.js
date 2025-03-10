@@ -43,10 +43,10 @@ const VerifiedRegistration = () => {
 
     const handleClick = () => {
         if (id) {
-            localStorage.setItem('portalID', portalID);
+            sessionStorage.setItem('portalID', portalID);
             if (portalKey.toLowerCase() === 'mc') {
                 navigate(`/registration/mapCenter/${portalKey}/${id}`);
-                localStorage.setItem('mapcenterUserID', id);
+                sessionStorage.setItem('mapcenterUserID', id);
             }
             else if (portalKey.toLowerCase() === 'sd') {
                 navigate(`/registration/diversity/${portalKey}/${id}`);

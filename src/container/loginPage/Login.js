@@ -41,9 +41,10 @@ const Login = () => {
             if (loginResponse.account) {
                 // Assuming you have a way to determine if the user is internal
                 const isInternalUser = determineIfInternalUser(loginResponse.account);
-                localStorage.setItem('isInternalUser', JSON.stringify(isInternalUser));
-                //dispatch(authActions.login({ Email, Password }));
-               // callApi(loginResponse.account);
+                sessionStorage.setItem('isInternalUser', JSON.stringify(isInternalUser));
+                const MicroEntraToken = loginResponse.account.idToken;
+                console.log('MicroEntraToken',MicroEntraToken);
+                dispatch(authActions.loginSSO({ MicroEntraToken }));
             }
         } catch (error) {
             console.error(error);
@@ -146,7 +147,7 @@ const Login = () => {
                                 </Button>
                                 <Grid container>
                                     <Grid item className="accountSignup">
-                                        <div>Don’t have an account? Register </div>
+                                        <div>Don’t have an account? </div>
                                         <Link href="./register" variant="body2">
                                             {labels.signUpLabel}
                                         </Link>

@@ -62,13 +62,18 @@ const PipelineDelivery = () => {
     const handleBlur = () => {
         setEditField(null);
     };
+    const handleRefresh = async ()=> {
 
+        const result = await dispatch(nominationsAction.getDeliveryGuide()).unwrap();
+        const deliveryGuide = result?.Data;
+          setData(deliveryGuide);
+    }
     const  toPlainObject = (obj) =>{
         return Object.assign(Object.create(null), obj);
     }
     const handleSave = async () => {
         try {
-            const remainingFTLoad = pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdral;
+            const remainingFTLoad = pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdraw;
             const totalPipeNomination = pipeLines?.reduce((sum, pipeline) => sum + Number(pipeline?.PipeNomination || 0), 0);
 
             if (remainingFTLoad !== totalPipeNomination) {
@@ -84,7 +89,7 @@ const PipelineDelivery = () => {
                 PipelineGuide: {
                     SystemLoad: Number(pipelineGuide?.SystemLoad) || 0,
                     DRVAssigned: Number(pipelineGuide?.DRVAssigned) || 0,
-                    StorageWithdral: Number(pipelineGuide?.StorageWithdral) || 0,
+                    StorageWithdraw: Number(pipelineGuide?.StorageWithdraw) || 0,
                     RemainingFTLoad: remainingFTLoad
                 },
                 PipeLines: pipeLines.map(pipeline => ({
@@ -102,15 +107,21 @@ const PipelineDelivery = () => {
             let result;
             if (transformedData) {
                 result = await dispatch(nominationsAction.updateGuide(transformedData));
+                let message = result?.payload?.Message;
+                dispatch(alertActions.success({message}));
             }
             if (result?.error) {
                 dispatch(alertActions.error({ message: result?.payload || result?.error.message, header: header }));
                 return;
             }
+            handleRefresh();
         } catch (error) {
             dispatch(alertActions.error({ message: error?.message || error, header: header }));
         }
 
+    };
+    const handleCancelClick = async () => {
+        handleRefresh();
     };
 
     return (
@@ -185,12 +196,12 @@ const PipelineDelivery = () => {
                             </Grid>
                             <Grid size={{ xs: 12, sm: 12, md: 4 }} >
                                 <Typography component="p" className="systemload">STORAGE WITHDRAW</Typography>
-                                {editField === "StorageWithdral" ? (
+                                {editField === "StorageWithdraw" ? (
                                     <TextField
                                         className="margin-20"
                                         autoFocus
-                                        value={pipelineGuide?.StorageWithdral}
-                                        onChange={(e) => handleGuideChange("StorageWithdral", e.target.value)}
+                                        value={pipelineGuide?.StorageWithdraw}
+                                        onChange={(e) => handleGuideChange("StorageWithdraw", e.target.value)}
                                         onBlur={handleBlur}
                                         variant="outlined"
                                         size="small"
@@ -200,14 +211,14 @@ const PipelineDelivery = () => {
                                     />
                                 ) : (
                                     <Typography component="div" className="PipeLineDeliverycount">
-                                        {pipelineGuide?.StorageWithdral}<span>Dth</span>
-                                        <EditIcon onClick={() => handleEditClick("StorageWithdral")} style={{ cursor: "pointer" }} />
+                                        {pipelineGuide?.StorageWithdraw}<span>Dth</span>
+                                        <EditIcon onClick={() => handleEditClick("StorageWithdraw")} style={{ cursor: "pointer" }} />
                                     </Typography>
                                 )}
                             </Grid>
                             <Grid size={{ xs: 12, sm: 12, md: 4 }} >
                                 <Typography component="p" className="systemload">REMAINING FT LOAD</Typography>
-                                <Typography className="PipeLineDeliverycount">{pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdral} <span>Dth</span></Typography>
+                                <Typography className="PipeLineDeliverycount">{pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdraw} <span>Dth</span></Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -236,8 +247,8 @@ const PipelineDelivery = () => {
                                         <Typography component="p" className="assigned">Assigned DRV</Typography>
                                     </Grid>
                                     <Grid size={{ xs: 12, sm: 3, md: 12 }} >
-                                        <Typography component="p" className="PipeLinecountmin"><span>MIN</span>{(pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdral) * (pipeline?.MinValue / 100)}<span>Dth</span></Typography>
-                                        <Typography component="p" className="PipeLinecountmin"><span>Max</span>{(pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdral) * (pipeline?.MaxValue / 100)}<span>Dth</span></Typography>
+                                        <Typography component="p" className="PipeLinecountmin"><span>MIN</span>{(pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdraw) * (pipeline?.MinValue / 100)}<span>Dth</span></Typography>
+                                        <Typography component="p" className="PipeLinecountmin"><span>Max</span>{(pipelineGuide?.DRVAssigned - pipelineGuide?.StorageWithdraw) * (pipeline?.MaxValue / 100)}<span>Dth</span></Typography>
                                     </Grid>
                                     <Grid size={{ xs: 12, sm: 3, md: 12 }} className="none-tab">
                                         <Typography component="p" className="assigned">Pipe Nomination</Typography>
@@ -281,7 +292,7 @@ const PipelineDelivery = () => {
                 </Typography>
             </Typography>
             <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
-                <Button variant="contained" color="red" className="cancelbutton"  >
+                <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick} >
                     Cancel
                 </Button>
                 <Button type="submit"

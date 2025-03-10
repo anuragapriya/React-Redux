@@ -68,8 +68,8 @@ const MarketerGroupCreate = ({ marketerGroupData, isOpen, onClose, onOpen, handl
                 GroupName: data.GroupName,
                 GroupType: data.GroupType,
                 JurisdictionID: data.JurisdictionID || 0, // Default to 0 if null
-                StartMonth: dayjs(data.StartMonth).toISOString(),
-                EndMonth: dayjs(data.EndMonth).toISOString(),
+                StartMonth: dayjs(data.StartMonth).format('YYYY-MM-DDTHH:mm:ss'),
+                EndMonth: dayjs(data.EndMonth).format('YYYY-MM-DDTHH:mm:ss'),
                 BalancingModelID: data.BalancingModelID,
                 MarketerID: marketerGroupData?.MarketerID || 0,
             };

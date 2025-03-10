@@ -11,7 +11,7 @@ import { profileuser } from '../../images';
 import { MyProfileMC, MyProfileSD } from './index';
 import { ModalPopup } from '_components';
 
-const MyProfile = ({ showHeaderMenu }) => {
+const MyProfile = ({ showHeaderMenu ,isAdmin}) => {
     const header = "My Profile";
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ const MyProfile = ({ showHeaderMenu }) => {
     // const open = Boolean(anchorEl);
     const [open, setOpen] = useState(false);
 
-    const portalID = localStorage.getItem('portalID') || 99;
+    const portalID = sessionStorage.getItem('portalID') || 99;
     const portal = portalID !== 99 && userAccess.find(x => x.PortalId.toString() === portalID);
     const portalKey = portal && portal.PortalKey || null;
     const [name, setName] = useState();
@@ -45,6 +45,7 @@ const MyProfile = ({ showHeaderMenu }) => {
     const handleLogOut = () => {
         handleClose();
         logout();
+        dispatch(alertActions.success({ message: "You have logged out successfully. Please login to continue.", header: "Log Out", showAfterRedirect: true }));
     };
     const handleAccordionChange = (panel) => (event, isExpanded) => {
         setExpandedAccordion(isExpanded ? panel : false);
@@ -142,7 +143,7 @@ const MyProfile = ({ showHeaderMenu }) => {
                                 backgroundColor: "#f5f5f5",
                             }}
                         >
-                            {showHeaderMenu && (
+                            {(!isAdmin && showHeaderMenu) && (
                                 <> <Accordion
                                     expanded={expandedAccordion === "Personalinfo"}
                                     onChange={handleAccordionChange("Personalinfo")}
@@ -180,10 +181,10 @@ const MyProfile = ({ showHeaderMenu }) => {
             />
             }
 
-            {isResetPassword && <NewPassword usersID={id} isModalOpen={isModalOpen}
-                handleCloseModal={() => handleCloseModal()}></NewPassword>}
-            {/* {isResetPassword && <ResetProfilePassword usersID={id} isModalOpen={isModalOpen}
-                handleCloseModal={()=>handleCloseModal}></ResetProfilePassword>}  */}
+            {/* {isResetPassword && <NewPassword usersID={id} isModalOpen={isModalOpen}
+                handleCloseModal={() => handleCloseModal()}></NewPassword>} */}
+             {isResetPassword && <ResetProfilePassword usersID={id} isModalOpen={isModalOpen}
+                handleCloseModal={()=>handleCloseModal}></ResetProfilePassword>} 
         </React.Fragment>
     );
 }

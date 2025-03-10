@@ -229,6 +229,8 @@ const Marketers = () => {
         </Grid>
       </Typography>
       <div className={backdropOpen ? 'backdrop' : ''}>
+        </div>
+        <div className='MarketerList'>
       <MarketerList
         marketerData={data}
         isModalOpen={isModalOpen}
@@ -242,6 +244,7 @@ const Marketers = () => {
         handleRefresh={handleRefresh}
         handleToggleActiveStatus={handleToggleActiveStatus}
       />
+      
       </div>
       <Grid size={{ xs: 12, sm: 12, md: 12 }} className="Personal-Information">
         <Button variant="contained" color="red" className="cancelbutton" onClick={handleCancelClick}>
